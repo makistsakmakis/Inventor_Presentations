@@ -4,7 +4,7 @@ import { put, list } from '@vercel/blob';
 // Το Vercel δεν επιτρέπει εγγραφή αρχείων μέσα στο ίδιο το site, οπότε οι γραμμές φυλάσσονται
 // στο Vercel Blob (απλή αποθήκη αρχείων) και ενώνονται σε ΕΝΑ αρχείο κειμένου όταν το ανοίγετε.
 const PREFIX = 'inventor-logins/';
-export const storageReady = () => !!process.env.BLOB_READ_WRITE_TOKEN;
+export const storageReady = () => !!(process.env.BLOB_READ_WRITE_TOKEN || process.env.BLOB_STORE_ID);
 const athensParts = () => {
   const p = Object.fromEntries(new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Athens', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23' })
     .formatToParts(new Date()).map(x => [x.type, x.value]));

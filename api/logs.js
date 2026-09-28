@@ -5,7 +5,7 @@ export async function GET(request) {
   if (!s || !s.a) return new Response('Δεν επιτρέπεται η πρόσβαση.', { status: 403, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
   const lines = await readLog();
   const text = lines === null
-    ? 'Το αρχείο δεν έχει ενεργοποιηθεί ακόμα.\nVercel → Project → Storage → Create → Blob → Connect, και μετά Redeploy.\n'
+    ? 'Το αρχείο δεν έχει ενεργοποιηθεί ακόμα (δεν βρέθηκε BLOB_STORE_ID ή BLOB_READ_WRITE_TOKEN).\nΕλέγξτε ότι το Blob store είναι συνδεδεμένο στο Production και κάντε Redeploy.\n'
     : `ΑΡΧΕΙΟ ΣΥΝΔΕΣΕΩΝ · Inventor Presentations\nΗμερομηνία/ώρα (Αθήνα) | Email\n${'-'.repeat(48)}\n${lines.join('\n')}\n\nΣύνολο: ${lines.length}\n`;
   const dl = new URL(request.url).searchParams.has('download');
   return new Response(text, { headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store',
