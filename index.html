@@ -30,6 +30,16 @@ a.card:hover{transform:translateY(-6px);border-color:rgba(255,110,120,.7);box-sh
 .card h2{font-size:26px;line-height:1.2;margin:22px 0 10px}
 .card .meta{font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
 .card .go{margin-top:26px;font-size:13px;letter-spacing:.24em;text-transform:uppercase;font-weight:800;color:#ff4a57}
+.bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:22px;font-size:14px;color:var(--mute)}
+.bar b{color:#fff;font-weight:700}
+.bar a{color:#fff;text-decoration:none;padding:9px 16px;border-radius:30px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;transition:background .3s}
+.bar a:hover{background:rgba(224,16,31,.35)}
+.admin{display:none;margin-top:56px;padding:26px 30px;border-radius:22px;border:1px dashed rgba(255,110,120,.5);background:rgba(224,16,31,.08)}
+.admin.show{display:block}
+.admin h3{font-size:14px;letter-spacing:.26em;text-transform:uppercase;color:#ff6b75;margin-bottom:10px}
+.admin p{font-size:15px;color:var(--mute);margin-bottom:16px}
+.admin a{display:inline-block;margin-right:10px;color:#fff;text-decoration:none;padding:12px 20px;border-radius:30px;background:linear-gradient(180deg,#ff3444,#c00000);font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:800}
+.admin a.o{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2)}
 footer{margin-top:80px;font-size:12px;color:rgba(245,246,249,.35);letter-spacing:.1em}
 </style>
 </head>
@@ -38,6 +48,7 @@ footer{margin-top:80px;font-size:12px;color:rgba(245,246,249,.35);letter-spacing
   <header><img src="welcome-stores-thessaloniki-2026/assets/img/inventor-logo-white.png" alt="inventor"><span>Inventor A.G. · Part of BeijerRef</span></header>
   <h1>Παρουσιάσεις <em>Inventor</em></h1>
   <p class="lead">Διαδραστικές παρουσιάσεις για συνεργάτες και εκδηλώσεις.</p>
+  <div class="bar" id="who" hidden><span>Συνδεδεμένος ως <b id="whoEmail"></b></span><a href="/api/logout">Αποσύνδεση</a></div>
   <div class="grid">
     <!-- PRESENTATIONS: προσθέστε νέα κάρτα για κάθε υποφάκελο -->
     <a class="card" href="welcome-stores-thessaloniki-2026/">
@@ -47,7 +58,19 @@ footer{margin-top:80px;font-size:12px;color:rgba(245,246,249,.35);letter-spacing
       <div class="go">Άνοιγμα παρουσίασης →</div>
     </a>
   </div>
+  <section class="admin" id="admin">
+    <h3>Διαχείριση</h3>
+    <p>Αρχείο συνδέσεων (email · ημερομηνία/ώρα).</p>
+    <a href="/api/logs" target="_blank" rel="noopener">Άνοιγμα αρχείου</a><a class="o" href="/api/logs?download=1">Λήψη .txt</a>
+  </section>
   <footer>© Inventor A.G. Α.Ε.</footer>
 </div>
+<script>
+fetch('/api/me', { credentials: 'same-origin', cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(j => {
+  if (!j || !j.ok) return;
+  document.getElementById('whoEmail').textContent = j.email; document.getElementById('who').hidden = false;
+  if (j.admin) document.getElementById('admin').classList.add('show');
+}).catch(() => {});
+</script>
 </body>
 </html>

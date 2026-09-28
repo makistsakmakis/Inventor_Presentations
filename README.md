@@ -21,3 +21,16 @@
 - Import του repo → Framework Preset: **Other** · Build Command: *(κενό)* · Output Directory: *(κενό / ρίζα)*.
 - Κάθε παρουσίαση ανοίγει στο `https://<project>.vercel.app/<υποφάκελος>/`.
 - Τα sites έχουν `noindex` (δεν εμφανίζονται σε μηχανές αναζήτησης).
+
+## Πρόσβαση (σελίδα εισόδου)
+Όλο το site προστατεύεται από τη σελίδα `/login/` (μέσω `middleware.js`).
+- **Επισκέπτες:** οποιοδήποτε έγκυρο email + κωδικός επισκέπτη.
+- **Διαχειριστής:** email/κωδικός διαχειριστή → στην αρχική σελίδα εμφανίζεται το «Αρχείο συνδέσεων» (`/api/logs`, απλό κείμενο).
+- Κάθε επιτυχής σύνδεση καταγράφεται ως `ΗΗΗΗ-ΜΜ-ΗΗ ωω:λλ:δδ | email` (ώρα Αθήνας).
+
+### Ρύθμιση στο Vercel (μία φορά)
+1. **Storage για το log:** Project → Storage → Marketplace → *Upstash for Redis* → Create & Connect στο project (δημιουργεί αυτόματα τα `KV_REST_API_URL` / `KV_REST_API_TOKEN`). Χωρίς αυτό, οι συνδέσεις γράφονται μόνο στα Function Logs.
+2. **Environment Variables (συνιστάται):** `AUTH_SECRET` (ένα μεγάλο τυχαίο κείμενο), και προαιρετικά `VIEWER_PASSWORD`, `ADMIN_EMAIL`, `ADMIN_PASSWORD` για να μη μένουν οι κωδικοί μέσα στον κώδικα.
+3. Redeploy.
+
+> Οι κωδικοί υπάρχουν ως προεπιλογές στο `api/_auth.js`. Κρατήστε το repo **private** ή ορίστε τα Environment Variables.

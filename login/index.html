@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Είσοδος · Inventor Presentations</title>
+<style>
+@font-face{font-family:"Commissioner";font-weight:100 900;font-display:swap;src:url(assets/commissioner-greek-wght-normal.woff2) format("woff2");unicode-range:U+0370-03FF}
+@font-face{font-family:"Commissioner";font-weight:100 900;font-display:swap;src:url(assets/commissioner-latin-wght-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+2000-206F,U+20AC}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%}
+body{min-height:100vh;display:grid;place-items:center;padding:24px;font-family:"Commissioner",system-ui,"Segoe UI",Arial,sans-serif;color:#f5f6f9;-webkit-font-smoothing:antialiased;overflow:hidden;
+  background:radial-gradient(70% 60% at 15% 0%,rgba(192,0,0,.5),transparent 70%),radial-gradient(60% 60% at 100% 100%,rgba(33,41,92,.95),transparent 70%),#05060a}
+.orb{position:fixed;width:60vmax;height:60vmax;border-radius:50%;filter:blur(90px);opacity:.35;pointer-events:none}
+.orb.a{left:-20vmax;top:-25vmax;background:radial-gradient(circle,#c00000,transparent 65%);animation:d1 22s ease-in-out infinite alternate}
+.orb.b{right:-20vmax;bottom:-25vmax;background:radial-gradient(circle,#21295c,transparent 65%);animation:d2 26s ease-in-out infinite alternate}
+@keyframes d1{to{transform:translate(10vmax,8vmax)}}@keyframes d2{to{transform:translate(-8vmax,-6vmax)}}
+.card{position:relative;width:min(440px,100%);padding:44px 40px 36px;border-radius:28px;
+  background:linear-gradient(150deg,rgba(255,255,255,.12),rgba(255,255,255,.035) 60%,rgba(255,255,255,.06));border:1px solid rgba(255,255,255,.16);
+  backdrop-filter:blur(24px) saturate(150%);-webkit-backdrop-filter:blur(24px) saturate(150%);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 40px 100px rgba(0,0,0,.5);
+  animation:in .9s cubic-bezier(.22,1.45,.36,1) both}
+@keyframes in{from{opacity:0;transform:translateY(30px) scale(.96)}}
+.logo{display:block;height:44px;margin:0 auto 26px}
+h1{text-align:center;font-size:26px;font-weight:800;letter-spacing:-.01em}
+p.sub{text-align:center;font-size:15px;color:rgba(245,246,249,.6);margin-top:8px}
+form{margin-top:30px;display:flex;flex-direction:column;gap:16px}
+label{font-size:12px;letter-spacing:.24em;text-transform:uppercase;font-weight:700;color:rgba(245,246,249,.6)}
+input{width:100%;margin-top:8px;height:54px;border-radius:14px;border:1px solid rgba(255,255,255,.16);background:rgba(0,0,0,.28);color:#fff;font:inherit;font-size:17px;padding:0 18px;outline:none;transition:border-color .3s,box-shadow .3s}
+input:focus{border-color:rgba(255,90,100,.8);box-shadow:0 0 0 4px rgba(224,16,31,.18)}
+input.bad{border-color:#ff4a57}
+button{margin-top:10px;height:56px;border:0;border-radius:14px;font:inherit;font-size:16px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fff;cursor:pointer;
+  background:linear-gradient(180deg,#ff3444,#c00000);box-shadow:0 12px 30px rgba(224,16,31,.45);transition:transform .3s,box-shadow .3s,filter .3s}
+button:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(224,16,31,.6)}
+button:disabled{filter:grayscale(.5) brightness(.8);cursor:wait}
+.err{min-height:20px;text-align:center;font-size:14px;color:#ff7a84;font-weight:600}
+.foot{margin-top:18px;text-align:center;font-size:12px;color:rgba(245,246,249,.35);letter-spacing:.08em}
+.shake{animation:shake .45s}
+@keyframes shake{20%{transform:translateX(-10px)}40%{transform:translateX(9px)}60%{transform:translateX(-6px)}80%{transform:translateX(3px)}}
+</style>
+</head>
+<body>
+<div class="orb a"></div><div class="orb b"></div>
+<main class="card" id="card">
+  <img class="logo" src="assets/inventor-logo-red.png" alt="inventor">
+  <h1>Παρουσιάσεις Inventor</h1>
+  <p class="sub">Συνδεθείτε για να συνεχίσετε</p>
+  <form id="f" novalidate>
+    <div><label for="email">Email</label><input id="email" type="email" autocomplete="email" placeholder="name@company.gr" required></div>
+    <div><label for="pw">Κωδικός</label><input id="pw" type="password" autocomplete="current-password" placeholder="••••••" required></div>
+    <div class="err" id="err" role="alert"></div>
+    <button id="go" type="submit">Είσοδος</button>
+  </form>
+  <div class="foot">© Inventor A.G. Α.Ε.</div>
+</main>
+<script>
+(() => {
+  const f = document.getElementById('f'), em = document.getElementById('email'), pw = document.getElementById('pw'), err = document.getElementById('err'), go = document.getElementById('go'), card = document.getElementById('card');
+  const isEmail = e => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e.trim());
+  const fail = (msg, el) => { err.textContent = msg; if (el) el.classList.add('bad'); card.classList.remove('shake'); void card.offsetWidth; card.classList.add('shake'); };
+  [em, pw].forEach(i => i.addEventListener('input', () => { i.classList.remove('bad'); err.textContent = ''; }));
+  f.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (!isEmail(em.value)) return fail('Παρακαλούμε εισάγετε ένα έγκυρο email.', em);
+    if (!pw.value) return fail('Παρακαλούμε εισάγετε τον κωδικό.', pw);
+    go.disabled = true; go.textContent = 'Σύνδεση…';
+    try {
+      const r = await fetch('/api/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: em.value.trim(), password: pw.value }) });
+      const j = await r.json().catch(() => ({}));
+      if (r.ok && j.ok) {
+        let next = new URLSearchParams(location.search).get('next') || '/';
+        if (!next.startsWith('/') || next.startsWith('//') || next.startsWith('/login')) next = '/';
+        location.replace(next); return;
+      }
+      fail(j.error === 'email' ? 'Παρακαλούμε εισάγετε ένα έγκυρο email.' : 'Λάθος κωδικός.', j.error === 'email' ? em : pw);
+    } catch { fail('Δεν ήταν δυνατή η σύνδεση. Δοκιμάστε ξανά.'); }
+    go.disabled = false; go.textContent = 'Είσοδος';
+  });
+  em.focus();
+})();
+</script>
+</body>
+</html>
