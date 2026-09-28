@@ -776,3 +776,15 @@ body[data-tv="1"] .chrome .brand,body[data-tv="1"] .chrome .meta{opacity:0}
 @keyframes spIn{from{opacity:0;transform:rotate(-20deg) scale(2.2)}to{opacity:1;transform:rotate(6deg) scale(1)}}
 @keyframes spBlink{0%,100%{opacity:1;transform:rotate(6deg) scale(1);filter:drop-shadow(0 18px 30px rgba(0,0,0,.55)) drop-shadow(0 0 0 rgba(255,210,0,0))}
   50%{opacity:.55;transform:rotate(6deg) scale(.97);filter:drop-shadow(0 18px 30px rgba(0,0,0,.55)) drop-shadow(0 0 30px rgba(255,210,0,.9))}}
+
+/* nav: always fits the viewport (buttons never pushed off-screen) */
+.nav{max-height:calc(100vh - 32px)}
+.nav button{flex:none;opacity:.55}
+.nav .dots{flex:0 1 auto;min-height:0;overflow:hidden;gap:clamp(3px,.8vh,9px);padding:6px 0}
+.nav .dots a{flex:none;width:6px;height:6px}
+.nav .dots a.on{height:18px}
+@media (max-height:620px){.nav .dots{display:none}#fsBtn,#notesBtn{display:none}}
+/* keep floating controls above 3D-transformed slide content in every browser */
+.viewport{isolation:isolate;z-index:1}
+.nav{z-index:80;transform:translate3d(0,-50%,1px);will-change:transform}
+.backbtn{z-index:81;transform:translateZ(1px)}
