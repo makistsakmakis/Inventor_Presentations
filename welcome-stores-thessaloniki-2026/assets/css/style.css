@@ -229,9 +229,9 @@ body[data-bg="red"] .eyebrow::before{background:#fff;box-shadow:none}
 /* S4 stats */
 .s4 .mapbg{position:absolute;left:340px;top:150px;width:1300px;opacity:.35}
 .s4 .head{position:absolute;left:110px;top:150px}
-.s4 .stats{position:absolute;left:110px;right:170px;bottom:170px;display:grid;grid-template-columns:repeat(4,1fr);gap:30px}
-.s4 .st{padding:48px 40px 42px;min-height:330px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden}
-.s4 .st .stat-n{font-size:120px}
+.s4 .stats{position:absolute;left:80px;right:140px;bottom:170px;display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.s4 .st{padding:44px 24px 40px;min-height:330px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden}
+.s4 .st .stat-n{font-size:112px;white-space:nowrap}
 .s4 .st .lab{font-size:32px;font-weight:600;margin-top:18px;color:#fff}
 .s4 .st .unit{font-size:44px;font-weight:800;-webkit-text-fill-color:#ff4a57;margin-left:8px;letter-spacing:-.01em}
 .s4 .st::before{content:"";position:absolute;right:-60px;top:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(224,16,31,.45),transparent 70%)}
@@ -712,8 +712,8 @@ svg.mrays{position:absolute;inset:0;width:1920px;height:1080px;pointer-events:no
   background:linear-gradient(180deg,#fffbe6 0%,#ffe89a 22%,#f5c542 45%,#b8860b 62%,#f7d774 78%,#fff3c4 100%);-webkit-background-clip:text;background-clip:text;color:transparent;
   filter:drop-shadow(0 4px 0 #6b4a00) drop-shadow(0 0 26px rgba(245,197,66,.45))}
 .tv .tv-title h2::after{content:"TRIVIA";position:absolute;inset:0;padding-left:.14em;letter-spacing:.14em;color:transparent;
-  background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.95) 50%,transparent 60%);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;animation:tvShine 3.2s ease-in-out infinite}
-@keyframes tvShine{0%{background-position:120% 0}55%,100%{background-position:-60% 0}}
+  background:linear-gradient(105deg,transparent 40%,rgba(255,236,170,.35) 46%,rgba(255,250,225,.85) 50%,rgba(255,236,170,.35) 54%,transparent 60%);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;animation:tvShine 9s cubic-bezier(.45,0,.35,1) infinite}
+@keyframes tvShine{0%{background-position:120% 0}70%,100%{background-position:-60% 0}}
 .tv .tv-title .ln{position:absolute;top:50%;width:300px;height:3px;border-radius:3px}
 .tv .tv-title .ln.a{right:calc(50% + 380px);background:linear-gradient(90deg,transparent,#ff2233);box-shadow:0 0 14px #ff2233}
 .tv .tv-title .ln.b{left:calc(50% + 380px);background:linear-gradient(90deg,#ff2233,transparent);box-shadow:0 0 14px #ff2233}
@@ -767,7 +767,7 @@ svg.mrays{position:absolute;inset:0;width:1920px;height:1080px;pointer-events:no
 .tv.won .tv-fx .flash{animation:tvFlash 1.4s ease-out both}
 @keyframes tvFlash{0%{transform:scale(.2);opacity:1}40%{opacity:1}100%{transform:scale(1);opacity:.55}}
 .tv.won .tv-arcs .r{stroke:#ffcf5a}
-.tv.won .tv-title h2::after{animation-duration:1.4s}
+.tv.won .tv-title h2::after{animation-duration:6s}
 body[data-tv="1"] .chrome .brand,body[data-tv="1"] .chrome .meta{opacity:0}
 
 /* spoiler alert (p3a) */
@@ -788,3 +788,6 @@ body[data-tv="1"] .chrome .brand,body[data-tv="1"] .chrome .meta{opacity:0}
 .viewport{isolation:isolate;z-index:1}
 .nav{z-index:80;transform:translate3d(0,-50%,1px);will-change:transform}
 .backbtn{z-index:81;transform:translateZ(1px)}
+
+.ys-logo{display:inline-block;margin-top:34px;padding:16px 26px}
+.ys-logo img{height:120px;width:auto}
