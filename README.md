@@ -29,8 +29,8 @@
 - Κάθε επιτυχής σύνδεση καταγράφεται ως `ΗΗΗΗ-ΜΜ-ΗΗ ωω:λλ:δδ | email` (ώρα Αθήνας).
 
 ### Ρύθμιση στο Vercel (μία φορά)
-1. **Storage για το log:** Project → Storage → Marketplace → *Upstash for Redis* → Create & Connect στο project (δημιουργεί αυτόματα τα `KV_REST_API_URL` / `KV_REST_API_TOKEN`). Χωρίς αυτό, οι συνδέσεις γράφονται μόνο στα Function Logs.
-2. **Environment Variables (συνιστάται):** `AUTH_SECRET` (ένα μεγάλο τυχαίο κείμενο), και προαιρετικά `VIEWER_PASSWORD`, `ADMIN_EMAIL`, `ADMIN_PASSWORD` για να μη μένουν οι κωδικοί μέσα στον κώδικα.
+1. **Αρχείο log:** Project → Storage → Create → **Blob** → Connect στο project (δημιουργεί αυτόματα το `BLOB_READ_WRITE_TOKEN`). Δεν είναι βάση δεδομένων — είναι απλή αποθήκη αρχείων. Κάθε σύνδεση προστίθεται ως νέα γραμμή και το «Αρχείο συνδέσεων» τις δείχνει όλες σε ένα αρχείο κειμένου.
+2. **Environment Variables (συνιστάται):** `AUTH_SECRET` (ένα μεγάλο τυχαίο κείμενο), και προαιρετικά `VIEWER_PASSWORD`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`.
 3. Redeploy.
 
 > Οι κωδικοί υπάρχουν ως προεπιλογές στο `api/_auth.js`. Κρατήστε το repo **private** ή ορίστε τα Environment Variables.

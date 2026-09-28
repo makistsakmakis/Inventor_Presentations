@@ -29,22 +29,3 @@ export async function readSession(request) {
   try { const s = JSON.parse(fromB64u(payload)); return s.x > Date.now() / 1000 ? s : null; } catch { return null; }
 }
 
-// ---- αποθήκευση log (Upstash Redis / Vercel KV, μέσω REST) ----
-const KV_URL = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
-const KV_TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
-export const storageReady = () => !!(KV_URL && KV_TOKEN);
-async function kv(cmd) {
-  const r = await fetch(KV_URL, { method: 'POST', headers: { Authorization: `Bearer ${KV_TOKEN}`, 'Content-Type': 'application/json' }, body: JSON.stringify(cmd) });
-  if (!r.ok) throw new Error('KV ' + r.status);
-  return (await r.json()).result;
-}
-const athens = () => new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Athens', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date());
-export async function appendLog(email) {
-  const line = `${athens()} | ${email}`;
-  if (!storageReady()) { console.log('[login]', line); return; }
-  await kv(['RPUSH', 'inventor:logins', line]);
-}
-export async function readLog() {
-  if (!storageReady()) return null;
-  return (await kv(['LRANGE', 'inventor:logins', 0, -1])) || [];
-}

@@ -3,6 +3,6 @@
   "cleanUrls": false,
   "headers": [
     { "source": "/(.*)", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }] },
-    { "source": "/(.*)\\.(png|jpg|webp|woff2|mp4|webm)", "headers": [{ "key": "Cache-Control", "value": "private, max-age=86400" }] }
+    { "source": "/(.*)\\.(png|jpg|webp|woff2|mp4|webm)", "headers": [{ "key": "Cache-Control", "value": "private, no-cache" }] }
   ]
 }

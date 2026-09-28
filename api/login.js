@@ -1,7 +1,6 @@
-import { isEmail, VIEWER_PASSWORD, ADMIN_EMAIL, ADMIN_PASSWORD, makeSession, appendLog, COOKIE, MAX_AGE } from './_auth.js';
-export const config = { runtime: 'edge' };
-export default async function handler(request) {
-  if (request.method !== 'POST') return new Response('Method not allowed', { status: 405 });
+import { isEmail, VIEWER_PASSWORD, ADMIN_EMAIL, ADMIN_PASSWORD, makeSession, COOKIE, MAX_AGE } from './_auth.js';
+import { appendLog } from './_log.js';
+export async function POST(request) {
   let body = {}; try { body = await request.json(); } catch {}
   const email = String(body.email || '').trim().toLowerCase(), pass = String(body.password || '');
   if (!isEmail(email)) return Response.json({ ok: false, error: 'email' }, { status: 400 });
