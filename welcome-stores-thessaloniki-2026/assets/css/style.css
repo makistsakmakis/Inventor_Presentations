@@ -400,8 +400,8 @@ svg.flowsvg{position:absolute;inset:0;width:1920px;height:1080px;overflow:visibl
 /* S19 loyalty */
 .s19 .head{position:absolute;left:110px;top:150px;width:560px}
 .s19 .head .h-md{font-size:58px}
-.s19 .quote{position:absolute;left:110px;bottom:120px;width:520px;padding:34px 36px;opacity:.25;filter:blur(3px) grayscale(1);transition:opacity 1s,filter 1s,transform 1s var(--spring)}
-.s19.complete .quote{opacity:1;filter:none;transform:scale(1.03)}
+.s19 .quote{position:absolute;left:110px;bottom:120px;width:520px;padding:34px 36px;opacity:0;visibility:hidden;filter:blur(8px);transform:translateY(30px);transition:opacity 1s,filter 1s,transform 1s var(--spring),visibility 0s linear 1s}
+.s19.complete .quote{opacity:1;visibility:visible;filter:none;transform:scale(1.03);transition:opacity 1s,filter 1s,transform 1s var(--spring),visibility 0s}
 .s19 .quote .stat-n{font-size:110px}
 .s19 .quote p{font-size:21px;line-height:1.45;margin-top:10px;color:rgba(255,255,255,.88)}
 .s19 .quote small{display:block;margin-top:12px;font-size:13px;color:var(--faint);letter-spacing:.06em}
@@ -712,8 +712,19 @@ svg.mrays{position:absolute;inset:0;width:1920px;height:1080px;pointer-events:no
   background:linear-gradient(180deg,#fffbe6 0%,#ffe89a 22%,#f5c542 45%,#b8860b 62%,#f7d774 78%,#fff3c4 100%);-webkit-background-clip:text;background-clip:text;color:transparent;
   filter:drop-shadow(0 4px 0 #6b4a00) drop-shadow(0 0 26px rgba(245,197,66,.45))}
 .tv .tv-title h2::after{content:"TRIVIA";position:absolute;inset:0;padding-left:.14em;letter-spacing:.14em;color:transparent;
-  background:linear-gradient(105deg,transparent 40%,rgba(255,236,170,.4) 46%,rgba(255,252,232,.95) 50%,rgba(255,236,170,.4) 54%,transparent 60%);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;animation:tvShine 5.5s cubic-bezier(.45,0,.35,1) infinite}
-@keyframes tvShine{0%{background-position:120% 0;opacity:.15;filter:brightness(.8)}35%{opacity:.5;filter:brightness(1)}62%{background-position:-60% 0;opacity:1;filter:brightness(1.45) drop-shadow(0 0 14px rgba(255,220,120,.8))}70%,100%{background-position:-60% 0;opacity:0}}
+  background:linear-gradient(105deg,transparent 38%,rgba(255,214,120,.35) 44%,rgba(255,246,210,.9) 48.5%,#fff 50%,rgba(255,246,210,.9) 51.5%,rgba(255,214,120,.35) 56%,transparent 62%);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;animation:tvShine 5s linear infinite}
+/* μπαίνει αργά, επιταχύνει βγαίνοντας· η ένταση μεγαλώνει μαζί με την ταχύτητα, σαν φως που πέφτει στο χρυσάφι */
+@keyframes tvShine{
+  0%{background-position:130% 0;opacity:0;filter:drop-shadow(0 0 0 rgba(255,215,110,0));animation-timing-function:cubic-bezier(.72,0,.92,.62)}
+  58%{background-position:30% 0;opacity:1;filter:drop-shadow(0 0 16px rgba(255,225,130,.95)) drop-shadow(0 0 40px rgba(255,190,60,.8));animation-timing-function:cubic-bezier(.3,0,.7,1)}
+  68%{background-position:-70% 0;opacity:0;filter:drop-shadow(0 0 26px rgba(255,230,140,1)) drop-shadow(0 0 70px rgba(255,190,60,.9))}
+  100%{background-position:-70% 0;opacity:0}}
+.tv .tv-title h2{animation:tvFlare 5s linear infinite}
+@keyframes tvFlare{0%,30%{filter:drop-shadow(0 4px 0 #6b4a00) drop-shadow(0 0 26px rgba(245,197,66,.45))}
+  58%{filter:drop-shadow(0 4px 0 #6b4a00) drop-shadow(0 0 32px rgba(255,205,90,.65))}
+  64%{filter:drop-shadow(0 4px 0 #6b4a00) drop-shadow(0 0 42px rgba(255,210,100,.75))}
+  80%,100%{filter:drop-shadow(0 4px 0 #6b4a00) drop-shadow(0 0 26px rgba(245,197,66,.45))}}
+
 .tv .tv-title .ln{position:absolute;top:50%;width:300px;height:3px;border-radius:3px}
 .tv .tv-title .ln.a{right:calc(50% + 380px);background:linear-gradient(90deg,transparent,#ff2233);box-shadow:0 0 14px #ff2233}
 .tv .tv-title .ln.b{left:calc(50% + 380px);background:linear-gradient(90deg,#ff2233,transparent);box-shadow:0 0 14px #ff2233}
@@ -767,7 +778,7 @@ svg.mrays{position:absolute;inset:0;width:1920px;height:1080px;pointer-events:no
 .tv.won .tv-fx .flash{animation:tvFlash 1.4s ease-out both}
 @keyframes tvFlash{0%{transform:scale(.2);opacity:1}40%{opacity:1}100%{transform:scale(1);opacity:.55}}
 .tv.won .tv-arcs .r{stroke:#ffcf5a}
-.tv.won .tv-title h2::after{animation-duration:4.5s}
+
 body[data-tv="1"] .chrome .brand,body[data-tv="1"] .chrome .meta{opacity:0}
 
 /* spoiler alert (p3a) */
@@ -797,3 +808,5 @@ body[data-tv="1"] .chrome .brand,body[data-tv="1"] .chrome .meta{opacity:0}
 .s3 .bref img{height:40px;width:auto;display:block}
 .s5 .top .stat-n{display:flex;align-items:baseline;justify-content:center}
 .mi-logo{display:block;margin-top:40px;height:64px;width:auto;filter:drop-shadow(0 6px 20px rgba(0,0,0,.4))}
+
+.tile .num,.s19 .tile .num{flex:none}
