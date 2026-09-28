@@ -501,6 +501,53 @@
   hb.forEach(b => { b.addEventListener('mousemove', e => showTip(e, `${b.dataset.t}<br><b>${String(b.dataset.v).replace('.', ',')} / 5 ★</b>`)); b.addEventListener('mouseleave', () => tip.style.opacity = 0); });
   $$('.s9 .bar').forEach((b, i) => { b.addEventListener('mousemove', e => showTip(e, i ? '2026 · <b>9.000.000 επισκέψεις (+93%)</b>' : '2025 · <b>4.700.000 επισκέψεις</b>')); b.addEventListener('mouseleave', () => tip.style.opacity = 0); });
 
+  /* ---------- INVENTOR TRIVIA ---------- */
+  function makeTrivia(root) {
+    const T = 30, NT = 60;
+    const ticksG = $('.ticks', root), dig = $('.digits', root), tm = $('.tv-timer', root), round = $('.tv-round', root), fx = $('.tv-fx', root);
+    let h = ''; for (let i = 0; i < NT; i++) { const a = i / NT * Math.PI * 2 - Math.PI / 2, c = Math.cos(a), s = Math.sin(a); h += `<line class="tick" x1="${c * 150}" y1="${s * 150}" x2="${c * 186}" y2="${s * 186}"/>`; }
+    ticksG.innerHTML = h;
+    const tk = [...ticksG.children], opts = $$('.tva', root);
+    const dust = $('.tv-dust', root); for (let i = 0; i < 40; i++) { const d = document.createElement('i'); d.style.left = Math.random() * 1920 + 'px'; d.style.top = 600 + Math.random() * 480 + 'px'; d.style.animationDelay = Math.random() * 6 + 's'; d.style.animationDuration = 4 + Math.random() * 5 + 's'; dust.appendChild(d); }
+    const lerp = (a, b, k) => a + (b - a) * k;
+    const color = rem => { const k = 1 - rem / T; if (k < .5) { const u = k / .5; return `hsl(${lerp(205, 45, u)} ${lerp(90, 100, u)}% ${lerp(84, 62, u)}%)`; } const u = (k - .5) / .5; return `hsl(${lerp(45, 0, u)} 100% ${lerp(62, 56, u)}%)`; };
+    let t0 = 0, running = false, done = false, startT = null, revealT = null;
+    function reset() {
+      running = false; done = false; clearTimeout(startT); clearTimeout(revealT);
+      root.classList.remove('won', 'locked'); opts.forEach(o => o.classList.remove('picked', 'correct', 'wrong'));
+      tm.classList.remove('over', 'hurry'); round.textContent = 'ΓΥΡΟΣ 30 ΔΕΥΤΕΡΟΛΕΠΤΩΝ'; round.classList.remove('end');
+      dig.textContent = '00:30'; tk.forEach(l => l.classList.remove('off')); tm.style.setProperty('--tc', color(T));
+    }
+    function pick(o) {
+      if (done) return; done = true; running = false;
+      root.classList.add('locked'); o.classList.add('picked');
+      revealT = setTimeout(() => {
+        const c = opts.find(x => x.dataset.correct);
+        o.classList.remove('picked'); if (o !== c) o.classList.add('wrong');
+        c.classList.add('correct');
+        const cx = c.offsetLeft + c.parentElement.offsetLeft + c.offsetWidth / 2, cy = c.offsetTop + c.parentElement.offsetTop + c.offsetHeight / 2;
+        [...fx.children].forEach(el => { el.style.left = cx + 'px'; el.style.top = cy + 'px'; });
+        void fx.offsetWidth; root.classList.add('won');
+      }, 1500);
+    }
+    opts.forEach(o => o.addEventListener('click', () => pick(o)));
+    return {
+      enter() { reset(); startT = setTimeout(() => { t0 = performance.now(); running = true; }, 1800); },
+      leave() { reset(); },
+      key(k) { if (opts[k]) pick(opts[k]); },
+      tick() {
+        if (!running) return;
+        const rem = Math.max(0, T - (performance.now() - t0) / 1000);
+        dig.textContent = '00:' + String(Math.ceil(rem)).padStart(2, '0');
+        const lit = Math.ceil(rem / T * NT); tk.forEach((l, i) => l.classList.toggle('off', i >= lit));
+        tm.style.setProperty('--tc', color(rem));
+        tm.classList.toggle('hurry', rem <= 10 && rem > 0);
+        if (rem <= 0) { running = false; tm.classList.add('over'); round.textContent = 'ΤΕΛΟΣ ΧΡΟΝΟΥ'; round.classList.add('end'); }
+      }
+    };
+  }
+  $$('.slide.tv').forEach(s => { hooks[s.classList[1]] = makeTrivia(s); });
+
   /* agenda links */
   $$('.s2 .tile').forEach(t => t.addEventListener('click', () => go(+t.dataset.go - 1)));
 
@@ -534,6 +581,7 @@
     document.body.dataset.slide = n + 1;
     document.body.dataset.group = g;
     document.body.dataset.bg = s.dataset.bg || '';
+    document.body.dataset.tv = s.dataset.tv || '';
     if (dotsGroup !== g) buildDots(g);
     dots.forEach((d, i) => d.classList.toggle('on', i === pos));
     const label = g === 'main' ? '' : `Πυλώνας ${g.slice(1)} · `;
@@ -563,6 +611,7 @@
     if (['PageDown', 'ArrowDown', 'ArrowRight', ' '].includes(e.key)) { e.preventDefault(); next(); hideHint(); }
     else if (['PageUp', 'ArrowUp', 'ArrowLeft'].includes(e.key)) { e.preventDefault(); prevS(); hideHint(); }
     else if (e.key === 'Escape') { if (lb.classList.contains('open')) lb.classList.remove('open'); else if (groupOf(cur) !== 'main') go(menuIdx); }
+    else if (['1', '2', '3', '4'].includes(e.key) && slides[cur].classList.contains('tv')) { const h = hooks[slides[cur].classList[1]]; h && h.key(+e.key - 1); }
     else if (e.key === 'Home') go(0);
     else if (e.key === 'End') go(menuIdx);
     else if (e.key === 'f' || e.key === 'F') $('#fsBtn').onclick();

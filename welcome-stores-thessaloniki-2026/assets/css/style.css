@@ -680,3 +680,92 @@ svg.mrays{position:absolute;inset:0;width:1920px;height:1080px;pointer-events:no
 .opt.done .nn{opacity:0;transform:scale(.3)}
 .opt.done .num svg{opacity:1;transform:none}
 .opt.launch{scale:1.2;filter:brightness(1.5) drop-shadow(0 0 40px rgba(224,16,31,.9))}
+
+/* =================== INVENTOR TRIVIA =================== */
+.tv{overflow:hidden}
+.tv .tv-bg{position:absolute;inset:0;background:radial-gradient(60% 55% at 50% 42%,#0d1638 0%,#060a1c 45%,#02030a 100%)}
+.tv .tv-arcs{position:absolute;inset:0;width:1920px;height:1080px}
+.tv .tv-arcs circle{fill:none}
+.tv .tv-arcs .r{stroke:#ff2233;stroke-width:3;filter:url(#tvNeon);opacity:.8;transition:stroke 1s}
+.tv .tv-arcs .r2{stroke:#ff2233;stroke-width:1.5;opacity:.35}
+.tv .tv-arcs .b{stroke:#3a7bff;stroke-width:2;opacity:.35;filter:url(#tvNeon)}
+.tv .tv-arcs .run{stroke-dasharray:180 1400;animation:tvRun 9s linear infinite}
+.tv .tv-arcs .run2{stroke-dasharray:120 1900;animation:tvRun 13s linear infinite reverse}
+@keyframes tvRun{to{stroke-dashoffset:-3200}}
+.tv .tv-beam{position:absolute;top:-200px;width:260px;height:1500px;transform-origin:50% 0;filter:blur(8px);opacity:.55;mix-blend-mode:screen}
+.tv .tv-beam.l{left:40px;background:linear-gradient(180deg,rgba(80,140,255,0),rgba(80,140,255,.5) 30%,rgba(80,140,255,0));animation:tvSwayL 7s ease-in-out infinite}
+.tv .tv-beam.r{right:40px;background:linear-gradient(180deg,rgba(80,140,255,0),rgba(80,140,255,.5) 30%,rgba(80,140,255,0));animation:tvSwayR 8s ease-in-out infinite}
+.tv .tv-beam.l2{left:260px;width:140px;opacity:.3;background:linear-gradient(180deg,transparent,rgba(255,40,60,.55) 40%,transparent);animation:tvSwayR 9s ease-in-out infinite}
+.tv .tv-beam.r2{right:260px;width:140px;opacity:.3;background:linear-gradient(180deg,transparent,rgba(255,40,60,.55) 40%,transparent);animation:tvSwayL 10s ease-in-out infinite}
+@keyframes tvSwayL{0%,100%{transform:rotate(-14deg)}50%{transform:rotate(-4deg)}}
+@keyframes tvSwayR{0%,100%{transform:rotate(14deg)}50%{transform:rotate(4deg)}}
+.tv .tv-lamp{position:absolute;bottom:250px;width:18px;height:18px;border-radius:50%;background:#bfe0ff;box-shadow:0 0 30px 10px rgba(90,150,255,.8)}
+.tv .tv-floor{position:absolute;left:50%;bottom:-150px;width:2000px;height:420px;margin-left:-1000px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,30,50,.18),rgba(30,50,120,.12) 60%,transparent 72%)}
+.tv .tv-floor i{position:absolute;inset:0;border-radius:50%;border:3px solid rgba(255,40,55,.75);box-shadow:0 0 30px rgba(255,30,50,.8),inset 0 0 30px rgba(255,30,50,.5)}
+.tv .tv-floor i:nth-child(2){inset:60px 200px;border-color:rgba(255,40,55,.35);border-width:2px}
+.tv .tv-floor i:nth-child(3){inset:120px 420px;border-color:rgba(90,140,255,.35);border-width:2px;box-shadow:0 0 30px rgba(60,120,255,.5)}
+.tv .tv-dust i{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;opacity:0;animation:tvDust 6s linear infinite}
+@keyframes tvDust{0%{opacity:0;transform:translateY(0)}20%{opacity:.8}100%{opacity:0;transform:translateY(-260px)}}
+.tv .tv-logo{position:absolute;left:50%;top:58px;width:560px;margin-left:-280px;filter:drop-shadow(0 0 18px rgba(255,30,50,.55))}
+.tv .tv-title{position:absolute;left:0;right:0;top:196px;text-align:center}
+.tv .tv-title h2{display:inline-block;position:relative;font-size:150px;font-weight:900;letter-spacing:.14em;line-height:1;padding-left:.14em;
+  background:linear-gradient(180deg,#fffbe6 0%,#ffe89a 22%,#f5c542 45%,#b8860b 62%,#f7d774 78%,#fff3c4 100%);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 4px 0 #6b4a00) drop-shadow(0 0 26px rgba(245,197,66,.45))}
+.tv .tv-title h2::after{content:"TRIVIA";position:absolute;inset:0;padding-left:.14em;letter-spacing:.14em;color:transparent;
+  background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.95) 50%,transparent 60%);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;animation:tvShine 3.2s ease-in-out infinite}
+@keyframes tvShine{0%{background-position:120% 0}55%,100%{background-position:-60% 0}}
+.tv .tv-title .ln{position:absolute;top:50%;width:300px;height:3px;border-radius:3px}
+.tv .tv-title .ln.a{right:calc(50% + 380px);background:linear-gradient(90deg,transparent,#ff2233);box-shadow:0 0 14px #ff2233}
+.tv .tv-title .ln.b{left:calc(50% + 380px);background:linear-gradient(90deg,#ff2233,transparent);box-shadow:0 0 14px #ff2233}
+.tv .tv-twk{position:absolute;width:6px;height:6px;border-radius:50%;background:#fff;box-shadow:0 0 14px 5px rgba(255,230,150,.9);animation:tvTw 2.6s ease-in-out infinite}
+@keyframes tvTw{0%,100%{opacity:0;transform:scale(.3)}50%{opacity:1;transform:scale(1)}}
+.tv .tv-q{position:absolute;left:130px;width:1250px;top:448px;text-align:center;font-size:56px;line-height:1.26;font-weight:500;text-shadow:0 4px 30px rgba(0,0,0,.6)}
+.tv .tv-ans{position:absolute;left:150px;width:1210px;top:716px;display:grid;grid-template-columns:1fr 1fr;gap:28px 34px}
+.tv .tva{position:relative;height:112px;border-radius:22px;display:flex;align-items:center;justify-content:center;gap:24px;font-size:56px;font-weight:800;cursor:pointer;
+  background:linear-gradient(180deg,rgba(40,50,95,.75),rgba(10,14,34,.85));border:2px solid rgba(255,60,75,.85);
+  box-shadow:0 0 0 1px rgba(255,255,255,.08) inset,0 0 26px rgba(255,30,50,.45),inset 0 0 24px rgba(255,30,50,.18);
+  transition:scale .4s var(--spring),box-shadow .4s,border-color .4s,opacity .5s,filter .5s,background .5s}
+.tv .tva::before{content:"";position:absolute;inset:6px;border-radius:16px;border:1px solid rgba(255,255,255,.12);pointer-events:none}
+.tv .tva span{font-variant-numeric:tabular-nums}
+.tv .tva:hover{scale:1.04;border-color:#ff6070;box-shadow:0 0 0 1px rgba(255,255,255,.12) inset,0 0 50px rgba(255,40,60,.8),inset 0 0 30px rgba(255,40,60,.3)}
+.tv.locked .tva{cursor:default}
+.tv.locked .tva:hover{scale:1}
+.slide.active.tv .tva.rv.picked{border-color:#f5c542;background:linear-gradient(180deg,rgba(120,90,20,.7),rgba(40,28,6,.85));box-shadow:0 0 50px rgba(245,197,66,.7),inset 0 0 30px rgba(245,197,66,.3);animation:tvSus .45s ease-in-out infinite alternate}
+@keyframes tvSus{to{box-shadow:0 0 90px rgba(245,197,66,.95),inset 0 0 40px rgba(245,197,66,.45)}}
+.tv.locked .tva:not(.picked):not(.correct):not(.wrong){opacity:.45;filter:saturate(.6)}
+.slide.active.tv .tva.rv.correct{border-color:#ffe28a;color:#1a1200;background:linear-gradient(180deg,#fff3c4 0%,#f5c542 45%,#c8961a 100%);scale:1.07;animation:tvWin 1.6s ease-in-out infinite alternate;z-index:3}
+@keyframes tvWin{0%{box-shadow:0 0 60px 10px rgba(245,197,66,.8),0 0 160px 40px rgba(245,197,66,.35)}100%{box-shadow:0 0 90px 20px rgba(255,220,120,1),0 0 260px 80px rgba(245,197,66,.45)}}
+.slide.active.tv .tva.rv.wrong{border-color:#ff3344;background:linear-gradient(180deg,rgba(120,10,20,.8),rgba(40,4,8,.9));animation:tvShake .5s ease both}
+@keyframes tvShake{20%{translate:-12px 0}40%{translate:10px 0}60%{translate:-7px 0}80%{translate:4px 0}}
+.tv .tva .tag{position:absolute;top:-22px;left:50%;transform:translateX(-50%) scale(0);padding:7px 18px;border-radius:30px;font-size:16px;letter-spacing:.24em;font-weight:900;white-space:nowrap;background:#1a1200;color:#ffe28a;border:1px solid #ffe28a;transition:transform .6s var(--spring) .2s}
+.tv .tva.correct .tag{transform:translateX(-50%) scale(1)}
+.tv .tva .ok{width:54px;height:54px;border-radius:50%;background:#1a1200;display:none;place-items:center}
+.tv .tva .ok svg{width:30px;height:30px;stroke:#ffe28a;fill:none;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}
+.tv .tva.correct .ok{display:grid}
+.tv .tv-timer{position:absolute;left:1390px;top:360px;width:420px;height:420px;--tc:#bfe3ff}
+.tv .tv-timer svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.tv .tv-timer .disk{fill:rgba(8,10,24,.85)}
+.tv .tv-timer .tick{stroke:var(--tc);stroke-width:12;transition:stroke .3s,opacity .25s}
+.tv .tv-timer .tick.off{opacity:.12}
+.tv .tv-timer .rim{fill:none;stroke:var(--tc);stroke-width:4;opacity:.9;filter:url(#tvNeon)}
+.tv .tv-timer .digits{position:absolute;inset:0;display:grid;place-items:center;font-size:86px;font-weight:800;letter-spacing:.02em;font-variant-numeric:tabular-nums;color:var(--tc);text-shadow:0 0 18px var(--tc),0 0 50px var(--tc)}
+.tv .tv-timer .glowc{position:absolute;inset:-60px;border-radius:50%;background:radial-gradient(closest-side,var(--tc),transparent);opacity:.18;filter:blur(20px)}
+.tv .tv-timer.hurry .digits{animation:tvBeat 1s ease-in-out infinite}
+.tv .tv-timer.hurry .glowc{animation:tvGl 1s ease-in-out infinite}
+@keyframes tvBeat{0%,100%{transform:scale(1)}15%{transform:scale(1.1)}35%{transform:scale(1)}}
+@keyframes tvGl{50%{opacity:.5}}
+.tv .tv-timer.over .digits{animation:tvBlink .8s steps(2) infinite}
+@keyframes tvBlink{50%{opacity:.25}}
+.tv .tv-round{position:absolute;left:1340px;width:520px;top:812px;text-align:center;font-size:15px;letter-spacing:.24em;white-space:nowrap;font-weight:700;color:rgba(200,215,255,.6)}
+.tv .tv-round::before,.tv .tv-round::after{content:"";display:inline-block;width:34px;height:1px;background:rgba(200,215,255,.4);vertical-align:middle;margin:0 14px}
+.tv .tv-round.end{color:#ff5566}
+.tv .tv-fx{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity 1s}
+.tv .tv-fx .flash{position:absolute;width:1800px;height:1800px;margin:-900px 0 0 -900px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,230,150,.55),rgba(245,197,66,.18) 40%,transparent 70%)}
+.tv .tv-fx .rays{position:absolute;width:1400px;height:1400px;margin:-700px 0 0 -700px;border-radius:50%;background:repeating-conic-gradient(from 0deg,rgba(255,225,140,.22) 0 5deg,transparent 5deg 18deg);
+  -webkit-mask:radial-gradient(closest-side,#000 15%,transparent 70%);mask:radial-gradient(closest-side,#000 15%,transparent 70%);animation:spin 26s linear infinite}
+.tv.won .tv-fx{opacity:1}
+.tv.won .tv-fx .flash{animation:tvFlash 1.4s ease-out both}
+@keyframes tvFlash{0%{transform:scale(.2);opacity:1}40%{opacity:1}100%{transform:scale(1);opacity:.55}}
+.tv.won .tv-arcs .r{stroke:#ffcf5a}
+.tv.won .tv-title h2::after{animation-duration:1.4s}
+body[data-tv="1"] .chrome .brand,body[data-tv="1"] .chrome .meta{opacity:0}
