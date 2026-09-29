@@ -230,20 +230,20 @@ window.ORG = {
         T(2, 'Senior Technical Specialists')
       ]}
     ]},
-    { n: 'ΜΑΡΑΘΟΣ ΧΡΗΣΤΟΣ', r: 'Consumer Sales Director', tag: 'Consumer', k: [
+    { n: 'ΜΑΡΑΘΟΣ ΧΡΗΣΤΟΣ', low: true, r: 'Consumer Sales Director', tag: 'Consumer', k: [
       { n: 'ΚΑΡΑΚΩΣΤΑΣ ΚΩΝΣΤΑΝΤΙΝΟΣ', r: 'Key Account Manager', k: [ T(6, 'Merchandisers') ] },
       { n: 'ΓΕΩΡΓΟΥΛΟΥ ΒΑΡΒΑΡΑ', r: 'Sales Administration Manager', k: [ T(5, 'Sales Administrators') ] },
       T(7, 'Sales Account Managers')
     ]},
-    { n: 'ΓΑΖΗΣ ΤΑΣΟΣ', r: 'Commercial Sales Director', tag: 'Commercial', k: [
+    { n: 'ΓΑΖΗΣ ΤΑΣΟΣ', low: true, r: 'Commercial Sales Director', tag: 'Commercial', k: [
       T(1, 'Sales Engineer'), T(2, 'Account Managers'), T(1, 'Presales Specialist'),
       T(1, 'Senior Business Development Manager, Professional Channel (N. Greece)')
     ]},
-    { n: 'ΤΣΕΛΕΣ ΛΟΥΚΑΣ', r: 'International Business Director', tag: 'International', k: [
+    { n: 'ΤΣΕΛΕΣ ΛΟΥΚΑΣ', low: true, r: 'International Business Director', tag: 'International', k: [
       T(5, 'International Account Managers'),
       { n: 'ΘΕΟΧΑΡΗ ΚΩΝΣΤΑΝΤΙΝΑ', r: 'International Operations Manager', k: [ T(3, 'International Operations Coordinators') ] }
     ]},
-    { n: 'ΛΑΖΑΡΙΔΟΥ ΓΕΩΡΓΙΑ', r: 'Product Director', tag: 'Product', k: [
+    { n: 'ΛΑΖΑΡΙΔΟΥ ΓΕΩΡΓΙΑ', low: true, r: 'Product Director', tag: 'Product', k: [
       { n: 'ΤΟΜΑΣΗ ΕΛΕΝΗ', r: 'Product Compliance & Purchase Manager', k: [ T(2, 'Junior Buyers') ] },
       T(2, 'Senior Product Owners'), T(1, 'Product Owner')
     ]}

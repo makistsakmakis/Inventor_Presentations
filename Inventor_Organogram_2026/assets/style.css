@@ -450,3 +450,8 @@ body:not(.on-cover) .hint{opacity:0}
 .full .tsubs{margin-top:0}
 .tsubs{width:clamp(170px,13vw,250px)}
 .full .tsubs{width:210px}
+
+/* MD direct reports εκτός C-level: ένα επίπεδο χαμηλότερα (ύψος Directors) */
+.lvl1{align-items:flex-start}
+.lvl1 .node.l1.low{margin-top:clamp(40px,7.5vh,84px)}
+.fgrp > .node.l1.low::before{background:var(--red)}

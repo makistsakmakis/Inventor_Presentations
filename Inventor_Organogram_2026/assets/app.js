@@ -201,7 +201,7 @@
   const personNode = (p, cls = '') => `<div class="node ${cls}"><div class="av">${ini(p.n)}</div><div><div class="nm">${p.n}</div><div class="rl">${p.r}</div></div></div>`;
   const chip = (t, i, nested) => `<div class="team${nested ? ' nested' : ''}" style="--i:${i}"><b>${t.c}</b><span>${t.r}</span></div>`;
   const teamChip = (t, i) => t.k ? `<div class="tgrp">${chip(t, i)}${t.k.map(k => chip(k, i, true)).join('')}</div>` : chip(t, i);
-  const l1HTML = (p, i, cls = '') => `<div class="node l1 ${cls}" data-i="${i}" tabindex="0">
+  const l1HTML = (p, i, cls = '') => `<div class="node l1${p.low ? ' low' : ''} ${cls}" data-i="${i}" tabindex="0">
       <div class="av">${ini(p.n)}</div><div class="nm">${p.n}</div><div class="rl">${p.short || p.r}</div><div class="tag">${p.tag}</div><div class="open">+</div></div>`;
 
   $('.lvl0', org).innerHTML = `<div class="node md" data-k="md"><div class="av">${ini(ORG.n)}</div><div><div class="nm">${ORG.n}</div><div class="rl">${ORG.r}</div></div></div>`;
@@ -282,6 +282,13 @@
       return `<div class="fgrp" style="--g:${i}">${l1HTML(p, i, 'show')}<div class="stacks">${stacks.map(st => `<div class="stack">${st.map(c => c.html).join('')}</div>`).join('')}</div></div>`;
     }).join('');
   }
+  // direct reports of the MD που δεν είναι C-level: στο ύψος των Directors (όπως στο επίσημο οργανόγραμμα)
+  function lowerFull(fl) {
+    const ref = $$('.fgrp', fl).find(g => !g.querySelector(':scope > .node.l1.low') && g.querySelector('.stack .bcol > .node'));
+    if (!ref) return;
+    const d = ref.querySelector('.stack .bcol > .node').getBoundingClientRect().top - ref.querySelector(':scope > .node.l1').getBoundingClientRect().top;
+    $$('.fgrp > .node.l1.low', fl).forEach(n => n.style.marginTop = d + 'px');
+  }
   function renderFull() {
     const wrap = $('.fullwrap', org), fl = $('.full', org);
     fl.classList.remove('show');
@@ -289,11 +296,11 @@
     // try a wide (split) and a narrow (unsplit) layout, keep the one that zooms larger
     let best = null;
     for (const th of [9, 16, Infinity]) {
-      fl.innerHTML = fullHTML(th);
+      fl.innerHTML = fullHTML(th); lowerFull(fl);
       const f = Math.min(1.3, (wrap.clientHeight - 4) / fl.offsetHeight, (wrap.clientWidth - 4) / fl.offsetWidth);
       if (!best || f > best.f + .005) best = { th, f };
     }
-    fl.innerHTML = fullHTML(best.th);
+    fl.innerHTML = fullHTML(best.th); lowerFull(fl);
     $$('.bcol > .node', fl).forEach(n => n.classList.add('show'));
     $$('.fgrp .node.l1', fl).forEach(n => n.addEventListener('click', () => setMode(false, +n.dataset.i)));
     fl.style.transform = `translateX(-50%) scale(${best.f.toFixed(3)})`;
@@ -330,7 +337,7 @@
     const md = rel($('.lvl0 .node', org));
     const l1 = $$('.lvl1 .node', org).map(rel);
     if (!branchOnly) {
-      const mid = md.b + (l1[0].y - md.b) / 2;
+      const mid = md.b + (Math.min(...l1.map(n => n.y)) - md.b) / 2;
       l1.forEach((n, i) => addPath(elbow({ x: md.cx, y: md.b }, { x: n.cx, y: n.y }, mid), 'top', .3 + Math.abs(i - 3) * .06));
     }
     $$('path[data-g="top"]', svg).forEach((p, i) => p.classList.toggle('hot', i === sel));
