@@ -678,3 +678,28 @@ html,body{overflow:clip}
 .modesw button{flex:1 1 0;justify-content:center;min-width:150px}
 .heart{width:470px;height:450px}
 .heart img{width:440px}
+
+/* ---- Ζουμ φωτογραφιών ---- */
+.frame.zclick{cursor:zoom-in}
+.zbtn{position:absolute;top:12px;right:12px;z-index:5;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;cursor:zoom-in;
+  color:#fff;background:rgba(10,14,24,.62);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  box-shadow:0 8px 24px rgba(0,0,0,.35);transition:transform .3s cubic-bezier(.2,1.4,.4,1),background .25s,border-color .25s}
+.zbtn svg{width:22px;height:22px}
+.frame:hover .zbtn,.zbtn:hover{transform:scale(1.1);background:rgba(255,90,60,.85);border-color:rgba(255,255,255,.6)}
+.zlb{position:fixed;inset:0;z-index:9999;background:rgba(4,7,14,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;font-family:"Commissioner",system-ui,sans-serif}
+.zlb.on{opacity:1;visibility:visible}
+.zlb-vp{position:absolute;inset:0;display:grid;place-items:center;overflow:hidden;touch-action:none;cursor:zoom-out}
+.zlb-vp img{max-width:none;max-height:none;object-fit:contain;border-radius:14px;background:#fff;box-shadow:0 30px 90px rgba(0,0,0,.6);
+  transform-origin:center center;user-select:none;cursor:zoom-in;will-change:transform}
+.zlb.zoomed .zlb-vp img{cursor:grab}
+.zlb.zoomed .zlb-vp img:active{cursor:grabbing}
+.zlb-x{position:absolute;z-index:2;top:22px;right:26px;width:56px;height:56px;border-radius:50%;font-size:34px;line-height:1;color:#fff;cursor:pointer;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.3);transition:background .25s,transform .3s}
+.zlb-x:hover{background:#ff5a3c;transform:rotate(90deg)}
+.zlb-bar{position:absolute;z-index:2;background:rgba(10,14,24,.8)!important;left:50%;bottom:22px;transform:translateX(-50%);display:flex;align-items:center;gap:6px;padding:6px;border-radius:40px;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2)}
+.zlb-bar button{min-width:40px;height:40px;border-radius:20px;border:0;color:#fff;background:rgba(255,255,255,.1);font:700 20px/1 inherit;cursor:pointer;padding:0 12px}
+.zlb-bar button:hover{background:rgba(255,90,60,.8)}
+.zlb-bar .zlb-r{font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+.zlb-p{min-width:58px;text-align:center;color:#fff;font-weight:700;font-size:14px}
