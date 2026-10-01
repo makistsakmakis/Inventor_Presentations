@@ -362,8 +362,55 @@
   };
 
   /* ================= PART 2 hooks ================= */
-  /* x19 six dots */
-  (() => { const r = $('#six19'); let h = ''; for (let i = 0; i < 6; i++) { const a = (-90 + i * 60) * Math.PI / 180; h += `<span class="line" style="transform:rotate(${a}rad)"><b class="arw" style="animation-delay:${i * .27}s"></b></span><i style="left:${50 + 41 * Math.cos(a)}%;top:${50 + 41 * Math.sin(a)}%"><em>${i + 1}</em></i>`; } r.innerHTML = h; })();
+  /* x19 — έξι σημεία → ένα: λεπτοί σωλήνες «ορού» (τυχαίο S) που μεταφέρουν κόκκινο υγρό
+     με fading trails προς τον κεντρικό κύκλο· αυτός πάλλεται με ρυθμό καρδιάς και γεμίζει σταδιακά. */
+  (() => {
+    const r = $('#six19'), box = r.closest('.six'), one = box.querySelector('.one');
+    const C = 230, RD = 41 * 4.6, R0 = RD - 31, R1 = 76, NS = 'http://www.w3.org/2000/svg';
+    let dots = '', svg = `<svg class="tubes" viewBox="0 0 460 460" aria-hidden="true"><defs>
+      <filter id="lq19" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>`;
+    const rnd = (a, b) => a + Math.random() * (b - a);
+    const paths = [];
+    for (let i = 0; i < 6; i++) {
+      const a = (-90 + i * 60) * Math.PI / 180, ux = Math.cos(a), uy = Math.sin(a), px = -uy, py = ux;
+      const P = (rr, off) => [C + ux * rr + px * off, C + uy * rr + py * off];
+      const s = (Math.random() < .5 ? 1 : -1), o1 = s * rnd(14, 30), o2 = -s * rnd(14, 30);
+      const p0 = P(R0, 0), c1 = P(R0 - (R0 - R1) * rnd(.25, .4), o1), c2 = P(R1 + (R0 - R1) * rnd(.25, .4), o2), p3 = P(R1, 0);
+      const d = `M${p0.map(n => n.toFixed(1))} C${c1.map(n => n.toFixed(1))} ${c2.map(n => n.toFixed(1))} ${p3.map(n => n.toFixed(1))}`;
+      paths.push(d);
+      svg += `<path class="t-out" d="${d}"/><path class="t-in" d="${d}"/><path class="t-hi" d="${d}"/><g class="flow" filter="url(#lq19)">` +
+        Array.from({ length: 7 }, (_, k) => `<path class="drop" d="${d}" style="opacity:${(1 - k / 7).toFixed(2)};stroke-width:${(4 - k * .35).toFixed(2)}"/>`).join('') + '</g>';
+      dots += `<i style="left:${50 + 41 * Math.cos(a)}%;top:${50 + 41 * Math.sin(a)}%"><em>${i + 1}</em></i>`;
+    }
+    r.innerHTML = svg + '</svg>' + dots;
+    // υγρό μέσα στον κεντρικό κύκλο (με κυματισμό)
+    one.insertAdjacentHTML('afterbegin', `<div class="liq"><svg class="wave" viewBox="0 0 300 20" preserveAspectRatio="none"><path d="M0 10 Q18.75 0 37.5 10 T75 10 T112.5 10 T150 10 T187.5 10 T225 10 T262.5 10 T300 10 V20 H0z"/></svg><div class="body"></div></div>`);
+    const liq = one.querySelector('.liq');
+    const flows = [...r.querySelectorAll('.flow')].map((g, i) => {
+      const segs = [...g.children], L = g.children[0].getTotalLength();
+      return { segs, L, per: rnd(1.5, 2.1), ph: rnd(0, 1), last: 0 };
+    });
+    const SEG = 9;
+    let fill = 0, hold = 0, t0 = performance.now(), prev = t0;
+    const slide = box.closest('.slide');
+    function frame(now) {
+      requestAnimationFrame(frame);
+      const dt = Math.min(.1, (now - prev) / 1000); prev = now;
+      if (!slide.classList.contains('active')) return;
+      const t = (now - t0) / 1000;
+      flows.forEach(f => {
+        const u = ((t / f.per) + f.ph) % 1;                     // 0 → 1 κατά μήκος του σωλήνα
+        if (u < f.last) { if (!hold) fill = Math.min(1, fill + .016); }   // μια «σταγόνα» έφτασε στο κέντρο
+        f.last = u;
+        const head = u * (f.L + SEG * 7);
+        f.segs.forEach((p, k) => { const st = head - (k + 1) * SEG; p.style.strokeDasharray = `${SEG + .6} ${f.L * 3}`; p.style.strokeDashoffset = -st; });
+      });
+      if (fill >= 1 && !hold) hold = now;
+      if (hold && now - hold > 1400) { hold = 0; fill = 0; liq.classList.add('reset'); setTimeout(() => liq.classList.remove('reset'), 60); }
+      liq.style.setProperty('--f', (fill * 100).toFixed(2) + '%');
+    }
+    requestAnimationFrame(frame);
+  })();
 
   /* ---------- groups & menu ---------- */
   const PILLARS = [
