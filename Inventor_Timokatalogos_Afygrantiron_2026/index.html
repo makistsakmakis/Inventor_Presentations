@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Inventor · Τιμοκατάλογος Αφυγραντήρων 2026</title>
+<meta name="description" content="Inventor — Τιμοκατάλογος Αφυγραντήρων 2026. Διαδραστική παρουσίαση.">
+<meta name="theme-color" content="#07090c">
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
+<link rel="stylesheet" href="assets/vendor/leaflet/leaflet.css">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<canvas id="fx" aria-hidden="true"></canvas>
+<div id="glowCursor" aria-hidden="true"></div>
+
+<!-- Loader -->
+<div id="loader"><div class="ld-ring"></div><img src="assets/img/logo-inventor-tagline-w.png" alt="Inventor"><div class="ld-bar"><i></i></div></div>
+
+<!-- Top navigation -->
+<header id="topbar">
+  <a class="tb-logo" href="#cover" data-go="cover" aria-label="Αρχή"><img src="assets/img/logo-inventor-tagline-w.png" alt="Inventor"></a>
+  <nav id="sections" aria-label="Ενότητες"></nav>
+  <div class="tb-tools">
+    <span id="counter" class="mono">01 / 20</span>
+    <button class="tb-btn" id="btnPlay" title="Αυτόματο ξεφύλλισμα" aria-label="Αυτόματο ξεφύλλισμα"><svg viewBox="0 0 24 24"><path class="i-play" d="M8 5v14l11-7z"/><path class="i-pause" d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg></button>
+    <button class="tb-btn" id="btnIndex" title="Ευρετήριο" aria-label="Ευρετήριο"><svg viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg></button>
+    <a class="tb-btn tb-pdf" id="btnPdf" href="assets/pdf/Inventor_Timokatalogos_Afygrantiron_2026.pdf" download="Inventor_Timokatalogos_Afygrantiron_2026.pdf" title="Λήψη τιμοκαταλόγου (PDF)" aria-label="Λήψη PDF"><svg viewBox="0 0 24 24"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><b>PDF</b></a>
+    <button class="tb-btn" id="btnFull" title="Πλήρης οθόνη" aria-label="Πλήρης οθόνη"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
+  </div>
+  <div id="progress"><i></i></div>
+</header>
+
+<!-- Deck -->
+<main id="deck" aria-live="polite"></main>
+<div id="sweep" aria-hidden="true"></div>
+
+<!-- Hovering page buttons -->
+<div id="pager">
+  <button id="pgUp" aria-label="Προηγούμενη (Page Up)" title="Page Up"><svg viewBox="0 0 24 24"><path d="M6 15l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
+  <button id="pgDn" aria-label="Επόμενη (Page Down)" title="Page Down"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
+</div>
+<nav id="rail" aria-label="Σελίδες"></nav>
+
+<!-- Index overlay -->
+<div id="indexOv" class="overlay" hidden>
+  <div class="ov-inner">
+    <div class="ov-head"><h2>Ευρετήριο</h2><button class="x-btn" data-close aria-label="Κλείσιμο"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div id="indexGrid"></div>
+  </div>
+</div>
+
+<!-- Glass dialog (zoom photos, tables, locator) -->
+<div id="dlg" class="overlay" hidden>
+  <div class="dlg-box" role="dialog" aria-modal="true">
+    <div class="dlg-head"><div class="dlg-title"></div><div class="dlg-tools"></div><button class="x-btn" data-close aria-label="Κλείσιμο"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="dlg-body"></div>
+  </div>
+</div>
+
+<div id="tip" role="tooltip"></div>
+<div id="rotateHint">Για την καλύτερη εμπειρία γυρίστε τη συσκευή οριζόντια</div>
+
+<script src="assets/vendor/leaflet/leaflet.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/servicepoints.js"></script>
+<script src="assets/js/app.js"></script>
+<!-- inv-view-log -->
+<script>(function(){var k='Inventor_Timokatalogos_Afygrantiron_2026';try{if(sessionStorage.getItem('invv_'+k))return;sessionStorage.setItem('invv_'+k,'1')}catch(e){}try{fetch('/api/view',{method:'POST',credentials:'same-origin',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({p:k})}).catch(function(){})}catch(e){}})();</script>
+</body>
+</html>

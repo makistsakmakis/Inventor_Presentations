@@ -10,12 +10,15 @@ const athensParts = () => Object.fromEntries(new Intl.DateTimeFormat('en-GB', { 
   .formatToParts(new Date()).map(x => [x.type, x.value]));
 
 // key: όνομα υποφακέλου παρουσίασης ή 'login'
-export async function appendLog(email, key = LOGIN) {
+const EVENTS = { pdf: 'Λήψη PDF' };
+// ev: προαιρετικό γεγονός μέσα στην παρουσίαση (π.χ. 'pdf')
+export async function appendLog(email, key = LOGIN, ev = '') {
+  if (ev && !EVENTS[ev]) ev = '';
   const p = athensParts();
   const stamp = `${p.year}-${p.month}-${p.day}_${p.hour}-${p.minute}-${p.second}`;
-  const line = `${p.year}-${p.month}-${p.day} ${p.hour}:${p.minute}:${p.second} | ${email} | ${titleOf(key)}`;
+  const line = `${p.year}-${p.month}-${p.day} ${p.hour}:${p.minute}:${p.second} | ${email} | ${titleOf(key)}${ev ? ' · ' + EVENTS[ev] : ''}`;
   if (!storageReady()) { console.log('[log]', line); return; }
-  await put(`${PREFIX}${stamp}__${email}__${key}.txt`, line + '\n', { access: 'private', addRandomSuffix: true, contentType: 'text/plain; charset=utf-8' });
+  await put(`${PREFIX}${stamp}__${email}__${key}${ev ? '@' + ev : ''}.txt`, line + '\n', { access: 'private', addRandomSuffix: true, contentType: 'text/plain; charset=utf-8' });
 }
 
 const KEYS = [...Object.keys(PRESENTATIONS), LOGIN].sort((a, b) => b.length - a.length);
@@ -30,8 +33,9 @@ export async function readLog() {
     const i = rest.indexOf('__');
     if (i > -1) {
       email = rest.slice(0, i); const tail = rest.slice(i + 2);
-      const k = KEYS.find(k => tail === k || tail.startsWith(k + '-'));
-      title = titleOf(k || tail.replace(/-[A-Za-z0-9]{10,}$/, ''));
+      const k = KEYS.find(k => tail === k || tail.startsWith(k + '-') || tail.startsWith(k + '@'));
+      const ev = k && (tail.slice(k.length).match(/^@([a-z]+)/) || [])[1];
+      title = titleOf(k || tail.replace(/-[A-Za-z0-9]{10,}$/, '')) + (ev && EVENTS[ev] ? ' · ' + EVENTS[ev] : '');
     } else email = rest.replace(/-[A-Za-z0-9]{10,}$/, '');
     return `${m[1]} ${m[2]}:${m[3]}:${m[4]} | ${email} | ${title}`;
   });
