@@ -374,11 +374,12 @@
     for (let i = 0; i < 6; i++) {
       const a = (-90 + i * 60) * Math.PI / 180, ux = Math.cos(a), uy = Math.sin(a), px = -uy, py = ux;
       const P = (rr, off) => [C + ux * rr + px * off, C + uy * rr + py * off];
-      // πιο έντονο και ακανόνιστο S: δύο καμπύλες με τυχαίο μέσο σημείο
-      const L = R0 - R1, s = (Math.random() < .5 ? 1 : -1), mt = rnd(.38, .62), mo = rnd(-14, 14);
+      // S λιγότερο έντονο· αρχή & τέλος πάντα κάθετα (ακτινικά) στις σφαίρες
+      const L = R0 - R1, s = (Math.random() < .5 ? 1 : -1), mt = rnd(.4, .6), mo = rnd(-7, 7);
       const p0 = P(R0, 0), pm = P(R0 - L * mt, mo), p3 = P(R1, 0);
-      const ca = P(R0 - L * rnd(.1, .22), s * rnd(26, 52)), cb = P(R0 - L * (mt - rnd(.08, .16)), s * rnd(30, 58));
-      const cc = P(R0 - L * (mt + rnd(.08, .16)), -s * rnd(24, 56)), cd = P(R1 + L * rnd(.06, .18), -s * rnd(10, 34) * (Math.random() < .25 ? -1 : 1));
+      const ca = P(R0 - L * rnd(.16, .24), 0);                                  // ακτινική έξοδος
+      const cb = P(R0 - L * (mt - rnd(.1, .16)), s * rnd(16, 32));
+      const cc = P(R1 + L * rnd(.16, .24), 0);                                  // ακτινική είσοδος
       const f = q => q.map(n => n.toFixed(1)).join(',');
       const d = `M${f(p0)} C${f(ca)} ${f(cb)} ${f(pm)} C${f([2 * pm[0] - cb[0], 2 * pm[1] - cb[1]])} ${f(cc)} ${f(p3)}`;
       paths.push(d);
@@ -388,7 +389,7 @@
     }
     r.innerHTML = svg + '</svg>' + dots;
     // υγρό μέσα στον κεντρικό κύκλο (με κυματισμό)
-    one.insertAdjacentHTML('afterbegin', `<div class="liq"><svg class="wave" viewBox="0 0 300 20" preserveAspectRatio="none"><path d="M0 10 Q18.75 0 37.5 10 T75 10 T112.5 10 T150 10 T187.5 10 T225 10 T262.5 10 T300 10 V20 H0z"/></svg><div class="body"></div></div>`);
+    one.insertAdjacentHTML('afterbegin', `<div class="liq"><svg class="wave back" viewBox="0 0 300 20" preserveAspectRatio="none"><path d="M0 10 Q18.75 0 37.5 10 T75 10 T112.5 10 T150 10 T187.5 10 T225 10 T262.5 10 T300 10 V20 H0z"/></svg><svg class="wave front" viewBox="0 0 300 20" preserveAspectRatio="none"><defs><linearGradient id="wv19" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff7480"/><stop offset=".35" stop-color="#ff2d3d"/><stop offset="1" stop-color="#e01426"/></linearGradient></defs><path fill="url(#wv19)" d="M0 10 Q18.75 2 37.5 10 T75 10 T112.5 10 T150 10 T187.5 10 T225 10 T262.5 10 T300 10 V20 H0z"/><path class="crest" d="M0 10 Q18.75 2 37.5 10 T75 10 T112.5 10 T150 10 T187.5 10 T225 10 T262.5 10 T300 10"/></svg><div class="body"></div></div>`);
     const liq = one.querySelector('.liq');
     const flows = [...r.querySelectorAll('.flow')].map((g, i) => {
       const segs = [...g.children], L = g.children[0].getTotalLength();
