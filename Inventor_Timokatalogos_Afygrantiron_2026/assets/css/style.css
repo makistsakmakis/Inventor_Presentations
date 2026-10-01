@@ -693,10 +693,10 @@ table.cmp tr.same{display:none}
 .s-chart[data-metric="area"] .bar .b::after{box-shadow:0 0 12px #fff,0 0 22px #7fbf98}
 .s-chart[data-metric="area"] .bar:hover .b{background:linear-gradient(180deg,#86b89a,#4a6b5a);box-shadow:0 0 34px rgba(110,170,135,.7),inset 0 1px 0 rgba(255,255,255,.5)}
 .s-chart[data-metric="area"] .bar:hover .v{color:#9fd4b4;text-shadow:0 0 16px rgba(110,170,135,.9)}
-.s-chart[data-metric="price"] .bar .b{background:linear-gradient(180deg,rgba(150,170,192,.85),rgba(75,91,110,.35));border-color:rgba(165,185,205,.5)}
-.s-chart[data-metric="price"] .bar .b::after{box-shadow:0 0 12px #fff,0 0 22px #9db3cc}
-.s-chart[data-metric="price"] .bar:hover .b{background:linear-gradient(180deg,#a3b7cc,#566a80);box-shadow:0 0 34px rgba(140,165,195,.7),inset 0 1px 0 rgba(255,255,255,.5)}
-.s-chart[data-metric="price"] .bar:hover .v{color:#bcd0e6;text-shadow:0 0 16px rgba(140,165,195,.9)}
+.s-chart[data-metric="price"] .bar .b{background:linear-gradient(180deg,rgba(110,160,225,.88),rgba(52,86,140,.38));border-color:rgba(130,175,235,.55)}
+.s-chart[data-metric="price"] .bar .b::after{box-shadow:0 0 12px #fff,0 0 22px #7fb2f0}
+.s-chart[data-metric="price"] .bar:hover .b{background:linear-gradient(180deg,#86b8f2,#3d64a8);box-shadow:0 0 34px rgba(100,155,230,.75),inset 0 1px 0 rgba(255,255,255,.5)}
+.s-chart[data-metric="price"] .bar:hover .v{color:#a9cdfa;text-shadow:0 0 16px rgba(100,155,230,.9)}
 /* ---- Χάρτης Service Points: fading radar σε όλα τα σημεία μαζί ---- */
 .sp-radar{background:none;border:0}
 .sp-radar i{position:absolute;left:50%;top:50%;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;border:2px solid #ff3d46;box-shadow:0 0 10px rgba(227,20,30,.6);opacity:0;animation:spRadar 2.6s cubic-bezier(.2,.6,.3,1) infinite}
