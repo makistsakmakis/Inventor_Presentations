@@ -121,8 +121,53 @@
       <span class="kicker rise">TIPS</span>
       ${burst(C.TIPS.title, 'h-thin', .1)}
       <p class="lead rise" style="--d:.4s">${C.TIPS.lead}</p>
+    <div class="tipsart rise" style="--d:.7s" aria-hidden="true">
+      <div class="tipsword"><span>TIPS</span><span>TIPS</span><span>TIPS</span><span>TIPS</span></div>
+      <svg class="bulb" viewBox="0 0 240 360">
+        <defs>
+          <radialGradient id="bGlow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffd978" stop-opacity=".75"/><stop offset=".35" stop-color="#ffb43a" stop-opacity=".32"/><stop offset=".7" stop-color="#ff9500" stop-opacity=".08"/><stop offset="1" stop-color="#ff9500" stop-opacity="0"/></radialGradient>
+          <radialGradient id="bGlass" cx="46%" cy="58%" r="58%"><stop offset="0" stop-color="#fff3c8" stop-opacity=".7"/><stop offset=".32" stop-color="#ffc452" stop-opacity=".45"/><stop offset=".66" stop-color="#d9832a" stop-opacity=".12"/><stop offset=".9" stop-color="#ffffff" stop-opacity=".03"/><stop offset="1" stop-color="#ffffff" stop-opacity=".14"/></radialGradient>
+          <radialGradient id="bHot" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fffdf2" stop-opacity=".95"/><stop offset=".3" stop-color="#ffe9a6" stop-opacity=".6"/><stop offset="1" stop-color="#ffb640" stop-opacity="0"/></radialGradient>
+          <linearGradient id="bRim" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".12" stop-color="#fff" stop-opacity=".06"/><stop offset=".85" stop-color="#fff" stop-opacity=".04"/><stop offset="1" stop-color="#fff" stop-opacity=".4"/></linearGradient>
+          <linearGradient id="bMetal" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#15171b"/><stop offset=".12" stop-color="#4d535d"/><stop offset=".3" stop-color="#e3e7ec"/><stop offset=".44" stop-color="#9aa1ab"/><stop offset=".62" stop-color="#363b43"/><stop offset=".84" stop-color="#858c97"/><stop offset="1" stop-color="#101216"/></linearGradient>
+          <linearGradient id="bMetalD" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0a0b0e"/><stop offset=".3" stop-color="#454a53"/><stop offset=".5" stop-color="#1e2126"/><stop offset=".78" stop-color="#3a3f47"/><stop offset="1" stop-color="#08090b"/></linearGradient>
+          <filter id="bBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="9"/></filter>
+          <filter id="bBlur2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.2"/></filter>
+          <filter id="bFil" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.6" result="g"/><feColorMatrix in="g" values="1 0 0 0 .2  0 1 0 0 .05  0 0 1 0 -.3  0 0 0 1.6 0" result="o"/><feMerge><feMergeNode in="o"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <clipPath id="bClip"><path d="M120 18c-56 0-98 42-98 97 0 36 17 61 36 82 13 15 22 28 24 45h76c2-17 11-30 24-45 19-21 36-46 36-82 0-55-42-97-98-97z"/></clipPath>
+        </defs>
+        <g class="glow"><circle cx="120" cy="118" r="118" fill="url(#bGlow)"/></g>
+        <!-- γυάλινο σώμα -->
+        <path class="glass" d="M120 18c-56 0-98 42-98 97 0 36 17 61 36 82 13 15 22 28 24 45h76c2-17 11-30 24-45 19-21 36-46 36-82 0-55-42-97-98-97z" fill="url(#bGlass)" stroke="rgba(255,255,255,.42)" stroke-width="1.4"/>
+        <g clip-path="url(#bClip)">
+          <rect x="20" y="10" width="200" height="240" fill="url(#bRim)"/>
+          <ellipse class="hot" cx="120" cy="140" rx="62" ry="70" fill="url(#bHot)" filter="url(#bBlur)"/>
+          <!-- στέλεχος γυαλιού & στηρίγματα -->
+          <path d="M104 242c0-30 6-52 16-70 10 18 16 40 16 70z" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.28)" stroke-width="1"/>
+          <path d="M112 236V168M128 236V168" stroke="#cfd3d8" stroke-width="1.6" stroke-linecap="round" opacity=".85"/>
+          <path d="M112 168c-14-10-22-24-22-36M128 168c14-10 22-24 22-36" stroke="#b9bec5" stroke-width="1.3" fill="none" opacity=".75"/>
+          <!-- νήμα βολφραμίου -->
+          <path class="fil" d="M90 132c3-7 6-7 9 0s6 7 9 0 6-7 9 0 6 7 9 0 6-7 9 0 6 7 9 0 6-7 9 0" fill="none" stroke="#fff4cf" stroke-width="2.4" stroke-linecap="round" filter="url(#bFil)"/>
+          <path d="M90 132c3-7 6-7 9 0s6 7 9 0 6-7 9 0 6 7 9 0 6-7 9 0 6 7 9 0 6-7 9 0" fill="none" stroke="#fff" stroke-width=".9" stroke-linecap="round" opacity=".9"/>
+        </g>
+        <!-- αντανακλάσεις -->
+        <path d="M58 92c6-30 30-54 62-62" stroke="#fff" stroke-width="7" stroke-linecap="round" fill="none" opacity=".5" filter="url(#bBlur2)"/>
+        <path d="M58 92c6-30 30-54 62-62" stroke="#fff" stroke-width="2.2" stroke-linecap="round" fill="none" opacity=".85"/>
+        <ellipse cx="176" cy="70" rx="9" ry="5" fill="#fff" opacity=".5" transform="rotate(38 176 70)"/>
+        <path d="M190 150c4 20-2 40-14 56" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none" opacity=".28"/>
+        <!-- βάση -->
+        <rect x="80" y="242" width="80" height="14" rx="4" fill="url(#bMetalD)"/>
+        <rect x="76" y="256" width="88" height="20" rx="10" fill="url(#bMetal)"/>
+        <rect x="79" y="280" width="82" height="20" rx="10" fill="url(#bMetal)"/>
+        <rect x="82" y="304" width="76" height="20" rx="10" fill="url(#bMetal)"/>
+        <path d="M80 259h80M83 283h74M86 307h68" stroke="#fff" stroke-opacity=".5" stroke-width="1.4" stroke-linecap="round"/>
+        <path d="M78 274h84M81 298h78M84 322h72" stroke="#000" stroke-opacity=".5" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="M92 326h56c0 20-12 30-28 30s-28-10-28-30z" fill="url(#bMetalD)"/>
+        <ellipse cx="112" cy="337" rx="7" ry="3.5" fill="#fff" opacity=".16"/>
+      </svg>
     </div>
-    <div class="tiles" data-fit="min">${C.TIPS.tiles.map((t, i) => { const [a, b] = t[0].split(' | '); return tile(i + 1, b, `<h4>${b}</h4><div class="scroll" data-scroll><p>${t[1]}</p></div><img class="qtips" src="${img('quick-tips-3d.png')}" alt="Quick tips" style="--i:${i}">`, i); }).join('')}</div>`
+    </div>
+    <div class="tiles" data-fit="min">${C.TIPS.tiles.map((t, i) => { const [a, b] = t[0].split(' | '); return tile(i + 1, b, `<h4>${b}</h4><div class="scroll" data-scroll><p>${t[1]}</p></div>`, i); }).join('')}</div>`
   });
 
   /* ---- 06 RANGE OVERVIEW ---- */

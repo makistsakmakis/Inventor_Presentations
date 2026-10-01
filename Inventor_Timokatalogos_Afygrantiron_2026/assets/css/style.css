@@ -709,14 +709,25 @@ table.cmp tr.same{display:none}
 .tile .num:has(.ticon)::after{display:none}
 .tile .num .ticon{height:96px;width:auto;max-width:200px;object-fit:contain;filter:drop-shadow(0 8px 20px rgba(0,0,0,.55))}
 .s-tech .tile .front{gap:24px}
-/* ---- 05 TIPS: λάμπα 3D ως θέμα ΚΑΤΩ από το κείμενο (φόντο), αργό διακριτικό blink ---- */
-.s-tips .tile .back{gap:10px;isolation:isolate}
-.s-tips .tile .back .qtips{position:absolute;right:-6%;bottom:-6%;height:96%;width:auto;z-index:-1;pointer-events:none;opacity:.26;
-  filter:drop-shadow(0 0 10px rgba(255,190,40,.2));animation:qtBlink 5.2s ease-in-out infinite;animation-delay:calc(var(--i) * .7s)}
-.s-tips .tile .back h4,.s-tips .tile .back .scroll{position:relative;z-index:1}
-.s-tips .tile .back p{text-shadow:0 1px 8px rgba(0,0,0,.85),0 0 2px rgba(0,0,0,.6)}
-@keyframes qtBlink{0%,100%{opacity:.2;filter:drop-shadow(0 0 8px rgba(255,190,40,.15)) brightness(.9)}
-  50%{opacity:.42;filter:drop-shadow(0 0 30px rgba(255,200,60,.65)) drop-shadow(0 0 70px rgba(255,170,20,.3)) brightness(1.15)}}
+/* ---- 05 TIPS: ρεαλιστική λάμπα κάτω από το κείμενο· το φως της σχηματίζει τη λέξη TIPS ---- */
+.s-tips .tile .back{gap:10px}
+.s-tips .tipsart{position:absolute;left:-10px;top:380px;width:660px;height:340px;pointer-events:none}
+.s-tips .tipsart .bulb{position:absolute;left:0;top:10px;width:220px;height:330px;overflow:visible;z-index:2;filter:drop-shadow(0 18px 24px rgba(0,0,0,.6))}
+.s-tips .tipsart .glow,.s-tips .tipsart .hot,.s-tips .tipsart .fil{animation:bulbPulse 5.6s ease-in-out infinite}
+.s-tips .tipsart .hot{opacity:1}
+.s-tips .tipsart .glass{animation:glassPulse 5.6s ease-in-out infinite}
+/* η λέξη από φως: 4 στρώσεις (αιχμηρή + 3 θολές), ξεθωριάζει όσο απομακρύνεται από τη λάμπα */
+.s-tips .tipsword{position:absolute;left:30px;top:-80px;width:820px;height:500px;font-family:var(--f);font-weight:900;font-size:208px;line-height:1;letter-spacing:-.01em;
+  -webkit-mask-image:radial-gradient(74% 74% at 16% 56%,#000 30%,rgba(0,0,0,.85) 55%,rgba(0,0,0,.3) 84%,transparent 100%);mask-image:radial-gradient(74% 74% at 16% 56%,#000 30%,rgba(0,0,0,.85) 55%,rgba(0,0,0,.3) 84%,transparent 100%);
+  animation:bulbPulse 5.6s ease-in-out infinite}
+.s-tips .tipsword span{position:absolute;left:168px;top:142px;white-space:nowrap}
+.s-tips .tipsword span:nth-child(1){color:#ff8c00;filter:blur(48px);opacity:.8;transform:scale(1.08);transform-origin:0 50%}
+.s-tips .tipsword span:nth-child(2){color:#ffbf45;filter:blur(20px);opacity:.9}
+.s-tips .tipsword span:nth-child(3){color:#ffe08f;filter:blur(7px);opacity:.95}
+.s-tips .tipsword span:nth-child(4){color:transparent;background:linear-gradient(90deg,#fffbe8 0%,#fff0b8 40%,rgba(255,214,120,.7) 100%);-webkit-background-clip:text;background-clip:text;filter:blur(.6px);opacity:.95}
+@keyframes bulbPulse{0%,100%{opacity:.68}50%{opacity:1}}
+@keyframes glassPulse{0%,100%{filter:brightness(.9)}50%{filter:brightness(1.12)}}
+@media (prefers-reduced-motion:reduce){.s-tips .tipsart *,.s-tips .tipsword{animation:none}}
 /* ---- 23 Υπηρεσίες: μεγαλύτεροι αριθμοί & τίτλοι ---- */
 .s-svc .tile .front{gap:52px}
 .s-svc .tile .num{width:111px;height:111px;font-size:57px}
