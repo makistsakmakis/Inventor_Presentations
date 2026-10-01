@@ -366,7 +366,7 @@
      με fading trails προς τον κεντρικό κύκλο· αυτός πάλλεται με ρυθμό καρδιάς και γεμίζει σταδιακά. */
   (() => {
     const r = $('#six19'), box = r.closest('.six'), one = box.querySelector('.one');
-    const C = 230, RD = 41 * 4.6, R0 = RD - 31, R1 = 76, NS = 'http://www.w3.org/2000/svg';
+    const C = 230, RP = 41 * 1.3, RD = RP * 4.6, R0 = RD - 41, R1 = 76, NS = 'http://www.w3.org/2000/svg';   // +30% απόσταση
     let dots = '', svg = `<svg class="tubes" viewBox="0 0 460 460" aria-hidden="true"><defs>
       <filter id="lq19" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>`;
     const rnd = (a, b) => a + Math.random() * (b - a);
@@ -374,13 +374,17 @@
     for (let i = 0; i < 6; i++) {
       const a = (-90 + i * 60) * Math.PI / 180, ux = Math.cos(a), uy = Math.sin(a), px = -uy, py = ux;
       const P = (rr, off) => [C + ux * rr + px * off, C + uy * rr + py * off];
-      const s = (Math.random() < .5 ? 1 : -1), o1 = s * rnd(14, 30), o2 = -s * rnd(14, 30);
-      const p0 = P(R0, 0), c1 = P(R0 - (R0 - R1) * rnd(.25, .4), o1), c2 = P(R1 + (R0 - R1) * rnd(.25, .4), o2), p3 = P(R1, 0);
-      const d = `M${p0.map(n => n.toFixed(1))} C${c1.map(n => n.toFixed(1))} ${c2.map(n => n.toFixed(1))} ${p3.map(n => n.toFixed(1))}`;
+      // πιο έντονο και ακανόνιστο S: δύο καμπύλες με τυχαίο μέσο σημείο
+      const L = R0 - R1, s = (Math.random() < .5 ? 1 : -1), mt = rnd(.38, .62), mo = rnd(-14, 14);
+      const p0 = P(R0, 0), pm = P(R0 - L * mt, mo), p3 = P(R1, 0);
+      const ca = P(R0 - L * rnd(.1, .22), s * rnd(26, 52)), cb = P(R0 - L * (mt - rnd(.08, .16)), s * rnd(30, 58));
+      const cc = P(R0 - L * (mt + rnd(.08, .16)), -s * rnd(24, 56)), cd = P(R1 + L * rnd(.06, .18), -s * rnd(10, 34) * (Math.random() < .25 ? -1 : 1));
+      const f = q => q.map(n => n.toFixed(1)).join(',');
+      const d = `M${f(p0)} C${f(ca)} ${f(cb)} ${f(pm)} C${f([2 * pm[0] - cb[0], 2 * pm[1] - cb[1]])} ${f(cc)} ${f(p3)}`;
       paths.push(d);
       svg += `<path class="t-out" d="${d}"/><path class="t-in" d="${d}"/><path class="t-hi" d="${d}"/><g class="flow" filter="url(#lq19)">` +
         Array.from({ length: 7 }, (_, k) => `<path class="drop" d="${d}" style="opacity:${(1 - k / 7).toFixed(2)};stroke-width:${(4 - k * .35).toFixed(2)}"/>`).join('') + '</g>';
-      dots += `<i style="left:${50 + 41 * Math.cos(a)}%;top:${50 + 41 * Math.sin(a)}%"><em>${i + 1}</em></i>`;
+      dots += `<i style="left:${50 + RP * Math.cos(a)}%;top:${50 + RP * Math.sin(a)}%"><em>${i + 1}</em></i>`;
     }
     r.innerHTML = svg + '</svg>' + dots;
     // υγρό μέσα στον κεντρικό κύκλο (με κυματισμό)

@@ -827,3 +827,11 @@ body[data-tv="1"] .chrome .brand,body[data-tv="1"] .chrome .meta{opacity:0}
 .six .one .liq .wave{position:absolute;left:-50%;top:0;width:200%;height:12px;fill:#ff2d3d;animation:wave19 1.6s linear infinite}
 @keyframes wave19{to{transform:translateX(-25%)}}
 @keyframes heart{0%,40%,100%{transform:scale(1);box-shadow:0 0 70px rgba(224,16,31,.45)}10%{transform:scale(1.09);box-shadow:0 0 120px rgba(255,40,60,.9)}20%{transform:scale(1.01)}28%{transform:scale(1.06);box-shadow:0 0 100px rgba(255,40,60,.75)}}
+/* x19 v2: μεγαλύτεροι, ακίνητοι κύκλοι, χωρίς δακτύλιο, +30% ακτίνα */
+.x19 .six{right:225px;scale:1.3}
+.x19 .six .rot{animation:none}
+.x19 .six .ring{display:none}
+.x19 .six i{width:80px;height:80px;margin:-40px 0 0 -40px;box-shadow:0 0 32px rgba(224,16,31,.85)}
+.x19 .six i em{animation:none;font-size:36px}
+.x19 .lead{max-width:880px}
+.x19 .lead2{margin-top:26px}
