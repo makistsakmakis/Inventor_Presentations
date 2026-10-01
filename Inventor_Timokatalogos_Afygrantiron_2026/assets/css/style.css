@@ -639,9 +639,9 @@ table.cmp tr.same{display:none}
   transition:opacity .35s,transform .35s cubic-bezier(.2,1.4,.4,1),filter .3s}
 #btnBack svg{width:22px;height:22px;position:relative;z-index:2;margin-left:-2px}
 #btnBack b{position:absolute;top:100%;margin-top:6px;font-size:9px;letter-spacing:.2em;font-weight:800;color:var(--red2);text-shadow:0 0 8px var(--redGlow)}
-#btnBack::before,#btnBack::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--red2);animation:radar 2s cubic-bezier(.2,.6,.3,1) infinite;pointer-events:none}
+#btnBack::before,#btnBack::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--red2);animation:backRadar 2s cubic-bezier(.2,.6,.3,1) infinite;pointer-events:none}
 #btnBack::after{animation-delay:1s}
-@keyframes radar{0%{transform:scale(1);opacity:.9}100%{transform:scale(2.4);opacity:0}}
+@keyframes backRadar{0%{transform:scale(1);opacity:.9}100%{transform:scale(2.4);opacity:0}}
 #btnBack:hover{transform:translateX(-50%) scale(1.12);filter:brightness(1.15)}
 #btnBack.off{opacity:.18;pointer-events:none;filter:grayscale(.6)}
 #btnBack.off::before,#btnBack.off::after{animation:none;opacity:0}
@@ -653,3 +653,26 @@ table.cmp tr.same{display:none}
 .tb-btn.tb-pdf:hover{animation-play-state:paused;background:var(--red);box-shadow:0 0 22px var(--redGlow)}
 @keyframes pdfPulse{0%,100%{box-shadow:0 0 0 0 rgba(227,20,30,0);opacity:.72}50%{box-shadow:0 0 18px 2px var(--redGlow);opacity:1}}
 @media (prefers-reduced-motion:reduce){#btnBack::before,#btnBack::after,.tb-btn.tb-pdf{animation:none}}
+
+/* ---- Premium scrollbars: σκούρες, λεπτές, μέσα στο παράθυρο με κενό από την άκρη ---- */
+.ov-inner,.overlay .dlg-box *,.cmpscroll,.loc-list{scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.16) transparent}
+.ov-inner::-webkit-scrollbar,.overlay .dlg-box *::-webkit-scrollbar,.cmpscroll::-webkit-scrollbar,.loc-list::-webkit-scrollbar{width:16px;height:16px;background:transparent}
+.ov-inner::-webkit-scrollbar-track,.overlay .dlg-box *::-webkit-scrollbar-track,.cmpscroll::-webkit-scrollbar-track,.loc-list::-webkit-scrollbar-track{background:transparent;margin:28px 0}
+.ov-inner::-webkit-scrollbar-thumb,.overlay .dlg-box *::-webkit-scrollbar-thumb,.cmpscroll::-webkit-scrollbar-thumb,.loc-list::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:10px;border:5px solid transparent;border-right-width:7px;background-clip:padding-box;min-height:40px}
+.ov-inner::-webkit-scrollbar-thumb:hover,.overlay .dlg-box *::-webkit-scrollbar-thumb:hover,.cmpscroll::-webkit-scrollbar-thumb:hover,.loc-list::-webkit-scrollbar-thumb:hover{background-color:rgba(227,20,30,.55)}
+::-webkit-scrollbar-button{display:none;height:0;width:0}
+::-webkit-scrollbar-corner{background:transparent}
+/* ---- Γραμμή σάρωσης πάνω από τον χάρτη (όλο το παράθυρο) ---- */
+.scanbar{z-index:1200}
+/* ---- 02: τίτλος πάνω σε γκριζωπό τζάμι ---- */
+.s-exp .h-thin{left:40px;top:96px;padding:22px 34px 26px;border-radius:24px;-webkit-text-stroke:0;text-shadow:0 2px 18px rgba(0,0,0,.35);
+  background:linear-gradient(135deg,rgba(150,158,170,.34),rgba(90,98,112,.26));border:1px solid rgba(255,255,255,.28);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 24px 60px rgba(0,0,0,.28);backdrop-filter:blur(14px) saturate(120%);-webkit-backdrop-filter:blur(14px) saturate(120%)}
+.is-active .s-exp .h-thin,.s-exp.is-active .h-thin{animation:glassIn .9s var(--ease) both}
+@keyframes glassIn{from{opacity:0;transform:translateY(14px)}}
+/* ---- #chart: ήπιο radar στα 3 κουμπιά ---- */
+.s-chart .tabs button::before,.s-chart .tabs button::after{border-width:1px;animation-name:tabRadar;animation-duration:3.2s}
+.s-chart .tabs button::after{animation-delay:calc(var(--i) * .3s + 1.6s)}
+@keyframes tabRadar{0%{opacity:.45;transform:scale(1)}70%{opacity:0}100%{opacity:0;transform:scale(1.08,1.28)}}
+.s-chart .tabs button{animation-duration:3.2s}
+@keyframes tabBlink{0%,100%{box-shadow:0 0 0 0 rgba(227,20,30,0)}50%{box-shadow:0 0 0 1px rgba(255,61,70,.4),0 0 10px rgba(227,20,30,.3)}}
