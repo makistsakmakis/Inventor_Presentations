@@ -579,6 +579,7 @@
 /* Πλήρης οθόνη από προεπιλογή. Οι browsers επιτρέπουν full screen μόνο μετά από ενέργεια του χρήστη,
    οπότε ενεργοποιείται στο πρώτο κλικ / άγγιγμα / πλήκτρο (και ξαναδοκιμάζεται αμέσως στο φόρτωμα). */
 (function(){
+  if(window.self!==window.top) return;   /* μέσα στον player της αρχικής: ήδη σε πλήρη οθόνη */
   var de=document.documentElement, done=false, hint=document.getElementById('fsHint');
   var isFs=function(){return !!(document.fullscreenElement||document.webkitFullscreenElement);};
   var req=function(){try{var r=(de.requestFullscreen||de.webkitRequestFullscreen).call(de,{navigationUI:'hide'});if(r&&r.catch)r.catch(function(){});}catch(e){}};

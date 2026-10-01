@@ -41,6 +41,18 @@ a.card:hover{transform:translateY(-6px);border-color:rgba(255,110,120,.7);box-sh
 .admin a{display:inline-block;margin-right:10px;color:#fff;text-decoration:none;padding:12px 20px;border-radius:30px;background:linear-gradient(180deg,#ff3444,#c00000);font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:800}
 .admin a.o{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2)}
 footer{margin-top:80px;font-size:12px;color:rgba(245,246,249,.35);letter-spacing:.1em}
+
+/* ---- Player: κάθε παρουσίαση ανοίγει σε πλήρη οθόνη, μέσα στην ίδια σελίδα ---- */
+#player{position:fixed;inset:0;z-index:1000;background:#05060a;display:none}
+#player.on{display:block}
+#player iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#05060a}
+#pbar{position:absolute;left:50%;top:14px;transform:translate(-50%,-80px);z-index:2;display:flex;gap:8px;padding:6px;border-radius:30px;background:rgba(14,18,24,.86);
+  border:1px solid rgba(255,61,70,.5);box-shadow:0 14px 40px rgba(0,0,0,.5);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:transform .45s cubic-bezier(.2,1.2,.3,1)}
+#player.win #pbar{transform:translate(-50%,0)}
+#pbar button{display:flex;align-items:center;gap:8px;border:0;cursor:pointer;color:#fff;font:700 12px/1 "Commissioner",system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;padding:10px 16px;border-radius:24px;background:rgba(255,255,255,.08)}
+#pbar button.fs{background:linear-gradient(180deg,#ff3444,#c00000)}
+#pbar button:hover{filter:brightness(1.2)}
+#pbar svg{width:15px;height:15px}
 </style>
 </head>
 <body>
@@ -55,25 +67,25 @@ footer{margin-top:80px;font-size:12px;color:rgba(245,246,249,.35);letter-spacing
       <div class="n">1</div>
       <h2>Πώς μοιάζει το αύριο όταν όλα σήμερα αλλάζουν;</h2>
       <div class="meta">Welcome Stores · Θεσσαλονίκη · 10/10/2026</div>
-      <div class="go">Άνοιγμα παρουσίασης →</div>
+      <div class="go">Άνοιγμα σε πλήρη οθόνη →</div>
     </a>
     <a class="card" href="Inventor_Organogram_2026/">
       <div class="n">2</div>
       <h2>Οργανόγραμμα &amp; Καθήκοντα Τμημάτων</h2>
       <div class="meta">Inventor A.G. · 2026</div>
-      <div class="go">Άνοιγμα παρουσίασης →</div>
+      <div class="go">Άνοιγμα σε πλήρη οθόνη →</div>
     </a>
     <a class="card" href="Psyktikos_Kyklos_2026/">
       <div class="n">3</div>
       <h2>Ο Ψυκτικός Κύκλος · Αρχές Λειτουργίας Κλιματισμού</h2>
       <div class="meta">Διαδραστική εκπαίδευση · Σεμινάριο κλιματισμού</div>
-      <div class="go">Άνοιγμα εκπαίδευσης →</div>
+      <div class="go">Άνοιγμα σε πλήρη οθόνη →</div>
     </a>
     <a class="card" href="Inventor_Timokatalogos_Afygrantiron_2026/">
       <div class="n">4</div>
       <h2>Τιμοκατάλογος Αφυγραντήρων 2026</h2>
       <div class="meta">Διαδραστικός τιμοκατάλογος · PDF</div>
-      <div class="go">Άνοιγμα τιμοκαταλόγου →</div>
+      <div class="go">Άνοιγμα σε πλήρη οθόνη →</div>
     </a>
   </div>
   <section class="admin" id="admin">
@@ -89,6 +101,38 @@ fetch('/api/me', { credentials: 'same-origin', cache: 'no-store' }).then(r => r.
   document.getElementById('whoEmail').textContent = j.email; document.getElementById('who').hidden = false;
   if (j.admin) document.getElementById('admin').classList.add('show');
 }).catch(() => {});
+</script>
+<div id="player" aria-hidden="true"><div id="pbar"><button class="fs" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>Πλήρης οθόνη</button><button class="x" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>Κλείσιμο</button></div><iframe title="Παρουσίαση" allow="fullscreen; autoplay" allowfullscreen></iframe></div>
+<script>
+/* Κλικ σε κάρτα = η παρουσίαση ανοίγει αμέσως σε ΠΛΗΡΗ ΟΘΟΝΗ (το κλικ επιτρέπει στον browser το full screen).
+   Ctrl/⌘/μεσαίο κλικ = άνοιγμα σε νέα καρτέλα όπως πριν. Esc = έξοδος από πλήρη οθόνη, «Κλείσιμο» = επιστροφή στη λίστα. */
+(function(){
+  var pl=document.getElementById('player'), fr=pl.querySelector('iframe'), de=document.documentElement;
+  var isFs=function(){return !!(document.fullscreenElement||document.webkitFullscreenElement);};
+  var goFs=function(){try{var r=(de.requestFullscreen||de.webkitRequestFullscreen).call(de,{navigationUI:'hide'});if(r&&r.catch)r.catch(function(){});}catch(e){}};
+  var sync=function(){pl.classList.toggle('win',pl.classList.contains('on')&&!isFs());};
+  function openP(href,push){
+    goFs();
+    fr.src=href; pl.classList.add('on'); pl.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
+    if(push) history.pushState({p:href},'', '#'+encodeURIComponent(href.replace(/\/$/,'')));
+    fr.onload=function(){try{fr.contentWindow.focus();}catch(e){}};
+    setTimeout(sync,600);
+  }
+  function closeP(fromPop){
+    if(isFs()){try{(document.exitFullscreen||document.webkitExitFullscreen).call(document);}catch(e){}}
+    pl.classList.remove('on','win'); pl.setAttribute('aria-hidden','true'); fr.src='about:blank'; document.body.style.overflow='';
+    if(!fromPop&&history.state&&history.state.p) history.back();
+  }
+  document.querySelectorAll('a.card').forEach(function(a){
+    a.addEventListener('click',function(e){ if(e.ctrlKey||e.metaKey||e.shiftKey||e.button!==0) return; e.preventDefault(); openP(a.getAttribute('href'),true); });
+  });
+  pl.querySelector('.fs').onclick=function(){goFs(); try{fr.contentWindow.focus();}catch(e){}};
+  pl.querySelector('.x').onclick=function(){closeP(false);};
+  document.addEventListener('fullscreenchange',sync); document.addEventListener('webkitfullscreenchange',sync);
+  addEventListener('popstate',function(){ if(pl.classList.contains('on')) closeP(true); });
+  // άνοιγμα με link της μορφής /#Psyktikos_Kyklos_2026 (θα ζητήσει ένα κλικ για πλήρη οθόνη)
+  var h=decodeURIComponent(location.hash.slice(1)); if(h){var c=document.querySelector('a.card[href="'+h+'/"]'); if(c) openP(c.getAttribute('href'),false);}
+})();
 </script>
 </body>
 </html>
