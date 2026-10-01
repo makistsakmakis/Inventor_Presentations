@@ -709,24 +709,32 @@ table.cmp tr.same{display:none}
 .tile .num:has(.ticon)::after{display:none}
 .tile .num .ticon{height:96px;width:auto;max-width:200px;object-fit:contain;filter:drop-shadow(0 8px 20px rgba(0,0,0,.55))}
 .s-tech .tile .front{gap:24px}
-/* ---- 05 TIPS: ρεαλιστική λάμπα κάτω από το κείμενο· το φως της σχηματίζει τη λέξη TIPS ---- */
+/* ---- 05 TIPS: ρεαλιστική λάμπα μπροστά από τη λέξη-φως TIPS (αχνή), κάτω από το κείμενο ---- */
 .s-tips .tile .back{gap:10px}
-.s-tips .tipsart{position:absolute;left:-10px;top:380px;width:660px;height:340px;pointer-events:none}
-.s-tips .tipsart .bulb{position:absolute;left:0;top:10px;width:220px;height:330px;overflow:visible;z-index:2;filter:drop-shadow(0 18px 24px rgba(0,0,0,.6))}
-.s-tips .tipsart .glow,.s-tips .tipsart .hot,.s-tips .tipsart .fil{animation:bulbPulse 5.6s ease-in-out infinite}
-.s-tips .tipsart .hot{opacity:1}
+.s-tips .tipsart{position:absolute;left:-10px;top:368px;width:660px;height:400px;pointer-events:none}
+/* η λάμπα μπροστά: το θολωτό μέρος της καλύπτει το κάτω 1/3 των I & P και κατεβαίνει πιο χαμηλά από τη λέξη */
+.s-tips .tipsart .bulb{position:absolute;left:150px;top:106px;width:190px;height:285px;overflow:visible;z-index:2;filter:drop-shadow(0 18px 24px rgba(0,0,0,.65))}
+.s-tips .tipsart .glow{transform-origin:120px 118px;animation:bulbGlow 5.6s ease-in-out infinite}
+.s-tips .tipsart .hot,.s-tips .tipsart .fil{animation:bulbPulse 5.6s ease-in-out infinite}
 .s-tips .tipsart .glass{animation:glassPulse 5.6s ease-in-out infinite}
-/* η λέξη από φως: 4 στρώσεις (αιχμηρή + 3 θολές), ξεθωριάζει όσο απομακρύνεται από τη λάμπα */
-.s-tips .tipsword{position:absolute;left:30px;top:-80px;width:820px;height:500px;font-family:var(--f);font-weight:900;font-size:208px;line-height:1;letter-spacing:-.01em;
-  -webkit-mask-image:radial-gradient(74% 74% at 16% 56%,#000 30%,rgba(0,0,0,.85) 55%,rgba(0,0,0,.3) 84%,transparent 100%);mask-image:radial-gradient(74% 74% at 16% 56%,#000 30%,rgba(0,0,0,.85) 55%,rgba(0,0,0,.3) 84%,transparent 100%);
-  animation:bulbPulse 5.6s ease-in-out infinite}
-.s-tips .tipsword span{position:absolute;left:168px;top:142px;white-space:nowrap}
-.s-tips .tipsword span:nth-child(1){color:#ff8c00;filter:blur(48px);opacity:.8;transform:scale(1.08);transform-origin:0 50%}
-.s-tips .tipsword span:nth-child(2){color:#ffbf45;filter:blur(20px);opacity:.9}
-.s-tips .tipsword span:nth-child(3){color:#ffe08f;filter:blur(7px);opacity:.95}
-.s-tips .tipsword span:nth-child(4){color:transparent;background:linear-gradient(90deg,#fffbe8 0%,#fff0b8 40%,rgba(255,214,120,.7) 100%);-webkit-background-clip:text;background-clip:text;filter:blur(.6px);opacity:.95}
-@keyframes bulbPulse{0%,100%{opacity:.68}50%{opacity:1}}
-@keyframes glassPulse{0%,100%{filter:brightness(.9)}50%{filter:brightness(1.12)}}
+/* η λέξη από φως, πολύ αχνή */
+.s-tips .tipsword{position:absolute;left:-80px;top:-140px;width:820px;height:520px;font-family:var(--f);font-weight:900;font-size:172px;line-height:1;letter-spacing:-.01em;
+  -webkit-mask-image:radial-gradient(60% 62% at 42% 52%,#000 20%,rgba(0,0,0,.7) 55%,rgba(0,0,0,.18) 86%,transparent 100%);mask-image:radial-gradient(60% 62% at 42% 52%,#000 20%,rgba(0,0,0,.7) 55%,rgba(0,0,0,.18) 86%,transparent 100%);
+  animation:wordPulse 5.6s ease-in-out infinite}
+.s-tips .tipsword span{position:absolute;left:120px;top:150px;white-space:nowrap}
+.s-tips .tipsword span:nth-child(1){color:#ff8c00;filter:blur(44px);opacity:.3;transform:scale(1.08);transform-origin:50% 50%}
+.s-tips .tipsword span:nth-child(2){color:#ffbf45;filter:blur(18px);opacity:.3}
+.s-tips .tipsword span:nth-child(3){color:#ffe08f;filter:blur(7px);opacity:.32}
+.s-tips .tipsword span:nth-child(4){color:transparent;background:linear-gradient(180deg,rgba(255,244,205,.6),rgba(255,214,120,.35));-webkit-background-clip:text;background-clip:text;filter:blur(.8px);opacity:.5}
+@keyframes bulbPulse{0%,100%{opacity:.28}50%{opacity:1}}
+@keyframes bulbGlow{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:1;transform:scale(1.25)}}
+@keyframes glassPulse{0%,100%{filter:brightness(.78)}50%{filter:brightness(1.22)}}
+@keyframes wordPulse{0%,100%{opacity:.55}50%{opacity:1}}
+/* 4 πλακίδια: διπλάσιοι αριθμοί & τίτλοι, μεγαλύτερο κενό μεταξύ τους */
+.s-tips .tile .front{gap:40px;padding:22px}
+.s-tips .tile .num{width:148px;height:148px;font-size:76px;flex:none}
+.s-tips .tile .num::after{inset:-18px}
+.s-tips .tile .ttl{font-size:var(--ffs,32px);line-height:1.18;max-width:100%}
 @media (prefers-reduced-motion:reduce){.s-tips .tipsart *,.s-tips .tipsword{animation:none}}
 /* ---- 23 Υπηρεσίες: μεγαλύτεροι αριθμοί & τίτλοι ---- */
 .s-svc .tile .front{gap:52px}
