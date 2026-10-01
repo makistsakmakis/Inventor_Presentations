@@ -70,7 +70,7 @@
       <button class="btn" data-index>Ευρετήριο</button>
     </div>
     <div class="chips rise" style="--d:.9s">${SECTIONS.map(s => `<button class="chipbtn" data-sec="${s.id}"><b>${s.n}</b>${s.name}</button>`).join('')}</div>
-    ${photoZoom(img('ph-cover.jpg'), 'Τιμοκατάλογος Αφυγραντήρων 2026')}`
+`
   });
 
   /* ---- 02 EXPERIENCE ---- */
@@ -79,8 +79,7 @@
     ${burst(C.INTRO.title, 'h-thin', .2)}
     ${burst(C.INTRO.caption, 'cap', 1)}
     <div class="right"><p class="lead rise">${C.INTRO.lead}</p></div>
-    <div class="tiles">${C.INTRO.tiles.map((t, i) => { const tt = t[0].replace(' | ', ':<br>'); return tile(i + 1, tt, `<h4>${tt}</h4><div class="scroll" data-scroll><p>${t[1]}</p></div>`, i); }).join('')}</div>
-    <button class="zbtn phz" data-photo="${img('ph-living.jpg')}" data-cap="${C.INTRO.title.join(' ')}" style="position:absolute;left:640px;bottom:26px;z-index:4;background:rgba(10,13,17,.55)">${zoomIco}Μεγέθυνση</button>`
+    <div class="tiles">${C.INTRO.tiles.map((t, i) => { const tt = t[0].replace(' | ', ':<br>'); return tile(i + 1, tt, `<h4>${tt}</h4><div class="scroll" data-scroll><p>${t[1]}</p></div>`, i); }).join('')}</div>`
   });
 
   /* ---- 03 TECH ---- */
@@ -88,9 +87,8 @@
     <div class="photo"><img src="${img('ph-tech.jpg')}" alt=""></div>
     ${burst(C.TECH.title, 'h-thin', .2)}
     ${burst(C.TECH.caption, 'cap', .9)}
-    <div class="tiles">${C.TECH.tiles.map((t, i) => tile(i + 1, t[0], `<img class="bl" src="${img(t[2])}" alt=""><h4>${t[0]}</h4><div class="scroll" data-scroll><p>${t[1]}</p></div>`, i)).join('')}</div>
-    <p class="foot rise" style="--d:.8s">${C.TECH.foot}</p>
-    ${photoZoom(img('ph-tech.jpg'), C.TECH.title.join(' '))}`
+    <div class="tiles tech-ic">${C.TECH.tiles.map((t, i) => tile(`<img class="ticon" src="${img(t[2])}" alt="">`, t[0], `<h4>${t[0]}</h4><div class="scroll" data-scroll><p>${t[1]}</p></div>`, i)).join('')}</div>
+    <p class="foot rise" style="--d:.8s">${C.TECH.foot}</p>`
   });
 
   /* ---- 04 ECODRIVE infographic ---- */
@@ -124,7 +122,7 @@
       ${burst(C.TIPS.title, 'h-thin', .1)}
       <p class="lead rise" style="--d:.4s">${C.TIPS.lead}</p>
     </div>
-    <div class="tiles">${C.TIPS.tiles.map((t, i) => { const [a, b] = t[0].split(' | '); return tile(i + 1, b, `<h4>${t[0]}</h4><div class="scroll" data-scroll><p>${t[1]}</p></div>`, i); }).join('')}</div>`
+    <div class="tiles" data-fit="min">${C.TIPS.tiles.map((t, i) => { const [a, b] = t[0].split(' | '); return tile(i + 1, b, `<h4>${b}</h4><div class="scroll" data-scroll><p>${t[1]}</p></div><img class="qtips" src="${img('quick-tips-3d.png')}" alt="Quick tips" style="--i:${i}">`, i); }).join('')}</div>`
   });
 
   /* ---- 06 RANGE OVERVIEW ---- */
@@ -298,6 +296,12 @@
   function fitTiles() {
     SL.forEach(s => {
       const scr = $$('.tile .back .scroll', s.el); if (!scr.length) return;
+      if ($('[data-fit="min"]', s.el)) {   // το μεγαλύτερο μέγεθος που χωράει, ίδιο σε όλα τα πλακίδια
+        let mn = 18;
+        scr.forEach(x => { const t = x.closest('.tile'); let px = 18; for (; px >= 9; px -= 0.25) { t.style.setProperty('--tfs', px + 'px'); if (x.scrollHeight <= x.clientHeight + 1) break; } mn = Math.min(mn, px); });
+        scr.forEach(x => x.closest('.tile').style.setProperty('--tfs', mn + 'px'));
+        return;
+      }
       if ($('[data-fit="each"]', s.el)) {
         scr.forEach(x => { const t = x.closest('.tile'); for (let px = 18; px >= 9; px -= 0.25) { t.style.setProperty('--tfs', px + 'px'); if (x.scrollHeight <= x.clientHeight + 1) break; } });
         return;
