@@ -566,6 +566,31 @@
 
 <script src="assets/js/dots.js"></script>
 <script src="assets/js/app.js"></script>
+<!-- auto-fullscreen -->
+<style>
+#fsHint{position:fixed;left:50%;bottom:34px;transform:translate(-50%,16px);z-index:80;display:flex;align-items:center;gap:10px;padding:11px 18px 11px 14px;border-radius:30px;
+  background:rgba(14,18,24,.82);border:1px solid rgba(255,61,70,.55);color:#fff;font-size:14px;letter-spacing:.04em;box-shadow:0 14px 40px rgba(0,0,0,.5),0 0 24px rgba(227,20,30,.25);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:0;pointer-events:none;transition:opacity .5s,transform .5s}
+#fsHint.on{opacity:1;transform:translate(-50%,0)}
+#fsHint svg{width:18px;height:18px;color:#ff3d46}
+</style>
+<div id="fsHint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>Κλικ ή οποιοδήποτε πλήκτρο για πλήρη οθόνη</div>
+<script>
+/* Πλήρης οθόνη από προεπιλογή. Οι browsers επιτρέπουν full screen μόνο μετά από ενέργεια του χρήστη,
+   οπότε ενεργοποιείται στο πρώτο κλικ / άγγιγμα / πλήκτρο (και ξαναδοκιμάζεται αμέσως στο φόρτωμα). */
+(function(){
+  var de=document.documentElement, done=false, hint=document.getElementById('fsHint');
+  var isFs=function(){return !!(document.fullscreenElement||document.webkitFullscreenElement);};
+  var req=function(){try{var r=(de.requestFullscreen||de.webkitRequestFullscreen).call(de,{navigationUI:'hide'});if(r&&r.catch)r.catch(function(){});}catch(e){}};
+  var off=function(){['pointerdown','keydown','touchend'].forEach(function(t){removeEventListener(t,go,true);});hint.classList.remove('on');};
+  var go=function(e){if(done)return;if(e.type==='keydown'&&(e.key==='Escape'||e.key==='F11'))return;done=true;if(!isFs())req();off();};
+  ['pointerdown','keydown','touchend'].forEach(function(t){addEventListener(t,go,true);});
+  req();
+  setTimeout(function(){if(!done&&!isFs())hint.classList.add('on');},1600);
+  setTimeout(function(){hint.classList.remove('on');},9000);
+  document.addEventListener('fullscreenchange',function(){if(isFs()){done=true;off();}});
+})();
+</script>
 <!-- inv-view-log -->
 <script>(function(){var k='welcome-stores-thessaloniki-2026';try{if(sessionStorage.getItem('invv_'+k))return;sessionStorage.setItem('invv_'+k,'1')}catch(e){}try{fetch('/api/view',{method:'POST',credentials:'same-origin',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({p:k})})}catch(e){}})();</script>
 </body>
