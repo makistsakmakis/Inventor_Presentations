@@ -359,7 +359,7 @@
   }
   // TIPS: μπροστινοί τίτλοι διπλάσιοι (32px), με αυτόματη μικρή σμίκρυνση όπου δεν χωρούν
   function fitFronts() {
-    $$('.s-tips .tile').forEach(t => { const f = $('.front', t); for (let px = 32; px >= 18; px -= 0.5) { t.style.setProperty('--ffs', px + 'px'); if (f.scrollHeight <= f.clientHeight + 1) break; } });
+    $$('.s-tips .tile').forEach(t => { const f = $('.front', t); for (let px = 21; px >= 14; px -= 0.5) { t.style.setProperty('--ffs', px + 'px'); if (f.scrollHeight <= f.clientHeight + 1) break; } });
   }
   (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => setTimeout(() => { fitTiles(); fitFronts(); }, 50));
 
