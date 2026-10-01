@@ -703,3 +703,21 @@ html,body{overflow:clip}
 .zlb-bar button:hover{background:rgba(255,90,60,.8)}
 .zlb-bar .zlb-r{font-size:13px;letter-spacing:.12em;text-transform:uppercase}
 .zlb-p{min-width:58px;text-align:center;color:#fff;font-weight:700;font-size:14px}
+
+/* ---- Λευκό λογότυπο σε σκούρο φόντο (χωρίς λευκό κουτί) ---- */
+.brand{background:none;box-shadow:none;padding:0;border-radius:0;top:38px}
+.brand img{height:46px;filter:drop-shadow(0 2px 10px rgba(0,0,0,.45))}
+.hero-logo{background:none;box-shadow:none;padding:0;border-radius:0}
+.hero-logo img{height:84px;filter:drop-shadow(0 4px 18px rgba(0,0,0,.5))}
+.qz-logo{background:none;box-shadow:none;padding:0}
+.qz-logo img{height:42px}
+/* ---- TIP λαμπάκι: λιτό, πολύ πιο έντονο glow ---- */
+.b-glass{fill:#ffdf5c;stroke:#fff6c4;stroke-width:1.2}
+@keyframes dim{0%,100%{opacity:.55;filter:drop-shadow(0 0 4px rgba(255,216,77,.7)) drop-shadow(0 0 12px rgba(255,190,40,.45))}
+  50%{opacity:1;filter:drop-shadow(0 0 6px #fff6c4) drop-shadow(0 0 20px #ffd84d) drop-shadow(0 0 42px rgba(255,170,0,.9))}}
+.tip .halo{background:radial-gradient(circle,rgba(255,226,110,.6),transparent 65%);animation:haloIdle 3.4s ease-in-out infinite}
+@keyframes haloIdle{0%,100%{opacity:.15;transform:scale(1)}50%{opacity:.75;transform:scale(1.9)}}
+.tip.lit .bulb{filter:drop-shadow(0 0 6px #fff) drop-shadow(0 0 18px #fff3a0) drop-shadow(0 0 40px #ffd84d) drop-shadow(0 0 80px #ffae00) drop-shadow(0 0 130px rgba(255,150,0,.85)) brightness(1.35)}
+.tip.lit .b-glass{fill:#fffbe6;stroke:#fff}
+.tip.lit .halo{transform:scale(5.2);background:radial-gradient(circle,rgba(255,255,235,.95),rgba(255,226,90,.55) 28%,rgba(255,170,0,.22) 50%,transparent 70%);animation:halo 1.4s ease-in-out infinite}
+@keyframes halo{50%{transform:scale(6);opacity:.85}}
