@@ -654,13 +654,22 @@ table.cmp tr.same{display:none}
 @keyframes pdfPulse{0%,100%{box-shadow:0 0 0 0 rgba(227,20,30,0);opacity:.72}50%{box-shadow:0 0 18px 2px var(--redGlow);opacity:1}}
 @media (prefers-reduced-motion:reduce){#btnBack::before,#btnBack::after,.tb-btn.tb-pdf{animation:none}}
 
-/* ---- Premium scrollbars: σκούρες, λεπτές, μέσα στο παράθυρο με κενό από την άκρη ---- */
-.ov-inner,.overlay .dlg-box *,.cmpscroll,.loc-list{scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.16) transparent}
-.ov-inner::-webkit-scrollbar,.overlay .dlg-box *::-webkit-scrollbar,.cmpscroll::-webkit-scrollbar,.loc-list::-webkit-scrollbar{width:16px;height:16px;background:transparent}
-.ov-inner::-webkit-scrollbar-track,.overlay .dlg-box *::-webkit-scrollbar-track,.cmpscroll::-webkit-scrollbar-track,.loc-list::-webkit-scrollbar-track{background:transparent;margin:28px 0}
-.ov-inner::-webkit-scrollbar-thumb,.overlay .dlg-box *::-webkit-scrollbar-thumb,.cmpscroll::-webkit-scrollbar-thumb,.loc-list::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:10px;border:5px solid transparent;border-right-width:7px;background-clip:padding-box;min-height:40px}
-.ov-inner::-webkit-scrollbar-thumb:hover,.overlay .dlg-box *::-webkit-scrollbar-thumb:hover,.cmpscroll::-webkit-scrollbar-thumb:hover,.loc-list::-webkit-scrollbar-thumb:hover{background-color:rgba(227,20,30,.55)}
-::-webkit-scrollbar-button{display:none;height:0;width:0}
+/* ---- Premium scrollbars: σκούρες, λεπτές, μέσα στο παράθυρο, ~1cm από την κάθετη πλευρά ----
+   (Chrome/Edge/Safari: ::-webkit-scrollbar — ΔΕΝ ορίζουμε scrollbar-width/color εκεί, γιατί τα ακυρώνουν) */
+.ov-inner,.overlay .dlg-box *,.cmpscroll,.loc-list{scrollbar-width:auto;scrollbar-color:auto}
+@supports (-moz-appearance:none){.ov-inner,.overlay .dlg-box *,.cmpscroll,.loc-list{scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.18) transparent}}
+/* παράθυρα: λωρίδα 46px, ορατός «αντίχειρας» 6px, 38px (~1cm) από την άκρη */
+.ov-inner{padding-right:8px}
+.ov-inner::-webkit-scrollbar,.overlay .dlg-box *::-webkit-scrollbar{width:48px;height:48px;background:transparent}
+.ov-inner::-webkit-scrollbar-track,.overlay .dlg-box *::-webkit-scrollbar-track{background:transparent;margin:34px 0}
+.ov-inner::-webkit-scrollbar-thumb,.overlay .dlg-box *::-webkit-scrollbar-thumb{background:rgba(255,255,255,.16);border-radius:12px;border:solid transparent;border-width:0 38px 0 4px;background-clip:padding-box;min-height:60px}
+.ov-inner::-webkit-scrollbar-thumb:hover,.overlay .dlg-box *::-webkit-scrollbar-thumb:hover{background-color:rgba(227,20,30,.6)}
+/* εσωτερικές λίστες (λίστα Service Points, σύγκριση): λεπτή, με μικρό κενό */
+.cmpscroll::-webkit-scrollbar,.overlay .dlg-box .loc-list::-webkit-scrollbar,.loc-list::-webkit-scrollbar{width:14px;height:14px;background:transparent}
+.cmpscroll::-webkit-scrollbar-track,.overlay .dlg-box .loc-list::-webkit-scrollbar-track,.loc-list::-webkit-scrollbar-track{background:transparent;margin:10px 0}
+.cmpscroll::-webkit-scrollbar-thumb,.overlay .dlg-box .loc-list::-webkit-scrollbar-thumb,.loc-list::-webkit-scrollbar-thumb{background:rgba(255,255,255,.16);border-radius:8px;border:solid transparent;border-width:0 4px 0 4px;background-clip:padding-box;min-height:40px}
+.cmpscroll::-webkit-scrollbar-thumb:hover,.loc-list::-webkit-scrollbar-thumb:hover{background-color:rgba(227,20,30,.6)}
+::-webkit-scrollbar-button{display:none;width:0;height:0}
 ::-webkit-scrollbar-corner{background:transparent}
 /* ---- Γραμμή σάρωσης πάνω από τον χάρτη (όλο το παράθυρο) ---- */
 .scanbar{z-index:1200}
