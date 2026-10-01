@@ -166,6 +166,7 @@
 
   function drawChart(el, key) {
     const M = METRICS[key];
+    el.dataset.metric = key;              // χρώμα ανά διάγραμμα (CSS)
     $('[data-metric-title]', el).textContent = M.lab;
     const vals = DEH.map(m => M.v(P[m]));
     const max = Math.max(...vals);
@@ -690,6 +691,10 @@
       setLy('sat');
       setTimeout(() => { const o = $('.loc-off', body); if (!ok && o && o.isConnected) o.hidden = false; }, 7000);
       const rend = L.canvas({ padding: .5 });
+      // radar: κόκκινοι κύκλοι που σβήνουν, όλοι μαζί, κάτω από τα σημεία
+      map.createPane('radarPane'); map.getPane('radarPane').style.zIndex = 390; map.getPane('radarPane').style.pointerEvents = 'none';
+      const radarIcon = L.divIcon({ className: 'sp-radar', html: '<i></i><i></i>', iconSize: [16, 16] });
+      IDX.forEach(p => L.marker([p.la, p.ln], { icon: radarIcon, pane: 'radarPane', interactive: false, keyboard: false }).addTo(map));
       markers = IDX.map(p => L.circleMarker([p.la, p.ln], { renderer: rend, radius: 8, color: '#fff', weight: 2, fillColor: '#e3141e', fillOpacity: .95 })
         .bindPopup(`<div class="sp-pop">${card(p)}</div>`, { className: 'sp-popup', maxWidth: 300 }).addTo(map)
         .on('click', () => $$('.loc-item', listEl).forEach(b => b.classList.toggle('on', +b.dataset.i === p.i))));
