@@ -482,7 +482,9 @@
       drawSparks(cMenu, spMenu, .12);
     }
   };
-  $('#backBtn').addEventListener('click', () => go(menuIdx));
+  const menuOf = g => (g && g[0] === 'g') ? prodMenuIdx : menuIdx;
+  const pVisited = new Set(); let prodMenuIdx = slides.findIndex(s => s.id === 'pmenu');
+  $('#backBtn').addEventListener('click', () => go(menuOf(groupOf(cur))));
 
   /* ---------- lightbox ---------- */
   const lb = $('#lb'), lbImg = $('img', lb);
@@ -601,7 +603,11 @@
   $$('.slide.tv').forEach(s => { hooks[s.classList[1]] = makeTrivia(s); });
 
   /* agenda links */
-  $$('.s2 .tile').forEach(t => t.addEventListener('click', () => go(+t.dataset.go - 1)));
+  $$('.s2 .tile').forEach(t => t.addEventListener('click', () => { const v = t.dataset.go; go(isNaN(v) ? slides.findIndex(x => x.id === v) : +v - 1); }));
+
+  /* ---------- v2 extensions ---------- */
+  const api = { hooks, later, cv, glowDot, burst, drawSparks, rnd, runCount, slides, W, H, $, $$, go: n => go(n), seqOf, pVisited, idOf: id => slides.findIndex(s => s.id === id), get cur() { return cur; } };
+  if (window.WS_EXT) window.WS_EXT.forEach(f => { try { f(api); } catch (e) { console.error(e); } });
 
   /* ---------- navigation ---------- */
   const dotsEl = $('#dots');
@@ -621,13 +627,14 @@
       slides[prev].classList.remove('active');
       slides[prev].classList.toggle('prev', n > prev);
       $$('.zr.open', slides[prev]).forEach(z => z.classList.remove('open'));
-      const pg = groupOf(prev); if (pg !== 'main') visited.add(+pg.slice(1));
+      const pg = groupOf(prev); if (pg[0] === 'p') visited.add(+pg.slice(1)); else if (pg[0] === 'g') pVisited.add(+pg.slice(1));
     }
     lb.classList.remove('open'); tip.style.opacity = 0;
     timers.forEach(clearTimeout); timers = [];
     cur = n;
     const s = slides[n], g = groupOf(n), seq = seqOf(g), pos = seq.indexOf(n);
     s.classList.remove('prev');
+    s._st = 0; for (let k = 1; k <= 9; k++) s.classList.remove('st' + k);
     void s.offsetWidth;
     s.classList.add('active');
     document.body.dataset.slide = n + 1;
@@ -636,7 +643,7 @@
     document.body.dataset.tv = s.dataset.tv || '';
     if (dotsGroup !== g) buildDots(g);
     dots.forEach((d, i) => d.classList.toggle('on', i === pos));
-    const label = g === 'main' ? '' : `Πυλώνας ${g.slice(1)} · `;
+    const label = g === 'main' ? '' : g[0] === 'g' ? `${(s.dataset.cat || 'Κατηγορία')} · ` : `Πυλώνας ${g.slice(1)} · `;
     $('#counter').innerHTML = `${label}<b>${String(pos + 1).padStart(2, '0')}</b> / ${String(seq.length).padStart(2, '0')}`;
     $('#pbar').style.width = ((pos + 1) / seq.length * 100) + '%';
     $('#prevBtn').disabled = g === 'main' && pos === 0;
@@ -650,10 +657,22 @@
   function step(d) {
     const g = groupOf(cur), seq = seqOf(g), pos = seq.indexOf(cur);
     if (d > 0) { const z = $('.zr', slides[cur]); if (z && !z.classList.contains('open')) { toggleZR(z, true); return; } }
+    if (d > 0 && buildStep()) return;
     const np = pos + d;
-    if (np < 0 || np >= seq.length) { if (g !== 'main') go(menuIdx); return; }
+    if (np < 0 || np >= seq.length) { if (g !== 'main') go(menuOf(g)); return; }
     go(seq[np]);
   }
+  /* build steps: <section data-steps="N"> · κάθε κλικ/PgDn προσθέτει .st1 … .stN */
+  function buildStep() {
+    const s = slides[cur], n = +(s.dataset.steps || 0);
+    if (!n || (s._st || 0) >= n) return false;
+    if (lock) return true;
+    s._st = (s._st || 0) + 1; s.classList.add('st' + s._st);
+    const h = hooks[s.classList[1]]; h && h.step && h.step(s._st);
+    lock = true; setTimeout(() => lock = false, 450);
+    return true;
+  }
+  slides.forEach(s => { if (s.dataset.steps) s.addEventListener('click', e => { if (e.target.closest('button,a,.tile,.shot,.opt,.cat,[data-noclick]')) return; if ((s._st || 0) < +s.dataset.steps) buildStep(); }); });
   const next = () => step(1), prevS = () => step(-1);
   $('#nextBtn').onclick = next; $('#prevBtn').onclick = prevS;
   $('#fsBtn').onclick = () => document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen().catch(() => {});
@@ -662,7 +681,7 @@
   addEventListener('keydown', e => {
     if (['PageDown', 'ArrowDown', 'ArrowRight', ' '].includes(e.key)) { e.preventDefault(); next(); hideHint(); }
     else if (['PageUp', 'ArrowUp', 'ArrowLeft'].includes(e.key)) { e.preventDefault(); prevS(); hideHint(); }
-    else if (e.key === 'Escape') { if (lb.classList.contains('open')) lb.classList.remove('open'); else if (groupOf(cur) !== 'main') go(menuIdx); }
+    else if (e.key === 'Escape') { if (lb.classList.contains('open')) lb.classList.remove('open'); else if (groupOf(cur) !== 'main') go(menuOf(groupOf(cur))); }
     else if (['1', '2', '3', '4'].includes(e.key) && slides[cur].classList.contains('tv')) { const h = hooks[slides[cur].classList[1]]; h && h.key(+e.key - 1); }
     else if (e.key === 'Home') go(0);
     else if (e.key === 'End') go(menuIdx);
