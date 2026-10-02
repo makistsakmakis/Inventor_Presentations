@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="stylesheet" href="assets/css/v2.css">
 <link rel="stylesheet" href="assets/css/v3.css">
+<link rel="stylesheet" href="assets/css/v4.css">
 </head>
 <body data-slide="1">
 
@@ -162,10 +163,10 @@
     <div class="vhead"><div class="eyebrow rv" style="--d:0">Retail details</div></div>
     <div class="n8-t a glass rv" style="--d:250"><h2>Τζίρος &amp;<br>Μέση τιμή</h2><p>Μικρό ποσοστό μείωσης σε σχέση με τις προκλήσεις της χρονιάς</p></div>
     <div class="n8-t b glass rv" style="--d:1300"><div class="k">Τζίρος τελευταίας 2ετίας</div>
-      <div class="v down"><svg viewBox="0 0 24 24"><path d="M4 8l8 8 8-8"/></svg><span class="count" data-to="-3" data-suf="%" data-delay="1300" data-dur="1800">-3%</span></div></div>
+      <div class="v down"><svg viewBox="0 0 24 24"><path d="M2.6 6.2h18.8L12 19.4z"/></svg><span class="count" data-to="-3" data-suf="%" data-delay="1300" data-dur="1800">-3%</span></div></div>
     <div class="n8-but" data-step="1"><span class="em" style="--emd:0ms">αλλά….</span></div>
     <div class="n8-t c glass" data-step="1"><div class="k">vs 2019</div>
-      <div class="v up"><svg viewBox="0 0 24 24"><path d="M4 16l8-8 8 8"/></svg><span class="count" id="n8c" data-to="39" data-suf="%" data-manual="1" data-dur="2200">0%</span></div>
+      <div class="v up"><svg viewBox="0 0 24 24"><path d="M2.6 17.8h18.8L12 4.6z"/></svg><span class="count" id="n8c" data-to="39" data-suf="%" data-manual="1" data-dur="2200">0%</span></div>
       <svg class="n8-spark" viewBox="0 0 400 120" preserveAspectRatio="none"><path d="M0 110 C60 100 90 96 130 84 S200 70 240 52 S330 24 400 8"/></svg></div>
     <div class="clickcue" data-cue>κλικ για συνέχεια</div>
   </section>
@@ -212,7 +213,7 @@
 
   <!-- ============ V2 · 11 · ΣΤΑΘΕΡΟΤΗΤΑ ============ -->
   <section class="slide n11" data-notes="">
-    <img class="n11-reg" src="assets/img/v2/cashier.webp" alt="">
+    <img class="n11-reg" src="assets/img/v2/cashier-half.webp" alt="">
     <div class="vhead"><div class="eyebrow rv" style="--d:0">Retail so far</div><h2 class="h-md rv" style="--d:120;margin-top:22px">Σταθερότητα</h2><p class="lead rv" style="--d:250;margin-top:10px">Σε μία ασταθή χρονιά</p></div>
     <div class="lc glass rv fade" style="--d:300" id="n11chart">
       <h4>Εξέλιξη τζίρου 8μήνου <b class="neg"><span class="count" data-to="-2.3" data-dec="1" data-suf="%" data-delay="900">-2,3%</span></b></h4>
@@ -289,8 +290,30 @@
     </div>
     <div class="crime rv fade" style="--d:1300">
       <div class="siren"></div>
-      <div class="chalk"><span>ΠΙΣΤΟΤΗΤΑ</span><span>ΚΑΤΑΝΑΛΩΤΗ</span></div>
-      <svg class="outline" viewBox="0 0 520 260"><path d="M60 200c10-40 40-60 70-56 10-30 40-46 66-34 14-34 58-40 80-14 30-24 84-12 92 30 34-4 70 20 72 56 2 30-18 44-40 40H90c-28 0-38-12-30-22z"/></svg>
+      <div class="body3d" aria-label="ΠΙΣΤΟΤΗΤΑ ΚΑΤΑΝΑΛΩΤΗ">
+        <svg viewBox="0 0 560 330" class="bodysvg"><defs>
+          <filter id="chalkRough" x="-10%" y="-10%" width="120%" height="120%">
+            <feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="2" seed="7" result="w"/>
+            <feDisplacementMap in="SourceGraphic" in2="w" scale="9" xChannelSelector="R" yChannelSelector="G" result="d"/>
+            <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="1" seed="3" result="g"/>
+            <feColorMatrix in="g" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 -2.2 1.75" result="ga"/>
+            <feComposite in="d" in2="ga" operator="in" result="c"/>
+            <feGaussianBlur in="c" stdDeviation=".45"/>
+          </filter>
+          <mask id="bodyRing" maskUnits="userSpaceOnUse" x="0" y="0" width="560" height="330">
+            <rect width="560" height="330" fill="#000"/>
+            <g class="bt"><text class="ring-o" x="280" y="142">ΠΙΣΤΟΤΗΤΑ</text><text class="ring-o" x="280" y="222">ΚΑΤΑΝΑΛΩΤΗ</text></g>
+            <g class="bt"><text class="ring-i" x="280" y="142">ΠΙΣΤΟΤΗΤΑ</text><text class="ring-i" x="280" y="222">ΚΑΤΑΝΑΛΩΤΗ</text></g>
+          </mask>
+          <linearGradient id="bodyFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".55" stop-color="#e7e9ef"/><stop offset="1" stop-color="#b9bdc8"/></linearGradient>
+        </defs>
+          <g class="bt shadow"><text x="280" y="156">ΠΙΣΤΟΤΗΤΑ</text><text x="280" y="236">ΚΑΤΑΝΑΛΩΤΗ</text></g>
+          <g class="bt ext"><text x="280" y="149">ΠΙΣΤΟΤΗΤΑ</text><text x="280" y="229">ΚΑΤΑΝΑΛΩΤΗ</text></g>
+          <g class="bt ext e2"><text x="280" y="145">ΠΙΣΤΟΤΗΤΑ</text><text x="280" y="225">ΚΑΤΑΝΑΛΩΤΗ</text></g>
+          <g class="bt face"><text x="280" y="142">ΠΙΣΤΟΤΗΤΑ</text><text x="280" y="222">ΚΑΤΑΝΑΛΩΤΗ</text></g>
+          <g filter="url(#chalkRough)"><rect class="ring" width="560" height="330" fill="#f4f4f0" mask="url(#bodyRing)"/></g>
+        </svg>
+      </div>
       <i class="mk m1">1</i><i class="mk m2">2</i>
       <div class="tape t1"><span>CRIME SCENE · DO NOT CROSS · CRIME SCENE · DO NOT CROSS · CRIME SCENE · DO NOT CROSS · CRIME SCENE · DO NOT CROSS · CRIME SCENE · DO NOT CROSS · </span></div>
       <div class="tape t2"><span>CRIME SCENE · DO NOT CROSS · CRIME SCENE · DO NOT CROSS · CRIME SCENE · DO NOT CROSS · CRIME SCENE · DO NOT CROSS · CRIME SCENE · DO NOT CROSS · </span></div>
@@ -533,6 +556,7 @@
 
   <!-- ============ V2 · 35 · ΑΡΚΕΙ; ΟΧΙ ============ -->
   <section class="slide n35" data-bg="red" data-steps="1" data-notes="Πανηγυρισμός · κλικ / PgDn για το «Όχι».">
+    <div class="party35" aria-hidden="true"></div>
     <div class="aristo"></div>
     <div class="n35-q rv" style="--d:100">Αρκεί να μας προτείνει το AI<span>?</span></div>
     <img class="champ" src="assets/img/v2/champagne.png" alt="">
@@ -548,45 +572,37 @@
       <div class="amp rv zoom" style="--d:900">&amp;</div>
       <div class="ing i2"><div class="ing-k b">Συστατικό 2</div><h3>Ο AI βοηθός <span class="em2">να μας προτείνει</span></h3></div>
     </div>
-    <div class="labsc rv fade" style="--d:150" id="lab36">
+    <div class="lab4 rv fade" style="--d:150" id="lab36v4">
       <div class="bench"></div>
-      <svg class="rig" viewBox="0 0 840 890"><defs>
-        <clipPath id="flkC"><path d="M380 520 L380 601 A140 140 0 1 0 460 601 L460 520 Z"/></clipPath>
-        <radialGradient id="flkG" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="rgba(255,255,255,.28)"/><stop offset=".5" stop-color="rgba(255,255,255,.05)"/><stop offset="1" stop-color="rgba(255,255,255,.14)"/></radialGradient>
-        <linearGradient id="rodG" x1="0" x2="1"><stop offset="0" stop-color="#3a3f4c"/><stop offset=".45" stop-color="#cfd5df"/><stop offset="1" stop-color="#4a505e"/></linearGradient>
-        <linearGradient id="liqF" x1="0" y1="0" x2="0" y2="1"><stop class="s1" offset="0" stop-color="#ff4a57"/><stop class="s2" offset="1" stop-color="#8a000b"/></linearGradient>
-        <filter id="tubeGl" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-      </defs>
-        <rect x="14" y="120" width="12" height="756" rx="6" fill="url(#rodG)"/><rect x="814" y="120" width="12" height="756" rx="6" fill="url(#rodG)"/>
-        <rect x="-10" y="860" width="70" height="18" rx="5" fill="#2b2f39"/><rect x="780" y="860" width="70" height="18" rx="5" fill="#2b2f39"/>
-        <rect x="20" y="148" width="118" height="10" rx="5" fill="url(#rodG)"/><rect x="702" y="148" width="118" height="10" rx="5" fill="url(#rodG)"/>
-        <ellipse cx="135" cy="153" rx="40" ry="11" fill="none" stroke="#9aa2b2" stroke-width="5"/><ellipse cx="705" cy="153" rx="40" ry="11" fill="none" stroke="#9aa2b2" stroke-width="5"/>
-        <g class="tubes">
-          <path id="tubeR" class="tb-o" d="M135 441 C140 540 300 450 395 530"/><path class="tb-i" d="M135 441 C140 540 300 450 395 530"/>
-          <path id="tubeB" class="tb-o" d="M705 441 C700 540 540 450 445 530"/><path class="tb-i" d="M705 441 C700 540 540 450 445 530"/>
-          <g class="flow fr" filter="url(#tubeGl)"></g><g class="flow fb" filter="url(#tubeGl)"></g>
-        </g>
-        <g clip-path="url(#flkC)">
-          <rect class="fl-b" x="270" y="900" width="300" height="400" fill="url(#liqF)"/>
-          <ellipse class="fl-s" cx="420" cy="900" rx="120" ry="18" fill="#ff7480" opacity=".85"/>
-          <path class="fl-w1" d="M0 0 Q37 -10 75 0 T150 0 T225 0 T300 0 T375 0 T450 0 T525 0 T600 0 V40 H0z" fill="rgba(255,255,255,.12)"/>
-        </g>
-        <path d="M380 520 L380 601 A140 140 0 1 0 460 601 L460 520 Z" fill="url(#flkG)" stroke="rgba(255,255,255,.75)" stroke-width="3.5"/>
-        <path d="M352 680 C350 640 372 610 395 604" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="7" stroke-linecap="round"/>
-        <path d="M478 820 C500 800 512 770 512 740" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="5" stroke-linecap="round"/>
-        <rect x="390" y="526" width="10" height="70" rx="5" fill="rgba(255,255,255,.35)"/>
-        <ellipse cx="420" cy="520" rx="46" ry="9" fill="rgba(255,255,255,.1)" stroke="rgba(255,255,255,.85)" stroke-width="3"/>
-        <ellipse cx="420" cy="878" rx="86" ry="12" fill="#5a3b22"/><ellipse cx="420" cy="874" rx="70" ry="8" fill="#7a5233"/>
+      <svg class="rig4" viewBox="0 0 900 1080" aria-hidden="true"><defs>
+        <linearGradient id="rod4" x1="0" x2="1"><stop offset="0" stop-color="#2c313c"/><stop offset=".38" stop-color="#d9dee7"/><stop offset=".55" stop-color="#8c94a3"/><stop offset="1" stop-color="#363b47"/></linearGradient>
+        <linearGradient id="rod4h" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c313c"/><stop offset=".4" stop-color="#d9dee7"/><stop offset=".6" stop-color="#8c94a3"/><stop offset="1" stop-color="#363b47"/></linearGradient>
+        <linearGradient id="base4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a505d"/><stop offset="1" stop-color="#1b1e26"/></linearGradient></defs>
+        <rect x="34" y="236" width="12" height="768" rx="6" fill="url(#rod4)"/><rect x="854" y="236" width="12" height="768" rx="6" fill="url(#rod4)"/>
+        <rect x="-6" y="992" width="92" height="16" rx="5" fill="url(#base4)"/><rect x="814" y="992" width="92" height="16" rx="5" fill="url(#base4)"/>
+        <rect x="40" y="268" width="92" height="9" rx="4.5" fill="url(#rod4h)"/><rect x="744" y="268" width="116" height="9" rx="4.5" fill="url(#rod4h)"/>
+        <rect x="28" y="262" width="24" height="22" rx="4" fill="#3b404c" stroke="rgba(255,255,255,.18)"/><rect x="848" y="262" width="24" height="22" rx="4" fill="#3b404c" stroke="rgba(255,255,255,.18)"/>
+        <ellipse cx="170" cy="272" rx="44" ry="9" class="ring-b"/><ellipse cx="710" cy="272" rx="44" ry="9" class="ring-b"/>
       </svg>
-      <div class="fn r"><svg class="liq" viewBox="0 0 382 1129"><defs><clipPath id="fnR"><path d="M118 214 C50 245 14 310 12 385 C10 470 75 560 122 650 C150 705 175 750 186 790 L196 790 C207 750 232 705 260 650 C307 560 372 470 370 385 C368 310 332 245 264 214 Z"/></clipPath>
-        <linearGradient id="fnRg" x1="0" x2="1"><stop offset="0" stop-color="#a0000f"/><stop offset=".45" stop-color="#ff5a66"/><stop offset="1" stop-color="#a0000f"/></linearGradient></defs>
-        <g clip-path="url(#fnR)"><rect class="lv" x="0" y="214" width="382" height="700" fill="url(#fnRg)"/><ellipse class="sf" cx="191" cy="214" rx="160" ry="16" fill="#ff5a66" opacity=".9"/></g></svg>
-        <img src="assets/img/v2/funnel.webp" alt=""></div>
-      <div class="fn b"><svg class="liq" viewBox="0 0 382 1129"><defs><clipPath id="fnB"><path d="M118 214 C50 245 14 310 12 385 C10 470 75 560 122 650 C150 705 175 750 186 790 L196 790 C207 750 232 705 260 650 C307 560 372 470 370 385 C368 310 332 245 264 214 Z"/></clipPath>
-        <linearGradient id="fnBg" x1="0" x2="1"><stop offset="0" stop-color="#0b3a9c"/><stop offset=".45" stop-color="#5aa8ff"/><stop offset="1" stop-color="#0b3a9c"/></linearGradient></defs>
-        <g clip-path="url(#fnB)"><rect class="lv" x="0" y="214" width="382" height="700" fill="url(#fnBg)"/><ellipse class="sf" cx="191" cy="214" rx="160" ry="16" fill="#5aa8ff" opacity=".9"/></g></svg>
-        <img src="assets/img/v2/funnel.webp" alt=""></div>
-      <canvas id="labfx" width="1260" height="1335"></canvas>
+      <div class="fn4 r"><img src="assets/img/v2/funnel.webp" alt=""><svg class="liq" viewBox="0 0 382 1129" preserveAspectRatio="none"><defs><clipPath id="fn4r"><path d="M118 214 C50 245 14 310 12 385 C10 470 75 560 122 650 C150 705 175 750 186 790 L196 790 C207 750 232 705 260 650 C307 560 372 470 370 385 C368 310 332 245 264 214 Z"/></clipPath>
+        <linearGradient id="fn4rg" x1="0" x2="1"><stop offset="0" stop-color="#7a000c"/><stop offset=".42" stop-color="#ff4a57"/><stop offset="1" stop-color="#7a000c"/></linearGradient></defs>
+        <g clip-path="url(#fn4r)"><rect class="lv" x="0" y="214" width="382" height="700" fill="url(#fn4rg)"/><ellipse class="sf" cx="191" cy="214" rx="160" ry="16" fill="#ff6b77" opacity=".9"/></g></svg></div>
+      <div class="fn4 b"><img src="assets/img/v2/funnel.webp" alt=""><svg class="liq" viewBox="0 0 382 1129" preserveAspectRatio="none"><defs><clipPath id="fn4b"><path d="M118 214 C50 245 14 310 12 385 C10 470 75 560 122 650 C150 705 175 750 186 790 L196 790 C207 750 232 705 260 650 C307 560 372 470 370 385 C368 310 332 245 264 214 Z"/></clipPath>
+        <linearGradient id="fn4bg" x1="0" x2="1"><stop offset="0" stop-color="#082c80"/><stop offset=".42" stop-color="#5aa8ff"/><stop offset="1" stop-color="#082c80"/></linearGradient></defs>
+        <g clip-path="url(#fn4b)"><rect class="lv" x="0" y="214" width="382" height="700" fill="url(#fn4bg)"/><ellipse class="sf" cx="191" cy="214" rx="160" ry="16" fill="#7cbcff" opacity=".9"/></g></svg></div>
+      <svg class="tubes4" viewBox="0 0 900 1080" aria-hidden="true"><defs><filter id="tsh4" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3"/></filter></defs>
+        <g class="tube" id="tubeR4">
+          <path class="t-sh" d="M163 522 L163 562 C163 646 428 548 428 630 L428 694"/><path class="t-o" d="M163 522 L163 562 C163 646 428 548 428 630 L428 694"/><path class="t-in" d="M163 522 L163 562 C163 646 428 548 428 630 L428 694"/><path class="t-lq" d="M163 522 L163 562 C163 646 428 548 428 630 L428 694"/><path class="t-bb" d="M163 522 L163 562 C163 646 428 548 428 630 L428 694"/><path class="t-hl" d="M163 522 L163 562 C163 646 428 548 428 630 L428 694"/><path class="t-hl2" d="M163 522 L163 562 C163 646 428 548 428 630 L428 694"/>
+        </g>
+        <g class="tube" id="tubeB4">
+          <path class="t-sh" d="M703 522 L703 562 C703 646 452 548 452 630 L452 694"/><path class="t-o" d="M703 522 L703 562 C703 646 452 548 452 630 L452 694"/><path class="t-in" d="M703 522 L703 562 C703 646 452 548 452 630 L452 694"/><path class="t-lq" d="M703 522 L703 562 C703 646 452 548 452 630 L452 694"/><path class="t-bb" d="M703 522 L703 562 C703 646 452 548 452 630 L452 694"/><path class="t-hl" d="M703 522 L703 562 C703 646 452 548 452 630 L452 694"/><path class="t-hl2" d="M703 522 L703 562 C703 646 452 548 452 630 L452 694"/>
+        </g>
+        <rect class="sleeve" x="155" y="520" width="16" height="26" rx="5"/><rect class="sleeve" x="695" y="520" width="16" height="26" rx="5"/>
+      </svg>
+      <canvas class="liq4" width="1350" height="1620"></canvas>
+      <img class="flask4" src="assets/img/v2/flask-glass.webp" alt="">
+      <svg class="rings4" viewBox="0 0 900 1080" aria-hidden="true"><path d="M126 272 A44 9 0 0 0 214 272" class="ring-f"/><path d="M666 272 A44 9 0 0 0 754 272" class="ring-f"/></svg>
+      <canvas class="smoke4" width="1350" height="1620"></canvas>
     </div>
     <div class="clickcue" data-cue>κλικ για το 2ο συστατικό</div>
   </section>
@@ -1118,6 +1134,7 @@
 
 <script src="assets/js/dots.js"></script>
 <script src="assets/js/v2.js"></script>
+<script src="assets/js/v4.js"></script>
 <script src="assets/js/app.js"></script>
 <!-- auto-fullscreen -->
 <style>

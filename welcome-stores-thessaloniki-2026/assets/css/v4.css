@@ -1,0 +1,194 @@
+/* =====================================================================
+   v4 · Οκτ. 2026 — διορθώσεις σελίδων 8–36 & φωτορεαλιστικές γυάλινες μπάρες
+   (φορτώνεται τελευταίο· υπερισχύει των style / v2 / v3)
+   ===================================================================== */
+
+/* ---------- 1 · φωτορεαλιστικοί γυάλινοι κύλινδροι (όλες οι 3D μπάρες) ---------- */
+.b3{container-type:inline-size;--ry:13cqw;
+  --g1:color-mix(in srgb,var(--c1) 62%,transparent);
+  --g2:color-mix(in srgb,var(--c2) 70%,transparent);
+  --g3:color-mix(in srgb,var(--c1) 30%,transparent);
+  --gt:color-mix(in srgb,var(--ct) 55%,transparent)}
+.b3 .s{display:none!important}
+/* σώμα: διάφανο χρωματιστό γυαλί με διάθλαση φόντου, fresnel άκρα & κάθετες ανακλάσεις */
+.b3 .f{inset:0;overflow:visible;border:0;
+  border-radius:0 0 50% 50% / 0 0 var(--ry) var(--ry);
+  background:
+    linear-gradient(90deg,rgba(255,255,255,.78) 0,rgba(255,255,255,.2) 1.4%,transparent 4.5%,transparent 95.5%,rgba(255,255,255,.14) 98.4%,rgba(255,255,255,.6) 100%),
+    linear-gradient(90deg,transparent 13%,rgba(255,255,255,.07) 16%,rgba(255,255,255,.45) 19.4%,rgba(255,255,255,.74) 20.8%,rgba(255,255,255,.3) 23%,transparent 27.5%),
+    linear-gradient(90deg,transparent 64%,rgba(255,255,255,.07) 74%,rgba(255,255,255,.2) 83%,rgba(255,255,255,.05) 89%,transparent 91.5%),
+    linear-gradient(90deg,transparent 7%,rgba(255,255,255,.2) 8.2%,transparent 9.8%,transparent 90.2%,rgba(255,255,255,.14) 91.8%,transparent 93%),
+    linear-gradient(180deg,rgba(255,255,255,.12),transparent 26%,transparent 72%,rgba(0,0,0,.16)),
+    linear-gradient(90deg,var(--g1) 0,var(--g2) 26%,var(--g3) 52%,var(--g2) 78%,var(--g1) 100%);
+  -webkit-backdrop-filter:blur(2.5px) saturate(1.35) brightness(1.06);backdrop-filter:blur(2.5px) saturate(1.35) brightness(1.06);
+  box-shadow:0 0 46px -14px var(--c1),inset 0 calc(-1 * var(--ry)) 30px -18px color-mix(in srgb,var(--c1) 80%,#fff)}
+/* συσσώρευση φωτός στη βάση (caustic) */
+.b3 .f::after{content:"";position:absolute;left:4%;right:4%;bottom:0;top:auto;width:auto;height:calc(var(--ry) * 3.2);border-radius:0 0 50% 50% / 0 0 var(--ry) var(--ry);
+  background:radial-gradient(ellipse 60% 70% at 50% 100%,color-mix(in srgb,var(--ct) 85%,#fff) 0,color-mix(in srgb,var(--c1) 45%,transparent) 38%,transparent 72%);
+  box-shadow:none;opacity:.75;mix-blend-mode:screen;animation:none}
+/* αργή ανταύγεια που «ταξιδεύει» μέσα στο γυαλί */
+.b3 .f::before{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;overflow:hidden;
+  background:linear-gradient(180deg,transparent 0,transparent 44%,rgba(255,255,255,.16) 50%,transparent 56%,transparent 100%);
+  background-size:100% 340%;background-repeat:no-repeat;background-position:0 115%;mix-blend-mode:screen;
+  -webkit-mask:linear-gradient(90deg,transparent 3%,#000 14%,#000 86%,transparent 97%);mask:linear-gradient(90deg,transparent 3%,#000 14%,#000 86%,transparent 97%);
+  animation:glassSweep 5.5s ease-in-out infinite;animation-delay:var(--gd,1.6s)}
+@keyframes glassSweep{0%{background-position:0 115%}60%,100%{background-position:0 -15%}}
+/* καπάκι: επιφάνεια συμπαγούς γυαλιού, λεπτό φωτεινό χείλος, λοξοτομή & σπινθήρας */
+.b3 .t{left:0;right:0;top:calc(-1 * var(--ry));bottom:auto;height:calc(var(--ry) * 2);border-radius:50%;transform:none;border:0;
+  background:
+    radial-gradient(ellipse 46% 34% at 38% 38%,rgba(255,255,255,.34),transparent 70%),
+    linear-gradient(172deg,var(--gt) 0,color-mix(in srgb,var(--c1) 26%,transparent) 55%,color-mix(in srgb,var(--c2) 40%,transparent) 100%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.42),inset 0 -1.6px 0 1px rgba(255,255,255,.75),inset 0 3px 6px rgba(255,255,255,.18),0 1px 0 rgba(255,255,255,.18);
+  -webkit-backdrop-filter:blur(3px) brightness(1.12);backdrop-filter:blur(3px) brightness(1.12)}
+.b3 .t::before{content:"";position:absolute;inset:16% 7% 20%;border-radius:50%;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 -1px 0 rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.14)}
+.b3 .t::after{content:"";position:absolute;left:10%;top:56%;width:22%;height:44%;border-radius:50%;
+  background:radial-gradient(ellipse at 50% 50%,#fff 0,rgba(255,255,255,.55) 30%,transparent 70%);filter:blur(.6px);opacity:.9}
+/* αντανάκλαση στο «δάπεδο» */
+.b3::after{content:"";position:absolute;left:-26%;right:-26%;bottom:-14px;height:26px;border-radius:50%;
+  background:radial-gradient(ellipse at 50% 45%,color-mix(in srgb,var(--c1) 70%,transparent) 0,color-mix(in srgb,var(--c1) 22%,transparent) 42%,transparent 70%);
+  opacity:.7;filter:blur(5px);pointer-events:none}
+.b3::before{content:"";position:absolute;left:6%;right:6%;bottom:-5px;height:8px;border-radius:50%;background:rgba(0,0,0,.45);filter:blur(3px);z-index:-1}
+.bx:hover .b3 .f,.gbar:hover .b3 .f,.s9 .bar:hover .b3 .f{filter:saturate(1.25) brightness(1.15);box-shadow:0 0 60px -10px var(--c1),inset 0 calc(-1 * var(--ry)) 30px -18px color-mix(in srgb,var(--c1) 80%,#fff)}
+.s9 .chart.c3d .bar .b3 .f{border-radius:0 0 50% 50% / 0 0 var(--ry) var(--ry)}
+.gb5 .bx .b3 .t{height:calc(var(--ry) * 2);top:calc(-1 * var(--ry))}
+.s9 .chart.c3d .bar.b .b3{filter:drop-shadow(0 0 30px rgba(224,16,31,.38))}
+
+/* ---------- 2 · σελ. 8 · συμπαγή τρίγωνα τύπου χρηματιστηρίου ---------- */
+.n8-t .v svg{width:74px;height:74px;stroke:none!important;stroke-width:0;overflow:visible;flex:none}
+.n8-t .v.down svg{filter:drop-shadow(0 0 14px rgba(255,59,74,.5))}
+.n8-t .v.up svg{filter:drop-shadow(0 0 14px rgba(34,214,127,.5))}
+.n8-t .v.down svg path{fill:#ff3b4a}
+.n8-t .v.up svg path{fill:#22d67f}
+.n8-t .v svg path{stroke:none;stroke-linejoin:round}
+
+/* ---------- 3 · σελ. 9 · βέλος που αναπηδά (γρήγορα κάτω – αργά πάνω) ---------- */
+.n9.active .rs-fall svg{animation:bounceDn 1.7s 2.9s infinite}
+@keyframes bounceDn{
+  0%{transform:translateY(0);animation-timing-function:cubic-bezier(.55,0,.9,.4)}
+  16%{transform:translateY(34px) scaleY(.97);animation-timing-function:cubic-bezier(.15,.6,.35,1)}
+  100%{transform:translateY(0)}}
+
+/* ---------- 4 · σελ. 11 · συρτάρι ταμειακής μισόκλειστο (εκτός διαγράμματος) ---------- */
+.n11-reg{left:-70px;bottom:-20px;width:820px}
+
+/* ---------- 5 · σελ. 13 · μεγαλύτερα ντόνατ, φωτογραφία δεξιά, κείμενο μέσα στην πινακίδα ---------- */
+.n13 .gauge{width:400px;text-align:center}
+.n13 .gauge svg{width:272px;height:272px}
+.n13 .gauge .gv{top:88px;font-size:86px}
+.n13 .gauge p{font-size:23px;margin-top:12px;padding:0 6px}
+.n13 .gauge.g1{left:670px;top:196px}.n13 .gauge.g2{left:670px;top:590px}
+.n13 .mm{right:-14px;bottom:0;width:820px;height:766px}
+.n13 .mm img{width:820px}
+.n13 .mm .placard{left:214px;top:84px;width:312px;height:200px;font-size:53px;line-height:1.04;transform:rotate(-4.1deg);transform-origin:50% 50%}
+
+/* ---------- 6 · σελ. 14 · φωτεινό «studio» φόντο στη φωτογραφία & διπλάσιο ύψος κουκκίδων ---------- */
+.n14 .dots30{top:310px;height:670px;padding:30px 36px 0}
+.n14 .d30-l{height:150px}
+.n14 .d30-prod{position:relative;width:300px;height:150px;justify-content:center;align-items:center;border-radius:22px;
+  background:radial-gradient(ellipse 70% 80% at 50% 45%,#ffffff 0,#eef1f7 38%,#c9d0de 70%,#9aa3b6 100%);
+  box-shadow:0 18px 40px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.9),inset 0 -10px 24px rgba(40,50,80,.22)}
+.n14 .d30-prod::after{content:"";position:absolute;left:18%;right:18%;bottom:12px;height:14px;border-radius:50%;background:rgba(20,25,40,.35);filter:blur(6px)}
+.n14 .d30-prod img.elec{position:relative;z-index:1;height:136px;filter:brightness(1.12) contrast(1.05) drop-shadow(0 8px 10px rgba(0,0,0,.35))}
+.n14 .d30-panel{height:350px;margin-top:22px;padding:26px 24px;row-gap:0;column-gap:5px;align-content:space-between}
+.n14 .d30-panel i{width:100%;height:auto}
+.n14 .d30-cap{position:absolute;left:36px;right:30px;top:574px;margin:0;font-size:27px}
+
+/* ---------- 7 · σελ. 15 · «πτώμα» ΠΙΣΤΟΤΗΤΑ ΚΑΤΑΝΑΛΩΤΗ ξαπλωμένο με κιμωλία, μικρότερα πλακίδια πληρωμής ---------- */
+.n15-l{top:230px;width:580px}
+.n15-l h3{font-size:38px;line-height:1.22;margin-top:30px}
+.n15-l h3 b{font-size:54px}
+.n15-l ul{margin-top:24px;gap:16px}
+.n15-l li{font-size:25px;line-height:1.42;padding-left:26px}
+.n15-l li::before{top:16px;width:12px}
+.n15 .crime{top:200px;height:510px;
+  background:radial-gradient(110% 80% at 50% 105%,#3a3e4a 0,#1d2029 45%,#0b0d14 100%)}
+.n15 .crime::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background:repeating-radial-gradient(circle at 30% 70%,rgba(255,255,255,.035) 0 1px,transparent 1px 3px),repeating-radial-gradient(circle at 70% 20%,rgba(0,0,0,.25) 0 1px,transparent 1px 4px)}
+.n15 .tape.t1{top:22px}.n15 .tape.t2{top:430px}
+.n15 .tape{z-index:3}
+.n15 .crime .mk{z-index:4}
+.body3d{position:absolute;left:-30px;right:-30px;top:90px;height:330px;perspective:760px;perspective-origin:50% -20%;z-index:2}
+.bodysvg{width:100%;height:100%;overflow:visible;transform:rotateX(60deg) rotateZ(-8deg) scale(1.1);transform-origin:50% 58%}
+.bodysvg .bt text{font-family:var(--font);font-weight:900;font-size:53px;letter-spacing:.02em;text-anchor:middle}
+.bodysvg .face text{fill:url(#bodyFill)}
+.bodysvg .ext text{fill:#6b707e}.bodysvg .ext.e2 text{fill:#8b909d}
+.bodysvg .shadow text{fill:#000;opacity:.55;filter:blur(6px)}
+.bodysvg .ring-o{fill:#fff;stroke:#fff;stroke-width:62;stroke-linejoin:round;stroke-linecap:round}
+.bodysvg .ring-i{fill:#000;stroke:#000;stroke-width:48;stroke-linejoin:round}
+.n15.active .bodysvg .ring-o{stroke-dasharray:2600;stroke-dashoffset:2600;fill-opacity:0;animation:chalkDraw 3s cubic-bezier(.5,0,.3,1) 1.9s forwards}
+@keyframes chalkDraw{80%{fill-opacity:0}to{stroke-dashoffset:0;fill-opacity:1}}
+.n15 .pay{top:742px}
+.n15 .pay-row{margin-top:12px}
+.n15 .pc{height:134px;border-radius:18px}
+.n15 .pc img{max-width:88%;max-height:none;height:110px;width:auto;object-fit:contain}
+
+/* ---------- 8 · σελ. 16 · μικρότερη επικάλυψη url / καταστήματος ---------- */
+@keyframes urlF{0%{transform:none}35%{transform:translate(-40px,-30px)}100%{transform:translate(110px,100px)}}
+@keyframes bldF{0%{transform:none}35%{transform:translate(40px,30px)}100%{transform:translate(-40px,-130px)}}
+@keyframes fuseIn{0%{opacity:0;height:0;top:232px}100%{opacity:1;height:44px;top:209px}}
+
+/* ---------- 9 · σελ. 33 · χωρίς πλαίσιο στο κάτω μέρος (μένει μόνο το κείμενο) ---------- */
+.n33 .eq33{background:none!important;border:0!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;border-radius:0}
+.n33 .eq33::before,.n33 .eq33::after{display:none!important}
+
+/* ---------- 10 · σελ. 35 · αντί για μπουκάλι: φωτογραφία πανηγυρισμού σε fade-in φόντο ---------- */
+.n35 .champ{display:none!important}
+.n35 .party35{position:absolute;inset:-2px;background:url(../img/v2/champagne-party.jpg) 62% 40%/cover no-repeat;opacity:0;transform:scale(1.08);
+  transition:opacity 2.6s ease,transform 7s cubic-bezier(.2,.7,.2,1),filter 2s ease}
+.n35 .party35::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(110,0,10,.86) 0,rgba(140,6,18,.66) 30%,rgba(140,6,18,.18) 56%,rgba(0,0,0,0) 72%),
+             linear-gradient(0deg,rgba(60,0,6,.55),transparent 35%)}
+.n35.active .party35{opacity:1;transform:none;transition-delay:.25s,.25s,0s}
+.n35.st1 .party35{opacity:0;filter:grayscale(1) brightness(.5);transition:opacity 2.2s ease,filter 1.6s ease}
+.n35 .n35-q{z-index:2;text-shadow:0 6px 30px rgba(60,0,6,.55)}
+.n35 .no35,.n35 .aristo{z-index:1}
+.n35 .no35{z-index:3}
+
+/* ---------- 11 · σελ. 34 · μεγάλα, ανακατεμένα πλαίσια (χωρίς κόκκινες ομάδες) ---------- */
+.chips34 .mx{line-height:1.1;font-weight:800;letter-spacing:.01em;border-radius:28px;color:rgba(255,255,255,.9);
+  background:rgba(14,18,32,.38);border:1.5px solid rgba(255,255,255,.3);
+  box-shadow:0 18px 40px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.12)}
+.chips34 .mx-b{border-color:rgba(120,180,255,.55);background:rgba(20,40,90,.3);color:#e4efff}
+.chips34 .mx-g{border-color:rgba(200,205,220,.4);background:rgba(40,44,60,.32);color:rgba(255,255,255,.8);font-weight:700}
+.chips34 .mx-w{border-color:rgba(255,255,255,.5)}
+.chips34 .mx:nth-child(3n){border-radius:18px}.chips34 .mx:nth-child(4n+1){border-radius:40px}
+.n34.active .chips34 .mx{animation:chipIn 1s var(--spring) both,mxFloat var(--fl,6s) ease-in-out infinite;animation-delay:var(--cd),calc(var(--cd) + 1s)}
+@keyframes mxFloat{50%{translate:0 calc(-1 * var(--fa,3px))}}
+
+/* ---------- 12 · σελ. 36 · φωτορεαλιστικό εργαστήριο ---------- */
+.lab .recipe{top:270px}
+.lab .ing{height:252px;display:flex;flex-direction:column;justify-content:center;padding-top:0;padding-bottom:0}
+.lab .ing h3{font-size:44px}
+.lab4{position:absolute;left:940px;top:0;width:900px;height:1080px;pointer-events:none}
+.lab4 .bench{position:absolute;left:-40px;right:-30px;top:1000px;height:14px;border-radius:7px;
+  background:linear-gradient(180deg,rgba(255,255,255,.3),rgba(255,255,255,.05));box-shadow:0 30px 60px rgba(0,0,0,.6),0 -1px 0 rgba(255,255,255,.08)}
+.lab4 .bench::after{content:"";position:absolute;left:22%;right:30%;top:14px;height:110px;background:radial-gradient(ellipse at 50% 0,var(--pool,rgba(140,60,220,.22)),transparent 70%);transition:background 2s}
+.lab4 svg,.lab4 canvas{position:absolute;left:0;top:0;width:900px;height:1080px;overflow:visible}
+.lab4 .rig4{z-index:1}
+.lab4 .ring-b{fill:none;stroke:#8d95a5;stroke-width:4;opacity:.75}
+.lab4 .rings4{z-index:4}
+.lab4 .ring-f{fill:none;stroke:url(#rod4h);stroke:#c9ced8;stroke-width:4.5;stroke-linecap:round;filter:drop-shadow(0 2px 2px rgba(0,0,0,.5))}
+.lab4 .fn4{position:absolute;top:200px;width:176px;height:340px;z-index:2}
+.lab4 .fn4.r{left:82px}.lab4 .fn4.b{left:622px}
+.lab4 .fn4 img{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;z-index:2;filter:drop-shadow(0 18px 26px rgba(0,0,0,.55)) brightness(1.04)}
+.lab4 .fn4 svg.liq{position:absolute;inset:0;width:100%;height:100%;z-index:3;mix-blend-mode:multiply;opacity:.96}
+.lab4 .fn4.r img{filter:drop-shadow(0 18px 26px rgba(0,0,0,.55)) drop-shadow(0 0 22px rgba(255,60,70,.3))}
+.lab4 .fn4.b{transition:opacity 1.2s,filter 1.2s}
+.lab:not(.st1) .lab4 .fn4.b{opacity:.35;filter:grayscale(.6)}
+.lab:not(.st1) .lab4 .fn4.b svg.liq{opacity:0}
+.lab.st1 .lab4 .fn4.b img{filter:drop-shadow(0 18px 26px rgba(0,0,0,.55)) drop-shadow(0 0 22px rgba(60,140,255,.35))}
+.lab4 .tubes4{z-index:3}
+.lab4 .tube path{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.lab4 .t-sh{stroke:rgba(0,0,0,.45);stroke-width:15;filter:url(#tsh4);transform:translate(4px,7px)}
+.lab4 .t-o{stroke:rgba(225,235,248,.42);stroke-width:14}
+.lab4 .t-in{stroke:rgba(16,22,36,.78);stroke-width:10.5}
+.lab4 .t-lq{stroke:#ff3b4a;stroke-width:8.4;opacity:0}
+.lab4 .t-bb{stroke:rgba(255,255,255,.5);stroke-width:2.2;stroke-dasharray:1.5 30;opacity:0}
+.lab4 .t-hl{stroke:rgba(255,255,255,.62);stroke-width:1.8;transform:translate(-3.2px,-1.6px)}
+.lab4 .t-hl2{stroke:rgba(255,255,255,.2);stroke-width:1.2;transform:translate(3.4px,1.4px)}
+.lab4 #tubeB4 .t-lq{stroke:#3d8cff}
+.lab4 .sleeve{fill:rgba(220,232,248,.28);stroke:rgba(255,255,255,.55);stroke-width:1.2}
+.lab4 .liq4{z-index:5}
+.lab4 .flask4{position:absolute;left:250px;top:595px;width:380px;height:436px;z-index:6;filter:drop-shadow(0 0 1px rgba(255,255,255,.2))}
+.lab4 .smoke4{z-index:7}
+.lab .clickcue{z-index:8}

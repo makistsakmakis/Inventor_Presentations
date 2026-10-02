@@ -233,7 +233,7 @@
         type('Online · παγκοσμίως · SDA 45%', 900, () => { grow(ww[0]); type('Online · παγκοσμίως · MDA 26%', 900, () => grow(ww[1])); });
       },
       step(k) {
-        if (k === 1) type('Online · στην Ελλάδα · SDA 20% · MDA 15%', 100, () => { grow(gr[0]); later(() => grow(gr[1]), 350); });
+        if (k === 1) { ww.forEach(b => { if (!b.classList.contains('on')) grow(b); }); type('Online · στην Ελλάδα · SDA 20% · MDA 15%', 100, () => { grow(gr[0]); later(() => grow(gr[1]), 350); }); }
         if (k === 2) { runCount($('#n14c'), 0); dots.slice(0, 30).forEach((d, i) => later(() => d.classList.add('on'), 600 + i * 45)); }
       }
     };
