@@ -94,15 +94,17 @@
       let n = 0, amp = .55, fr = 3 / N;
       for (let o = 0; o < 4; o++) { n += v(i * fr + k * 3.1, j * fr + k * 1.7) * amp; amp *= .5; fr *= 2.03; }
       const dx = (i - N / 2) / (N / 2), dy = (j - N / 2) / (N / 2), rr = Math.sqrt(dx * dx + dy * dy);
-      const fall = Math.max(0, 1 - rr) ** 1.4, a = Math.max(0, Math.min(1, (n - .42) * 3.2)) * fall;
+      const fall = Math.max(0, 1 - rr) ** 1.4, a = Math.max(0, Math.min(1, (n - .47) * 3.4)) * fall;
       const o = (j * N + i) * 4; img.data[o] = img.data[o + 1] = img.data[o + 2] = 255; img.data[o + 3] = a * 255;
     }
     x.putImageData(img, 0, 0); return c;
   });
   const tint = (spr, col) => { const c = document.createElement('canvas'); c.width = c.height = 128; const x = c.getContext('2d');
     x.drawImage(spr, 0, 0); x.globalCompositeOperation = 'source-in'; x.fillStyle = `rgb(${col})`; x.fillRect(0, 0, 128, 128); return c; };
-  const SMK = ['150,100,235', '196,128,250', '110,170,240', '226,140,214', '128,92,224'];
+  const SMK = ['176,136,240', '206,160,250', '150,176,240', '226,170,226', '160,124,232'];
   const smokeSpr = sprites.map((sp, i) => tint(sp, SMK[i % SMK.length]));
+  const WARM = ['255,214,226', '255,226,196', '246,214,255', '255,232,210', '236,206,250'];
+  const warmSpr = sprites.map((sp, i) => tint(sp, WARM[i % WARM.length]));
 
   let pR = 0, pB = 0, blueOn = false, phase = 'run', hold = 0, f = 0, fFull = 1, m = 0, prev = performance.now(), tF = 0, smokeAmt = 0;
   const smoke = [], mist = [], bubs = [], rip = [];
@@ -111,7 +113,7 @@
   hooks.n36 = { enter() { reset(); }, step() { blueOn = true; } };
 
   const tubeUpdate = (t, on, dt) => {
-    if (on) { t.op = Math.min(1, t.op + dt / 200); t.fill = Math.min(1, t.fill + dt / 900); }
+    if (on) { t.op = Math.min(1, t.op + dt / 200); t.fill = Math.min(1, t.fill + dt / 1600); }
     else { t.op = Math.max(0, t.op - dt / 700); if (t.op === 0) t.fill = 0; }
     t.lq.style.opacity = t.op; t.lq.style.strokeDashoffset = t.L * (1 - t.fill);
     t.bb.style.opacity = on ? .9 * t.fill : t.op * .5; t.bb.style.strokeDashoffset = -(tF / 9) % 31.5;
@@ -177,10 +179,10 @@
       lc.beginPath(); lc.arc(b.x, b.y, b.r, 0, 6.2832); lc.stroke(); }
     // μαγική ομίχλη πάνω από το υγρό (μέσα στη φιάλη)
     if (smokeAmt > .02) {
-      if (Math.random() < .25 * smokeAmt) mist.push({ x: CX + R_(-w * .7, w * .7), y: yl - R_(0, 12), r: R_(30, 60), life: 0, max: R_(3, 6), s: (Math.random() * 6) | 0, rot: R_(0, 6), vr: R_(-.003, .003) });
+      if (Math.random() < .12 * smokeAmt) mist.push({ x: CX + R_(-w * .7, w * .7), y: yl - R_(0, 12), r: R_(30, 60), life: 0, max: R_(3, 6), s: (Math.random() * 6) | 0, rot: R_(0, 6), vr: R_(-.003, .003) });
       lc.globalCompositeOperation = 'screen';
       for (let i = mist.length - 1; i >= 0; i--) { const p = mist[i]; p.life += 1 / 60; if (p.life > p.max) { mist.splice(i, 1); continue; }
-        const k = p.life / p.max, a = Math.sin(k * Math.PI) * .32 * smokeAmt; p.x += Math.sin(t * .6 + p.s) * .15; p.y -= .08; p.rot += p.vr;
+        const k = p.life / p.max, a = Math.sin(k * Math.PI) * .18 * smokeAmt; p.x += Math.sin(t * .6 + p.s) * .15; p.y -= .08; p.rot += p.vr;
         lc.globalAlpha = a; lc.save(); lc.translate(p.x, p.y); lc.rotate(p.rot); lc.scale(1, .45); const r = p.r * (1 + k * .6); lc.drawImage(smokeSpr[p.s], -r, -r, r * 2, r * 2); lc.restore(); }
       lc.globalAlpha = 1; lc.globalCompositeOperation = 'source-over';
     }
@@ -201,20 +203,34 @@
     for (let i = rip.length - 1; i >= 0; i--) { const r = rip[i]; r.age += 1 / 60; r.a *= .985; if (r.a < .08) rip.splice(i, 1); }
   }
 
+  // διακριτικός, «μαγικός» ατμός: λεπτά νήματα που ανεβαίνουν ήρεμα σε σπείρα, αλλάζουν απαλά απόχρωση
+  // (λεβάντα → ροζ-χρυσό/μαργαριτάρι) και σβήνουν αφήνοντας ελάχιστες απαλές φωτεινές «ανάσες»
+  const motes = [];
   function drawSmoke(t, dt) {
     sc.clearRect(0, 0, 900, 1080);
-    if (smokeAmt < .01 && !smoke.length) return;
-    const n = smokeAmt * dt / 16 * .1;
-    for (let k = 0; k < n || (k === 0 && Math.random() < n); k++) smoke.push({ x: CX + R_(-22, 22), y: 606 + R_(-4, 6), vx: R_(-.15, .15), vy: R_(-.95, -.55), r: R_(12, 20), g: R_(.24, .46), life: 0, max: R_(6, 10), s: (Math.random() * 6) | 0, rot: R_(0, 6.28), vr: R_(-.004, .004), ph: Math.random() * 6 });
+    if (smokeAmt < .01 && !smoke.length && !motes.length) return;
+    const n = smokeAmt * dt / 16 * .07;
+    for (let k = 0; k < n || (k === 0 && Math.random() < n); k++) smoke.push({ x: CX + R_(-14, 14), y: 610 + R_(-4, 4), vx: R_(-.06, .06), vy: R_(-.62, -.4), r: R_(8, 13), g: R_(.07, .15), life: 0, max: R_(7, 11), s: (Math.random() * 6) | 0, rot: R_(0, 6.28), vr: R_(-.003, .003), ph: Math.random() * 6, sw: R_(.6, 1.1) });
     sc.globalCompositeOperation = 'screen';
     for (let i = smoke.length - 1; i >= 0; i--) {
-      const p = smoke[i]; p.life += dt / 1000; if (p.life > p.max) { smoke.splice(i, 1); continue; }
+      const p = smoke[i]; p.life += dt / 1000;
+      if (p.life > p.max) { if (Math.random() < .5) motes.push({ x: p.x, y: p.y, life: 0, max: R_(2.5, 4), r: R_(1.2, 2.2), ph: Math.random() * 6 }); smoke.splice(i, 1); continue; }
       const k = p.life / p.max;
-      p.vx += Math.sin(t * .7 + p.ph + p.y * .018) * .012 + Math.cos(t * .29 + p.ph) * .005; p.vx *= .995;
-      p.x += p.vx * dt / 16; p.y += p.vy * dt / 16 * (1 - k * .45); p.r += p.g * dt / 16; p.rot += p.vr * dt / 16;
-      const a = Math.min(1, k * 2.6) * (1 - k) ** 1.5 * .48;
-      sc.globalAlpha = a; sc.save(); sc.translate(p.x, p.y); sc.rotate(p.rot); sc.scale(1, .82);
-      sc.drawImage(smokeSpr[p.s], -p.r, -p.r, p.r * 2, p.r * 2); sc.restore();
+      const sw = Math.sin(t * .5 * p.sw + p.ph + k * 5) * (10 + k * 40);       // ήπια σπείρα
+      p.vx += Math.cos(t * .21 + p.ph) * .002; p.vx *= .992;
+      p.x += p.vx * dt / 16; p.y += p.vy * dt / 16 * (1 - k * .5); p.r += p.g * dt / 16; p.rot += p.vr * dt / 16;
+      const a = Math.sin(k * Math.PI) ** 1.6 * .19 * Math.min(1, smokeAmt * 1.4 + .2);
+      sc.save(); sc.translate(p.x + sw, p.y); sc.rotate(p.rot); sc.scale(.62, 1.45);
+      sc.globalAlpha = a * (1 - k * .85); sc.drawImage(smokeSpr[p.s], -p.r, -p.r, p.r * 2, p.r * 2);
+      sc.globalAlpha = a * k * .55; sc.drawImage(warmSpr[p.s], -p.r, -p.r, p.r * 2, p.r * 2);
+      sc.restore();
+    }
+    for (let i = motes.length - 1; i >= 0; i--) {
+      const m = motes[i]; m.life += dt / 1000; if (m.life > m.max) { motes.splice(i, 1); continue; }
+      const k = m.life / m.max; m.y -= .18 * dt / 16; m.x += Math.sin(t + m.ph) * .12;
+      const a = Math.sin(k * Math.PI) * .5, g = sc.createRadialGradient(m.x, m.y, 0, m.x, m.y, m.r * 4);
+      g.addColorStop(0, `rgba(255,236,214,${a})`); g.addColorStop(.35, `rgba(240,200,255,${a * .35})`); g.addColorStop(1, 'rgba(240,200,255,0)');
+      sc.globalAlpha = 1; sc.fillStyle = g; sc.fillRect(m.x - m.r * 4, m.y - m.r * 4, m.r * 8, m.r * 8);
     }
     sc.globalAlpha = 1; sc.globalCompositeOperation = 'source-over';
   }
@@ -224,15 +240,15 @@
     const dt = Math.min(50, now - prev); prev = now;
     if (!sec.classList.contains('active')) return;
     tF += dt; const t = tF / 1000;
-    const DUR = 10000;
+    const DUR = 19000;
     if (phase === 'run') {
       if (pR < 1) pR = Math.min(1, pR + dt / DUR);
       if (blueOn && pB < 1) pB = Math.min(1, pB + dt / DUR);
       const tgt = .45 * clamp((pR * DUR - 900) / (DUR - 900)) + .55 * clamp((pB * DUR - 900) / (DUR - 900));
-      f += (tgt - f) * .03;
+      f += (tgt - f) * .012;
       if (blueOn && pB >= 1 && f > .985) { phase = 'full'; hold = 0; }
     } else if (phase === 'full') {
-      hold += dt; if (hold > 6000) { phase = 'reset'; hold = 0; fFull = f; }
+      hold += dt; if (hold > 9000) { phase = 'reset'; hold = 0; fFull = f; }
     } else {
       hold += dt; const k = clamp(hold / 2200), e = k * k * (3 - 2 * k);
       f = fFull * (1 - e); pR = pB = 1 - e;

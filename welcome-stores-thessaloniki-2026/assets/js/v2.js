@@ -269,7 +269,7 @@
   })();
 
   /* ================= γενιές · 3D μπάρες ================= */
-  const GENS = [['Gen Z', '16–29 ετών', 'cz'], ['Millennials', '30–45 ετών', 'cm'], ['Gen X', '46–61 ετών', 'cx']];
+  const GENS = [['Gen Z', '16–29 ετών', 'cr'], ['Millennials', '30–45 ετών', 'cm'], ['Gen X', '46–61 ετών', 'cx']];
   const b3 = cls => `<div class="b3 ${cls}"><i class="f"></i><i class="s"></i><i class="t"></i></div>`;
   (() => { // n18
     const host = $('#b18'), V = [868, 1159, 989];

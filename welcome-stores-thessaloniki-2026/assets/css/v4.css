@@ -192,3 +192,97 @@
 .lab4 .flask4{position:absolute;left:250px;top:595px;width:380px;height:436px;z-index:6;filter:drop-shadow(0 0 1px rgba(255,255,255,.2))}
 .lab4 .smoke4{z-index:7}
 .lab .clickcue{z-index:8}
+
+/* =====================  v4.1  ===================== */
+/* ---------- σελ. 7 · μεγαλύτερο χρυσό πλακίδιο με πάχος, χαραγμένο «1», έντονο «έρχεται μπροστά» ---------- */
+.n7 .ace{left:40px;top:118px;width:340px;height:340px;border-radius:70px;overflow:visible;
+  background:
+    radial-gradient(120% 90% at 28% 18%,rgba(255,255,255,.55) 0,rgba(255,255,255,0) 42%),
+    linear-gradient(150deg,#fff1b8 0,#f6cf4a 30%,#d9a520 58%,#a8760c 82%,#7a5408 100%);
+  box-shadow:
+    inset 0 3px 0 rgba(255,255,255,.75),inset 0 -8px 16px rgba(90,58,0,.45),inset 6px 0 14px rgba(255,240,190,.25),
+    1px 1px 0 #c99418,2px 2px 0 #c38f16,3px 3px 0 #bd8a14,4px 4px 0 #b78512,5px 5px 0 #b08010,6px 6px 0 #a97a0e,
+    7px 7px 0 #a2750d,8px 8px 0 #9b700c,9px 9px 0 #946a0b,10px 10px 0 #8c640a,11px 11px 0 #855e09,12px 12px 0 #7d5808,
+    13px 13px 0 #765207,14px 14px 0 #6e4c06,
+    20px 30px 50px rgba(0,0,0,.55),0 0 90px rgba(242,194,48,.45)}
+.n7 .ace .shine{border-radius:inherit;overflow:hidden}
+.n7 .ace span{position:relative;display:block;font-size:250px;line-height:1;letter-spacing:0;transform:translate(-1%,2%);
+  background:none;-webkit-background-clip:border-box;background-clip:border-box;filter:none;
+  color:#b98611;
+  text-shadow:0 -3px 2px rgba(70,42,0,.75),-2px -1px 2px rgba(70,42,0,.45),0 3px 1px rgba(255,248,212,.95),2px 2px 2px rgba(255,240,190,.6)}
+.n7.active .ace{animation:aceFwd4 4.6s cubic-bezier(.5,0,.2,1) .4s forwards}
+@keyframes aceFwd4{
+  0%{opacity:0;transform:perspective(1100px) translate(170px,-30px) scale(.4) rotateY(-55deg) rotateX(12deg);z-index:1;filter:blur(10px) brightness(.35)}
+  40%{opacity:.7;z-index:1;filter:blur(3px) brightness(.7)}
+  52%{z-index:3}
+  78%{opacity:1;transform:perspective(1100px) translate(-14px,-150px) scale(1.12) rotateY(-10deg) rotateX(4deg);filter:brightness(1.25) drop-shadow(0 0 40px rgba(255,214,90,.7))}
+  100%{opacity:1;transform:perspective(1100px) translate(-10px,-150px) scale(1) rotateY(-12deg) rotateX(5deg);z-index:3;filter:none}}
+
+/* ---------- σελ. 9 · συμπαγές, παχύ 3D βέλος που «τρέχει» πάνω σε διακεκομμένες λωρίδες δρόμου ---------- */
+.n9 .rs-fall{position:relative;width:250px;height:320px}
+.n9 .rs-fall svg{position:relative;z-index:2;overflow:visible;filter:drop-shadow(0 22px 18px rgba(0,0,0,.6))}
+.n9 .rs-fall .arr{stroke:none}
+.n9 .rs-fall .arr .ex{fill:#5a030b}
+.n9 .rs-fall .arr .fc{fill:url(#gFall)}
+.n9 .rs-fall .arr .gl{fill:url(#gFallV)}
+.n9 .rs-fall .arr .hl{fill:rgba(255,255,255,.28)}
+.road9{position:absolute;left:50%;bottom:-60px;width:240px;height:700px;z-index:1;transform:translateX(-50%) perspective(620px) rotateX(46deg);transform-origin:50% 100%;
+  background:repeating-radial-gradient(circle at 30% 40%,rgba(255,255,255,.035) 0 1px,transparent 1px 3px),linear-gradient(90deg,#16181d,#2b2e35 50%,#16181d);
+  border-left:6px solid rgba(255,255,255,.85);border-right:6px solid rgba(255,255,255,.85);
+  -webkit-mask:linear-gradient(0deg,#000 62%,transparent 96%);mask:linear-gradient(0deg,#000 62%,transparent 96%);opacity:0;transition:opacity 1s .4s}
+.n9.active .road9{opacity:1}
+.road9 .ln{position:absolute;top:0;bottom:0;width:7px;background:repeating-linear-gradient(180deg,#fff 0 40px,transparent 40px 80px);animation:lane9 .55s linear infinite}
+.road9 .l1{left:calc(33% - 3px)}.road9 .l2{left:calc(67% - 3px)}
+@keyframes lane9{from{background-position:0 0}to{background-position:0 -80px}}
+
+/* ---------- σελ. 13 · μεγαλύτερα, παχύτερα γυάλινα 3D ντόνατ, ανάμεσα σε πλακίδιο και φωτογραφία ---------- */
+.n13 .gauge{width:500px}
+.n13 .gauge.g1{left:710px;top:150px}.n13 .gauge.g2{left:710px;top:540px}
+.n13 .gauge svg.gdn{width:272px;height:272px;overflow:visible;filter:drop-shadow(0 18px 22px rgba(0,0,0,.5))}
+.n13 .gauge .gv{top:84px;font-size:88px}
+.n13 .gauge p{margin-top:16px}
+.gdn circle{fill:none}
+.gdn .g-tx{stroke:rgba(255,255,255,.035);stroke-width:30}
+.gdn .g-tr{stroke:rgba(255,255,255,.07);stroke-width:30}
+.gdn .g-rim{stroke:rgba(255,255,255,.22);stroke-width:1.2}
+.gdn .g-rim.i{stroke:rgba(255,255,255,.14)}
+.gdn .g-px,.gdn .g-pr,.gdn .g-sh,.gdn .g-hl,.gdn .g-hl2{stroke-dasharray:100;stroke-dashoffset:100;stroke-linecap:round}
+.gdn .g-px{stroke:#4a0209;stroke-width:28}
+.gdn .g-pr{stroke:url(#gRed);stroke-width:28;filter:drop-shadow(0 0 12px rgba(224,16,31,.65));opacity:.92}
+.gdn .g-sh{stroke:rgba(70,0,8,.45);stroke-width:7}
+.gdn .g-hl{stroke:rgba(255,255,255,.55);stroke-width:4.5;filter:blur(.6px)}
+.gdn .g-hl2{stroke:rgba(255,190,196,.35);stroke-width:2}
+.slide.active .gdn .g-px,.slide.active .gdn .g-pr,.slide.active .gdn .g-sh,.slide.active .gdn .g-hl,.slide.active .gdn .g-hl2{transition:stroke-dashoffset 2.2s var(--ease) .9s;stroke-dashoffset:calc(100 - var(--p))}
+
+/* ---------- χρυσό 3D «&» (σελ. 16 & 36) ---------- */
+.amp-g{display:block;height:1em;width:auto;filter:drop-shadow(0 10px 14px rgba(0,0,0,.5)) drop-shadow(0 0 22px rgba(242,194,48,.35))}
+.lab .amp{font-size:132px;line-height:1;text-shadow:none;margin:-6px 0 -6px 34px}
+.or-and .and{text-shadow:none;font-size:200px}
+.or-and .conj span.and{display:block}
+
+/* ---------- σελ. 16 · κινούμενο χρυσό φύλλο ΜΟΝΟ στην επιφάνεια επικάλυψης, με έντονη λάμψη ---------- */
+.or-and .fuse{left:110px;top:110px;width:660px;height:132px;border-radius:56px;background:none;box-shadow:none;mix-blend-mode:normal;filter:none;opacity:0;z-index:4}
+.or-and .fuse .fz{position:absolute;inset:0;border-radius:56px;clip-path:inset(110px 0 0 0 round 30px 30px 0 0);
+  background:
+    linear-gradient(105deg,transparent 0,transparent 38%,rgba(255,255,255,.95) 47%,#fff 50%,rgba(255,255,255,.95) 53%,transparent 62%,transparent 100%),
+    linear-gradient(180deg,#fff4c2 0,#f7d35c 30%,#d7a321 60%,#9c6c0a 100%);
+  background-size:260% 100%,100% 100%;background-repeat:no-repeat;background-position:160% 0,0 0}
+.n16.active .or-and .fuse{animation:fuseGold .9s ease 6.1s forwards,fuseGlow 2.2s ease-in-out 7s infinite}
+.n16.active .or-and .fuse .fz{animation:goldSweep 2.2s cubic-bezier(.45,0,.25,1) 6.4s infinite}
+@keyframes fuseGold{from{opacity:0}to{opacity:1}}
+@keyframes fuseGlow{0%,100%{filter:drop-shadow(0 0 8px rgba(255,214,90,.7))}50%{filter:drop-shadow(0 0 22px rgba(255,220,110,1)) drop-shadow(0 0 46px rgba(242,194,48,.7)) brightness(1.15)}}
+@keyframes goldSweep{0%{background-position:160% 0,0 0}70%,100%{background-position:-60% 0,0 0}}
+
+/* ---------- σελ. 18–21 · χρώμα ανά γενιά: Gen Z κόκκινο · Millennials πράσινο · Gen X μπλε ---------- */
+.b3.cr{--c1:rgba(255,72,86,.82);--c2:rgba(170,8,24,.3);--cs:rgba(130,0,12,.6);--ct:rgba(255,170,178,.9)}
+.genrows .grow:nth-child(1) .b3{--c1:rgba(255,72,86,.82);--c2:rgba(170,8,24,.3);--cs:rgba(130,0,12,.6);--ct:rgba(255,170,178,.9)}
+.genrows .grow:nth-child(2) .b3{--c1:rgba(52,211,153,.8);--c2:rgba(5,150,105,.25);--cs:rgba(4,120,87,.6);--ct:rgba(167,243,208,.9)}
+.genrows .grow:nth-child(3) .b3{--c1:rgba(99,125,255,.8);--c2:rgba(55,70,220,.25);--cs:rgba(40,50,170,.6);--ct:rgba(190,200,255,.9)}
+.genrows[data-theme] .grow:nth-child(1){--gc1:#ff5a66;--gc2:#a0000f}
+.genrows[data-theme] .grow:nth-child(2){--gc1:#34d399;--gc2:#047857}
+.genrows[data-theme] .grow:nth-child(3){--gc1:#6b7dff;--gc2:#2a2fa8}
+
+/* ---------- σελ. 32 · 30–100 GB περίγραμμα (όχι κόκκινο γέμισμα) ---------- */
+.n32-t .gbn{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:transparent;-webkit-text-fill-color:transparent;
+  font-family:"CommOutline",var(--font);-webkit-text-stroke:3px #fff;paint-order:stroke fill;filter:drop-shadow(0 0 18px rgba(255,255,255,.18))}
+.n32-t .gbn small{-webkit-text-stroke-width:2.4px}
