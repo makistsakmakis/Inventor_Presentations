@@ -206,29 +206,37 @@
   // διακριτικός, «μαγικός» ατμός: λεπτά νήματα που ανεβαίνουν ήρεμα σε σπείρα, αλλάζουν απαλά απόχρωση
   // (λεβάντα → ροζ-χρυσό/μαργαριτάρι) και σβήνουν αφήνοντας ελάχιστες απαλές φωτεινές «ανάσες»
   const motes = [];
+  // ατμός-«χέρι χορεύτριας»: συνεκτικό κύμα που ανεβαίνει κατά μήκος της στήλης (σαν μπράτσο που λικνίζεται),
+  // αργή ταλάντωση όλης της στήλης και στροβιλισμός «δαχτύλων» στην κορυφή — απαλά σβήνει σε μαργαριταρένιες ανάσες
   function drawSmoke(t, dt) {
     sc.clearRect(0, 0, 900, 1080);
     if (smokeAmt < .01 && !smoke.length && !motes.length) return;
-    const n = smokeAmt * dt / 16 * .07;
-    for (let k = 0; k < n || (k === 0 && Math.random() < n); k++) smoke.push({ x: CX + R_(-14, 14), y: 610 + R_(-4, 4), vx: R_(-.06, .06), vy: R_(-.62, -.4), r: R_(8, 13), g: R_(.07, .15), life: 0, max: R_(7, 11), s: (Math.random() * 6) | 0, rot: R_(0, 6.28), vr: R_(-.003, .003), ph: Math.random() * 6, sw: R_(.6, 1.1) });
+    const n = smokeAmt * dt / 16 * .2;
+    for (let k = 0; k < n || (k === 0 && Math.random() < n); k++) smoke.push({ x: CX + R_(-5, 5), y: 612, vy: R_(-.62, -.52), r: R_(4, 6.5), g: R_(.03, .07), life: 0, max: R_(8.5, 10.5), s: (Math.random() * 6) | 0, rot: R_(0, 6.28), vr: R_(-.004, .004), ph: R_(-.25, .25), fz: Math.random() < .35 });
     sc.globalCompositeOperation = 'screen';
     for (let i = smoke.length - 1; i >= 0; i--) {
       const p = smoke[i]; p.life += dt / 1000;
-      if (p.life > p.max) { if (Math.random() < .5) motes.push({ x: p.x, y: p.y, life: 0, max: R_(2.5, 4), r: R_(1.2, 2.2), ph: Math.random() * 6 }); smoke.splice(i, 1); continue; }
+      if (p.life > p.max) { if (Math.random() < .3) motes.push({ x: p.dx || p.x, y: p.y, life: 0, max: R_(2.5, 4), r: R_(1.1, 2), ph: Math.random() * 6 }); smoke.splice(i, 1); continue; }
       const k = p.life / p.max;
-      const sw = Math.sin(t * .5 * p.sw + p.ph + k * 5) * (10 + k * 40);       // ήπια σπείρα
-      p.vx += Math.cos(t * .21 + p.ph) * .002; p.vx *= .992;
-      p.x += p.vx * dt / 16; p.y += p.vy * dt / 16 * (1 - k * .5); p.r += p.g * dt / 16; p.rot += p.vr * dt / 16;
-      const a = Math.sin(k * Math.PI) ** 1.6 * .19 * Math.min(1, smokeAmt * 1.4 + .2);
-      sc.save(); sc.translate(p.x + sw, p.y); sc.rotate(p.rot); sc.scale(.62, 1.45);
-      sc.globalAlpha = a * (1 - k * .85); sc.drawImage(smokeSpr[p.s], -p.r, -p.r, p.r * 2, p.r * 2);
-      sc.globalAlpha = a * k * .55; sc.drawImage(warmSpr[p.s], -p.r, -p.r, p.r * 2, p.r * 2);
+      p.y += p.vy * dt / 16 * (1 - k * .35); p.r += p.g * dt / 16; p.rot += p.vr * dt / 16;
+      // κύμα που «ταξιδεύει» προς τα πάνω (καρπός → δάχτυλα), με πλάτος που μεγαλώνει με το ύψος
+      const wave = Math.sin(t * 1.05 - k * 5.2 + p.ph) * (4 + 78 * k ** 1.25);
+      const sway = Math.sin(t * .33) * 34 * k + Math.sin(t * .17 + 1.3) * 16 * k;
+      // στην κορυφή τα «δάχτυλα» ανοίγουν και στροβιλίζονται
+      const f = Math.max(0, (k - .62) / .38), fan = p.fz ? f * f : 0;
+      const cx = Math.cos(t * 1.6 + p.ph * 9 + k * 7) * 26 * fan, cy = Math.sin(t * 1.6 + p.ph * 9 + k * 7) * 14 * fan;
+      const x = p.x + wave + sway + cx, y = p.y + cy; p.dx = x;
+      const a = Math.sin(k * Math.PI) ** 1.3 * .2 * Math.min(1, smokeAmt * 1.4 + .2);
+      const ang = Math.atan2(Math.cos(t * 1.05 - k * 5.2 + p.ph) * (4 + 62 * k), 40) * .9;   // ακολουθεί την κλίση του κύματος
+      sc.save(); sc.translate(x, y); sc.rotate(ang + p.rot * .3); sc.scale(.42, 1.8);
+      sc.globalAlpha = a * (1 - k * .8); sc.drawImage(smokeSpr[p.s], -p.r * 2, -p.r * 2, p.r * 4, p.r * 4);
+      sc.globalAlpha = a * k * .6; sc.drawImage(warmSpr[p.s], -p.r * 2, -p.r * 2, p.r * 4, p.r * 4);
       sc.restore();
     }
     for (let i = motes.length - 1; i >= 0; i--) {
       const m = motes[i]; m.life += dt / 1000; if (m.life > m.max) { motes.splice(i, 1); continue; }
-      const k = m.life / m.max; m.y -= .18 * dt / 16; m.x += Math.sin(t + m.ph) * .12;
-      const a = Math.sin(k * Math.PI) * .5, g = sc.createRadialGradient(m.x, m.y, 0, m.x, m.y, m.r * 4);
+      const k = m.life / m.max; m.y -= .16 * dt / 16; m.x += Math.sin(t * 1.2 + m.ph) * .14;
+      const a = Math.sin(k * Math.PI) * .45, g = sc.createRadialGradient(m.x, m.y, 0, m.x, m.y, m.r * 4);
       g.addColorStop(0, `rgba(255,236,214,${a})`); g.addColorStop(.35, `rgba(240,200,255,${a * .35})`); g.addColorStop(1, 'rgba(240,200,255,0)');
       sc.globalAlpha = 1; sc.fillStyle = g; sc.fillRect(m.x - m.r * 4, m.y - m.r * 4, m.r * 8, m.r * 8);
     }

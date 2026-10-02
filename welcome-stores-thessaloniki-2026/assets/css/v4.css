@@ -286,3 +286,29 @@
 .n32-t .gbn{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:transparent;-webkit-text-fill-color:transparent;
   font-family:"CommOutline",var(--font);-webkit-text-stroke:3px #fff;paint-order:stroke fill;filter:drop-shadow(0 0 18px rgba(255,255,255,.18))}
 .n32-t .gbn small{-webkit-text-stroke-width:2.4px}
+
+/* =====================  v4.2  ===================== */
+/* ---------- σελ. 35 · ζεστό σαμπανί/χρυσό blend με τη φωτογραφία (αντίθεση με την ψυχρή «απογοήτευση») ---------- */
+.n35 .party35{background-position:62% 40%}
+.n35 .party35::after{
+  background:linear-gradient(90deg,rgba(24,15,5,.9) 0,rgba(46,30,10,.72) 26%,rgba(90,62,24,.32) 50%,rgba(140,100,40,.06) 68%,rgba(0,0,0,0) 80%),
+             linear-gradient(0deg,rgba(20,12,4,.55),transparent 34%),
+             radial-gradient(60% 70% at 30% 35%,rgba(255,200,110,.14),transparent 70%)}
+.n35 .party35::before{content:"";position:absolute;inset:0;background:rgba(255,196,110,.16);mix-blend-mode:soft-light;z-index:1}
+.n35 .n35-q{text-shadow:0 6px 34px rgba(20,12,4,.65)}
+.n35 .n35-q span{color:#ffd36a;text-shadow:0 0 24px rgba(255,200,90,.55)}
+
+/* ---------- σελ. 9 · χωρίς κόκκινη σκιά, κοντύτερα «αυτιά» ---------- */
+.n9 .rs-fall svg{filter:drop-shadow(0 18px 16px rgba(0,0,0,.55))}
+
+/* ---------- σελ. 19–21 · γυάλινα, αμμοβολισμένα πλακίδια γενεών ---------- */
+.genrows[data-theme] .gid{position:relative;overflow:hidden;isolation:isolate;
+  background:linear-gradient(150deg,color-mix(in srgb,var(--gc1) 30%,transparent),color-mix(in srgb,var(--gc2) 22%,transparent));
+  -webkit-backdrop-filter:blur(18px) saturate(1.5);backdrop-filter:blur(18px) saturate(1.5);
+  border:1px solid color-mix(in srgb,var(--gc1) 55%,rgba(255,255,255,.35));
+  box-shadow:0 20px 40px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.45),inset 0 -1px 0 rgba(0,0,0,.25),inset 0 0 30px color-mix(in srgb,var(--gc1) 25%,transparent)}
+.genrows[data-theme] .gid::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.32;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.genrows[data-theme] .gid::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(115deg,rgba(255,255,255,.28) 0,rgba(255,255,255,.06) 32%,transparent 55%),radial-gradient(90% 60% at 80% 120%,color-mix(in srgb,var(--gc1) 40%,transparent),transparent 70%)}
+.genrows[data-theme] .gid b,.genrows[data-theme] .gid small{text-shadow:0 2px 10px rgba(0,0,0,.35)}
