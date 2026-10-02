@@ -136,46 +136,47 @@
     };
   })();
 
-  /* ================= n11 · slope ================= */
+  /* ================= n11 · premium γραμμικό (στυλ σελ. 6) ================= */
   (() => {
-    const host = $('#n11chart'), svg = $('svg', host), leg = $('.sl-legend', host);
-    const D = [['MDA', 367, 376, '#4aa3ff'], ['SDA', 147, 157, '#ff9f43'], ['CLIMA', 261, 214, '#3ee08f'], ['CE', 186, 197, '#38bdf8'], ['TELECOM', 588, 596, '#c084fc'], ['IT', 281, 247, '#9ae66e']];
-    const x0 = 230, x1 = 850, T = 30, B = 600, ymax = 700;
-    const Y = v => B - (B - T) * v / ymax;
-    mk('line', { class: 'ax', x1: x0, x2: x0, y1: T, y2: B }, svg); mk('line', { class: 'ax', x1: x1, x2: x1, y1: T, y2: B }, svg);
-    mk('text', { class: 'axl', x: x0, y: B + 40, 'text-anchor': 'middle' }, svg).textContent = '2025';
-    mk('text', { class: 'axl', x: x1, y: B + 40, 'text-anchor': 'middle' }, svg).textContent = '2026';
-    for (let v = 0; v <= ymax; v += 100) mk('line', { x1: x0, x2: x1, y1: Y(v), y2: Y(v), stroke: 'rgba(255,255,255,.05)' }, svg);
+    const host = $('#n11chart'), svg = $('.lcsvg', host), leg = $('.sl-legend', host);
+    const D = [['TELECOM', 588, 596, '#c084fc'], ['MDA', 367, 376, '#4aa3ff'], ['IT', 281, 247, '#9ae66e'], ['CLIMA', 261, 214, '#3ee08f'], ['CE', 186, 197, '#38bdf8'], ['SDA', 147, 157, '#ff9f43']];
+    const L = 150, R = 860, T = 30, B = 560, ymax = 700;
+    const X = i => L + (R - L) * i, Y = v => B - (B - T) * v / ymax;
+    const defs = mk('defs', {}, svg);
+    const fl = mk('filter', { id: 'n11glow', x: '-20%', y: '-50%', width: '140%', height: '200%' }, defs); mk('feGaussianBlur', { stdDeviation: 5, result: 'b' }, fl); const fm = mk('feMerge', {}, fl); mk('feMergeNode', { in: 'b' }, fm); mk('feMergeNode', { in: 'SourceGraphic' }, fm);
+    for (let v = 0; v <= ymax; v += 100) mk('line', { class: 'gl', x1: L, x2: R, y1: Y(v), y2: Y(v) }, svg);
+    ['2025', '2026'].forEach((c, i) => mk('text', { class: 'xl', x: X(i), y: B + 44, 'text-anchor': 'middle' }, svg).textContent = c);
     const spread = vals => { const o = vals.map((v, i) => ({ i, y: Y(v) })).sort((a, b) => a.y - b.y); for (let k = 1; k < o.length; k++) if (o[k].y - o[k - 1].y < 30) o[k].y = o[k - 1].y + 30; const r = []; o.forEach(q => r[q.i] = q.y); return r; };
-    const LY0 = spread(D.map(d => d[1])), LY1 = spread(D.map(d => d[2]));
-    const G = D.map((d, di) => {
-      const g = mk('g', { class: 'sg' }, svg);
-      const ln = mk('line', { class: 'sl', x1: x0, y1: Y(d[1]), x2: x0, y2: Y(d[1]), stroke: d[3] }, g);
-      mk('circle', { cx: x0, cy: Y(d[1]), r: 8, fill: d[3] }, g);
-      const c2 = mk('circle', { cx: x1, cy: Y(d[2]), r: 0, fill: d[3] }, g);
-      const l0 = mk('text', { class: 'lbl', x: x0 - 20, y: LY0[di] + 7, 'text-anchor': 'end' }, g); l0.textContent = `${d[0]}  ${d[1]}`;
+    const LY = spread(D.map(d => d[2]));
+    const LY0 = spread(D.map(d => d[1]));
+    const G = D.map((d, k) => {
+      const lg = mk('linearGradient', { id: 'n11a' + k, x1: 0, y1: 0, x2: 0, y2: 1 }, defs); mk('stop', { offset: 0, 'stop-color': d[3], 'stop-opacity': .28 }, lg); mk('stop', { offset: 1, 'stop-color': d[3], 'stop-opacity': 0 }, lg);
+      const g = mk('g', { class: 'ser' }, svg);
+      const y0 = Y(d[1]), y1 = Y(d[2]), dd = `M${X(0)} ${y0} C${X(.5)} ${y0} ${X(.5)} ${y1} ${X(1)} ${y1}`;
+      const ar = mk('path', { class: 'ar', d: dd + ` L${R} ${B} L${L} ${B} Z`, fill: `url(#n11a${k})` }, g);
+      const ln = mk('path', { class: 'ln', d: dd, stroke: d[3], filter: 'url(#n11glow)' }, g);
+      const c0 = mk('circle', { class: 'pt', cx: X(0), cy: y0, r: 0, fill: '#fff', stroke: d[3], 'stroke-width': 4 }, g);
+      const c1 = mk('circle', { class: 'pt', cx: X(1), cy: y1, r: 0, fill: '#fff', stroke: d[3], 'stroke-width': 4 }, g);
       const ch = (d[2] - d[1]) / d[1] * 100;
-      const l1 = mk('text', { class: 'lbl', x: x1 + 20, y: LY1[di] + 7, opacity: 0 }, g); l1.innerHTML = `${d[2]} <tspan class="dl" fill="${ch < 0 ? '#ff5a66' : '#3ee08f'}">${ch > 0 ? '+' : ''}${fmtN(ch, 1)}%</tspan>`;
-      const hit = mk('line', { x1: x0, y1: Y(d[1]), x2: x1, y2: Y(d[2]), stroke: 'transparent', 'stroke-width': 26, style: 'cursor:pointer' }, g);
-      const on = () => { G.forEach(o => o.g.classList.toggle('dim', o.g !== g)); g.classList.add('hl'); };
-      const off = () => { G.forEach(o => o.g.classList.remove('dim', 'hl')); hideTip(); };
+      const t0 = mk('text', { class: 'pv', x: X(0) - 22, y: LY0[k] + 7, 'text-anchor': 'end' }, g); t0.innerHTML = `<tspan fill="${d[3]}">${d[0]}</tspan> ${d[1]}`;
+      const t1 = mk('text', { class: 'pv', x: X(1) + 22, y: LY[k] + 7, 'text-anchor': 'start' }, g);
+      t1.innerHTML = `<tspan fill="${d[3]}">${d[0]}</tspan> ${d[2]} <tspan class="dlt" fill="${ch < 0 ? '#ff5a66' : '#3ee08f'}">${ch > 0 ? '+' : ''}${fmtN(ch, 1)}%</tspan>`;
+      const hit = mk('path', { d: dd, stroke: 'transparent', 'stroke-width': 28, fill: 'none', style: 'cursor:pointer' }, g);
+      const on = () => G.forEach(o => o.g.style.opacity = o.g === g ? 1 : .12), off = () => { G.forEach(o => o.g.style.opacity = ''); hideTip(); };
       hit.addEventListener('mouseenter', on); hit.addEventListener('mouseleave', off);
       bindTip(hit, `<b>${d[0]}</b><br>2025: ${d[1]} → 2026: ${d[2]}<br><b>${ch > 0 ? '+' : ''}${fmtN(ch, 1)}%</b>`);
-      const b = document.createElement('button'); b.innerHTML = `<i style="background:${d[3]}"></i>${d[0]}`; b.onmouseenter = on; b.onmouseleave = off; leg.appendChild(b);
-      return { g, ln, c2, l1, d };
+      const b = document.createElement('button'); b.innerHTML = `<i style="background:${d[3]};box-shadow:0 0 10px ${d[3]}"></i>${d[0]}`;
+      b.onmouseenter = on; b.onmouseleave = off; b.onclick = () => { b.classList.toggle('off'); g.classList.toggle('off'); }; leg.appendChild(b);
+      return { g, ar, ln, c0, c1, t0, t1 };
     });
-    enterOf('n11', () => {
-      G.forEach((o, i) => {
-        o.ln.style.transition = 'none'; o.ln.setAttribute('x2', x0); o.ln.setAttribute('y2', Y(o.d[1])); o.c2.setAttribute('r', 0); o.l1.setAttribute('opacity', 0);
-        later(() => {
-          const t0 = performance.now(), dur = 1600;
-          const stp = now => { const p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 3);
-            o.ln.setAttribute('x2', x0 + (x1 - x0) * e); o.ln.setAttribute('y2', Y(o.d[1] + (o.d[2] - o.d[1]) * e));
-            if (p < 1) requestAnimationFrame(stp); else { o.c2.setAttribute('r', 8); o.l1.setAttribute('opacity', 1); } };
-          requestAnimationFrame(stp);
-        }, 800 + i * 220);
-      });
-    });
+    enterOf('n11', () => G.forEach((o, k) => {
+      const len = o.ln.getTotalLength();
+      o.ln.style.transition = 'none'; o.ln.style.strokeDasharray = len; o.ln.style.strokeDashoffset = len; o.ar.style.opacity = 0;
+      [o.c0, o.c1].forEach(c => c.setAttribute('r', 0)); o.t0.style.opacity = 0; o.t1.style.opacity = 0; o.ln.getBoundingClientRect();
+      later(() => { o.c0.setAttribute('r', 7); o.t0.style.opacity = 1; }, 600 + k * 180);
+      later(() => { o.ln.style.transition = 'stroke-dashoffset 1.8s cubic-bezier(.4,0,.2,1)'; o.ln.style.strokeDashoffset = 0; }, 700 + k * 180);
+      later(() => { o.ar.style.opacity = 1; o.c1.setAttribute('r', 7); o.t1.style.opacity = 1; }, 2300 + k * 180);
+    }));
   })();
 
   /* ================= n12 · εξέλιξη ================= */
@@ -211,7 +212,7 @@
     const typed = $('#typed14'), s = $('.n14');
     const ww = $$('.n14 .gbar.ww'), gr = $$('.n14 .gbar.gr');
     [...ww, ...gr].forEach(b => { b.innerHTML = `<div class="b3 ${b.classList.contains('ww') ? 'tb2' : 'red'}"><i class="f"></i><i class="s"></i><i class="t"></i></div>` + b.innerHTML;
-      bindTip(b, () => `${b.classList.contains('ww') ? 'Στον κόσμο' : 'Στην Ελλάδα'} · ${b.closest('.gb-cat').dataset.c}<br><b>${b.dataset.v}% online</b>`); });
+      bindTip(b, () => `${b.classList.contains('ww') ? 'Παγκοσμίως' : 'Στην Ελλάδα'} · ${b.closest('.gb-cat').dataset.c}<br><b>${b.dataset.v}% online</b>`); });
     const grow = b => { b.style.height = b.dataset.v / 56 * 100 + '%'; b.classList.add('on'); };
     let typeTok = 0;
     const type = (txt, delay, after) => {
@@ -229,7 +230,7 @@
         typeTok++; typed.textContent = '';
         [...ww, ...gr].forEach(b => { b.style.height = 0; b.classList.remove('on'); });
         dots.forEach(d => d.classList.remove('on'));
-        type('Online · στον κόσμο · SDA 45%', 900, () => { grow(ww[0]); type('Online · στον κόσμο · MDA 26%', 900, () => grow(ww[1])); });
+        type('Online · παγκοσμίως · SDA 45%', 900, () => { grow(ww[0]); type('Online · παγκοσμίως · MDA 26%', 900, () => grow(ww[1])); });
       },
       step(k) {
         if (k === 1) type('Online · στην Ελλάδα · SDA 20% · MDA 15%', 100, () => { grow(gr[0]); later(() => grow(gr[1]), 350); });
@@ -317,10 +318,11 @@
         }
         c.textAlign = 'center'; c.textBaseline = 'middle';
         for (let i = items.length - 1; i >= 0; i--) {
-          const p = items[i]; p.x += (500 - p.x) * .018; p.y += (470 - p.y) * .018; p.life -= .006;
-          const d = Math.hypot(p.x - 500, p.y - 470);
-          if (d < 60 || p.life <= 0) { items.splice(i, 1); continue; }
-          c.font = `800 ${p.s}px Commissioner, sans-serif`; c.fillStyle = `rgba(${p.c},${Math.min(.85, p.life) * .8})`; c.fillText(p.w, p.x + rnd(-1, 1), p.y + rnd(-1, 1));
+          const p = items[i]; p.x += (500 - p.x) * .012; p.y += (470 - p.y) * .012; p.life -= .005;
+          const inBox = p.x > 30 && p.x < 970 && p.y > 120 && p.y < 820;
+          if (inBox || p.life <= 0) { items.splice(i, 1); continue; }
+          const fade = Math.min(1, (Math.min(Math.abs(p.x - 500) - 470, Math.abs(p.y - 470) - 350) + 260) / 260);
+          c.font = `800 ${p.s}px Commissioner, sans-serif`; c.fillStyle = `rgba(${p.c},${Math.max(0, Math.min(.85, p.life, fade)) * .8})`; c.fillText(p.w, p.x + rnd(-1, 1), p.y + rnd(-1, 1));
         }
       }
     };
@@ -328,7 +330,8 @@
 
   /* ================= n33 · 100GB vs 8TB ================= */
   (() => {
-    const wall = $('#wall33'); wall.innerHTML = Array.from({ length: 80 }, () => '<i></i>').join('');
+    const MAN = '<svg viewBox="0 0 40 100"><circle cx="20" cy="12" r="10"/><path d="M8 26h24a4 4 0 0 1 4 4v28h-7v40h-8V66h-2v32h-8V58H4V30a4 4 0 0 1 4-4z"/></svg>';
+    const wall = $('#wall33'); wall.innerHTML = Array.from({ length: 80 }, () => `<i>${MAN}</i>`).join(''); $('.n33 .cube1 i').innerHTML = MAN;
     const cells = $$('i', wall), eq = $('#eq33');
     hooks.n33 = {
       enter() {
@@ -340,48 +343,102 @@
     };
   })();
 
-  /* ================= n34 · παντού ================= */
+  /* ================= n34 · παντού (μεγαλύτερα & εμφωλευμένα πλαίσια) ================= */
   (() => {
-    const L = ['Τηλεόραση', 'Ραδιόφωνο', 'Outdoor', 'Print', 'Social Media Ads', 'Google search', 'YouTube & Creators', 'Site κατασκευαστή', 'Reviews', 'Σύγκριση τιμών', 'Price comparison', 'Κατάστημα', 'Online shop', 'Marketplaces', 'AI βοηθός', 'Instagram', 'TikTok', 'Newsletter', 'Influencers', 'Forums'];
     const host = $('#chips34');
-    const pos = []; [[810, 140], [890, 360], [970, 200]].forEach(([y, x0], r) => { for (let k = 0; k < 6; k++) pos.push([x0 + k * 250 + (k % 2) * 30, y]); }); pos.push([380, 96], [760, 96]);
-    host.innerHTML = L.map((l, i) => `<span style="left:${pos[i][0]}px;top:${pos[i][1]}px;--cd:${1800 + i * 90}ms">${l}</span>`).join('');
+    const C = (t, kids) => kids ? `<span class="nest"><b>${t}</b>${kids.map(k => typeof k === 'string' ? `<span>${k}</span>` : C(k[0], k[1])).join('')}</span>` : `<span>${t}</span>`;
+    const items = [
+      [90, 104, C('Τηλεόραση')], [370, 104, C('Ραδιόφωνο')], [640, 104, C('Outdoor')], [880, 104, C('Print')], [1060, 104, C('AI βοηθός')], [1320, 104, C('Newsletter')], [1560, 104, C('Forums')],
+      [100, 810, C('Social Media Ads', ['Instagram', 'TikTok', 'Influencers'])], [840, 810, C('Google search', ['Reviews', ['Σύγκριση τιμών', ['Price comparison']]])],
+      [120, 935, C('YouTube & Creators')], [520, 935, C('Site κατασκευαστή')], [910, 925, C('Online shop', ['Marketplaces'])], [1400, 935, C('Κατάστημα')]
+    ];
+    host.innerHTML = items.map((it, i) => it[2].replace(/^<span/, `<span style="left:${it[0]}px;top:${it[1]}px;--cd:${1800 + i * 110}ms"`)).join('');
   })();
 
-  /* ================= n35 · πανηγυρισμός → Όχι ================= */
-  (() => {
-    const c = cv('fx35'); const cf = []; let mode = 0, t = 0, T0 = 0;
-    const cols = ['255,215,106', '255,255,255', '255,120,130', '140,195,255', '255,180,60'];
-    const spawn = (n, x, y) => { for (let i = 0; i < n; i++) { const a = rnd(-Math.PI * .95, -Math.PI * .05), v = rnd(6, 18); cf.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, r: rnd(4, 9), rot: rnd(0, 6), vr: rnd(-.3, .3), c: cols[i % cols.length], life: 1 }); } };
-    hooks.n35 = {
-      enter() { T0 = performance.now(); mode = 0; t = 0; cf.length = 0; later(() => spawn(220, 1400, 330), 1200); later(() => spawn(160, 1420, 320), 2400); },
-      leave() { if (document.body.dataset.bg === 'grey') document.body.dataset.bg = ''; },
-      step() { mode = 1; document.body.dataset.bg = 'grey'; cf.forEach(p => { p.vx *= .2; p.vy = Math.abs(p.vy) * .2 + 2; p.c = '120,120,130'; }); },
-      tick(dt) {
-        t = performance.now() - T0; c.clearRect(0, 0, W, H);
-        if (mode === 0 && t > 3500 && Math.random() < .2) spawn(6, 1400, 330);
-        for (let i = cf.length - 1; i >= 0; i--) {
-          const p = cf[i]; p.x += p.vx; p.y += p.vy; p.vy += mode ? .5 : .22; p.vx *= .99; p.rot += p.vr;
-          if (p.y > H + 40) { cf.splice(i, 1); continue; }
-          c.save(); c.translate(p.x, p.y); c.rotate(p.rot); c.fillStyle = `rgba(${p.c},.95)`; c.fillRect(-p.r, -p.r * .4, p.r * 2, p.r * .8); c.restore();
-        }
-      }
-    };
-  })();
+  /* ================= n35 · πανηγυρισμός → (fade) απογοήτευση ================= */
+  hooks.n35 = {
+    leave() { if (document.body.dataset.bg === 'grey') document.body.dataset.bg = ''; },
+    step() { document.body.dataset.bg = 'grey'; }
+  };
 
-  /* ================= n36 / n37 · φίλτρο ================= */
-  $$('.flask .bub').forEach(b => { b.innerHTML = Array.from({ length: 12 }, (_, i) => `<i style="left:${rnd(5, 90)}%;animation-delay:${rnd(0, 2.4).toFixed(2)}s;width:${rnd(6, 14) | 0}px;height:${rnd(6, 14) | 0}px"></i>`).join(''); });
+  /* ================= n36 · εργαστήριο: 2 συστατικά → μίξη ================= */
   (() => {
-    const c = cv('fx37'); const sp = []; let t = 0, boom = false, T0 = 0;
-    hooks.n37 = {
-      enter() { T0 = performance.now(); t = 0; boom = false; sp.length = 0; },
-      tick(dt) {
-        t = performance.now() - T0; c.clearRect(0, 0, W, H);
-        if (!boom && t > 3100) { boom = true; burst(sp, 1530, 560, 140, ['242,194,48', '255,255,255', '255,233,168', '255,120,130'], 13); }
-        if (t > 3300 && Math.random() < .35) sp.push({ x: 1530 + rnd(-130, 130), y: 600 + rnd(-120, 160), vx: rnd(-.5, .5), vy: rnd(-2.4, -.8), life: 1, r: rnd(1.5, 3.5), c: Math.random() < .6 ? '242,194,48' : '255,255,255' });
-        drawSparks(c, sp, .05);
-      }
+    const lab = $('#lab36'); if (!lab) return;
+    const sec = lab.closest('.slide');
+    const lvR = $('.fn.r .lv', lab), sfR = $('.fn.r .sf', lab), lvB = $('.fn.b .lv', lab), sfB = $('.fn.b .sf', lab);
+    const flB = $('.fl-b', lab), flS = $('.fl-s', lab), flW = $('.fl-w1', lab), s1 = $('#liqF .s1'), s2 = $('#liqF .s2');
+    const tubeR = $('#tubeR'), tubeB = $('#tubeB');
+    const mkFlow = (g, src, col) => { const d = src.getAttribute('d'), L = src.getTotalLength(); let h = '';
+      for (let k = 0; k < 9; k++) h += `<path d="${d}" fill="none" stroke="${col}" stroke-linecap="round" style="opacity:${(1 - k / 9).toFixed(2)};stroke-width:${(5.5 - k * .45).toFixed(2)}"/>`;
+      g.innerHTML = h; return { segs: [...g.children], L }; };
+    const FR = mkFlow($('.flow.fr', lab), tubeR, '#ff4a57'), FB = mkFlow($('.flow.fb', lab), tubeB, '#5aa8ff');
+    const cvs = $('#labfx'), cx = cvs.getContext('2d'); cx.setTransform(1.5, 0, 0, 1.5, 0, 0);
+    // μισό πλάτος του αχλαδιού της χοάνης ανά ύψος (συντεταγμένες εικόνας 382×1129)
+    const PW = [[214, 84], [260, 140], [300, 168], [345, 184], [385, 187], [430, 184], [480, 160], [560, 124], [650, 86], [720, 58], [790, 6]];
+    const pw = y => { for (let i = 1; i < PW.length; i++) if (y <= PW[i][0]) { const a = PW[i - 1], b = PW[i], t = (y - a[0]) / (b[0] - a[0]); return a[1] + (b[1] - a[1]) * t; } return 6; };
+    const clamp = v => Math.max(0, Math.min(1, v));
+    const mix = (a, b, t) => a.map((v, i) => Math.round(v + (b[i] - v) * t));
+    const RED1 = [255, 74, 87], RED2 = [138, 0, 11], PUR1 = [190, 90, 255], PUR2 = [64, 12, 150];
+    let pR = 0, pB = 0, blueOn = false, phase = 'run', hold = 0, f = 0, fFull = 1, m = 0, prev = performance.now(), tF = 0;
+    const parts = [], bubs = [], sp = [];
+    const reset = () => { pR = 0; pB = 0; phase = 'run'; hold = 0; f = 0; m = 0; parts.length = bubs.length = sp.length = 0; blueOn = sec.classList.contains('st1'); };
+    hooks.n36 = { enter() { reset(); }, step() { blueOn = true; } };
+    const flow = (F, on, t, per) => {
+      const u = (t / per) % 1, head = u * (F.L + 14 * 9);
+      F.segs.forEach((p, k) => { p.style.strokeDasharray = `14.5 ${F.L * 3}`; p.style.strokeDashoffset = on ? -(head - (k + 1) * 14) : F.L * 2; });
     };
+    function frame(now) {
+      requestAnimationFrame(frame);
+      const dt = Math.min(60, now - prev); prev = now;
+      if (!sec.classList.contains('active')) return;
+      tF += dt;
+      const DUR = 10000;
+      if (phase === 'run') {
+        if (pR < 1) pR = Math.min(1, pR + dt / DUR);
+        if (blueOn && pB < 1) pB = Math.min(1, pB + dt / DUR);
+        const tgt = .45 * clamp((pR * DUR - 900) / (DUR - 900)) + .55 * clamp((pB * DUR - 900) / (DUR - 900));
+        f += (tgt - f) * .04;
+        if (blueOn && pB >= 1 && f > .985) { phase = 'full'; hold = 0; burst(sp, 420, 520, 120, ['242,194,48', '255,255,255', '200,140,255', '255,120,130'], 9); }
+      } else if (phase === 'full') {
+        hold += dt; if (hold > 2800) { phase = 'reset'; hold = 0; fFull = f; }
+      } else {
+        hold += dt; const k = clamp(hold / 1800), e = k * k * (3 - 2 * k);
+        f = fFull * (1 - e); pR = pB = 1 - e;
+        if (k >= 1) { pR = pB = 0; f = 0; m = 0; phase = 'run'; }
+      }
+      const mt = blueOn ? clamp((.55 * clamp((pB * DUR - 900) / (DUR - 900))) / .3) : 0;
+      if (phase === 'run') m += (mt - m) * .03;
+      // χοάνες
+      const yR = 214 + pR * 576, yB = 214 + pB * 576;
+      lvR.setAttribute('y', yR); sfR.setAttribute('cy', yR); sfR.setAttribute('rx', Math.max(0, pw(yR) - 4)); sfR.setAttribute('ry', Math.max(1, pw(yR) * .09));
+      lvB.setAttribute('y', yB); sfB.setAttribute('cy', yB); sfB.setAttribute('rx', Math.max(0, pw(yB) - 4)); sfB.setAttribute('ry', Math.max(1, pw(yB) * .09));
+      const rOn = phase === 'run' && pR > 0 && pR < 1, bOn = phase === 'run' && blueOn && pB > 0 && pB < 1;
+      flow(FR, rOn, tF, 1700); flow(FB, bOn, tF + 600, 1700);
+      // φιάλη
+      const yl = 868 - f * 258, rx = yl > 601 ? Math.sqrt(Math.max(0, 140 * 140 - (yl - 735) ** 2)) - 3 : 37;
+      flB.setAttribute('y', yl + 2);
+      flS.setAttribute('cy', yl + 2 + Math.sin(tF / 700) * 1.5); flS.setAttribute('rx', Math.max(0, rx)); flS.setAttribute('ry', Math.max(2, rx * .16));
+      flW.setAttribute('transform', `translate(${270 - (tF / 30) % 150} ${yl - 2 + Math.sin(tF / 900) * 2})`);
+      const c1 = mix(RED1, PUR1, m), c2 = mix(RED2, PUR2, m), cs = mix([255, 140, 150], [225, 180, 255], m);
+      s1.setAttribute('stop-color', `rgb(${c1})`); s2.setAttribute('stop-color', `rgb(${c2})`); flS.setAttribute('fill', `rgb(${cs})`);
+      flS.style.opacity = f > .01 ? .9 : 0; flW.style.opacity = f > .03 ? 1 : 0;
+      // σωματίδια
+      cx.clearRect(0, 0, 840, 890);
+      const inside = (x, y) => (x - 420) ** 2 + (y - 735) ** 2 < 128 * 128 && y > yl + 4;
+      if (f > .03 && Math.random() < .35) bubs.push({ x: 420 + rnd(-90, 90), y: 860, r: rnd(1.5, 4), v: rnd(.4, 1.1) });
+      for (let i = bubs.length - 1; i >= 0; i--) { const b = bubs[i]; b.y -= b.v * dt / 16; b.x += Math.sin((b.y + i) / 14) * .3;
+        if (b.y < yl + 6 || !inside(b.x, b.y + 10)) { bubs.splice(i, 1); continue; }
+        cx.strokeStyle = 'rgba(255,255,255,.55)'; cx.lineWidth = 1; cx.beginPath(); cx.arc(b.x, b.y, b.r, 0, 7); cx.stroke(); }
+      if (m > .05) for (let n = 0; n < m * 4; n++) { const x = 420 + rnd(-135, 135), y = rnd(yl, 870); if (inside(x, y)) parts.push({ x, y, life: 1, r: rnd(1, 3.2), d: rnd(.006, .02), c: Math.random() < .45 ? '255,220,120' : Math.random() < .5 ? '230,190,255' : '255,255,255' }); }
+      for (let i = parts.length - 1; i >= 0; i--) { const p = parts[i]; p.life -= p.d * dt / 16; p.y -= .25;
+        if (p.life <= 0 || p.y < yl) { parts.splice(i, 1); continue; }
+        glowDot(cx, p.x, p.y, p.r * (0.6 + Math.abs(Math.sin(p.life * 9)) * .7), p.c, p.life * (.6 + m * .4)); }
+      if (m > .4 && Math.random() < m * .5) sp.push({ x: 420 + rnd(-60, 60), y: yl - rnd(0, 30), vx: rnd(-.6, .6), vy: rnd(-2.4, -.8), life: 1, r: rnd(1, 2.6), c: Math.random() < .5 ? '242,194,48' : '210,160,255' });
+      if (rOn) glowDot(cx, 395, 528, 4, '255,74,87', .9);
+      if (bOn) glowDot(cx, 445, 528, 4, '90,168,255', .9);
+      drawSparks(cx, sp, .03);
+    }
+    requestAnimationFrame(frame);
   })();
 
   /* ================= n38 · οικοσύστημα ================= */
@@ -466,5 +523,39 @@
     const els = $$('.cat', host);
     els.forEach(el => el.addEventListener('click', () => { el.classList.add('launch'); setTimeout(() => { el.classList.remove('launch'); api.go(api.seqOf('g' + el.dataset.g)[0]); }, 380); }));
     hooks.pmenu = { enter() { els.forEach(el => el.classList.toggle('done', api.pVisited.has(+el.dataset.g))); $('#pmProg').textContent = `${api.pVisited.size} / 6`; } };
+  })();
+  /* ================= v3 · «space» φόντο (από τον Τιμοκατάλογο) ================= */
+  (() => {
+    const cvs = $('#space'); if (!cvs) return;
+    const cx = cvs.getContext('2d'); let w, h, mx = .5, my = .5; const pts = [];
+    const size = () => { const d = Math.min(2, devicePixelRatio || 1); w = cvs.width = innerWidth * d; h = cvs.height = innerHeight * d; };
+    size(); addEventListener('resize', size);
+    for (let i = 0; i < 90; i++) pts.push({ x: Math.random(), y: Math.random(), z: .3 + Math.random() * .7, v: .00008 + Math.random() * .00022, r: Math.random() < .12 });
+    const gc = $('#glowCursor');
+    addEventListener('mousemove', e => { mx = e.clientX / innerWidth; my = e.clientY / innerHeight; if (gc) { gc.style.left = e.clientX + 'px'; gc.style.top = e.clientY + 'px'; } });
+    (function loop() {
+      cx.clearRect(0, 0, w, h);
+      const P2 = pts.map(p => { p.y -= p.v * p.z * 16; if (p.y < -.02) { p.y = 1.02; p.x = Math.random(); } return [(p.x + (mx - .5) * .02 * p.z) * w, (p.y + (my - .5) * .02 * p.z) * h, p]; });
+      cx.lineWidth = 1; const lim = (w * .07) ** 2;
+      for (let i = 0; i < P2.length; i++) for (let j = i + 1; j < P2.length; j++) { const dx = P2[i][0] - P2[j][0], dy = P2[i][1] - P2[j][1], d = dx * dx + dy * dy; if (d < lim) { cx.strokeStyle = `rgba(255,255,255,${.06 * (1 - d / lim)})`; cx.beginPath(); cx.moveTo(P2[i][0], P2[i][1]); cx.lineTo(P2[j][0], P2[j][1]); cx.stroke(); } }
+      P2.forEach(([x, y, p]) => { cx.fillStyle = p.r ? `rgba(255,70,80,${.6 * p.z})` : `rgba(210,235,255,${.4 * p.z})`; cx.beginPath(); cx.arc(x, y, (p.r ? 1.9 : 1.4) * p.z * (w / innerWidth), 0, 7); cx.fill(); });
+      requestAnimationFrame(loop);
+    })();
+  })();
+
+  /* ================= v3 · scanner στα αριθμημένα πλακίδια ================= */
+  $$('.tile .front').forEach(f => { if (f.querySelector('.num')) f.insertAdjacentHTML('beforeend', '<i class="scanl"></i>'); });
+
+  /* ================= v3 · προϊόντα: μικρογραφίες, βαθμίδες, ΤΕΛΟΣ ================= */
+  (() => {
+    const lb = $('#lb'), lbImg = lb && $('img', lb);
+    $$('.sp .thumb img[data-full]').forEach(im => im.closest('.thumb').addEventListener('click', () => { lbImg.src = im.dataset.full; lb.classList.add('open'); }));
+    const sec = $('.pr72'); if (sec) {
+      const btns = $$('.tier-b', sec), tts = $$('.tthumbs .thumb', sec), sets = $$('.tset', sec); let iv = null, k = 0;
+      const sel = i => { k = i; [btns, tts, sets].forEach(L => L.forEach((e, j) => e.classList.toggle('on', j === i))); };
+      [...btns, ...tts].forEach(b => b.addEventListener('click', () => { clearInterval(iv); iv = null; sel(+b.dataset.t); }));
+      hooks.pr72 = { enter() { sel(0); clearInterval(iv); iv = setInterval(() => sel((k + 1) % 4), 3400); }, leave() { clearInterval(iv); iv = null; } };
+    }
+    const eb = $('#endBtn'); if (eb) eb.addEventListener('click', e => { e.stopPropagation(); api.go(api.idOf('pr86')); });
   })();
 });

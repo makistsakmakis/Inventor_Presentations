@@ -1,0 +1,317 @@
+/* ==========================================================
+   Welcome Stores · v3 — premium εφέ (από τον Τιμοκατάλογο) & διορθώσεις
+   ========================================================== */
+
+/* ---------- «space» φόντο ---------- */
+#space{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:0}
+#glowCursor{position:fixed;width:620px;height:620px;border-radius:50%;left:0;top:0;z-index:0;pointer-events:none;
+  background:radial-gradient(circle,rgba(255,60,70,.09),transparent 65%);transform:translate(-50%,-50%)}
+
+/* ---------- αριθμημένα πλακίδια: περιστροφικό κόκκινο + scanner ---------- */
+.tile .num,.opt .num{position:relative;overflow:visible}
+.tile .num::after,.opt .num::after{content:"";position:absolute;inset:-13px;border-radius:50%;border:1.5px solid rgba(255,255,255,.22);border-top-color:#ff3d46;
+  box-shadow:0 -2px 14px -6px rgba(255,61,70,.9);animation:spin 6s linear infinite;pointer-events:none}
+.tile .front .scanl{position:absolute;left:0;right:0;top:0;height:1px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,#ff3d46,transparent);box-shadow:0 0 10px rgba(255,61,70,.8);opacity:.85;animation:scanT 4.5s linear infinite}
+@keyframes scanT{0%{top:0;opacity:0}10%{opacity:.85}90%{opacity:.85}100%{top:100%;opacity:0}}
+
+/* ---------- τίτλος σελίδας: αποκάλυψη με «δέσμη» ---------- */
+.slide h2.rv{position:relative}
+.slide.active h2.rv{animation-name:titleIn!important;animation-duration:1.15s!important;animation-timing-function:cubic-bezier(.2,.8,.2,1)!important}
+@keyframes titleIn{0%{opacity:1;clip-path:inset(-30% 100% -30% -2%);filter:blur(8px);letter-spacing:.06em}
+  60%{filter:blur(0)}100%{opacity:1;clip-path:inset(-30% -6% -30% -2%);filter:none}}
+.slide h2.rv::before{content:"";position:absolute;top:6%;bottom:6%;width:3px;left:0;opacity:0;pointer-events:none;background:#fff;
+  box-shadow:0 0 12px #fff,0 0 30px #ff3d46,0 0 60px #e3141e}
+.slide.active h2.rv::before{animation:beamT 1.15s cubic-bezier(.2,.8,.2,1) both;animation-delay:inherit}
+@keyframes beamT{0%{left:0;opacity:0}10%{opacity:1}85%{opacity:1}100%{left:100%;opacity:0}}
+
+/* ---------- κυλινδρικές γυάλινες μπάρες (στυλ Τιμοκαταλόγου) ---------- */
+.b3 .s{display:none}
+.b3 .f{border-radius:14px 14px 4px 4px;border:1px solid var(--bd,rgba(255,255,255,.4));border-bottom:0;overflow:hidden;
+  background:linear-gradient(180deg,var(--c1),var(--c2));box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 0 30px -8px var(--c1);backdrop-filter:none}
+.b3 .f::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,rgba(255,255,255,.42) 0,rgba(255,255,255,.14) 16%,transparent 34%,transparent 68%,rgba(0,0,0,.18) 86%,rgba(255,255,255,.06) 100%),
+  linear-gradient(180deg,transparent 0,transparent 42%,rgba(255,255,255,.55) 50%,transparent 58%,transparent 100%);
+  background-size:100% 100%,100% 320%;background-repeat:no-repeat;background-position:0 0,0 110%;animation:barGloss 3.6s ease-in-out infinite;animation-delay:var(--gd,1.4s)}
+@keyframes barGloss{0%{background-position:0 0,0 110%}55%,100%{background-position:0 0,0 -10%}}
+.b3 .f::after{content:"";position:absolute;left:8%;right:8%;top:0;height:3px;border-radius:3px;width:auto;background:#fff;opacity:1;
+  box-shadow:0 0 12px #fff,0 0 22px var(--c1)}
+.b3 .t{left:-1px;right:-1px;bottom:auto;top:-9px;height:18px;border-radius:50%;transform:none;border:1px solid rgba(255,255,255,.55);
+  background:radial-gradient(ellipse at 40% 40%,rgba(255,255,255,.95),var(--ct) 45%,var(--c1) 80%);box-shadow:0 0 18px var(--c1)}
+.b3::after{content:"";position:absolute;left:-12%;right:-12%;bottom:-10px;height:20px;border-radius:50%;background:radial-gradient(ellipse,var(--c1),transparent 70%);opacity:.55;filter:blur(4px);pointer-events:none}
+.bx:hover .b3 .f,.gbar:hover .b3 .f,.s9 .bar:hover .b3 .f{filter:saturate(1.4) brightness(1.18);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 0 44px var(--c1)}
+/* γυάλινο πάνελ με πλέγμα */
+.gpanel{position:absolute;border-radius:26px;background:rgba(20,25,32,.46);border:1px solid rgba(255,255,255,.12);backdrop-filter:saturate(160%) blur(18px);-webkit-backdrop-filter:saturate(160%) blur(18px);
+  box-shadow:0 20px 60px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.08)}
+.gridl{position:absolute;pointer-events:none}
+.gridl i{position:absolute;left:0;right:0;height:1px;background:rgba(255,255,255,.07)}
+.gridl i span{position:absolute;left:-58px;top:-10px;width:46px;text-align:right;font-size:14px;font-weight:600;color:rgba(255,255,255,.4)}
+
+/* +93% */
+.s9 .c3d-panel{left:1000px;right:200px;top:200px;bottom:120px}
+.s9 .chart.c3d{z-index:2}
+.s9 .chart.c3d .bar .b3 .f{border-radius:18px 18px 4px 4px}
+
+/* ---------- slide 7 · χρυσό «1», outlined LEADER ---------- */
+.ace{background:linear-gradient(150deg,#ffe9a3,#f2c230 35%,#b8860b 75%,#7a5408);box-shadow:0 30px 80px rgba(242,194,48,.45),0 0 60px rgba(242,194,48,.35),inset 0 2px 0 rgba(255,255,255,.7),inset 0 -6px 18px rgba(90,60,0,.45)}
+.ace span{background:linear-gradient(180deg,#fffbe8,#ffe9a3 50%,#f7d36b);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;filter:drop-shadow(0 6px 10px rgba(90,60,0,.55))}
+.n7-card h2 b{font-family:"CommOutline",var(--font);color:transparent;-webkit-text-stroke:2.4px #fff;font-weight:900}
+
+/* ---------- slide 8 · συμπαγή βέλη ---------- */
+.n8-t .v svg{width:64px;height:64px;stroke-width:3.4}
+
+/* ---------- slide 11 · ταμειακή & premium γραμμικό ---------- */
+.n11-reg{left:-60px;bottom:-30px;width:820px;opacity:.16;filter:saturate(.7) drop-shadow(0 30px 60px rgba(0,0,0,.6));mix-blend-mode:screen}
+.n11 .lc{left:640px;top:200px;width:1130px;height:800px}
+.n11 .lcsvg{width:1090px;height:640px}
+.n11 .sl-legend{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:4px}
+.n11 .sl-legend button{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:700;padding:8px 14px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);transition:opacity .3s}
+.n11 .sl-legend button.off{opacity:.35}
+.n11 .sl-legend i{width:24px;height:5px;border-radius:3px}
+.n11 h4 b.neg{color:#ff5a66;font-weight:900;margin-left:6px}
+.lcsvg .dlt{font-size:18px;font-weight:900}
+
+/* ---------- slide 13 · μεγαλύτερη φωτογραφία ---------- */
+.gauge{width:300px}
+.gauge svg{width:210px;height:210px}
+.gauge .gv{top:72px;font-size:66px}
+.gauge p{font-size:22px;margin-top:10px}
+.gauge.g1{left:700px;top:240px}.gauge.g2{left:700px;top:620px}
+.mm{right:60px;width:860px;height:840px}
+.mm img{width:860px}
+.mm .placard{left:218px;top:104px;width:446px;height:230px;font-size:62px}
+
+/* ---------- slide 14 ---------- */
+.d30-prod img.elec{height:150px;width:auto}
+
+/* ---------- slide 15 · σκηνή εγκλήματος ---------- */
+.crime .chalk{top:118px;font-size:62px;font-weight:900;font-style:normal;line-height:1.02;letter-spacing:.02em;text-transform:uppercase;filter:none;text-shadow:0 0 2px #fff,0 0 18px rgba(255,255,255,.25)}
+.crime .chalk span{display:block}
+.crime .crime-lab{display:none}
+.tape.t1{top:24px;transform:rotate(-5deg)!important}.tape.t2{top:318px;transform:rotate(4deg)!important}
+
+/* ---------- slide 16 · fusion ---------- */
+.or-and{top:440px;width:820px;height:560px}
+.or-and .url{left:0;top:10px;width:660px;height:132px;border-radius:56px;font-size:44px;align-items:flex-start;padding:26px 36px 0;gap:20px;z-index:2;
+  background:rgba(10,18,40,.55);transition:none}
+.or-and .url svg{width:44px;height:44px;margin-top:4px}
+.or-and .bld{left:150px;top:350px;width:660px;height:176px;border-radius:30px;font-size:44px;align-items:flex-end;justify-content:flex-end;padding:0 40px 34px;gap:22px;z-index:1;background:rgba(255,255,255,.07)}
+.or-and .bld svg{width:86px;height:86px}
+.or-and .conj{left:330px;top:150px;width:200px;height:200px;z-index:3}
+.or-and .conj span{font-size:220px}
+.or-and .oa-cap,.or-and .oa-cap2{display:none}
+.or-and .fuse{position:absolute;left:150px;top:150px;width:510px;height:0;border-radius:30px;opacity:0;z-index:2;pointer-events:none;
+  background:linear-gradient(90deg,rgba(42,134,255,.0),rgba(140,195,255,.55) 20%,rgba(255,255,255,.85) 50%,rgba(255,90,100,.55) 80%,rgba(224,16,31,0));
+  filter:blur(1px);box-shadow:0 0 40px rgba(255,255,255,.55),0 0 90px rgba(224,16,31,.45);mix-blend-mode:screen}
+.n16.active .or-and .url{animation:urlF 2.6s cubic-bezier(.6,0,.2,1) 3.6s both}
+.n16.active .or-and .bld{animation:bldF 2.6s cubic-bezier(.6,0,.2,1) 3.6s both}
+.n16.active .or-and .and{animation:andIn .8s cubic-bezier(.2,1.8,.3,1) 3.1s forwards,andGo 2.6s cubic-bezier(.6,0,.2,1) 3.9s forwards}
+.n16.active .or-and .fuse{animation:fuseIn 1.6s ease 5.6s both,fuseP 2.4s ease-in-out 7.2s infinite}
+@keyframes urlF{0%{transform:none}35%{transform:translate(-40px,-30px)}100%{transform:translate(110px,140px)}}
+@keyframes bldF{0%{transform:none}35%{transform:translate(40px,30px)}100%{transform:translate(-40px,-140px)}}
+@keyframes andGo{to{transform:translate(170px,-210px) scale(.6)}}
+@keyframes fuseIn{0%{opacity:0;height:0;top:200px}100%{opacity:1;height:72px;top:174px}}
+@keyframes fuseP{50%{filter:blur(1px) brightness(1.4);box-shadow:0 0 60px rgba(255,255,255,.8),0 0 140px rgba(224,16,31,.6)}}
+.or-and .url,.or-and .bld{mix-blend-mode:normal}
+
+/* ---------- slide 32 ---------- */
+.n32-t{left:1000px}
+
+/* ---------- slide 33 ---------- */
+.vs33{left:150px;right:230px;top:330px;height:470px;grid-template-columns:300px 160px 1fr}
+.cube1 i,.wall i{background:none!important;box-shadow:none!important;border-radius:0!important;width:auto!important;height:auto!important}
+.cube1{width:260px;height:300px}
+.cube1 i{display:block;width:60px!important;height:150px!important}
+.cube1 svg,.wall svg{width:100%;height:100%;display:block}
+.cube1 svg path,.cube1 svg circle{fill:#fff}
+.cube1 i{animation:hBlink 1s steps(1) infinite;filter:drop-shadow(0 0 14px #fff) drop-shadow(0 0 30px #fff)}
+@keyframes hBlink{0%{opacity:1}50%{opacity:.08}}
+.wall{grid-template-columns:repeat(20,34px)!important;gap:6px 8px!important;height:320px;justify-content:center}
+.wall i{width:34px!important;height:40px!important}
+.wall svg path,.wall svg circle{fill:#8cc3ff}
+.wall i.on{filter:drop-shadow(0 0 8px rgba(42,134,255,.9))}
+.eq33{left:0;right:0;margin:0 auto;width:1180px;justify-content:center;gap:60px;bottom:96px}
+
+/* ---------- slide 34 · πλαίσια μεγαλύτερα & εμφωλευμένα ---------- */
+.chips34 span{font-size:26px;padding:16px 28px;border-radius:40px;color:rgba(255,255,255,.62);border-color:rgba(255,255,255,.2)}
+.chips34 .nest{display:flex;align-items:center;gap:14px;padding:12px 14px 12px 28px;border-radius:46px;border:1.5px solid rgba(255,90,100,.4);background:rgba(224,16,31,.06)}
+.chips34 .nest>b{font-weight:700;color:rgba(255,255,255,.75)}
+.chips34 .nest span{position:static;opacity:1!important;animation:none!important;font-size:22px;padding:10px 20px}
+.chips34 .nest span.nest{padding:8px 10px 8px 20px;border-color:rgba(140,195,255,.45);background:rgba(42,134,255,.06)}
+
+/* ---------- slide 35 · απογοήτευση ---------- */
+.n35 .aristo{position:absolute;inset:0;background:url(../img/v2/aristotle.jpg) center/cover no-repeat;opacity:0;mix-blend-mode:luminosity;filter:grayscale(1) contrast(1.1);transition:opacity 2.4s ease .3s;
+  -webkit-mask-image:radial-gradient(120% 100% at 60% 40%,#000 30%,transparent 85%);mask-image:radial-gradient(120% 100% at 60% 40%,#000 30%,transparent 85%)}
+.n35.st1 .aristo{opacity:.42}
+.n35.st1::after{display:none}
+.n35 .no35 svg{display:none}
+.n35 .no35{transition:opacity 2s ease .8s,filter 2s ease .8s,transform 2.4s ease .8s!important;transform:none!important}
+.n35:not(.st1) .no35{transform:translateY(30px)!important}
+.n35.st1 .champ{animation:champFade 2.4s ease forwards}
+@keyframes champFade{to{opacity:.12;filter:grayscale(1) brightness(.5);transform:translateY(60px) rotate(18deg)}}
+.n35 .n35-q{transition:color 2s ease}
+body[data-bg="grey"] .bg{transition:filter 2s ease}
+body[data-bg="grey"] .bg .red{transition:opacity 2.4s ease}
+
+/* ---------- slide 36 · εργαστήριο ---------- */
+.lab .recipe{width:820px;top:300px;gap:22px}
+.lab .ing h3{font-size:46px}
+.lab .ing h3 .em{-webkit-text-stroke-width:2px}
+.lab .ing.i2{opacity:.3;border-style:dashed;transition:opacity .9s,border-color .9s,box-shadow .9s}
+.lab.st1 .ing.i2{opacity:1;border-style:solid;border-color:rgba(80,150,255,.7);box-shadow:0 0 70px rgba(42,134,255,.3)}
+.lab .ing.i1{border-color:rgba(255,90,100,.55);box-shadow:0 0 60px rgba(224,16,31,.22)}
+.lab .ing .ing-k.b{color:#8cc3ff}
+.lab .ing.i2 h3{color:rgba(255,255,255,.95)}
+.lab .amp{margin:0 0 0 30px}
+.labsc{position:absolute;left:930px;top:150px;width:840px;height:890px}
+.labsc svg.rig{position:absolute;inset:0;width:840px;height:890px;overflow:visible}
+.labsc .fn{position:absolute;width:150px;top:0}
+.labsc .fn img{width:150px;height:auto;display:block;position:relative;z-index:2;filter:drop-shadow(0 20px 30px rgba(0,0,0,.5)) brightness(1.05)}
+.labsc .fn svg.liq{position:absolute;left:0;top:0;width:150px;height:443px;z-index:3;overflow:visible;mix-blend-mode:multiply;opacity:.95}
+.labsc .fn.r{left:70px}
+.labsc .fn.b{left:630px;opacity:.2;filter:grayscale(.6);transition:opacity 1.2s,filter 1.2s}
+.lab.st1 .labsc .fn.b{opacity:1;filter:none}
+.labsc canvas{position:absolute;inset:0;width:840px;height:890px;pointer-events:none;z-index:4}
+.labsc .bench{position:absolute;left:-60px;right:-40px;bottom:30px;height:16px;border-radius:8px;background:linear-gradient(180deg,rgba(255,255,255,.25),rgba(255,255,255,.04));box-shadow:0 30px 60px rgba(0,0,0,.6),0 0 40px rgba(140,195,255,.08)}
+.labsc .bench::after{content:"";position:absolute;left:10%;right:10%;top:16px;height:120px;background:radial-gradient(ellipse at 50% 0,rgba(180,120,255,.18),transparent 70%)}
+
+/* ---------- outlined (στατικό) ---------- */
+.em2{font-family:"CommOutline",var(--font);color:transparent;-webkit-text-stroke:2px #fff}
+
+/* ---------- ΠΡΟΪΟΝΤΑ · layout με φωτεινό βάθρο (Τιμοκατάλογος) ---------- */
+.sp .sp-l{position:absolute;left:110px;top:150px;width:760px;bottom:110px;display:flex;flex-direction:column;gap:22px}
+.pill{display:inline-flex;align-items:center;border-radius:999px;overflow:hidden;border:1px solid rgba(255,255,255,.14);font-size:17px}
+.pill b{background:linear-gradient(135deg,#e3141e,#9a0a12);padding:9px 20px;font-weight:600;letter-spacing:.02em}
+.pill span{padding:9px 20px;color:var(--mute)}
+.sp .sp-t{font-size:64px;font-weight:800;line-height:1.06;letter-spacing:-.02em}
+.sp .sp-t .red-t{color:#ff2536;text-shadow:0 0 40px rgba(224,16,31,.35)}
+.sp-list{list-style:none;display:flex;flex-direction:column;gap:12px;margin-top:6px}
+.sp-list li{display:flex;align-items:center;gap:16px;font-size:24px;font-weight:600;padding:14px 18px;border-radius:16px;background:rgba(20,25,32,.46);border:1px solid rgba(255,255,255,.1);
+  backdrop-filter:blur(14px);opacity:0;transition:border-color .3s,transform .4s var(--spring)}
+.sp-list li:hover{border-color:rgba(255,90,100,.6);transform:translateX(6px)}
+.slide.active .sp-list li{animation:fromLeft .8s var(--ease) both;animation-delay:calc(.6s + var(--k) * .12s)}
+.sp-list .ck{flex:none;width:34px;height:34px;border-radius:50%;background:#e3141e;display:grid;place-items:center;box-shadow:0 0 16px rgba(224,16,31,.6)}
+.sp-list .ck svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.sp .dt{position:absolute;left:0;bottom:0;font-size:15px;letter-spacing:.3em;text-transform:uppercase;font-weight:700;color:var(--faint)}
+.sp .sp-r{position:absolute;left:910px;right:190px;top:150px;bottom:110px}
+.hero{position:absolute;left:0;right:210px;top:0;bottom:0;display:flex;align-items:flex-end;justify-content:center;padding-bottom:70px}
+.hero .glow{position:absolute;left:50%;top:46%;width:640px;height:640px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.13),rgba(227,20,30,.07) 45%,transparent 70%)}
+.hero .ring{position:absolute;left:50%;bottom:40px;width:560px;height:118px;transform:translateX(-50%);border-radius:50%;border:1px solid rgba(255,255,255,.2);
+  background:radial-gradient(ellipse at 50% 40%,rgba(227,20,30,.22),rgba(227,20,30,.04) 60%,transparent 72%);box-shadow:0 0 50px rgba(227,20,30,.4),inset 0 0 36px rgba(227,20,30,.3)}
+.hero .ring::before{content:"";position:absolute;inset:-20px -46px;border-radius:50%;border:1px dashed rgba(255,255,255,.14);animation:spin 30s linear infinite}
+.hero .ring2{position:absolute;left:50%;bottom:58px;width:420px;height:80px;transform:translateX(-50%);border-radius:50%;border:2px solid rgba(255,61,70,.55);box-shadow:0 0 24px rgba(255,61,70,.6);animation:ringP 3s ease-in-out infinite}
+@keyframes ringP{50%{box-shadow:0 0 50px rgba(255,61,70,.9);border-color:rgba(255,120,130,.9)}}
+.hero>img,.tset img{position:relative;max-width:92%;max-height:560px;width:auto;object-fit:contain;filter:drop-shadow(0 34px 40px rgba(0,0,0,.65));animation:floatY 6s ease-in-out infinite;z-index:1}
+@keyframes floatY{50%{transform:translateY(-14px)}}
+.hero.two>img{max-width:58%;max-height:500px}
+.hero.two>img.hp0{margin-right:-120px;z-index:2}
+.hero.two>img.hp1{margin-bottom:60px;max-height:440px;animation-delay:-3s}
+.hero.two>img.hp2{position:absolute;left:4%;bottom:90px;max-width:34%;z-index:3;animation-delay:-1.5s}
+.pr80 .hero.two>img.hp0{position:absolute;top:30px;left:50%;transform:translateX(-50%);margin:0;max-width:80%;animation:none;filter:drop-shadow(0 20px 30px rgba(0,0,0,.6))}
+.pr80 .hero.two>img.hp1{max-height:380px;margin:0 0 0 220px}
+.hero .scanl{position:absolute;left:12%;right:12%;height:2px;top:0;background:linear-gradient(90deg,transparent,rgba(255,90,100,.95),transparent);box-shadow:0 0 18px #ff3d46;opacity:0;z-index:3}
+.slide.active .hero .scanl{animation:heroScan 2.4s cubic-bezier(.2,.8,.2,1) .7s}
+@keyframes heroScan{0%{top:5%;opacity:0}15%{opacity:1}85%{opacity:1}100%{top:92%;opacity:0}}
+.slide.active .hero>img,.slide.active .tset.on img,.slide.active .pcard{animation:heroIn 1.4s var(--ease) both,floatY 6s ease-in-out 1.4s infinite}
+@keyframes heroIn{from{opacity:0;transform:translateY(60px) scale(.94);filter:blur(10px) drop-shadow(0 34px 40px rgba(0,0,0,.65))}}
+.pcard{position:relative;width:440px;height:540px;border-radius:30px;overflow:hidden;z-index:1;border:1px solid rgba(255,255,255,.3);
+  box-shadow:0 40px 80px rgba(0,0,0,.6),0 0 60px rgba(227,20,30,.25),inset 0 1px 0 rgba(255,255,255,.4);transform:perspective(1400px) rotateY(-8deg)}
+.pcard img{width:100%;height:100%;object-fit:cover}
+.pcard .glare{position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.2),transparent 35%,transparent 70%,rgba(255,255,255,.08))}
+.pcard::after{content:"";position:absolute;left:0;right:0;bottom:0;height:40%;background:linear-gradient(0deg,rgba(5,6,10,.55),transparent)}
+.badge10{position:absolute!important;right:6%;top:6%;width:120px!important;height:auto;max-width:none!important;animation:floatY 5s ease-in-out infinite!important;filter:drop-shadow(0 10px 20px rgba(0,0,0,.5))!important;border-radius:10px;background:#fff;padding:8px}
+.thumbs{position:absolute;right:0;top:10px;bottom:10px;width:190px;display:flex;flex-direction:column;gap:14px}
+.thumb{flex:1;border-radius:18px;overflow:hidden;position:relative;border:1px solid rgba(255,255,255,.14);background:#1a1d24;cursor:zoom-in;transition:transform .4s var(--ease),border-color .3s,box-shadow .3s}
+.thumb img{width:100%;height:100%;object-fit:cover;transform:scale(1.6);transition:transform .6s var(--ease)}
+.thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.4))}
+.thumb .zi{position:absolute;right:10px;bottom:10px;width:32px;height:32px;border-radius:50%;background:rgba(10,13,17,.65);display:grid;place-items:center;z-index:2;opacity:.75;transition:.3s}
+.thumb .zi svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2}
+.thumb:hover{transform:translateX(-6px) scale(1.03);border-color:#e3141e;box-shadow:0 0 26px rgba(227,20,30,.55)}
+.thumb:hover img{transform:scale(1.75)}
+.thumb:hover .zi{opacity:1;background:#e3141e}
+.slide.active .thumb{animation:thumbIn .8s var(--ease) both;animation-delay:calc(.6s + var(--i) * .12s)}
+@keyframes thumbIn{from{opacity:0;transform:translateX(40px) rotateY(18deg)}}
+/* βαθμίδες (pr72) */
+.tier-tabs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px}
+.tier-b{position:relative;display:flex;align-items:center;gap:14px;padding:22px 24px;border-radius:18px;font-size:26px;font-weight:800;text-align:left;
+  background:rgba(20,25,32,.46);border:1px solid rgba(255,61,70,.35);transition:.35s;overflow:visible}
+.tier-b span{font-size:15px;letter-spacing:.2em;color:#ff5a66}
+.tier-b.on{background:rgba(227,20,30,.22);border-color:#ff3d46;box-shadow:0 0 0 4px rgba(227,20,30,.15),0 0 30px rgba(227,20,30,.5)}
+.tier-b::before,.tier-b::after{content:"";position:absolute;inset:-1px;border-radius:19px;border:1px solid #ff3d46;opacity:0;pointer-events:none;animation:tabRadar 3.2s cubic-bezier(.2,.7,.3,1) infinite;animation-delay:calc(var(--i) * .3s)}
+.tier-b::after{animation-delay:calc(var(--i) * .3s + 1.6s)}
+@keyframes tabRadar{0%{opacity:.5;transform:scale(1)}70%{opacity:0}100%{opacity:0;transform:scale(1.06,1.3)}}
+.tset{position:absolute;inset:0 0 70px;display:none;align-items:flex-end;justify-content:center}
+.tset.on{display:flex}
+.tset img.hp0{max-width:62%;max-height:220px;margin-right:-140px;margin-bottom:40px;z-index:2}
+.tset img.hp1{max-width:62%;max-height:220px;margin-bottom:150px;animation-delay:-3s}
+.tset img:only-child{margin:0 0 40px;max-width:78%}
+.tph{display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:60px;color:rgba(255,255,255,.55);font-size:30px;font-weight:800}
+.tph svg{width:130px;height:130px;stroke:rgba(255,255,255,.45);fill:none;stroke-width:1.2}
+.tthumbs .thumb{cursor:pointer;background:rgba(20,25,32,.6);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:12px}
+.tthumbs .thumb .ti{width:150px;height:auto;max-height:60%;object-fit:contain;transform:none}
+.tthumbs .thumb svg{width:56px;height:56px;stroke:rgba(255,255,255,.5);fill:none;stroke-width:1.3}
+.tthumbs .thumb b{font-size:15px;font-weight:800;z-index:2;text-align:center}
+.tthumbs .thumb.on{border-color:#ff3d46;box-shadow:0 0 26px rgba(227,20,30,.55)}
+.tthumbs .thumb::after{display:none}
+/* τεχνολογίες / usp */
+.tboxes{display:flex;flex-direction:column;gap:12px}
+.tbox{display:flex;align-items:center;gap:18px;padding:14px 18px;border-radius:18px}
+.tbi{flex:none;width:58px;height:58px;border-radius:16px;background:#e3141e;display:grid;place-items:center;box-shadow:0 0 20px rgba(224,16,31,.55)}
+.tbi svg{width:30px;height:30px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tbi.w{width:130px;height:84px;background:#fff;box-shadow:none}
+.tbi.w img{max-width:88%;max-height:84%}
+.tbt b{display:block;font-size:22px;font-weight:800}
+.tbt small{display:block;font-size:15px;color:#ff5a66;font-weight:700;margin-top:2px}
+.tbt p{font-size:18px;line-height:1.4;color:rgba(255,255,255,.8);margin-top:4px}
+.tbt .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.tbt .chips span{font-size:15px;font-weight:600;padding:6px 11px;border-radius:10px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1)}
+.usprow{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px}
+.usp{width:132px;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+.usp .ic{width:92px;height:92px;border-radius:22px;position:relative;display:grid;place-items:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);transition:.4s var(--ease)}
+.usp .ic svg{width:46px;height:46px;stroke:#fff;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.usp .ic .hm{font-size:30px;font-weight:900;color:#fff}
+.usp .ic::after{content:"";position:absolute;inset:-7px;border-radius:26px;background:conic-gradient(from 0deg,transparent 0 70%,#ff3d46 85%,transparent 100%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;padding:1.5px;opacity:0;transition:.3s}
+.usp span{font-size:18px;font-weight:700;line-height:1.25;color:rgba(255,255,255,.85)}
+.usp:hover .ic{transform:translateY(-4px) scale(1.08);filter:drop-shadow(0 0 14px rgba(255,61,70,.8))}
+.usp:hover .ic::after{opacity:1;animation:spin 1.6s linear infinite}
+.slide.active .usp .ic{animation:uspPulse 1.2s var(--ease) both;animation-delay:calc(.6s + var(--i) * .1s)}
+@keyframes uspPulse{0%{opacity:0;transform:scale(.4)}60%{opacity:1;transform:scale(1.12);filter:drop-shadow(0 0 18px #ff3d46)}100%{transform:none}}
+.usp.gold .ic{border-color:rgba(242,194,48,.7);background:rgba(242,194,48,.12)}
+.usp.gold .ic svg{stroke:#f2c230}
+.sp-q{font-size:22px;font-weight:600;line-height:1.45;color:rgba(255,255,255,.88);padding:18px 22px;border-left:3px solid #e3141e;background:rgba(255,255,255,.03);border-radius:0 14px 14px 0}
+
+/* ---------- ΤΕΛΟΣ (radar) ---------- */
+.endbtn{position:absolute;right:210px;bottom:48px;width:118px;height:118px;border-radius:50%;z-index:6;display:grid;place-items:center;
+  background:radial-gradient(circle at 35% 30%,#ff5a66,#c00010 60%,#7a0008);box-shadow:0 0 0 6px rgba(227,20,30,.2),0 0 40px rgba(227,20,30,.7);animation:endBlink 1.6s ease-in-out infinite}
+.endbtn b{font-size:22px;font-weight:900;letter-spacing:.16em;color:#fff;position:relative;z-index:2}
+.endbtn i{position:absolute;inset:0;border-radius:50%;border:2px solid #ff3d46;opacity:0;animation:endRadar 2.4s cubic-bezier(.2,.6,.3,1) infinite}
+.endbtn i:nth-child(2){animation-delay:1.2s}
+.endbtn:hover{transform:scale(1.08);box-shadow:0 0 0 8px rgba(227,20,30,.3),0 0 70px rgba(227,20,30,1)}
+@keyframes endRadar{0%{transform:scale(1);opacity:.9}100%{transform:scale(2.1);opacity:0}}
+@keyframes endBlink{50%{filter:brightness(1.35)}}
+
+/* +93% πάνελ */
+.s9 .c3d-panel{left:auto;right:170px;width:780px;top:160px;bottom:110px}
+.s9 .chart.c3d{right:240px;bottom:200px;height:620px}
+/* γενιές: γυάλινα πάνελ με πλέγμα */
+.b3wrap.big{background:rgba(20,25,32,.42) repeating-linear-gradient(0deg,rgba(255,255,255,.06) 0 1px,transparent 1px 94px);border:1px solid rgba(255,255,255,.12);border-radius:26px 26px 0 0;backdrop-filter:blur(16px);box-shadow:0 20px 60px rgba(0,0,0,.35);padding-top:110px}
+.genrows .gplot{background:rgba(20,25,32,.38) repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 33px);border:1px solid rgba(255,255,255,.1);border-radius:18px 18px 0 0;padding:0 10px}
+.gb5 .bx .b3 .t{height:12px;top:-6px}
+.n14 .gb-plot{border-radius:16px 16px 0 0}
+
+.eq33 small{white-space:nowrap}
+.eq33>div:first-child{flex:none}
+
+.labsc .tb-o{fill:none;stroke:rgba(255,255,255,.4);stroke-width:13;stroke-linecap:round}
+.labsc .tb-i{fill:none;stroke:rgba(12,16,28,.9);stroke-width:8;stroke-linecap:round}
+.labsc .flow path{fill:none}
+.lab .clickcue{right:auto;left:110px;bottom:120px}
+.lab .fn.r img{filter:drop-shadow(0 20px 30px rgba(0,0,0,.5)) drop-shadow(0 0 24px rgba(255,60,70,.35))}
+.lab.st1 .fn.b img{filter:drop-shadow(0 20px 30px rgba(0,0,0,.5)) drop-shadow(0 0 24px rgba(60,140,255,.4))}
+.lab:not(.st1) .fn.b svg.liq{opacity:0}
+.labsc .fn.b{opacity:.35}
+
+.crime .chalk{top:132px!important;z-index:2}
+.crime .outline{top:110px;opacity:.55}
+.crime .m1{left:22px!important;top:auto!important;bottom:22px}
+.crime .m2{right:22px!important;top:auto!important;bottom:22px}

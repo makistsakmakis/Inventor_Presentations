@@ -8,6 +8,7 @@
 <meta name="description" content="Inventor A.G. · Welcome Stores · Θεσσαλονίκη, 10/10/2026">
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="stylesheet" href="assets/css/v2.css">
+<link rel="stylesheet" href="assets/css/v3.css">
 </head>
 <body data-slide="1">
 
@@ -45,7 +46,8 @@
   <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></symbol>
 </svg>
 
-<div class="bg"><div class="red"></div><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div><div class="grid"></div><div class="grain"></div><div class="vig"></div></div>
+<div class="bg"><div class="red"></div><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div><div class="grid"></div><canvas id="space"></canvas><div class="grain"></div><div class="vig"></div></div>
+<div id="glowCursor" aria-hidden="true"></div>
 
 <main class="viewport">
 <div class="stage" id="stage">
@@ -160,10 +162,10 @@
     <div class="vhead"><div class="eyebrow rv" style="--d:0">Retail details</div></div>
     <div class="n8-t a glass rv" style="--d:250"><h2>Τζίρος &amp;<br>Μέση τιμή</h2><p>Μικρό ποσοστό μείωσης σε σχέση με τις προκλήσεις της χρονιάς</p></div>
     <div class="n8-t b glass rv" style="--d:1300"><div class="k">Τζίρος τελευταίας 2ετίας</div>
-      <div class="v down"><svg viewBox="0 0 24 24"><path d="M12 4v15M6 13l6 6 6-6"/></svg><span class="count" data-to="-3" data-suf="%" data-delay="1300" data-dur="1800">-3%</span></div></div>
+      <div class="v down"><svg viewBox="0 0 24 24"><path d="M4 8l8 8 8-8"/></svg><span class="count" data-to="-3" data-suf="%" data-delay="1300" data-dur="1800">-3%</span></div></div>
     <div class="n8-but" data-step="1"><span class="em" style="--emd:0ms">αλλά….</span></div>
     <div class="n8-t c glass" data-step="1"><div class="k">vs 2019</div>
-      <div class="v up"><svg viewBox="0 0 24 24"><path d="M12 20V5M6 11l6-6 6 6"/></svg><span class="count" id="n8c" data-to="39" data-suf="%" data-manual="1" data-dur="2200">0%</span></div>
+      <div class="v up"><svg viewBox="0 0 24 24"><path d="M4 16l8-8 8 8"/></svg><span class="count" id="n8c" data-to="39" data-suf="%" data-manual="1" data-dur="2200">0%</span></div>
       <svg class="n8-spark" viewBox="0 0 400 120" preserveAspectRatio="none"><path d="M0 110 C60 100 90 96 130 84 S200 70 240 52 S330 24 400 8"/></svg></div>
     <div class="clickcue" data-cue>κλικ για συνέχεια</div>
   </section>
@@ -210,11 +212,11 @@
 
   <!-- ============ V2 · 11 · ΣΤΑΘΕΡΟΤΗΤΑ ============ -->
   <section class="slide n11" data-notes="">
-    <img class="n11-reg" src="assets/img/v2/register.png" alt="">
+    <img class="n11-reg" src="assets/img/v2/cashier.webp" alt="">
     <div class="vhead"><div class="eyebrow rv" style="--d:0">Retail so far</div><h2 class="h-md rv" style="--d:120;margin-top:22px">Σταθερότητα</h2><p class="lead rv" style="--d:250;margin-top:10px">Σε μία ασταθή χρονιά</p></div>
-    <div class="slope glass rv fade" style="--d:300" id="n11chart">
+    <div class="lc glass rv fade" style="--d:300" id="n11chart">
       <h4>Εξέλιξη τζίρου 8μήνου <b class="neg"><span class="count" data-to="-2.3" data-dec="1" data-suf="%" data-delay="900">-2,3%</span></b></h4>
-      <svg viewBox="0 0 1100 640"></svg>
+      <svg class="lcsvg" viewBox="0 0 1090 640"></svg>
       <div class="sl-legend"></div>
     </div>
   </section>
@@ -255,7 +257,7 @@
     <div class="vhead"><div class="eyebrow rv" style="--d:0">Retail evolution · Online vs Brick &amp; Mortar</div><h2 class="h-md rv" style="--d:120;margin-top:22px;font-size:54px">Online πωλήσεις λευκών συσκευών</h2></div>
     <div class="sbar14 rv" style="--d:300"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg><span class="typed" id="typed14"></span><i class="caret"></i></div>
     <div class="gb glass rv fade" style="--d:350" id="gb14">
-      <div class="gb-leg"><span class="ww"><i></i>Στον κόσμο</span><span class="gr" data-step="1"><i></i>Στην Ελλάδα</span></div>
+      <div class="gb-leg"><span class="ww"><i></i>Παγκοσμίως</span><span class="gr" data-step="1"><i></i>Στην Ελλάδα</span></div>
       <div class="gb-plot">
         <div class="gb-grid"></div>
         <div class="gb-cat" data-c="SDA"><div class="gb-bars"><div class="gbar ww" data-v="45"><em>45%</em></div><div class="gbar gr" data-v="20"><em>20%</em></div></div><div class="gb-lab">SDA<small>μικροσυσκευές</small></div></div>
@@ -265,7 +267,7 @@
     </div>
     <div class="dots30 glass" data-step="2">
       <div class="d30-l"><div class="d30-n"><span class="count" id="n14c" data-to="30" data-suf="%" data-manual="1" data-dur="1600">0%</span></div>
-        <div class="d30-prod"><img src="assets/img/v2/laptop.png" alt=""><img src="assets/img/v2/tv.png" alt=""><img src="assets/img/v2/phone.png" alt=""></div></div>
+        <div class="d30-prod"><img class="elec" src="assets/img/v2/electronics.webp" alt=""></div></div>
       <div class="d30-panel" id="d30"></div>
       <p class="d30-cap burst" data-step-burst="2">Τυποποιημένα προϊόντα, οικονομική μεταφορά, χωρίς λάθη</p>
     </div>
@@ -287,12 +289,11 @@
     </div>
     <div class="crime rv fade" style="--d:1300">
       <div class="siren"></div>
-      <div class="chalk">Loyalty</div>
+      <div class="chalk"><span>ΠΙΣΤΟΤΗΤΑ</span><span>ΚΑΤΑΝΑΛΩΤΗ</span></div>
       <svg class="outline" viewBox="0 0 520 260"><path d="M60 200c10-40 40-60 70-56 10-30 40-46 66-34 14-34 58-40 80-14 30-24 84-12 92 30 34-4 70 20 72 56 2 30-18 44-40 40H90c-28 0-38-12-30-22z"/></svg>
       <i class="mk m1">1</i><i class="mk m2">2</i>
-      <div class="tape t1"><span>DO NOT CROSS · DO NOT CROSS · DO NOT CROSS · DO NOT CROSS · DO NOT CROSS ·</span></div>
-      <div class="tape t2"><span>DO NOT CROSS · DO NOT CROSS · DO NOT CROSS · DO NOT CROSS · DO NOT CROSS ·</span></div>
-      <div class="crime-lab">Η πιστότητα στη μάρκα «δολοφονήθηκε»</div>
+      <div class="tape t1"><span>CRIME SCENE · DO NOT CROSS · CRIME SCENE · DO NOT CROSS · CRIME SCENE · DO NOT CROSS · CRIME SCENE · DO NOT CROSS · CRIME SCENE · DO NOT CROSS · </span></div>
+      <div class="tape t2"><span>CRIME SCENE · DO NOT CROSS · CRIME SCENE · DO NOT CROSS · CRIME SCENE · DO NOT CROSS · CRIME SCENE · DO NOT CROSS · CRIME SCENE · DO NOT CROSS · </span></div>
     </div>
     <div class="pay rv" style="--d:1700"><div class="pay-k">Δημοφιλείς τρόποι πληρωμής</div>
       <div class="pay-row"><div class="pc"><img src="assets/img/v2/mastercard.png" alt="Mastercard debit"></div><div class="pc"><img src="assets/img/v2/wallet.png" alt="Wallet"></div></div></div>
@@ -306,7 +307,7 @@
       <div class="url"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg>www.store.com</div>
       <div class="conj"><span class="or">ή</span><span class="and">&amp;</span></div>
       <div class="bld"><svg viewBox="0 0 24 24"><use href="#i-store"/></svg>Κατάστημα</div>
-      <div class="oa-cap">Όχι διάζευξη…</div><div class="oa-cap2">…αλλά συνέχεια</div>
+      <div class="fuse"></div>
     </div>
     <div class="inf rv fade" style="--d:500">
       <svg viewBox="0 0 900 440"><defs><linearGradient id="gInf" x1="0" x2="1"><stop offset="0" stop-color="#2a86ff"/><stop offset=".5" stop-color="#ffffff"/><stop offset="1" stop-color="#e0101f"/></linearGradient></defs>
@@ -315,7 +316,7 @@
       <canvas class="infc" id="infc" width="1350" height="660"></canvas>
       <div class="inf-n on"><svg viewBox="0 0 24 24"><use href="#i-phone"/></svg><b>Online</b></div>
       <div class="inf-n off"><svg viewBox="0 0 24 24"><use href="#i-store"/></svg><b>Offline</b></div>
-      <div class="inf-l l1">κινητό → κατάστημα</div><div class="inf-l l2">κατάστημα → κινητό</div>
+      <div class="inf-l l1">ON-LINE → κατάστημα</div><div class="inf-l l2">κατάστημα → ON-LINE</div>
     </div>
   </section>
 
@@ -410,6 +411,7 @@
       <div class="bignum stat-n rv" style="--d:100;margin-top:10px"><span class="count" data-to="93" data-pre="+" data-suf="%" data-dur="2600">+93%</span></div>
       <div class="vs rv" style="--d:300">σε σχέση με το 2025</div>
     </div>
+    <div class="gpanel c3d-panel rv fade" style="--d:150"></div>
     <div class="chart c3d rv fade" style="--d:200">
       <div class="bar a"><div class="b3 grey"><i class="f"></i><i class="s"></i><i class="t"></i></div><em class="count" data-to="4700000" data-sep="." data-dur="2000">4.700.000</em><span>2025</span></div>
       <div class="bar b"><div class="b3 red"><i class="f"></i><i class="s"></i><i class="t"></i></div><em class="count" data-to="9000000" data-sep="." data-dur="2600">9.000.000</em><span>2026</span></div>
@@ -514,7 +516,7 @@
     </div>
     <div class="eq33 glass" id="eq33">
       <div><small>1 δευτερόλεπτο AI</small><b>=</b><small><span class="count" id="d80" data-to="80" data-manual="1" data-dur="1600">0</span> ημέρες πληροφορίας ανθρώπου</small></div>
-      <div class="x"><span class="count" id="x7m" data-to="6912000" data-sep="." data-manual="1" data-dur="2600">0</span><em>× ταχύτερα</em></div>
+      <div class="x">≈ <span class="count" id="x7m" data-to="7000000" data-sep="." data-manual="1" data-dur="2600">0</span><em>× ταχύτερα</em></div>
     </div>
   </section>
 
@@ -531,45 +533,62 @@
 
   <!-- ============ V2 · 35 · ΑΡΚΕΙ; ΟΧΙ ============ -->
   <section class="slide n35" data-bg="red" data-steps="1" data-notes="Πανηγυρισμός · κλικ / PgDn για το «Όχι».">
-    <canvas class="fx" id="fx35"></canvas>
+    <div class="aristo"></div>
     <div class="n35-q rv" style="--d:100">Αρκεί να μας προτείνει το AI<span>?</span></div>
     <img class="champ" src="assets/img/v2/champagne.png" alt="">
-    <div class="no35" data-step="1"><span>Όχι</span><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44"/><circle class="e" cx="35" cy="40" r="5"/><circle class="e" cx="65" cy="40" r="5"/><path d="M30 74c10-12 30-12 40 0"/></svg></div>
+    <div class="no35" data-step="1"><span>Όχι</span></div>
     <div class="clickcue" data-cue>κλικ</div>
   </section>
 
-  <!-- ============ V2 · 36 · ΤΟ ΜΑΓΙΚΟ ΦΙΛΤΡΟ (1/2) ============ -->
-  <section class="slide n36 potion" data-notes="">
-    <div class="big-word rv fade" style="--d:0;font-size:300px;bottom:-40px;-webkit-text-stroke-color:rgba(255,255,255,.07)">Το μαγικό φίλτρο</div>
+  <!-- ============ V3 · 36 · Η ΣΥΝΤΑΓΗ (εργαστήριο) ============ -->
+  <section class="slide n36 lab" data-steps="1" data-notes="Κλικ / PgDn: το 2ο συστατικό (μπλε) αρχίζει να ρέει.">
     <div class="vhead"><div class="eyebrow rv" style="--d:0">Ποια είναι η συνταγή που κερδίζει την επιλογή του καταναλωτή;</div></div>
     <div class="recipe">
-      <div class="ing i1 rv" style="--d:300"><div class="ing-k">Συστατικό 1</div><h3>Να είμαστε στις επιλογές του καταναλωτή <b>πριν</b> ξεκινήσει την αναζήτηση</h3></div>
-      <div class="amp rv zoom" style="--d:1600">&amp;</div>
-      <div class="ing i2 ghost rv" style="--d:1800"><div class="ing-k">Συστατικό 2</div><h3>;</h3></div>
+      <div class="ing i1 rv" style="--d:300"><div class="ing-k">Συστατικό 1</div><h3>Να είμαστε στις επιλογές του καταναλωτή <span class="em" style="--emd:1200ms">πριν</span> ξεκινήσει την αναζήτηση</h3></div>
+      <div class="amp rv zoom" style="--d:900">&amp;</div>
+      <div class="ing i2"><div class="ing-k b">Συστατικό 2</div><h3>Ο AI βοηθός <span class="em2">να μας προτείνει</span></h3></div>
     </div>
-    <div class="flask f1"><svg viewBox="0 0 300 420" class="fl"><defs><clipPath id="flClip1"><path d="M120 20h60v120c55 22 92 76 92 136a122 122 0 0 1-244 0c0-60 37-114 92-136z"/></clipPath>
-      <linearGradient id="liqA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff5a66"/><stop offset="1" stop-color="#8a000b"/></linearGradient></defs>
-      <g clip-path="url(#flClip1)"><rect class="liq" x="0" y="420" width="300" height="420" fill="url(#liqA)"/><path class="wv" d="M0 0 Q37 -12 75 0 T150 0 T225 0 T300 0 T375 0 T450 0 V30 H0z" fill="#ff7480"/></g>
-      <path class="glassp" d="M120 20h60v120c55 22 92 76 92 136a122 122 0 0 1-244 0c0-60 37-114 92-136z"/><rect class="cork" x="112" y="0" width="76" height="26" rx="8"/></svg>
-      <div class="bub"></div><div class="flab">50%</div></div>
-  </section>
-
-  <!-- ============ V2 · 37 · ΤΟ ΜΑΓΙΚΟ ΦΙΛΤΡΟ (2/2) ============ -->
-  <section class="slide n37 potion" data-notes="">
-    <canvas class="fx" id="fx37"></canvas>
-    <div class="big-word rv fade" style="--d:0;font-size:300px;bottom:-40px;-webkit-text-stroke-color:rgba(255,255,255,.07)">Το μαγικό φίλτρο</div>
-    <div class="vhead"><div class="eyebrow rv" style="--d:0">Ποια είναι η συνταγή που κερδίζει την επιλογή του καταναλωτή;</div></div>
-    <div class="recipe">
-      <div class="ing i1 done rv" style="--d:100"><div class="ing-k">Συστατικό 1 ✓</div><h3>Να είμαστε στις επιλογές του καταναλωτή <b>πριν</b> ξεκινήσει την αναζήτηση</h3></div>
-      <div class="amp rv zoom" style="--d:250">&amp;</div>
-      <div class="ing i2 rv" style="--d:500"><div class="ing-k">Συστατικό 2</div><h3>Ο AI βοηθός <b>να μας προτείνει</b></h3></div>
+    <div class="labsc rv fade" style="--d:150" id="lab36">
+      <div class="bench"></div>
+      <svg class="rig" viewBox="0 0 840 890"><defs>
+        <clipPath id="flkC"><path d="M380 520 L380 601 A140 140 0 1 0 460 601 L460 520 Z"/></clipPath>
+        <radialGradient id="flkG" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="rgba(255,255,255,.28)"/><stop offset=".5" stop-color="rgba(255,255,255,.05)"/><stop offset="1" stop-color="rgba(255,255,255,.14)"/></radialGradient>
+        <linearGradient id="rodG" x1="0" x2="1"><stop offset="0" stop-color="#3a3f4c"/><stop offset=".45" stop-color="#cfd5df"/><stop offset="1" stop-color="#4a505e"/></linearGradient>
+        <linearGradient id="liqF" x1="0" y1="0" x2="0" y2="1"><stop class="s1" offset="0" stop-color="#ff4a57"/><stop class="s2" offset="1" stop-color="#8a000b"/></linearGradient>
+        <filter id="tubeGl" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      </defs>
+        <rect x="14" y="120" width="12" height="756" rx="6" fill="url(#rodG)"/><rect x="814" y="120" width="12" height="756" rx="6" fill="url(#rodG)"/>
+        <rect x="-10" y="860" width="70" height="18" rx="5" fill="#2b2f39"/><rect x="780" y="860" width="70" height="18" rx="5" fill="#2b2f39"/>
+        <rect x="20" y="148" width="118" height="10" rx="5" fill="url(#rodG)"/><rect x="702" y="148" width="118" height="10" rx="5" fill="url(#rodG)"/>
+        <ellipse cx="135" cy="153" rx="40" ry="11" fill="none" stroke="#9aa2b2" stroke-width="5"/><ellipse cx="705" cy="153" rx="40" ry="11" fill="none" stroke="#9aa2b2" stroke-width="5"/>
+        <g class="tubes">
+          <path id="tubeR" class="tb-o" d="M135 441 C140 540 300 450 395 530"/><path class="tb-i" d="M135 441 C140 540 300 450 395 530"/>
+          <path id="tubeB" class="tb-o" d="M705 441 C700 540 540 450 445 530"/><path class="tb-i" d="M705 441 C700 540 540 450 445 530"/>
+          <g class="flow fr" filter="url(#tubeGl)"></g><g class="flow fb" filter="url(#tubeGl)"></g>
+        </g>
+        <g clip-path="url(#flkC)">
+          <rect class="fl-b" x="270" y="900" width="300" height="400" fill="url(#liqF)"/>
+          <ellipse class="fl-s" cx="420" cy="900" rx="120" ry="18" fill="#ff7480" opacity=".85"/>
+          <path class="fl-w1" d="M0 0 Q37 -10 75 0 T150 0 T225 0 T300 0 T375 0 T450 0 T525 0 T600 0 V40 H0z" fill="rgba(255,255,255,.12)"/>
+        </g>
+        <path d="M380 520 L380 601 A140 140 0 1 0 460 601 L460 520 Z" fill="url(#flkG)" stroke="rgba(255,255,255,.75)" stroke-width="3.5"/>
+        <path d="M352 680 C350 640 372 610 395 604" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="7" stroke-linecap="round"/>
+        <path d="M478 820 C500 800 512 770 512 740" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="5" stroke-linecap="round"/>
+        <rect x="390" y="526" width="10" height="70" rx="5" fill="rgba(255,255,255,.35)"/>
+        <ellipse cx="420" cy="520" rx="46" ry="9" fill="rgba(255,255,255,.1)" stroke="rgba(255,255,255,.85)" stroke-width="3"/>
+        <ellipse cx="420" cy="878" rx="86" ry="12" fill="#5a3b22"/><ellipse cx="420" cy="874" rx="70" ry="8" fill="#7a5233"/>
+      </svg>
+      <div class="fn r"><svg class="liq" viewBox="0 0 382 1129"><defs><clipPath id="fnR"><path d="M118 214 C50 245 14 310 12 385 C10 470 75 560 122 650 C150 705 175 750 186 790 L196 790 C207 750 232 705 260 650 C307 560 372 470 370 385 C368 310 332 245 264 214 Z"/></clipPath>
+        <linearGradient id="fnRg" x1="0" x2="1"><stop offset="0" stop-color="#a0000f"/><stop offset=".45" stop-color="#ff5a66"/><stop offset="1" stop-color="#a0000f"/></linearGradient></defs>
+        <g clip-path="url(#fnR)"><rect class="lv" x="0" y="214" width="382" height="700" fill="url(#fnRg)"/><ellipse class="sf" cx="191" cy="214" rx="160" ry="16" fill="#ff5a66" opacity=".9"/></g></svg>
+        <img src="assets/img/v2/funnel.webp" alt=""></div>
+      <div class="fn b"><svg class="liq" viewBox="0 0 382 1129"><defs><clipPath id="fnB"><path d="M118 214 C50 245 14 310 12 385 C10 470 75 560 122 650 C150 705 175 750 186 790 L196 790 C207 750 232 705 260 650 C307 560 372 470 370 385 C368 310 332 245 264 214 Z"/></clipPath>
+        <linearGradient id="fnBg" x1="0" x2="1"><stop offset="0" stop-color="#0b3a9c"/><stop offset=".45" stop-color="#5aa8ff"/><stop offset="1" stop-color="#0b3a9c"/></linearGradient></defs>
+        <g clip-path="url(#fnB)"><rect class="lv" x="0" y="214" width="382" height="700" fill="url(#fnBg)"/><ellipse class="sf" cx="191" cy="214" rx="160" ry="16" fill="#5aa8ff" opacity=".9"/></g></svg>
+        <img src="assets/img/v2/funnel.webp" alt=""></div>
+      <canvas id="labfx" width="1260" height="1335"></canvas>
     </div>
-    <div class="flask f2"><svg viewBox="0 0 300 420" class="fl"><defs><clipPath id="flClip2"><path d="M120 20h60v120c55 22 92 76 92 136a122 122 0 0 1-244 0c0-60 37-114 92-136z"/></clipPath>
-      <linearGradient id="liqB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe9a8"/><stop offset=".45" stop-color="#f2c230"/><stop offset="1" stop-color="#b8361a"/></linearGradient></defs>
-      <g clip-path="url(#flClip2)"><rect class="liq" x="0" y="420" width="300" height="420" fill="url(#liqB)"/><path class="wv" d="M0 0 Q37 -12 75 0 T150 0 T225 0 T300 0 T375 0 T450 0 V30 H0z" fill="#fff1c2"/></g>
-      <path class="glassp" d="M120 20h60v120c55 22 92 76 92 136a122 122 0 0 1-244 0c0-60 37-114 92-136z"/><rect class="cork" x="112" y="0" width="76" height="26" rx="8"/></svg>
-      <div class="bub"></div><div class="flab">100%</div></div>
-    <div class="seal rv zoom" style="--d:3200"><div><small>Το μαγικό φίλτρο</small><b>Εγγύηση<br>επιτυχίας</b></div></div>
+    <div class="clickcue" data-cue>κλικ για το 2ο συστατικό</div>
   </section>
 
   <!-- ============ V2 · 38 · ΕΙΜΑΣΤΕ ΠΑΝΤΟΥ (ΟΙΚΟΣΥΣΤΗΜΑ) ============ -->
@@ -922,123 +941,134 @@
     <div class="vhead"><div class="eyebrow rv" style="--d:0">Η γκάμα της Inventor</div><h2 class="h-md rv" style="--d:120;margin-top:20px">Η γκάμα της Inventor <span class="em" style="--emd:700ms">με μία ματιά.</span></h2></div>
     <div class="pm-prog rv" style="--d:300">Επιλέξτε κατηγορία · <b id="pmProg">0 / 6</b></div>
     <div class="cats" id="cats"></div>
+    <button class="endbtn" id="endBtn" data-noclick><i></i><i></i><b>ΤΕΛΟΣ</b></button>
     <p class="pm-cap burst" data-bd="1600">Από τις καθημερινές ανάγκες του σπιτιού μέχρι σύνθετες επαγγελματικές εφαρμογές.</p>
   </section>
 
   <!-- g1 · Οικιακά κλιματιστικά -->
-  <section class="slide pr72" data-group="g1" data-cat="Οικιακά κλιματιστικά" data-notes="">
-    <div class="vhead"><div class="eyebrow rv" style="--d:0">Οικιακά κλιματιστικά</div><h2 class="h-md rv" style="--d:120;margin-top:20px;font-size:56px">Μία ολοκληρωμένη γκάμα κλιματιστικών<br><span class="em" style="--emd:700ms">Για κάθε ανάγκη και κάθε budget</span></h2></div>
-    <div class="tiers">
-      <div class="tier t1 rv" style="--d:400"><div class="tq"><span>01</span>Premium</div><div class="ti"><img src="assets/img/v2/ac-premium-a.png" alt=""><img class="b" src="assets/img/v2/ac-premium-b.png" alt=""></div></div>
-      <div class="tier t2 rv" style="--d:550"><div class="tq"><span>02</span>Advanced</div><div class="ti"><img src="assets/img/v2/ac-adv-b.png" alt=""><img class="b" src="assets/img/v2/ac-adv-a.png" alt=""></div></div>
-      <div class="tier t3 rv" style="--d:700"><div class="tq"><span>03</span>Value for Money</div><div class="ti"><img src="assets/img/v2/ac-vfm.png" alt=""></div></div>
-      <div class="tier t4 rv" style="--d:850"><div class="tq"><span>04</span>Price Fighter</div><div class="ti empty"><svg viewBox="0 0 24 24"><use href="#i-tag"/></svg></div></div>
-      <div class="tier-ax rv fade" style="--d:1000"><span>Premium</span><i></i><span>Budget</span></div>
+  <section class="slide pr72 sp" data-group="g1" data-cat="Οικιακά κλιματιστικά" data-notes="">
+    <div class="sp-l">
+      <div class="rv" style="--d:0"><span class="pill"><b>Οικιακά κλιματιστικά</b><span>Γκάμα</span></span></div>
+      <h2 class="sp-t rv" style="--d:150">Μία ολοκληρωμένη γκάμα κλιματιστικών<br><span class="red-t">Για κάθε ανάγκη και κάθε budget</span></h2>
+      <div class="tier-tabs rv" style="--d:400"><button class="tier-b on" data-t="0" style="--i:0"><span>01</span>Premium</button><button class="tier-b" data-t="1" style="--i:1"><span>02</span>Advanced</button><button class="tier-b" data-t="2" style="--i:2"><span>03</span>Value for Money</button><button class="tier-b" data-t="3" style="--i:3"><span>04</span>Price Fighter</button></div>
+      <div class="dt">Discover Technology.</div>
     </div>
+    <div class="sp-r"><div class="hero tiersh"><div class="glow"></div><div class="ring"></div><div class="ring2"></div><div class="tset on" data-t="0"><img class="hp0" src="assets/img/v2/ac-premium-a.png" alt=""><img class="hp1" src="assets/img/v2/ac-premium-b.png" alt=""></div><div class="tset" data-t="1"><img class="hp0" src="assets/img/v2/ac-adv-b.png" alt=""><img class="hp1" src="assets/img/v2/ac-adv-a.png" alt=""></div><div class="tset" data-t="2"><img class="hp0" src="assets/img/v2/ac-vfm.png" alt=""></div><div class="tset" data-t="3"><div class="tph"><svg viewBox="0 0 24 24"><use href="#i-tag"/></svg><b>Price Fighter</b></div></div><div class="scanl"></div></div><div class="thumbs tthumbs"><div class="thumb tt on" data-t="0" style="--i:0"><img class="ti" src="assets/img/v2/ac-premium-a.png" alt=""><b>Premium</b></div><div class="thumb tt" data-t="1" style="--i:1"><img class="ti" src="assets/img/v2/ac-adv-b.png" alt=""><b>Advanced</b></div><div class="thumb tt" data-t="2" style="--i:2"><img class="ti" src="assets/img/v2/ac-vfm.png" alt=""><b>Value for Money</b></div><div class="thumb tt" data-t="3" style="--i:3"><svg viewBox="0 0 24 24"><use href="#i-tag"/></svg><b>Price Fighter</b></div></div></div>
   </section>
-  <section class="slide pr73 feats" data-group="g1" data-cat="Οικιακά κλιματιστικά" data-notes="">
-    <div class="vhead"><div class="eyebrow rv" style="--d:0">Οικιακά κλιματιστικά</div><h2 class="h-md rv" style="--d:120;margin-top:20px">Πλούσιος εξοπλισμός · <span class="em" style="--emd:700ms">Έξυπνες λειτουργίες</span></h2></div>
-    <div class="acu rv zoom" style="--d:300"><img src="assets/img/v2/ac-intellia.png" alt="Inventor"><div class="airflow"><i></i><i></i><i></i><i></i></div></div>
-    <div class="fg">
-      <div class="fq rv" style="--d:600"><div class="fqi"><svg viewBox="0 0 24 24"><path d="M13 2L5 14h6l-1 8 8-12h-6z"/></svg></div><h3>Εξοικονόμηση ενέργειας</h3><ul><li>Λειτουργία Ai</li><li>Απόδοση A+++ σε ψύξη και θέρμανση</li><li>Λειτουργία Triple ECO</li></ul></div>
-      <div class="fq rv" style="--d:750"><div class="fqi"><svg viewBox="0 0 24 24"><path d="M3 8h12a3 3 0 1 0-3-3M3 12h16a3 3 0 1 1-3 3M3 16h9"/></svg></div><h3>Καθαρός αέρας</h3><ul><li>Ιονιστής</li><li>UVC</li><li>Αποστείρωση 56 °C</li><li>Φίλτρο Hepa</li></ul></div>
-      <div class="fq rv" style="--d:900"><div class="fqi"><svg viewBox="0 0 24 24"><path d="M12 2v20M4.9 6.5l14.2 11M19.1 6.5L4.9 17.5"/><path d="M9.5 3.5L12 6l2.5-2.5M9.5 20.5L12 18l2.5 2.5"/></svg></div><h3>Απαιτητικές συνθήκες</h3><ul><li>Ζώνη θέρμανσης στην εξωτερική μονάδα</li><li>Λειτουργία θέρμανσης από -25 °C</li></ul></div>
-      <div class="fq rv" style="--d:1050"><div class="fqi"><svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg></div><h3>Άνεση</h3><ul><li>Αισθητήρας Eco Senso</li><li>Λειτουργία Follow me</li><li>Ροή αέρα 4 κατευθύνσεων</li><li>Wi-Fi με φωνητικές εντολές</li></ul></div>
+  <section class="slide pr73 sp" data-group="g1" data-cat="Οικιακά κλιματιστικά" data-notes="">
+    <div class="sp-l">
+      <div class="rv" style="--d:0"><span class="pill"><b>Οικιακά κλιματιστικά</b><span>Έξυπνες λειτουργίες</span></span></div>
+      <h2 class="sp-t rv" style="--d:150">Πλούσιος εξοπλισμός<br><span class="red-t">Έξυπνες λειτουργίες</span></h2>
+      <div class="tboxes rv" style="--d:400"><div class="tbox glass"><div class="tbi"><svg viewBox="0 0 24 24"><path d="M13 2L5 14h6l-1 8 8-12h-6z"/></svg></div><div class="tbt"><b>Εξοικονόμηση ενέργειας</b><div class="chips"><span>Λειτουργία Ai</span><span>Απόδοση A+++ σε ψύξη και θέρμανση</span><span>Λειτουργία Triple ECO</span></div></div></div><div class="tbox glass"><div class="tbi"><svg viewBox="0 0 24 24"><path d="M3 8h12a3 3 0 1 0-3-3M3 12h16a3 3 0 1 1-3 3M3 16h9"/></svg></div><div class="tbt"><b>Καθαρός αέρας</b><div class="chips"><span>Ιονιστής</span><span>UVC</span><span>Αποστείρωση 56 °C</span><span>Φίλτρο Hepa</span></div></div></div><div class="tbox glass"><div class="tbi"><svg viewBox="0 0 24 24"><path d="M12 2v20M4.9 6.5l14.2 11M19.1 6.5L4.9 17.5"/></svg></div><div class="tbt"><b>Απαιτητικές συνθήκες</b><div class="chips"><span>Ζώνη θέρμανσης στην εξωτερική μονάδα</span><span>Λειτουργία θέρμανσης από -25 °C</span></div></div></div><div class="tbox glass"><div class="tbi"><svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg></div><div class="tbt"><b>Άνεση</b><div class="chips"><span>Αισθητήρας Eco Senso</span><span>Λειτουργία Follow me</span><span>Ροή αέρα 4 κατευθύνσεων</span><span>Wi-Fi με φωνητικές εντολές</span></div></div></div></div>
+      <div class="dt">Discover Technology.</div>
     </div>
+    <div class="sp-r"><div class="hero cut"><div class="glow"></div><div class="ring"></div><div class="ring2"></div><img class="hp0" src="assets/img/v2/ac-intellia-c.png" alt=""><div class="scanl"></div></div><div class="thumbs"><div class="thumb" style="--i:0"><img src="assets/img/v2/p75.jpg" style="object-position:40% 12%;transform-origin:40% 12%" data-full="assets/img/v2/p75.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div><div class="thumb" style="--i:1"><img src="assets/img/v2/p75.jpg" style="object-position:50% 80%;transform-origin:50% 80%" data-full="assets/img/v2/p75.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div><div class="thumb" style="--i:2"><img src="assets/img/v2/p70.jpg" style="object-position:70% 50%;transform-origin:70% 50%" data-full="assets/img/v2/p70.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div></div></div>
   </section>
-  <section class="slide pr74 feats" data-group="g1" data-cat="Οικιακά κλιματιστικά" data-notes="">
-    <div class="vhead"><div class="eyebrow rv" style="--d:0">Οικιακά κλιματιστικά</div><h2 class="h-md rv" style="--d:120;margin-top:20px">Πλούσιος εξοπλισμός · <span class="em" style="--emd:700ms">Για τον επαγγελματία πελάτη</span></h2></div>
-    <div class="acu rv zoom" style="--d:300"><img src="assets/img/v2/ac-intellia.png" alt="Inventor"><div class="airflow"><i></i><i></i><i></i><i></i></div></div>
-    <div class="pro">
-      <div class="pp rv" style="--d:600"><span class="ppi"><b>HM</b></span>Hotel Menu</div>
-      <div class="pp rv" style="--d:720"><span class="ppi"><svg viewBox="0 0 24 24"><path d="M12 3v8"/><path d="M6.3 7.3a8 8 0 1 0 11.4 0"/></svg></span>Remote On/Off</div>
-      <div class="pp rv" style="--d:840"><span class="ppi"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4M7 8h4M7 12h10"/></svg></span>BMS</div>
-      <div class="pp rv" style="--d:960"><span class="ppi"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8v4H8zM9 15h.01M12 15h.01M15 15h.01M9 18h.01M12 18h.01M15 18h.01"/></svg></span>Κεντρικό Χειριστήριο</div>
-      <div class="pp gold rv" style="--d:1080"><span class="ppi"><svg viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span>Χρυσή Προστασία</div>
+  <section class="slide pr74 sp" data-group="g1" data-cat="Οικιακά κλιματιστικά" data-notes="">
+    <div class="sp-l">
+      <div class="rv" style="--d:0"><span class="pill"><b>Οικιακά κλιματιστικά</b><span>Για τον επαγγελματία</span></span></div>
+      <h2 class="sp-t rv" style="--d:150">Πλούσιος εξοπλισμός<br><span class="red-t">Για τον επαγγελματία πελάτη</span></h2>
+      <div class="usprow rv" style="--d:400"><div class="usp" style="--i:0"><div class="ic"><b class="hm">HM</b></div><span>Hotel Menu</span></div><div class="usp" style="--i:1"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3v8"/><path d="M6.3 7.3a8 8 0 1 0 11.4 0"/></svg></div><span>Remote On/Off</span></div><div class="usp" style="--i:2"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4M7 8h4M7 12h10"/></svg></div><span>BMS</span></div><div class="usp" style="--i:3"><div class="ic"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8v4H8zM9 15h.01M12 15h.01M15 15h.01"/></svg></div><span>Κεντρικό Χειριστήριο</span></div><div class="usp gold" style="--i:4"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></div><span>Χρυσή Προστασία</span></div></div>
+      <div class="dt">Discover Technology.</div>
     </div>
+    <div class="sp-r"><div class="hero cut"><div class="glow"></div><div class="ring"></div><div class="ring2"></div><img class="hp0" src="assets/img/v2/ac-intellia-c.png" alt=""><div class="scanl"></div></div><div class="thumbs"><div class="thumb" style="--i:0"><img src="assets/img/v2/p82.jpg" style="object-position:50% 0%;transform-origin:50% 0%" data-full="assets/img/v2/p82.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div><div class="thumb" style="--i:1"><img src="assets/img/v2/p81.jpg" style="object-position:80% 40%;transform-origin:80% 40%" data-full="assets/img/v2/p81.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div><div class="thumb" style="--i:2"><img src="assets/img/v2/p84.jpg" style="object-position:20% 85%;transform-origin:20% 85%" data-full="assets/img/v2/p84.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div></div></div>
   </section>
-  <section class="slide pr75 pcat" data-group="g1" data-cat="Οικιακά κλιματιστικά" data-notes="Οι επιδόσεις και η ποιότητα δεν είναι απλώς υπόσχεση. Είναι στοιχεία που υποστηρίζουμε με πιστοποιήσεις και εγγύηση.">
-    <div class="pc-img kb" style="background-image:url(assets/img/v2/p75.jpg)"></div>
-    <div class="pc-panel">
-      <div class="eyebrow rv" style="--d:0">Οικιακά κλιματιστικά</div>
-      <h2 class="rv" style="--d:150">Αξιοπιστία που<br><span class="red-t">αποδεικνύεται</span></h2>
-      <div class="cert glass rv" style="--d:400"><div class="ci w"><img src="assets/img/v2/eurovent.png" alt="Eurovent"></div><div><h4>Eurovent</h4><small>Επιβεβαιωμένες επιδόσεις</small><p>Ανεξάρτητη πιστοποίηση που επιβεβαιώνει τις επιδόσεις των προϊόντων μας.</p></div></div>
-      <div class="cert glass rv" style="--d:600"><div class="ci w"><img src="assets/img/v2/warranty10.png" alt="10 χρόνια εγγύηση"></div><div><h4>10 χρόνια εγγύηση</h4><small>Εμπιστοσύνη στην ποιότητα</small><p>Μακροχρόνια εγγύηση που αποτυπώνει την αξιοπιστία και τη συνέπεια της γκάμας μας.</p></div></div>
+  <section class="slide pr75 sp" data-group="g1" data-cat="Οικιακά κλιματιστικά" data-notes="">
+    <div class="sp-l">
+      <div class="rv" style="--d:0"><span class="pill"><b>Οικιακά κλιματιστικά</b><span>Πιστοποιήσεις</span></span></div>
+      <h2 class="sp-t rv" style="--d:150">Αξιοπιστία που<br><span class="red-t">αποδεικνύεται</span></h2>
+      <div class="tboxes rv" style="--d:400"><div class="tbox glass"><div class="tbi w"><img src="assets/img/v2/eurovent.png" alt="Eurovent"></div><div class="tbt"><b>Eurovent</b><small>Επιβεβαιωμένες επιδόσεις</small><p>Ανεξάρτητη πιστοποίηση που επιβεβαιώνει τις επιδόσεις των προϊόντων μας.</p></div></div>
+      <div class="tbox glass"><div class="tbi w"><img src="assets/img/v2/warranty10.png" alt="10 χρόνια εγγύηση"></div><div class="tbt"><b>10 χρόνια εγγύηση</b><small>Εμπιστοσύνη στην ποιότητα</small><p>Μακροχρόνια εγγύηση που αποτυπώνει την αξιοπιστία και τη συνέπεια της γκάμας μας.</p></div></div></div>
+      <p class="sp-q burst" data-bd="1500">Οι επιδόσεις και η ποιότητα δεν είναι απλώς υπόσχεση. Είναι στοιχεία που υποστηρίζουμε με πιστοποιήσεις και εγγύηση.</p>
+      <div class="dt">Discover Technology.</div>
     </div>
-    <div class="pc-quote glass burst" data-bd="1300">Οι επιδόσεις και η ποιότητα δεν είναι απλώς υπόσχεση. Είναι στοιχεία που υποστηρίζουμε με πιστοποιήσεις και εγγύηση.</div>
+    <div class="sp-r"><div class="hero cut"><div class="glow"></div><div class="ring"></div><div class="ring2"></div><img class="hp0" src="assets/img/v2/ac-premium-a.png" alt=""><img class="badge10" src="assets/img/v2/warranty10.png" alt=""><div class="scanl"></div></div><div class="thumbs"><div class="thumb" style="--i:0"><img src="assets/img/v2/p75.jpg" style="object-position:40% 12%;transform-origin:40% 12%" data-full="assets/img/v2/p75.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div><div class="thumb" style="--i:1"><img src="assets/img/v2/p75.jpg" style="object-position:50% 80%;transform-origin:50% 80%" data-full="assets/img/v2/p75.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div><div class="thumb" style="--i:2"><img src="assets/img/v2/p70.jpg" style="object-position:70% 50%;transform-origin:70% 50%" data-full="assets/img/v2/p70.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div></div></div>
   </section>
-
   <!-- g2 · Αφυγραντήρες -->
-  <section class="slide pr76 pcat" data-group="g2" data-cat="Αφυγραντήρες &amp; καθαριστές αέρα" data-notes="">
-    <div class="pc-img kb" style="background-image:url(assets/img/v2/p76.jpg)"></div>
-    <div class="pc-panel"><div class="eyebrow rv" style="--d:0">Ποιότητα αέρα</div>
-      <h2 class="rv" style="--d:150">Αφυγραντήρες &amp;<br><span class="red-t">καθαριστές αέρα.</span></h2>
-      <ul class="pl"><li style="--k:0">Μείωση υγρασίας</li><li style="--k:1">Πιο καθαρή ατμόσφαιρα</li><li style="--k:2">Ιδανικές λύσεις για καθημερινή χρήση</li><li style="--k:3">Ήσυχη λειτουργία και πρακτικός σχεδιασμός</li><li style="--k:4">Αίσθηση θερμοκρασίας</li></ul>
-      <div class="dt">Discover Technology.</div></div>
+  <section class="slide pr76 sp" data-group="g2" data-cat="Αφυγραντήρες &amp; καθαριστές αέρα" data-notes="">
+    <div class="sp-l">
+      <div class="rv" style="--d:0"><span class="pill"><b>Αφυγραντήρες &amp; καθαριστές αέρα</b><span>Ποιότητα αέρα</span></span></div>
+      <h2 class="sp-t rv" style="--d:150">Αφυγραντήρες &amp;<br><span class="red-t">καθαριστές αέρα.</span></h2>
+      <ul class="sp-list"><li style="--k:0"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Μείωση υγρασίας</li><li style="--k:1"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Πιο καθαρή ατμόσφαιρα</li><li style="--k:2"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Ιδανικές λύσεις για καθημερινή χρήση</li><li style="--k:3"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Ήσυχη λειτουργία και πρακτικός σχεδιασμός</li><li style="--k:4"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Αίσθηση θερμοκρασίας</li></ul>
+      <div class="dt">Discover Technology.</div>
+    </div>
+    <div class="sp-r"><div class="hero cut two"><div class="glow"></div><div class="ring"></div><div class="ring2"></div><img class="hp0" src="assets/img/v2/p-sera-w.webp" alt=""><img class="hp1" src="assets/img/v2/p-qlt700.webp" alt=""><div class="scanl"></div></div><div class="thumbs"><div class="thumb" style="--i:0"><img src="assets/img/v2/p76.jpg" style="object-position:25% 45%;transform-origin:25% 45%" data-full="assets/img/v2/p76.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div><div class="thumb" style="--i:1"><img src="assets/img/v2/p76.jpg" style="object-position:65% 55%;transform-origin:65% 55%" data-full="assets/img/v2/p76.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div><div class="thumb" style="--i:2"><img src="assets/img/v2/p80.jpg" style="object-position:15% 75%;transform-origin:15% 75%" data-full="assets/img/v2/p80.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div></div></div>
   </section>
-
   <!-- g3 · Λευκές συσκευές -->
-  <section class="slide pr77 pcat" data-group="g3" data-cat="Λευκές συσκευές" data-notes="">
-    <div class="pc-img kb" style="background-image:url(assets/img/v2/p77.jpg)"></div>
-    <div class="pc-panel"><div class="eyebrow rv" style="--d:0">Λευκές συσκευές</div>
-      <h2 class="rv" style="--d:150">Λευκές<br><span class="red-t">συσκευές.</span></h2>
-      <ul class="pl"><li style="--k:0">Πρακτικές λύσεις για την καθημερινότητα</li><li style="--k:1">Μικροσυσκευές και βασικές οικογένειες λευκών</li><li style="--k:2">Καθαρός σχεδιασμός</li><li style="--k:3">Ευκολία χρήσης και αξιοπιστία</li></ul>
-      <div class="dt">Discover Technology.</div></div>
+  <section class="slide pr77 sp" data-group="g3" data-cat="Λευκές συσκευές" data-notes="">
+    <div class="sp-l">
+      <div class="rv" style="--d:0"><span class="pill"><b>Λευκές συσκευές</b><span>Μικροσυσκευές</span></span></div>
+      <h2 class="sp-t rv" style="--d:150">Λευκές<br><span class="red-t">συσκευές.</span></h2>
+      <ul class="sp-list"><li style="--k:0"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Πρακτικές λύσεις για την καθημερινότητα</li><li style="--k:1"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Μικροσυσκευές και βασικές οικογένειες λευκών</li><li style="--k:2"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Καθαρός σχεδιασμός</li><li style="--k:3"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Ευκολία χρήσης και αξιοπιστία</li></ul>
+      <div class="dt">Discover Technology.</div>
+    </div>
+    <div class="sp-r"><div class="hero cut"><div class="glow"></div><div class="ring"></div><div class="ring2"></div><img class="hp0" src="assets/img/v2/cut-microwave.webp" alt=""><div class="scanl"></div></div><div class="thumbs"><div class="thumb" style="--i:0"><img src="assets/img/v2/p77.jpg" style="object-position:85% 30%;transform-origin:85% 30%" data-full="assets/img/v2/p77.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div><div class="thumb" style="--i:1"><img src="assets/img/v2/p77.jpg" style="object-position:40% 50%;transform-origin:40% 50%" data-full="assets/img/v2/p77.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div><div class="thumb" style="--i:2"><img src="assets/img/v2/p80.jpg" style="object-position:70% 60%;transform-origin:70% 60%" data-full="assets/img/v2/p80.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div></div></div>
   </section>
-  <section class="slide pr78 pcat" data-group="g3" data-cat="Λευκές συσκευές" data-notes="">
-    <div class="pc-img kb" style="background-image:url(assets/img/v2/p78.jpg)"></div>
-    <div class="pc-panel"><div class="eyebrow rv" style="--d:0">Λευκές συσκευές</div>
-      <h2 class="rv" style="--d:150">Ψύξη &amp;<br><span class="red-t">αποθήκευση τροφίμων.</span></h2>
-      <ul class="pl"><li style="--k:0">Ψυγεία και καταψύκτες</li><li style="--k:1">Λύσεις για διαφορετικές ανάγκες χωρητικότητας</li><li style="--k:2">Σύγχρονος σχεδιασμός κουζίνας</li><li style="--k:3">Πρακτική οργάνωση και καθημερινή ευκολία</li></ul>
-      <div class="dt">Discover Technology.</div></div>
+  <section class="slide pr78 sp" data-group="g3" data-cat="Λευκές συσκευές" data-notes="">
+    <div class="sp-l">
+      <div class="rv" style="--d:0"><span class="pill"><b>Λευκές συσκευές</b><span>Ψύξη</span></span></div>
+      <h2 class="sp-t rv" style="--d:150">Ψύξη &amp;<br><span class="red-t">αποθήκευση τροφίμων.</span></h2>
+      <ul class="sp-list"><li style="--k:0"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Ψυγεία και καταψύκτες</li><li style="--k:1"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Λύσεις για διαφορετικές ανάγκες χωρητικότητας</li><li style="--k:2"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Σύγχρονος σχεδιασμός κουζίνας</li><li style="--k:3"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Πρακτική οργάνωση και καθημερινή ευκολία</li></ul>
+      <div class="dt">Discover Technology.</div>
+    </div>
+    <div class="sp-r"><div class="hero photo"><div class="glow"></div><div class="ring"></div><div class="ring2"></div><div class="pcard"><img src="assets/img/v2/p78.jpg" style="object-position:28% 50%" alt=""><i class="glare"></i></div><div class="scanl"></div></div><div class="thumbs"><div class="thumb" style="--i:0"><img src="assets/img/v2/p78.jpg" style="object-position:70% 40%;transform-origin:70% 40%" data-full="assets/img/v2/p78.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div><div class="thumb" style="--i:1"><img src="assets/img/v2/p78.jpg" style="object-position:25% 20%;transform-origin:25% 20%" data-full="assets/img/v2/p78.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div><div class="thumb" style="--i:2"><img src="assets/img/v2/p80.jpg" style="object-position:68% 50%;transform-origin:68% 50%" data-full="assets/img/v2/p80.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div></div></div>
   </section>
-  <section class="slide pr79 pcat" data-group="g3" data-cat="Λευκές συσκευές" data-notes="">
-    <div class="pc-img kb" style="background-image:url(assets/img/v2/p79.jpg)"></div>
-    <div class="pc-panel"><div class="eyebrow rv" style="--d:0">Λευκές συσκευές</div>
-      <h2 class="rv" style="--d:150">Φροντίδα<br><span class="red-t">ρούχων.</span></h2>
-      <ul class="pl"><li style="--k:0">Πλυντήρια ρούχων</li><li style="--k:1">Στεγνωτήρια</li><li style="--k:2">Washer dryers</li><li style="--k:3">Αξιόπιστες λύσεις για τη σύγχρονη καθημερινότητα</li></ul>
-      <div class="dt">Discover Technology.</div></div>
+  <section class="slide pr79 sp" data-group="g3" data-cat="Λευκές συσκευές" data-notes="">
+    <div class="sp-l">
+      <div class="rv" style="--d:0"><span class="pill"><b>Λευκές συσκευές</b><span>Φροντίδα ρούχων</span></span></div>
+      <h2 class="sp-t rv" style="--d:150">Φροντίδα<br><span class="red-t">ρούχων.</span></h2>
+      <ul class="sp-list"><li style="--k:0"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Πλυντήρια ρούχων</li><li style="--k:1"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Στεγνωτήρια</li><li style="--k:2"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Washer dryers</li><li style="--k:3"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Αξιόπιστες λύσεις για τη σύγχρονη καθημερινότητα</li></ul>
+      <div class="dt">Discover Technology.</div>
+    </div>
+    <div class="sp-r"><div class="hero photo"><div class="glow"></div><div class="ring"></div><div class="ring2"></div><div class="pcard"><img src="assets/img/v2/p79.jpg" style="object-position:55% 70%" alt=""><i class="glare"></i></div><div class="scanl"></div></div><div class="thumbs"><div class="thumb" style="--i:0"><img src="assets/img/v2/p79.jpg" style="object-position:35% 75%;transform-origin:35% 75%" data-full="assets/img/v2/p79.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div><div class="thumb" style="--i:1"><img src="assets/img/v2/p79.jpg" style="object-position:90% 30%;transform-origin:90% 30%" data-full="assets/img/v2/p79.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div><div class="thumb" style="--i:2"><img src="assets/img/v2/p80.jpg" style="object-position:90% 70%;transform-origin:90% 70%" data-full="assets/img/v2/p80.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div></div></div>
   </section>
-  <section class="slide pr80 pcat" data-group="g3" data-cat="Λευκές συσκευές" data-notes="">
-    <div class="pc-img kb" style="background-image:url(assets/img/v2/p80.jpg)"></div>
-    <div class="pc-panel"><div class="eyebrow rv" style="--d:0">Λευκές συσκευές</div>
-      <h2 class="rv" style="--d:150">Ολοκληρωμένο portfolio<br><span class="red-t">για το σπίτι.</span></h2>
-      <ul class="pl"><li style="--k:0">Κλιματισμός</li><li style="--k:1">Ποιότητα αέρα</li><li style="--k:2">Λευκές συσκευές</li><li style="--k:3">Προϊόντα που απαντούν σε πραγματικές ανάγκες του νοικοκυριού</li></ul>
-      <div class="dt">Discover Technology.</div></div>
+  <section class="slide pr80 sp" data-group="g3" data-cat="Λευκές συσκευές" data-notes="">
+    <div class="sp-l">
+      <div class="rv" style="--d:0"><span class="pill"><b>Λευκές συσκευές</b><span>Portfolio</span></span></div>
+      <h2 class="sp-t rv" style="--d:150">Ολοκληρωμένο portfolio<br><span class="red-t">για το σπίτι.</span></h2>
+      <ul class="sp-list"><li style="--k:0"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Κλιματισμός</li><li style="--k:1"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Ποιότητα αέρα</li><li style="--k:2"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Λευκές συσκευές</li><li style="--k:3"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Προϊόντα που απαντούν σε πραγματικές ανάγκες του νοικοκυριού</li></ul>
+      <div class="dt">Discover Technology.</div>
+    </div>
+    <div class="sp-r"><div class="hero cut two"><div class="glow"></div><div class="ring"></div><div class="ring2"></div><img class="hp0" src="assets/img/v2/ac-intellia-c.png" alt=""><img class="hp1" src="assets/img/v2/p-alva.webp" alt=""><img class="hp2" src="assets/img/v2/cut-microwave.webp" alt=""><div class="scanl"></div></div><div class="thumbs"><div class="thumb" style="--i:0"><img src="assets/img/v2/p80.jpg" style="object-position:30% 30%;transform-origin:30% 30%" data-full="assets/img/v2/p80.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div><div class="thumb" style="--i:1"><img src="assets/img/v2/p80.jpg" style="object-position:65% 55%;transform-origin:65% 55%" data-full="assets/img/v2/p80.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div><div class="thumb" style="--i:2"><img src="assets/img/v2/p80.jpg" style="object-position:90% 70%;transform-origin:90% 70%" data-full="assets/img/v2/p80.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div></div></div>
   </section>
-
   <!-- g4 · Ημικεντρικά -->
-  <section class="slide pr81 pcat" data-group="g4" data-cat="Ημικεντρικά κλιματιστικά" data-notes="">
-    <div class="pc-img kb" style="background-image:url(assets/img/v2/p81.jpg)"></div>
-    <div class="pc-panel"><div class="eyebrow rv" style="--d:0">Ημικεντρικά κλιματιστικά</div>
-      <h2 class="rv" style="--d:150">Πέρα από τις<br><span class="red-t">κατηγορίες του καταστήματος.</span></h2>
-      <ul class="pl"><li style="--k:0">Η Inventor διαθέτει ευρύτερη τεχνογνωσία στον κλιματισμό</li><li style="--k:1">Καλύπτει μικρούς επαγγελματικούς χώρους</li><li style="--k:2">Φτάνει μέχρι απαιτητικές εφαρμογές μεγάλων κτιρίων</li></ul>
-      <div class="dt">Discover Technology.</div></div>
+  <section class="slide pr81 sp" data-group="g4" data-cat="Ημικεντρικά κλιματιστικά" data-notes="">
+    <div class="sp-l">
+      <div class="rv" style="--d:0"><span class="pill"><b>Ημικεντρικά κλιματιστικά</b><span>Επαγγελματικοί χώροι</span></span></div>
+      <h2 class="sp-t rv" style="--d:150">Πέρα από τις<br><span class="red-t">κατηγορίες του καταστήματος.</span></h2>
+      <ul class="sp-list"><li style="--k:0"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Η Inventor διαθέτει ευρύτερη τεχνογνωσία στον κλιματισμό</li><li style="--k:1"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Καλύπτει μικρούς επαγγελματικούς χώρους</li><li style="--k:2"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Φτάνει μέχρι απαιτητικές εφαρμογές μεγάλων κτιρίων</li></ul>
+      <div class="dt">Discover Technology.</div>
+    </div>
+    <div class="sp-r"><div class="hero photo"><div class="glow"></div><div class="ring"></div><div class="ring2"></div><div class="pcard"><img src="assets/img/v2/p81.jpg" style="object-position:78% 40%" alt=""><i class="glare"></i></div><div class="scanl"></div></div><div class="thumbs"><div class="thumb" style="--i:0"><img src="assets/img/v2/p81.jpg" style="object-position:20% 40%;transform-origin:20% 40%" data-full="assets/img/v2/p81.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div><div class="thumb" style="--i:1"><img src="assets/img/v2/p81.jpg" style="object-position:95% 10%;transform-origin:95% 10%" data-full="assets/img/v2/p81.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div><div class="thumb" style="--i:2"><img src="assets/img/v2/p82.jpg" style="object-position:50% 5%;transform-origin:50% 5%" data-full="assets/img/v2/p82.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div></div></div>
   </section>
-  <section class="slide pr82 pcat" data-group="g4" data-cat="Ημικεντρικά κλιματιστικά" data-notes="">
-    <div class="pc-img kb" style="background-image:url(assets/img/v2/p82.jpg)"></div>
-    <div class="pc-panel"><div class="eyebrow rv" style="--d:0">Ημικεντρικά κλιματιστικά</div>
-      <h2 class="rv" style="--d:150"><span class="red-t">LCAC</span></h2>
-      <ul class="pl"><li style="--k:0">Λύσεις για επαγγελματικούς χώρους</li><li style="--k:1">Καταστήματα, γραφεία και hospitality</li><li style="--k:2">Ευελιξία εγκατάστασης</li><li style="--k:3">Απόδοση και άνεση σε απαιτητικές συνθήκες</li></ul>
-      <div class="dt">Discover Technology.</div></div>
+  <section class="slide pr82 sp" data-group="g4" data-cat="Ημικεντρικά κλιματιστικά" data-notes="">
+    <div class="sp-l">
+      <div class="rv" style="--d:0"><span class="pill"><b>Ημικεντρικά κλιματιστικά</b><span>LCAC</span></span></div>
+      <h2 class="sp-t rv" style="--d:150"><span class="red-t">LCAC</span></h2>
+      <ul class="sp-list"><li style="--k:0"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Λύσεις για επαγγελματικούς χώρους</li><li style="--k:1"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Καταστήματα, γραφεία και hospitality</li><li style="--k:2"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Ευελιξία εγκατάστασης</li><li style="--k:3"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Απόδοση και άνεση σε απαιτητικές συνθήκες</li></ul>
+      <div class="dt">Discover Technology.</div>
+    </div>
+    <div class="sp-r"><div class="hero photo"><div class="glow"></div><div class="ring"></div><div class="ring2"></div><div class="pcard"><img src="assets/img/v2/p82.jpg" style="object-position:55% 20%" alt=""><i class="glare"></i></div><div class="scanl"></div></div><div class="thumbs"><div class="thumb" style="--i:0"><img src="assets/img/v2/p82.jpg" style="object-position:45% 0%;transform-origin:45% 0%" data-full="assets/img/v2/p82.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div><div class="thumb" style="--i:1"><img src="assets/img/v2/p82.jpg" style="object-position:80% 70%;transform-origin:80% 70%" data-full="assets/img/v2/p82.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div><div class="thumb" style="--i:2"><img src="assets/img/v2/p82.jpg" style="object-position:10% 60%;transform-origin:10% 60%" data-full="assets/img/v2/p82.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div></div></div>
   </section>
-
   <!-- g5 · Αντλίες θερμότητας -->
-  <section class="slide pr83 pcat" data-group="g5" data-cat="Αντλίες θερμότητας" data-notes="">
-    <div class="pc-img kb" style="background-image:url(assets/img/v2/p83.jpg)"></div>
-    <div class="pc-panel"><div class="eyebrow rv" style="--d:0">Αντλίες θερμότητας</div>
-      <h2 class="rv" style="--d:150">Αντλίες<br><span class="red-t">θερμότητας.</span></h2>
-      <ul class="pl"><li style="--k:0">Θέρμανση, ψύξη και ζεστό νερό χρήσης</li><li style="--k:1">Ολοκληρωμένη ενεργειακή λύση για το κτίριο</li><li style="--k:2">Κατάλληλες για κατοικίες και επαγγελματικούς χώρους</li><li style="--k:3">Τεχνολογία που συνδέεται με το μέλλον της θέρμανσης</li></ul>
-      <div class="dt">Discover Technology.</div></div>
+  <section class="slide pr83 sp" data-group="g5" data-cat="Αντλίες θερμότητας" data-notes="">
+    <div class="sp-l">
+      <div class="rv" style="--d:0"><span class="pill"><b>Αντλίες θερμότητας</b><span>Θέρμανση · Ψύξη · ΖΝΧ</span></span></div>
+      <h2 class="sp-t rv" style="--d:150">Αντλίες<br><span class="red-t">θερμότητας.</span></h2>
+      <ul class="sp-list"><li style="--k:0"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Θέρμανση, ψύξη και ζεστό νερό χρήσης</li><li style="--k:1"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Ολοκληρωμένη ενεργειακή λύση για το κτίριο</li><li style="--k:2"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Κατάλληλες για κατοικίες και επαγγελματικούς χώρους</li><li style="--k:3"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Τεχνολογία που συνδέεται με το μέλλον της θέρμανσης</li></ul>
+      <div class="dt">Discover Technology.</div>
+    </div>
+    <div class="sp-r"><div class="hero cut"><div class="glow"></div><div class="ring"></div><div class="ring2"></div><img class="hp0" src="assets/img/v2/cut-hp-in.webp" alt=""><div class="scanl"></div></div><div class="thumbs"><div class="thumb" style="--i:0"><img src="assets/img/v2/p83.jpg" style="object-position:15% 85%;transform-origin:15% 85%" data-full="assets/img/v2/p83.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div><div class="thumb" style="--i:1"><img src="assets/img/v2/p83.jpg" style="object-position:80% 15%;transform-origin:80% 15%" data-full="assets/img/v2/p83.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div><div class="thumb" style="--i:2"><img src="assets/img/v2/p83.jpg" style="object-position:80% 95%;transform-origin:80% 95%" data-full="assets/img/v2/p83.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div></div></div>
   </section>
-
   <!-- g6 · VRF -->
-  <section class="slide pr84 pcat" data-group="g6" data-cat="VRF" data-notes="">
-    <div class="pc-img kb" style="background-image:url(assets/img/v2/p84.jpg)"></div>
-    <div class="pc-panel"><div class="eyebrow rv" style="--d:0">VRF</div>
-      <h2 class="rv" style="--d:150">Συστήματα<br><span class="red-t">VRF.</span></h2>
-      <ul class="pl"><li style="--k:0">Λύσεις για μεγάλα κτίρια και έργα</li><li style="--k:1">Ταυτόχρονη κάλυψη πολλών ζωνών</li><li style="--k:2">Υψηλή ευελιξία εγκατάστασης</li><li style="--k:3">Έμφαση στην άνεση και την αποδοτικότητα</li></ul>
-      <div class="dt">Discover Technology.</div></div>
+  <section class="slide pr84 sp" data-group="g6" data-cat="VRF" data-notes="">
+    <div class="sp-l">
+      <div class="rv" style="--d:0"><span class="pill"><b>VRF</b><span>Μεγάλα κτίρια</span></span></div>
+      <h2 class="sp-t rv" style="--d:150">Συστήματα<br><span class="red-t">VRF.</span></h2>
+      <ul class="sp-list"><li style="--k:0"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Λύσεις για μεγάλα κτίρια και έργα</li><li style="--k:1"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Ταυτόχρονη κάλυψη πολλών ζωνών</li><li style="--k:2"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Υψηλή ευελιξία εγκατάστασης</li><li style="--k:3"><span class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Έμφαση στην άνεση και την αποδοτικότητα</li></ul>
+      <div class="dt">Discover Technology.</div>
+    </div>
+    <div class="sp-r"><div class="hero cut"><div class="glow"></div><div class="ring"></div><div class="ring2"></div><img class="hp0" src="assets/img/v2/cut-vrf.webp" alt=""><div class="scanl"></div></div><div class="thumbs"><div class="thumb" style="--i:0"><img src="assets/img/v2/p84.jpg" style="object-position:15% 10%;transform-origin:15% 10%" data-full="assets/img/v2/p84.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div><div class="thumb" style="--i:1"><img src="assets/img/v2/p84.jpg" style="object-position:15% 90%;transform-origin:15% 90%" data-full="assets/img/v2/p84.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div><div class="thumb" style="--i:2"><img src="assets/img/v2/p84.jpg" style="object-position:75% 60%;transform-origin:75% 60%" data-full="assets/img/v2/p84.jpg" alt=""><span class="zi"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></span></div></div></div>
   </section>
 
   <!-- μετά το μενού -->
@@ -1052,7 +1082,7 @@
       <div class="sc5" style="--k:3"><i class="ic"><svg viewBox="0 0 24 24"><path d="M4 21V5l8-3v19M12 21V8l8 3v10M2 21h20M7 8h2M7 12h2M7 16h2M15 13h2M15 17h2"/></svg></i><span>04</span><b>Κτίριο</b><small>αντλίες θερμότητας &amp; VRF</small></div>
     </div>
   </section>
-  <section class="slide pr86 pph" data-notes="">
+  <section class="slide pr86 pph" id="pr86" data-notes="">
     <div class="ph-img kb" style="background-image:url(assets/img/v2/p86.jpg)"></div><div class="ph-shade"></div>
     <div class="ph-txt">
       <img class="ph-logo rv" style="--d:0" src="assets/img/inventor-logo-white.png" alt="inventor">
