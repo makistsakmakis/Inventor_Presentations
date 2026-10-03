@@ -1,0 +1,65 @@
+/* =====================================================================
+   premium.css · Οκτ. 2026 — φωτορεαλιστικό γυάλινο φινίρισμα διαγραμμάτων
+   (ίδια αισθητική με την παρουσίαση Welcome Stores · φορτώνεται μετά το style.css)
+   ===================================================================== */
+
+/* ---------- γυάλινοι κύλινδροι στο διάγραμμα Ικανότητα · Κάλυψη · Τιμή ---------- */
+.s-chart{--c1:rgba(255,72,86,.82);--c2:rgba(170,8,24,.3);--ct:rgba(255,170,178,.9)}
+.s-chart[data-metric="area"]{--c1:rgba(120,200,160,.82);--c2:rgba(40,110,80,.3);--ct:rgba(200,245,220,.9)}
+.s-chart[data-metric="price"]{--c1:rgba(110,165,240,.84);--c2:rgba(40,80,170,.3);--ct:rgba(200,225,255,.9)}
+.s-chart .bar{container-type:inline-size}
+.s-chart .bar .b,.s-chart[data-metric] .bar .b{--ry:8cqw;
+  --g1:color-mix(in srgb,var(--c1) 62%,transparent);--g2:color-mix(in srgb,var(--c2) 70%,transparent);
+  --g3:color-mix(in srgb,var(--c1) 30%,transparent);--gt:color-mix(in srgb,var(--ct) 55%,transparent);
+  border:0;border-radius:0 0 50% 50% / 0 0 var(--ry) var(--ry);overflow:visible;
+  background:
+    linear-gradient(90deg,rgba(255,255,255,.78) 0,rgba(255,255,255,.2) 1.4%,transparent 4.5%,transparent 95.5%,rgba(255,255,255,.14) 98.4%,rgba(255,255,255,.6) 100%),
+    linear-gradient(90deg,transparent 13%,rgba(255,255,255,.07) 16%,rgba(255,255,255,.45) 19.4%,rgba(255,255,255,.74) 20.8%,rgba(255,255,255,.3) 23%,transparent 27.5%),
+    linear-gradient(90deg,transparent 64%,rgba(255,255,255,.07) 74%,rgba(255,255,255,.2) 83%,rgba(255,255,255,.05) 89%,transparent 91.5%),
+    linear-gradient(90deg,transparent 7%,rgba(255,255,255,.2) 8.2%,transparent 9.8%,transparent 90.2%,rgba(255,255,255,.14) 91.8%,transparent 93%),
+    linear-gradient(180deg,rgba(255,255,255,.12),transparent 26%,transparent 72%,rgba(0,0,0,.16)),
+    linear-gradient(90deg,var(--g1) 0,var(--g2) 26%,var(--g3) 52%,var(--g2) 78%,var(--g1) 100%);
+  -webkit-backdrop-filter:blur(2.5px) saturate(1.35) brightness(1.06);backdrop-filter:blur(2.5px) saturate(1.35) brightness(1.06);
+  box-shadow:0 0 46px -14px var(--c1),inset 0 calc(-1 * var(--ry)) 30px -18px color-mix(in srgb,var(--c1) 80%,#fff)}
+/* αργή ανταύγεια μέσα στο γυαλί */
+.s-chart .bar .b::before{border-radius:inherit;
+  background:linear-gradient(180deg,transparent 0,transparent 44%,rgba(255,255,255,.16) 50%,transparent 56%,transparent 100%);
+  background-size:100% 340%;background-repeat:no-repeat;background-position:0 115%;mix-blend-mode:screen;
+  -webkit-mask:linear-gradient(90deg,transparent 3%,#000 14%,#000 86%,transparent 97%);mask:linear-gradient(90deg,transparent 3%,#000 14%,#000 86%,transparent 97%);
+  animation:glassSweep 5.5s ease-in-out infinite;animation-delay:calc(1.4s + var(--i) * .18s)}
+@keyframes glassSweep{0%{background-position:0 115%}60%,100%{background-position:0 -15%}}
+/* φως που συγκεντρώνεται στη βάση */
+.s-chart .bar .b::after,.s-chart[data-metric] .bar .b::after{left:4%;right:4%;top:auto;bottom:0;height:calc(var(--ry) * 3.2);border-radius:0 0 50% 50% / 0 0 var(--ry) var(--ry);
+  background:radial-gradient(ellipse 60% 70% at 50% 100%,color-mix(in srgb,var(--ct) 85%,#fff) 0,color-mix(in srgb,var(--c1) 45%,transparent) 38%,transparent 72%);
+  box-shadow:none;opacity:.75;mix-blend-mode:screen}
+/* καπάκι: γυάλινη ελλειπτική επιφάνεια με φωτεινό χείλος */
+.s-chart .bar .b .cap{position:absolute;left:0;right:0;top:calc(-1 * var(--ry));height:calc(var(--ry) * 2);border-radius:50%;pointer-events:none;
+  background:radial-gradient(ellipse 46% 34% at 38% 38%,rgba(255,255,255,.34),transparent 70%),
+    linear-gradient(172deg,var(--gt) 0,color-mix(in srgb,var(--c1) 26%,transparent) 55%,color-mix(in srgb,var(--c2) 40%,transparent) 100%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.42),inset 0 -1.6px 0 1px rgba(255,255,255,.75),inset 0 3px 6px rgba(255,255,255,.18),0 1px 0 rgba(255,255,255,.18);
+  -webkit-backdrop-filter:blur(3px) brightness(1.12);backdrop-filter:blur(3px) brightness(1.12)}
+.s-chart .bar .b .cap::before{content:"";position:absolute;inset:16% 7% 20%;border-radius:50%;border:1px solid rgba(255,255,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
+.s-chart .bar .b .cap::after{content:"";position:absolute;left:10%;top:56%;width:22%;height:44%;border-radius:50%;background:radial-gradient(ellipse,#fff 0,rgba(255,255,255,.55) 30%,transparent 70%);opacity:.9}
+/* αντανάκλαση στο «δάπεδο» */
+.s-chart .bar::after{content:"";position:absolute;left:12%;right:12%;bottom:-12px;height:24px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 45%,color-mix(in srgb,var(--c1) 70%,transparent) 0,color-mix(in srgb,var(--c1) 22%,transparent) 42%,transparent 70%);
+  opacity:0;filter:blur(5px);transition:opacity .6s}
+.s-chart .bar.up::after{opacity:.65;transition-delay:calc(.6s + var(--i) * .07s)}
+.s-chart .bar:hover .b,.s-chart[data-metric] .bar:hover .b{filter:saturate(1.25) brightness(1.15);
+  box-shadow:0 0 60px -10px var(--c1),inset 0 calc(-1 * var(--ry)) 30px -18px color-mix(in srgb,var(--c1) 80%,#fff)}
+.s-chart .bar .v{bottom:calc(var(--h) + 22px)}
+
+/* ---------- γυάλινα 3D ντόνατ (EcoDrive AI) ---------- */
+.donut svg{filter:drop-shadow(0 14px 18px rgba(0,0,0,.5))}
+.donut svg circle{fill:none}
+.donut .tk{stroke:rgba(255,255,255,.12);stroke-dasharray:1 7}
+.donut .g-tx{stroke:rgba(255,255,255,.035);stroke-width:26}
+.donut .tr{stroke:rgba(255,255,255,.07);stroke-width:26}
+.donut .g-rim{stroke:rgba(255,255,255,.22);stroke-width:1.2}
+.donut .g-rim.i{stroke:rgba(255,255,255,.14)}
+.donut .g-px,.donut .ar,.donut .g-sh,.donut .g-hl,.donut .g-hl2{stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100}
+.donut .g-px{stroke:#173a2c;stroke-width:24}
+.donut .ar{stroke:url(#gMint);stroke-width:24;opacity:.9;filter:drop-shadow(0 0 10px rgba(127,216,176,.6))}
+.donut .g-sh{stroke:rgba(10,40,28,.45);stroke-width:6}
+.donut .g-hl{stroke:rgba(255,255,255,.55);stroke-width:4;filter:blur(.6px)}
+.donut .g-hl2{stroke:rgba(220,255,240,.35);stroke-width:2}

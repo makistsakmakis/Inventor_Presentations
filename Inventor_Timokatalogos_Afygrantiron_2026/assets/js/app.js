@@ -106,13 +106,13 @@
     <div class="bigl rise" style="--d:.8s">εξοικονόμηση από 36% έως 40%*</div>
     <div class="donuts">${ecoModels.map((m, i) => { const p = P[m]; return `
       <div class="donut glass" data-anchor style="--i:${i}">
-        <svg viewBox="0 0 220 220"><circle class="tk" cx="110" cy="110" r="96"/><circle class="tr" cx="110" cy="110" r="84"/><circle class="ar" cx="110" cy="110" r="84" data-v="${p.eco}"/></svg>
+        <svg viewBox="0 0 220 220"><circle class="tk" cx="110" cy="110" r="100"/><circle class="g-tx" cx="104" cy="110" r="84"/><circle class="tr" cx="110" cy="110" r="84"/><circle class="g-rim" cx="110" cy="110" r="97"/><circle class="g-rim i" cx="110" cy="110" r="71"/><circle class="g-px" cx="104" cy="110" r="84" pathLength="100" data-v="${p.eco}"/><circle class="ar" cx="110" cy="110" r="84" pathLength="100" data-v="${p.eco}"/><circle class="g-sh" cx="110" cy="110" r="93" pathLength="100" data-v="${p.eco}"/><circle class="g-hl" cx="110" cy="110" r="76" pathLength="100" data-v="${p.eco}"/><circle class="g-hl2" cx="110" cy="110" r="90" pathLength="100" data-v="${p.eco}"/></svg>
         <div class="val"><small>έως και</small><b><span class="run">${p.eco}</span>%</b></div>
         <div class="meta"><img class="wm" src="${img(p.wm)}" alt="${p.name}"><img class="pr" src="${pimg(p.hero[0])}" alt=""></div>
         <div class="fn">${p.foot}</div>
       </div>`; }).join('')}</div>
     <p class="foot rise" style="--d:1s">${C.TECH.foot}</p>`,
-    enter(el) { $$('.ar', el).forEach((c, i) => { const L = 2 * Math.PI * 84; c.style.transition = 'none'; c.style.strokeDasharray = L; c.style.strokeDashoffset = L; c.getBoundingClientRect(); c.style.transition = `stroke-dashoffset 1.6s cubic-bezier(.2,.8,.2,1) ${.4 + i * .15}s`; c.style.strokeDashoffset = L * (1 - c.dataset.v / 100); }); }
+    enter(el) { $$('.donut', el).forEach((d, i) => $$('[data-v]', d).forEach(c => { const L = 100; c.style.transition = 'none'; c.style.strokeDasharray = L; c.style.strokeDashoffset = L; c.getBoundingClientRect(); c.style.transition = `stroke-dashoffset 1.6s cubic-bezier(.2,.8,.2,1) ${.4 + i * .15}s`; c.style.strokeDashoffset = L * (1 - c.dataset.v / 100); })); }
   });
 
   /* ---- 05 TIPS ---- */
@@ -220,7 +220,7 @@
     const bars = $('.bars', el);
     bars.innerHTML = DEH.map((m, i) => { const p = P[m], v = M.v(p);
       return `<div class="bar" data-go="p-${m}" style="--i:${i};--h:${v / top * 100}%" title="${p.name}">
-        <div class="b"></div><div class="v"><span class="run">${M.t(p)}</span><small> ${M.u}</small></div>
+        <div class="b"><i class="cap"></i></div><div class="v"><span class="run">${M.t(p)}</span><small> ${M.u}</small></div>
         <div class="lbl"><img src="${pimg(p.hero[0])}" alt=""><span>${p.name}</span></div></div>`; }).join('') +
       [['Premium Series', 0, 3], ['Power Series', 3, 7], ['Essential Series', 7, 10]].map(g => `<div class="grp" style="left:${g[1] / 10 * 100}%;width:calc(${(g[2] - g[1]) / 10 * 100}% - 14px)">${g[0]}</div>`).join('');
     requestAnimationFrame(() => { $$('.bar', bars).forEach(b => b.classList.add('up')); runAll(bars, 900, 400); });
@@ -639,7 +639,7 @@
   function openGallery(pid, idx) {
     const list = galleryList(pid); let i = idx;
     const body = dialog(`<span>${P[pid].name}</span><small>${seriesName(P[pid].series)}</small>`, `
-      <div class="dlg-img"><img alt=""></div><div class="scanbar"></div>
+      <div class="dlg-img"><img alt=""></div>
       <button class="dlg-nav p" aria-label="Προηγούμενη"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
       <button class="dlg-nav n" aria-label="Επόμενη"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
       <div class="dlg-strip">${list.map((x, j) => `<button data-j="${j}"><img src="${x.src}" alt=""></button>`).join('')}</div>`);
