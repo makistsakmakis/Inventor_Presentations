@@ -461,7 +461,7 @@ $$('.slide[data-hook="ex"]').forEach((sl) => {
     if (links[i]) { links[i].g.remove(); links[i].hs.classList.remove('ok'); }
     const g = mk('g', {}); const c = curve(a, pt);
     const p = mk('path', { d: c.d, class: 'xl fix', stroke: col }); const len = 2000; p.style.strokeDasharray = len; p.style.strokeDashoffset = len;
-    g.appendChild(p); g.appendChild(head(pt, c, col)); g.appendChild(mk('circle', { cx: a.x, cy: a.y, r: 6, fill: col }));
+    g.appendChild(p); g.appendChild(mk('circle', { cx: pt.x, cy: pt.y, r: 4.5, fill: col, stroke: '#fff', 'stroke-width': 1.5 })); g.appendChild(mk('circle', { cx: a.x, cy: a.y, r: 6, fill: col }));
     svg.appendChild(g);
     requestAnimationFrame(() => { p.style.transition = 'stroke-dashoffset .6s ease'; p.style.strokeDashoffset = 0; });
     hs.classList.add('ok'); refreshLens();
@@ -481,9 +481,12 @@ $$('.slide[data-hook="ex"]').forEach((sl) => {
   comps.forEach((c) => { const l = c.querySelector('.hint-l'); if (!l) return;
     l.addEventListener('pointerdown', (e) => { e.preventDefault(); e.stopPropagation(); });
     l.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); if (!c.classList.contains('linked')) hintTo(c); }); });
+  // αφαίρεση υπάρχουσας αντιστοίχισης (uncheck)
+  const unlink = (c) => { const i = c.dataset.c, l = links[i]; if (!l) return; l.g.remove(); l.hs.classList.remove('ok'); delete links[i]; c.classList.remove('linked', 'hinted'); refreshLens(); count(); $$('.route,.route-dot,.done-b', svg).forEach((x) => x.remove()); SFX.click(); };
   comps.forEach((c) => c.addEventListener('pointerdown', (e) => {
     if (e.target.closest('.hint-l')) return;
     e.preventDefault(); e.stopPropagation(); cancel();
+    if (c.classList.contains('linked')) { unlink(c); return; }      // ξανά κλικ σε αντιστοιχισμένο: σβήνει τη γραμμή του, δεν ξεκινά νέα
     sel = c; c.classList.add('sel'); sl.classList.add('exdrag'); lens.classList.remove('on'); SFX.click(); downAt = { x: e.clientX, y: e.clientY };
     try { c.releasePointerCapture(e.pointerId); } catch (_) {}
     const a = anchor(c); live = mk('path', { class: 'xl live', stroke: getComputedStyle(c).getPropertyValue('--c').trim(), d: `M${a.x},${a.y} L${a.x},${a.y}` }); svg.appendChild(live);
