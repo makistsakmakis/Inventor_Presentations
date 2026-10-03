@@ -356,3 +356,13 @@
 .lab .ing .geo b{font-weight:900;color:#8cc3ff}
 .lab .ing .geo b.g{font-family:"CommOutline",var(--font);color:transparent;-webkit-text-stroke:1.6px #fff;font-size:34px;letter-spacing:.04em}
 .lab .ing.i2 h3{font-size:40px}
+
+/* ---------- σελ. 15 · γυάλινα 3D ντόνατ (+10%) & μεγαλύτερο κενό μεταξύ των σειρών ---------- */
+.n15 .n15-m{top:220px;row-gap:96px;column-gap:34px}
+.n15 .arcst svg.gdn{width:242px;height:242px;overflow:visible;filter:drop-shadow(0 16px 20px rgba(0,0,0,.5))}
+.n15 .arcst b{top:76px;font-size:68px}
+.n15 .arcst p{margin-top:14px}
+
+/* ---------- σελ. 16 · το πλαίσιο url ορθογώνιο με ίδιες στρογγυλεμένες γωνίες με το «Κατάστημα» ---------- */
+.or-and .url{border-radius:30px}
+.or-and .fuse,.or-and .fuse .fz{border-radius:30px}
