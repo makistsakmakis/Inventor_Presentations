@@ -533,7 +533,7 @@ function go(i) {
   $('#ftTitle').textContent = n.dataset.title;
   $('#progBar').style.width = ((i + 1) / slides.length * 100) + '%';
   $('#nbUp').disabled = i === 0; $('#nbDn').disabled = i === slides.length - 1;
-  history.replaceState(null, '', '#' + (i + 1));
+  try { history.replaceState(null, '', '#' + (i + 1)); } catch (_) { /* sandboxed προβολή (π.χ. SharePoint preview): χωρίς URL hash */ }
   const h = H[n.dataset.hook]; h && h.enter && h.enter(n);
 }
 window.go = go;
