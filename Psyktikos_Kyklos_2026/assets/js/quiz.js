@@ -115,8 +115,8 @@ const Music = (() => {
     set(rem) { intensity = Math.max(0, Math.min(1, 1 - rem / ROUND_S)) ** 1.4; },
     gong() {
       if (!SFX.on) return; AC(); const t = ctx.currentTime + .03, out = ctx.createGain(); out.gain.value = 1.4; out.connect(master); out.connect(verb);
-      // μεγάλο γκονγκ ναού: βαθιά θεμελιώδης + μη αρμονικοί προσφωνητές που «ανθίζουν» και σβήνουν σε ~14''
-      [[49, 1, 14, 0], [49.6, .5, 13, 0], [98.7, .55, 11, .4], [131.4, .45, 10, .7], [167.9, .35, 9, 1], [211.3, .3, 7, 1.3], [264.1, .22, 6, 1.6], [347, .14, 4.5, 2], [449, .1, 3.5, 2.4]]
+      // μεγάλο γκονγκ ναού: βαθιά θεμελιώδης + μη αρμονικοί προσφωνητές που «ανθίζουν» και σβήνουν σε ~7''
+      [[49, 1, 7, 0], [49.6, .5, 6.6, 0], [98.7, .55, 6, .3], [131.4, .45, 5.5, .5], [167.9, .35, 5, .7], [211.3, .3, 4.2, .9], [264.1, .22, 3.6, 1.1], [347, .14, 2.8, 1.3], [449, .1, 2.2, 1.5]]
         .forEach(([f, v, d, bloom]) => {
           const o = ctx.createOscillator(), g = ctx.createGain(), lfo = ctx.createOscillator(), lg = ctx.createGain();
           o.type = 'sine'; o.frequency.setValueAtTime(f * 1.012, t); o.frequency.exponentialRampToValueAtTime(f, t + 2.5);
@@ -130,9 +130,9 @@ const Music = (() => {
       // ψαλμωδία μοναχών (βαθύ «ΟΜ» με φορμάντ) που αναδύεται κάτω από το γκονγκ
       [[55, 0], [55.4, .15], [82.4, .3]].forEach(([f0, dt]) => {
         const o = ctx.createOscillator(), g2 = ctx.createGain(); o.type = 'sawtooth'; o.frequency.value = f0;
-        g2.gain.setValueAtTime(0.0001, t + .5 + dt); g2.gain.exponentialRampToValueAtTime(.16, t + 3 + dt); g2.gain.setValueAtTime(.16, t + 7); g2.gain.exponentialRampToValueAtTime(0.0001, t + 12);
+        g2.gain.setValueAtTime(0.0001, t + .5 + dt); g2.gain.exponentialRampToValueAtTime(.16, t + 1.6 + dt); g2.gain.setValueAtTime(.16, t + 4); g2.gain.exponentialRampToValueAtTime(0.0001, t + 7);
         [[400, 6, 1], [800, 8, .5], [2600, 12, .12]].forEach(([fc, q, gg]) => { const bp = ctx.createBiquadFilter(), bg = ctx.createGain(); bp.type = 'bandpass'; bp.frequency.value = fc; bp.Q.value = q; bg.gain.value = gg; o.connect(bp).connect(bg).connect(g2); });
-        g2.connect(out); o.start(t + .4); o.stop(t + 12.2);
+        g2.connect(out); o.start(t + .4); o.stop(t + 7.2);
       });
     },
   };
