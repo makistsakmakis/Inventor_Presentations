@@ -395,59 +395,99 @@ $$('.lensbox').forEach((box) => {
 /* hero go button */
 $$('[data-go="next"]').forEach((b) => b.addEventListener('click', () => go(cur + 1)));
 
-/* ---------------- drag-arrow exercises ---------------- */
+/* ---------------- drag-arrow exercises (σωστή αντιστοίχιση σε κωδικούς του σχεδίου) ---------------- */
 const NS = 'http://www.w3.org/2000/svg';
+// σημεία-στόχοι: [ετικέτα, κέντρο x%, κέντρο y%, πλάτος%, ύψος%] — θέσεις των κωδικών μέσα στο σχέδιο
+const EXDATA = {
+  's-ex1': { hs: [["F14",56.53,5.45,3.73,1.99],["F17",74.07,8.96,3.87,1.99],["E4-1",36.53,12.51,4.27,1.9],["E4",48.8,14.6,2.93,1.9],["E12",32.33,15.73,3.87,1.9],["F9",10.6,18.34,2.8,1.99],["F18",57.8,18.34,3.87,1.99],["F14",82.4,20.47,3.73,1.9],["F21",76.07,21.61,3.6,1.9],["E5",50.53,22.18,2.93,1.9],["B22",57.87,22.99,4.0,1.99],["E14",29.8,23.27,3.87,1.99],["C3",84.4,23.27,3.2,1.99],["E24",23.4,28.2,3.87,1.99],["E23",21.4,30.43,3.87,1.9],["E6-2",34.47,31.28,4.67,1.9],["E1",21.8,32.84,2.8,1.99],["E6-1",44.07,33.08,4.4,1.9],["F14",7.87,33.6,3.73,1.99],["E8-1",49.0,36.45,4.4,1.99],["F12",54.73,36.45,3.87,1.99],["F3",15.47,37.96,2.93,1.99],["E8-4",52.13,38.67,4.53,1.9],["B20",84.67,40.14,4.0,1.99],["E20",59.53,41.33,3.87,1.9],["F4",15.53,41.47,2.8,1.99],["F6",70.8,42.32,2.93,1.99],["E3",34.27,43.84,2.93,1.99],["C4",6.6,44.6,3.07,1.99],["F15",59.47,44.69,3.73,1.99],["F2-1",71.07,44.79,4.27,1.99],["B16",84.4,44.74,4.0,1.9],["E22",90.2,45.36,3.87,1.99],["E19",81.53,47.16,3.87,1.99],["E18",83.4,48.77,3.87,1.99],["C1",48.53,49.91,2.93,1.99],["F5",57.4,51.04,2.8,1.99],["C2",44.6,51.23,3.07,1.99],["F7",96.27,54.22,2.93,1.9],["A13",46.4,55.92,4.0,1.9],["F2",68.67,58.25,2.93,1.99],["A8",62.07,59.34,3.07,1.9],["A4",47.0,60.28,3.07,1.9],["A5",43.47,61.75,3.2,1.99],["F7-3",84.13,62.09,4.53,1.9],["F2-2",75.33,62.27,4.0,1.99],["A6",49.53,62.46,3.07,1.9],["F7-2",96.67,63.7,4.53,1.9],["F14",27.53,64.88,3.87,1.99],["E16",90.53,66.4,4.0,1.99],["E25",40.6,66.73,3.87,1.9],["B15",63.07,67.16,4.0,1.99],["B3-4",80.6,68.01,4.67,1.99],["F15",15.33,68.58,3.73,1.99],["E13",42.8,68.91,3.73,1.9],["B3",90.2,69.76,3.07,1.9],["B3-1",90.87,71.33,4.4,1.99],["B3-2",79.07,71.71,4.53,1.99],["B2",65.87,72.27,2.93,1.99],["A3",47.8,73.08,3.07,1.9],["B2-2",71.07,73.46,4.53,1.9],["B3-3",79.2,73.46,4.0,1.99],["B6",62.87,74.17,3.07,1.99],["A2",55.27,76.02,3.07,1.9],["B21",60.8,76.02,3.73,1.9],["B11",89.2,76.87,3.73,1.9],["B2-3",62.33,79.86,4.67,1.99],["F11",87.4,84.74,3.6,1.9],["F16",91.27,84.74,3.87,1.9],["B8",80.6,85.97,3.07,1.9],["B9",77.8,87.68,3.07,1.9],["B7",75.07,88.96,2.93,1.99],["B4",71.67,90.43,3.07,1.9],["A14",62.4,90.71,4.0,1.9],["F18-1",63.33,16.59,6.07,1.99],["E6",36.93,23.79,3.07,1.99],["E6-2",41.33,23.98,5.07,1.99],["B22",71.07,23.03,4.07,1.99],["E8-2",42.13,34.88,5.07,1.99],["E8-3",38.53,40.76,5.07,1.99],["E8",42.8,41.52,3.07,1.99],["B1",53.73,31.0,3.07,1.99],["B1-1",85.07,42.37,5.07,1.99],["A10",47.47,53.74,3.73,1.99],["A9",62.27,61.61,3.07,1.99],["K1",21.47,60.47,3.07,1.99],["F8",81.2,57.35,3.07,1.99],["F7-1",84.67,58.1,5.07,1.99],["E16-1",90.93,67.96,6.07,1.99],["A1",48.0,71.18,3.07,1.99],["B2-1",66.53,73.93,5.07,1.99],["B3-3-1",80.93,74.98,7.07,1.99],["B12",89.33,78.48,4.07,1.99],["B10",83.33,79.72,4.07,1.99],["F1",44.67,85.02,3.07,1.99],["B2-3-1",63.33,85.21,7.07,1.99],["B4-1",72.4,92.13,5.07,1.99]],
+    ok: [['A1'], ['B1'], ['C1'], ['B3', 'B3-1'], ['B2', 'B2-1'], ['B4', 'B10']] },
+  's-ex2': { hs: [["131410",73.7,5.83,5.8,2.59],["733010",92.1,5.83,5.8,2.59],["342800",61.2,16.19,5.8,2.59],["359011",64.6,18.91,5.8,2.59],["268712",36.3,24.48,5.8,2.59],["267110",11.2,30.7,5.8,2.59],["135311",46.7,29.15,5.8,2.59],["135312",24.5,37.69,5.8,2.59],["135314",9.0,61.79,5.8,2.59],["35211B",80.8,57.25,5.8,2.59],["346810",90.6,56.87,5.8,2.59],["354212",90.6,59.97,5.8,2.59],["159901",59.5,71.89,5.8,2.59],["146811",66.2,71.89,5.8,2.59],["352150",73.5,69.82,5.8,2.59],["263230",83.2,71.5,5.8,2.59],["249951",62.3,84.59,5.8,2.59],["152302",34.2,90.93,5.8,2.59],["268714",81.0,93.65,5.8,2.59]],
+    ok: [['354212'], ['359011'], ['152302'], ['263230'], ['135311'], ['159901']] },
+  's-ex3': { num: true, hs: [['1', 10.8, 46.07, 6.9, 6.3], ['2', 51.91, 83.34, 6.9, 6.3], ['3', 89.9, 86.02, 6.9, 6.3], ['4', 51.9, 20.27, 6.9, 6.3], ['5', 10.77, 56.29, 6.9, 6.3]],
+    ok: [['1'], ['2'], ['3'], ['4'], ['5']] },
+};
 $$('.slide[data-hook="ex"]').forEach((sl) => {
-  const svg = $('.exsvg', sl), photo = $('.exphoto', sl), comps = $$('.comp[data-c]', sl), route = !!$('.complist.route', sl);
-  let sel = null, live = null, links = {}, downAt = null;
+  const D = EXDATA[sl.id]; if (!D) return;
+  const svg = $('.exsvg', sl), photo = $('.exphoto', sl), img = $('img', photo), comps = $$('.comp[data-c]', sl), route = !!$('.complist.route', sl);
+  // σχέδιο + στρώμα σημείων σε κοινό «καμβά» ώστε να κλιμακώνονται μαζί
+  const wrap = document.createElement('div'); wrap.className = 'exwrap'; photo.insertBefore(wrap, img); wrap.appendChild(img);
+  const layer = document.createElement('div'); layer.className = 'hsl' + (D.num ? ' nmb' : ''); wrap.appendChild(layer);
+  D.hs.forEach(([t, x, y, w, h]) => { const e = document.createElement('i'); e.className = 'hs'; e.dataset.t = t; e.style.cssText = `left:${x}%;top:${y}%;width:${w}%;height:${h}%`; if (D.num) e.innerHTML = `<b>${t}</b>`; layer.appendChild(e); });
+  // μεγεθυντικός φακός (όπως στη σελ. 17) — μόνο όταν δεν γίνεται drag
+  const lens = document.createElement('div'); lens.className = 'lens exlens'; const lz = document.createElement('div'); lz.className = 'lz'; lens.appendChild(lz); photo.appendChild(lens);
+  const Z = 2.6, LR = 115;
+  const refreshLens = () => { lz.innerHTML = wrap.innerHTML; };
+  refreshLens();
+  photo.addEventListener('pointermove', (e) => {
+    if (sel) { lens.classList.remove('on'); return; }
+    const r = wrap.getBoundingClientRect(), w = r.width / S, h = r.height / S, mx = (e.clientX - r.left) / S, my = (e.clientY - r.top) / S;
+    if (mx < 0 || my < 0 || mx > w || my > h) { lens.classList.remove('on'); return; }
+    lens.classList.add('on');
+    lens.style.left = (mx - LR) + 'px'; lens.style.top = (my - LR) + 'px';
+    lz.style.width = w + 'px'; lz.style.height = h + 'px';
+    lz.style.transform = `translate(${-(mx * Z - LR)}px,${-(my * Z - LR)}px) scale(${Z})`;
+  });
+  photo.addEventListener('pointerleave', () => lens.classList.remove('on'));
+
+  let sel = null, live = null, links = {}, downAt = null, hot = null;
   const anchor = (c) => { const r = c.getBoundingClientRect(); return toStage(r.right - 6, r.top + r.height / 2); };
+  const center = (el) => { const r = el.getBoundingClientRect(); return toStage(r.left + r.width / 2, r.top + r.height / 2); };
   const mk = (tag, attrs) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; };
   const curve = (a, b) => { const mx = (a.x + b.x) / 2, my = Math.min(a.y, b.y) - 60 - Math.abs(b.x - a.x) * .08; return { d: `M${a.x},${a.y} Q${mx},${my} ${b.x},${b.y}`, cx: mx, cy: my }; };
   const head = (b, c, col) => { const ang = Math.atan2(b.y - c.cy, b.x - c.cx), L = 18; const p1 = [b.x - L * Math.cos(ang - .45), b.y - L * Math.sin(ang - .45)], p2 = [b.x - L * Math.cos(ang + .45), b.y - L * Math.sin(ang + .45)]; return mk('path', { d: `M${p1} L${b.x},${b.y} L${p2}`, fill: 'none', stroke: col, 'stroke-width': 4, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }); };
-  const cancel = () => { if (live) live.remove(); live = null; if (sel) sel.classList.remove('sel'); sel = null; };
+  const setHot = (h) => { if (hot === h) return; hot && hot.classList.remove('hot'); hot = h; hot && hot.classList.add('hot'); };
+  const hsAt = (x, y) => { const el = document.elementFromPoint(x, y); return el && el.closest ? el.closest('.exwrap .hs') : null; };
+  const cancel = () => { if (live) live.remove(); live = null; if (sel) sel.classList.remove('sel'); sel = null; setHot(null); sl.classList.remove('exdrag'); };
   const count = () => { const n = Object.keys(links).length; $('.exn b', sl).textContent = n; return n; };
   const drawRoute = () => {
     $$('.route,.route-dot,.done-b', svg).forEach((x) => x.remove());
     const ids = comps.map((c) => c.dataset.c); if (!ids.every((i) => links[i])) return;
-    const pts = ids.map((i) => links[i].end); pts.push(pts[0]);
+    const pts = ids.map((i) => center(links[i].hs));
     const d = 'M' + pts.map((p) => `${p.x},${p.y}`).join(' L');
-    const path = mk('path', { d, class: 'route', id: 'rt-' + sl.id }); svg.appendChild(path);
+    svg.appendChild(mk('path', { d, class: 'route', id: 'rt-' + sl.id }));
     const dot = mk('circle', { r: 11, fill: '#ffd24a', class: 'route-dot' }); const am = mk('animateMotion', { dur: '4s', repeatCount: 'indefinite', path: d }); dot.appendChild(am); svg.appendChild(dot);
     const pr = photo.getBoundingClientRect(), pp = toStage(pr.left + pr.width / 2, pr.bottom);
     const t = mk('text', { x: pp.x, y: pp.y + 34, class: 'done-b', 'text-anchor': 'middle' }); t.textContent = 'Ο κύκλος έκλεισε!'; svg.appendChild(t);
     SFX.right();
   };
-  const place = (pt) => {
-    if (!sel) return;
-    const i = sel.dataset.c, col = getComputedStyle(sel).getPropertyValue('--c').trim(), a = anchor(sel);
-    if (links[i]) links[i].g.remove();
+  const drop = (hs) => {
+    const i = sel.dataset.c, col = getComputedStyle(sel).getPropertyValue('--c').trim(), a = anchor(sel), pt = center(hs);
+    const good = D.ok[+i].includes(hs.dataset.t);
+    if (!good) {                                   // λάθος σημείο: κόκκινο ✗ και ακύρωση
+      hs.classList.add('bad'); setTimeout(() => hs.classList.remove('bad'), 900);
+      sel.classList.add('wrong'); const s0 = sel; setTimeout(() => s0.classList.remove('wrong'), 600);
+      SFX.wrong && SFX.wrong(); cancel(); return;
+    }
+    if (links[i]) { links[i].g.remove(); links[i].hs.classList.remove('ok'); }
     const g = mk('g', {}); const c = curve(a, pt);
     const p = mk('path', { d: c.d, class: 'xl fix', stroke: col }); const len = 2000; p.style.strokeDasharray = len; p.style.strokeDashoffset = len;
-    g.appendChild(p); g.appendChild(head(pt, c, col));
-    g.appendChild(mk('circle', { cx: a.x, cy: a.y, r: 6, fill: col }));
-    g.appendChild(mk('circle', { cx: pt.x, cy: pt.y, r: 15, fill: col, class: 'xd' }));
-    const t = mk('text', { x: pt.x, y: pt.y + 5, 'text-anchor': 'middle', class: 'xt' }); t.textContent = +i + 1; g.appendChild(t);
+    g.appendChild(p); g.appendChild(head(pt, c, col)); g.appendChild(mk('circle', { cx: a.x, cy: a.y, r: 6, fill: col }));
     svg.appendChild(g);
     requestAnimationFrame(() => { p.style.transition = 'stroke-dashoffset .6s ease'; p.style.strokeDashoffset = 0; });
-    links[i] = { g, end: pt }; sel.classList.add('linked'); SFX.pop();
+    hs.classList.add('ok'); refreshLens();
+    links[i] = { g, hs }; sel.classList.add('linked'); SFX.check();
     cancel(); const n = count();
     if (route) drawRoute(); else if (n === comps.length) SFX.right();
   };
   comps.forEach((c) => c.addEventListener('pointerdown', (e) => {
     e.preventDefault(); e.stopPropagation(); cancel();
-    sel = c; c.classList.add('sel'); SFX.click(); downAt = { x: e.clientX, y: e.clientY };
+    sel = c; c.classList.add('sel'); sl.classList.add('exdrag'); lens.classList.remove('on'); SFX.click(); downAt = { x: e.clientX, y: e.clientY };
+    try { c.releasePointerCapture(e.pointerId); } catch (_) {}
     const a = anchor(c); live = mk('path', { class: 'xl live', stroke: getComputedStyle(c).getPropertyValue('--c').trim(), d: `M${a.x},${a.y} L${a.x},${a.y}` }); svg.appendChild(live);
   }));
-  sl.addEventListener('pointermove', (e) => { if (!live || !sel) return; const a = anchor(sel), b = toStage(e.clientX, e.clientY); live.setAttribute('d', curve(a, b).d); });
+  sl.addEventListener('pointermove', (e) => {
+    if (!live || !sel) return; const a = anchor(sel), h = hsAt(e.clientX, e.clientY); setHot(h);
+    live.setAttribute('d', curve(a, h ? center(h) : toStage(e.clientX, e.clientY)).d);
+  });
   sl.addEventListener('pointerup', (e) => {
     if (!sel) return;
-    const inPhoto = e.target.closest('.exphoto');
-    if (inPhoto) { place(toStage(e.clientX, e.clientY)); return; }
-    if (e.target.closest('.comp')) return;               // simple click on component: keep rubber line
+    const h = hsAt(e.clientX, e.clientY);
+    if (h) { drop(h); return; }
+    if (e.target.closest('.comp')) return;               // απλό κλικ σε εξάρτημα: η γραμμή μένει, επόμενο κλικ σε κωδικό
     const moved = downAt && Math.hypot(e.clientX - downAt.x, e.clientY - downAt.y) > 10;
     if (moved || !e.target.closest('.exlist')) cancel();
   });
-  $('.ex-reset', sl).addEventListener('click', (e) => { e.stopPropagation(); cancel(); Object.values(links).forEach((l) => l.g.remove()); links = {}; comps.forEach((c) => c.classList.remove('linked')); $$('.route,.route-dot,.done-b', svg).forEach((x) => x.remove()); count(); });
+  $('.ex-reset', sl).addEventListener('click', (e) => { e.stopPropagation(); cancel(); Object.values(links).forEach((l) => { l.g.remove(); l.hs.classList.remove('ok'); }); links = {}; comps.forEach((c) => c.classList.remove('linked')); $$('.route,.route-dot,.done-b', svg).forEach((x) => x.remove()); refreshLens(); count(); });
   addEventListener('keydown', (e) => { if (e.key === 'Escape') cancel(); });
 });
 
