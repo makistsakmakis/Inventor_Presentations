@@ -133,7 +133,7 @@
 
 /* ---------- 10 · σελ. 35 · αντί για μπουκάλι: φωτογραφία πανηγυρισμού σε fade-in φόντο ---------- */
 .n35 .champ{display:none!important}
-.n35 .party35{position:absolute;inset:-2px;background:url(../img/v2/champagne-party.jpg) 62% 40%/cover no-repeat;opacity:0;transform:scale(1.08);
+.n35 .party35{position:absolute;inset:-2px;background:url(../img/v2/champagne-party2.jpg) 62% 40%/cover no-repeat;opacity:0;transform:scale(1.08);
   transition:opacity 2.6s ease,transform 7s cubic-bezier(.2,.7,.2,1),filter 2s ease}
 .n35 .party35::after{content:"";position:absolute;inset:0;
   background:linear-gradient(90deg,rgba(110,0,10,.86) 0,rgba(140,6,18,.66) 30%,rgba(140,6,18,.18) 56%,rgba(0,0,0,0) 72%),
@@ -312,3 +312,47 @@
 .genrows[data-theme] .gid::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
   background:linear-gradient(115deg,rgba(255,255,255,.28) 0,rgba(255,255,255,.06) 32%,transparent 55%),radial-gradient(90% 60% at 80% 120%,color-mix(in srgb,var(--gc1) 40%,transparent),transparent 70%)}
 .genrows[data-theme] .gid b,.genrows[data-theme] .gid small{text-shadow:0 2px 10px rgba(0,0,0,.35)}
+
+/* =====================  v4.3  ===================== */
+@font-face{font-family:"Marker";font-style:normal;font-weight:400;font-display:swap;src:url(../fonts/permanent-marker-latin-400.woff2) format("woff2")}
+/* σελ. 11 · πιο αχνή ταμειακή */
+.n11-reg{opacity:.08}
+/* σελ. 13 · πλακίδιο D2C +10%, φωτογραφία +15%, θυμωμένα χειρόγραφα γράμματα */
+.n13 .d2c{width:572px;padding:48px 48px 50px;top:250px}
+.n13 .d2c h2{font-size:132px}
+.n13 .d2c-sub{font-size:17.6px}
+.n13 .d2c p{font-size:29.7px}
+.n13 .mm{right:-16px;width:943px;height:881px}
+.n13 .mm img{width:943px}
+.n13 .mm .placard{left:244px;top:94px;width:362px;height:232px;font-family:"Marker","Commissioner",sans-serif;font-weight:400;font-size:52px;line-height:1.02;
+  text-transform:uppercase;letter-spacing:.01em;color:#c8000f;transform:rotate(-6deg) skewX(-4deg);
+  text-shadow:1px 1px 0 rgba(120,0,8,.55),-1px 0 0 rgba(200,0,15,.35),0 0 1px rgba(150,0,10,.6)}
+/* σελ. 19–21 · μεγαλύτερες ετικέτες άξονα Χ & περισσότερος χώρος ανάμεσα στις σειρές */
+.genrows .gb5 .cl{font-size:21px;line-height:1.1}
+.genrows .grow{margin-bottom:30px!important}
+.genrows .grow:last-child{margin-bottom:0!important}
+/* σελ. 25 · χωρίς γραμμή άξονα, διπλάσιες χρονιές */
+.s9 .chart{border-bottom:0!important}
+.s9 .chart .bar span{font-size:56px;bottom:-92px;color:rgba(255,255,255,.82)}
+/* σελ. 28–29 · μεγαλύτεροι τίτλοι */
+.s13 .flowhead .h-md,.s14 .flowhead .h-md{font-size:99px;line-height:1.02}
+/* σελ. 31 · λευκά γράμματα στην επικεφαλίδα */
+.s16 .hs2b{color:#fff}
+/* σελ. 33 · VS διπλάσιο & λευκό, μεγαλύτερες επικεφαλίδες πιο κοντά στο infographic, λευκό «=» */
+.n33 .vsx{font-size:120px;color:#fff;text-shadow:0 0 34px rgba(255,255,255,.35)}
+.n33 .vs33 .lab{font-size:40px;color:#fff;letter-spacing:.24em;margin-top:60px}
+.n33 .eq33 > div:first-child b{color:#fff}
+/* σελ. 34 · κείμενα ψηλότερα, όλα τα πλαίσια κάτω */
+.n34 .wrap34{justify-content:flex-start;padding-top:150px}
+/* σελ. 35 · καλύτερο blend με το φόντο της παρουσίασης */
+.n35 .party35{background-position:64% 38%;
+  -webkit-mask:radial-gradient(120% 115% at 66% 46%,#000 52%,rgba(0,0,0,.55) 74%,transparent 100%);mask:radial-gradient(120% 115% at 66% 46%,#000 52%,rgba(0,0,0,.55) 74%,transparent 100%)}
+.n35 .party35::after{
+  background:linear-gradient(90deg,rgba(10,12,22,.86) 0,rgba(16,16,26,.62) 26%,rgba(40,30,22,.22) 50%,rgba(0,0,0,0) 68%),
+             linear-gradient(0deg,rgba(9,11,20,.7),transparent 32%),linear-gradient(180deg,rgba(9,11,20,.45),transparent 22%)}
+.n35 .party35::before{background:rgba(255,200,120,.12)}
+/* σελ. 36 · GEO */
+.lab .ing .geo{font-size:28px;font-weight:700;margin-top:14px;color:rgba(230,238,255,.9)}
+.lab .ing .geo b{font-weight:900;color:#8cc3ff}
+.lab .ing .geo b.g{font-family:"CommOutline",var(--font);color:transparent;-webkit-text-stroke:1.6px #fff;font-size:34px;letter-spacing:.04em}
+.lab .ing.i2 h3{font-size:40px}

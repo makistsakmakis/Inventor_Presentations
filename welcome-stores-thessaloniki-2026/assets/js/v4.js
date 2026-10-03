@@ -7,29 +7,30 @@
         (τα πλαίσια επικαλύπτονται τυχαία, τα κείμενα ποτέ) ---- */
 (() => {
   const host = document.getElementById('chips34'); if (!host) return;
-  const TOP = [[90, 104, 'Τηλεόραση'], [370, 104, 'Ραδιόφωνο'], [640, 104, 'Outdoor'], [880, 104, 'Print'], [1060, 104, 'AI βοηθός'], [1320, 104, 'Newsletter'], [1560, 104, 'Forums']];
   // κείμενο, μέγεθος γραμμάτων, padding x, padding y, απόχρωση πλαισίου
   const BOT = [
     ['Google search', 40, 48, 30, 'w'], ['Social Media Ads', 36, 44, 28, 'b'], ['Κατάστημα', 38, 46, 34, 'w'],
     ['Site κατασκευαστή', 30, 40, 26, 'g'], ['YouTube & Creators', 30, 38, 24, 'b'], ['Online shop', 34, 44, 30, 'g'],
     ['Σύγκριση τιμών', 28, 36, 26, 'b'], ['Price comparison', 24, 34, 22, 'w'], ['Marketplaces', 27, 36, 30, 'g'],
-    ['Instagram', 25, 34, 24, 'w'], ['Reviews', 26, 40, 30, 'b'], ['TikTok', 28, 42, 28, 'g'], ['Influencers', 24, 32, 22, 'w']
+    ['Instagram', 25, 34, 24, 'w'], ['Reviews', 26, 40, 30, 'b'], ['TikTok', 28, 42, 28, 'g'], ['Influencers', 24, 32, 22, 'w'],
+    ['Τηλεόραση', 38, 50, 32, 'g'], ['AI βοηθός', 36, 46, 30, 'b'], ['Ραδιόφωνο', 30, 40, 26, 'w'], ['Newsletter', 26, 36, 24, 'g'],
+    ['Outdoor', 29, 44, 30, 'b'], ['Forums', 23, 36, 22, 'w'], ['Print', 25, 40, 26, 'g']
   ];
-  const R = { x0: 80, x1: 1790, y0: 752, y1: 1004 };          // ζώνη κάτω μέρους (συντεταγμένες σκηνής 1920×1080)
+  const R = { x0: 80, x1: 1790, y0: 604, y1: 1004 };          // ζώνη κάτω μέρους (συντεταγμένες σκηνής 1920×1080)
   let seed = 20261010; const rnd = () => (seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296;
   const hit = (a, b, m = 0) => a.x < b.x + b.w + m && b.x < a.x + a.w + m && a.y < b.y + b.h + m && b.y < a.y + a.h + m;
   const area = (a, b) => Math.max(0, Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x)) * Math.max(0, Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y));
 
-  const top = TOP.map(([x, y, t], i) => `<span style="left:${x}px;top:${y}px;--cd:${1800 + i * 110}ms">${t}</span>`).join('');
   const bot = BOT.map(([t, fs, px, py, tone], i) =>
-    `<span class="mx mx-${tone}" style="font-size:${fs}px;padding:${py}px ${px}px;--cd:${2400 + i * 120}ms;--fl:${(rnd() * 8 + 4).toFixed(1)}s;--fa:${(rnd() * 3 + 2).toFixed(1)}px">${t}</span>`).join('');
-  host.innerHTML = top + bot;
+    `<span class="mx mx-${tone}" style="font-size:${fs}px;padding:${py}px ${px}px;--cd:${1900 + i * 90}ms;--fl:${(rnd() * 8 + 4).toFixed(1)}s;--fa:${(rnd() * 3 + 2).toFixed(1)}px">${t}</span>`).join('');
+  host.innerHTML = bot;
 
   const layout = (s0 = 20261010, tries = 0) => {
     seed = s0; let ok = true;
-    const els = [...host.querySelectorAll('.mx')];
+    const all = [...host.querySelectorAll('.mx')];
     const placed = [];                                       // {box, txt}
-    els.forEach((el, i) => {
+    const order = all.map((el, i) => i).sort((a, b) => BOT[b][1] - BOT[a][1]);
+    order.forEach(i => { const el = all[i];
       const w = el.offsetWidth, h = el.offsetHeight, [, , px, py] = BOT[i];
       let best = null, bestScore = -1e9;
       for (let k = 0; k < 2600; k++) {

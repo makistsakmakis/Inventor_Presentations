@@ -173,9 +173,9 @@
       const len = o.ln.getTotalLength();
       o.ln.style.transition = 'none'; o.ln.style.strokeDasharray = len; o.ln.style.strokeDashoffset = len; o.ar.style.opacity = 0;
       [o.c0, o.c1].forEach(c => c.setAttribute('r', 0)); o.t0.style.opacity = 0; o.t1.style.opacity = 0; o.ln.getBoundingClientRect();
-      later(() => { o.c0.setAttribute('r', 7); o.t0.style.opacity = 1; }, 600 + k * 180);
-      later(() => { o.ln.style.transition = 'stroke-dashoffset 1.8s cubic-bezier(.4,0,.2,1)'; o.ln.style.strokeDashoffset = 0; }, 700 + k * 180);
-      later(() => { o.ar.style.opacity = 1; o.c1.setAttribute('r', 7); o.t1.style.opacity = 1; }, 2300 + k * 180);
+      later(() => { o.c0.setAttribute("r", 7); o.t0.style.opacity = 1; }, 600 + k * 1000);
+      later(() => { o.ln.style.transition = 'stroke-dashoffset 1.8s cubic-bezier(.4,0,.2,1)'; o.ln.style.strokeDashoffset = 0; }, 700 + k * 1000);
+      later(() => { o.ar.style.opacity = 1; o.c1.setAttribute('r', 7); o.t1.style.opacity = 1; }, 2300 + k * 1000);
     }));
   })();
 
