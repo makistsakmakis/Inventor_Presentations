@@ -36,7 +36,7 @@ const Q = [
     e: 'Μία ένδειξη δεν είναι διάγνωση: <b>καταγράφουμε μετρήσεις και ευρήματα</b> πριν από κάθε συμπέρασμα.' },
 ];
 const LET = ['Α', 'Β', 'Γ', 'Δ'];
-const ROUND_S = 60;
+const ROUND_S = 30;
 const root = $('#quiz'); if (!root) return;
 const el = { intro: $('#qzIntro'), play: $('#qzPlay'), fin: $('#qzFinal'), q: $('#qzQ'), ans: $('#qzAns'), exp: $('#qzExp'), next: $('#qzNext'), round: $('#qzRound'),
   tm: $('#qzTm'), timer: $('#qzTimer'), score: $('#qzScore'), pips: $('#qzPips'), life: $('#qz5050'), snd: $('#qzSnd') };
@@ -54,58 +54,86 @@ tg.parentNode.insertBefore(ring, tg);
 const colorAt = (f) => { const h = 195 - 195 * f, l = 74 - 16 * f, s = 92; return `hsl(${h},${s}%,${l}%)`; };
 function paintTimer(rem) {
   const f = 1 - rem / ROUND_S, col = colorAt(Math.min(1, f)), left = Math.ceil(rem);
-  ticks.forEach((t, i) => { t.setAttribute('fill', col); t.classList.toggle('off', i >= left); });
+  ticks.forEach((t, i) => { t.setAttribute('fill', col); t.classList.toggle('off', i >= left * 60 / ROUND_S); });
   el.tm.style.setProperty('--tc', col);
   el.tm.textContent = '00:' + String(Math.max(0, left)).padStart(2, '0');
-  if (left === 60) el.tm.textContent = '01:00';
+  if (left === 60) el.tm.textContent = '01:00';   // (γύροι 30'')
   el.timer.classList.toggle('hurry', left <= 10 && left > 0);
 }
 
 
-/* ---- μουσική αντίστροφης μέτρησης (τηλεπαιχνίδι) — συντίθεται live με Web Audio ----
-   κυκλικό μοτίβο: παλμός μπάσου, hi-hat, σκοτεινό pad και αρπέζ· το tempo και η ένταση
-   ανεβαίνουν όσο πλησιάζουμε στο 0 και στη λήξη ακούγεται «γκονγκ». */
+/* ---- μουσική αντίστροφης μέτρησης — μπάσα, υποβλητική (Web Audio, συντίθεται live) ----
+   βαθύ drone, τύμπανα τύπου taiko, σκοτεινό ostinato στα μπάσα & χορωδιακό pad σε ελάσσονα.
+   Tempo/ένταση ανεβαίνουν προς το 0· στη λήξη: τεράστιο γκονγκ ναού με ψαλμωδία μοναχών. */
 const Music = (() => {
-  let ctx = null, master = null, timer = 0, next = 0, step = 0, playing = false, intensity = 0;
+  let ctx = null, master = null, bus = null, verb = null, timer = 0, next = 0, step = 0, playing = false, intensity = 0, drone = null;
   const AC = () => {
-    if (!ctx) { ctx = new (window.AudioContext || window.webkitAudioContext)(); master = ctx.createGain(); master.gain.value = .55;
-      const comp = ctx.createDynamicsCompressor(); master.connect(comp).connect(ctx.destination); }
+    if (!ctx) {
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4; comp.connect(ctx.destination);
+      master = ctx.createGain(); master.gain.value = .8; master.connect(comp);
+      // αίθουσα/ναός: συνθετική αντήχηση
+      verb = ctx.createConvolver(); const L = ctx.sampleRate * 5, ir = ctx.createBuffer(2, L, ctx.sampleRate);
+      for (let c = 0; c < 2; c++) { const d = ir.getChannelData(c); for (let i = 0; i < L; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / L, 3.2); }
+      verb.buffer = ir; const wet = ctx.createGain(); wet.gain.value = .45; verb.connect(wet).connect(comp);
+      bus = ctx.createGain(); bus.connect(master); bus.connect(verb);
+    }
     if (ctx.state === 'suspended') ctx.resume();
     return ctx;
   };
   let noiseBuf = null;
-  const noise = () => { if (noiseBuf) return noiseBuf; const c = AC(), b = c.createBuffer(1, c.sampleRate * .5, c.sampleRate), d = b.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; return noiseBuf = b; };
+  const noise = () => { if (noiseBuf) return noiseBuf; const b = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate), d = b.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; return noiseBuf = b; };
   const env = (g, t, a, d, v) => { g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(v, t + a); g.gain.exponentialRampToValueAtTime(0.0001, t + a + d); };
-  const osc = (type, f, t, a, d, v, dest = master, f2) => { const c = ctx, o = c.createOscillator(), g = c.createGain(); o.type = type; o.frequency.setValueAtTime(f, t); if (f2) o.frequency.exponentialRampToValueAtTime(f2, t + a + d); env(g, t, a, d, v); o.connect(g).connect(dest); o.start(t); o.stop(t + a + d + .05); };
-  const kick = (t, v = .9) => osc('sine', 150, t, .002, .28, v, master, 42);
-  const hat = (t, v = .12) => { const s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain(); s.buffer = noise(); f.type = 'highpass'; f.frequency.value = 7000; env(g, t, .001, .05, v); s.connect(f).connect(g).connect(master); s.start(t); s.stop(t + .08); };
-  const BASS = [55, 55, 65.41, 55, 49, 49, 51.91, 55];            // A1 … (λα ελάσσονα, «τηλεπαιχνίδι»)
-  const ARP = [440, 523.25, 659.25, 523.25, 440, 523.25, 698.46, 659.25];
+  const lp = (f, q = .7) => { const x = ctx.createBiquadFilter(); x.type = 'lowpass'; x.frequency.value = f; x.Q.value = q; return x; };
+  const tone = (type, f, t, a, d, v, cut = 900, f2) => { const o = ctx.createOscillator(), g = ctx.createGain(), fl = lp(cut); o.type = type; o.frequency.setValueAtTime(f, t); if (f2) o.frequency.exponentialRampToValueAtTime(f2, t + a + d); env(g, t, a, d, v); o.connect(fl).connect(g).connect(bus); o.start(t); o.stop(t + a + d + .05); };
+  // taiko: χαμηλό σώμα + «χτύπημα» δέρματος
+  const taiko = (t, v = 1) => { tone('sine', 90, t, .004, .7, .9 * v, 400, 38); const s = ctx.createBufferSource(), f = lp(380, 1.2), g = ctx.createGain(); s.buffer = noise(); env(g, t, .002, .18, .35 * v); s.connect(f).connect(g).connect(bus); s.start(t); s.stop(t + .3); };
+  const shaker = (t, v) => { const s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain(); s.buffer = noise(); f.type = 'bandpass'; f.frequency.value = 3200; env(g, t, .004, .06, v); s.connect(f).connect(g).connect(bus); s.start(t); s.stop(t + .1); };
+  const OST = [36.71, 36.71, 43.65, 36.71, 38.89, 36.71, 32.7, 34.65];     // D1… με μικρή δευτέρα (Eb) για ένταση
+  const CHORD = [[73.42, 87.31, 110], [69.3, 82.41, 103.83]];              // Dm / C#dim — σκοτεινή χορωδία
+  function startDrone() {
+    const t = ctx.currentTime; drone = [];
+    [[36.71, 'sine', .42], [36.9, 'sawtooth', .07], [55.0, 'triangle', .08]].forEach(([f, ty, v]) => {
+      const o = ctx.createOscillator(), g = ctx.createGain(), fl = lp(160); o.type = ty; o.frequency.value = f;
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(v, t + 1.5); o.connect(fl).connect(g).connect(bus); o.start(t); drone.push({ o, g });
+    });
+  }
+  function stopDrone(fade) { if (!drone) return; const t = ctx.currentTime; drone.forEach(({ o, g }) => { g.gain.cancelScheduledValues(t); g.gain.setValueAtTime(g.gain.value, t); g.gain.exponentialRampToValueAtTime(0.0001, t + fade + .05); o.stop(t + fade + .1); }); drone = null; }
   function sched(t) {
-    const s = step % 16, beat = s % 4 === 0, k = intensity;
-    if (beat) { kick(t, .7 + k * .3); osc('sawtooth', BASS[(step >> 2) % 8], t, .01, .32, .16 + k * .08); }
-    if (k > .75 && s % 4 === 2) kick(t, .5);                              // «καρδιοχτύπι» στα τελευταία δευτερόλεπτα
-    if (s % 2 === 1) hat(t, .06 + k * .1);
-    if (s % 2 === 0) osc('square', ARP[(step >> 1) % 8] * (k > .5 ? 2 : 1), t, .005, .11, .025 + k * .03);
-    if (s === 0) [220, 261.63, 329.63].forEach((f) => osc('triangle', f * (1 + k * .06), t, .4, 1.6, .03 + k * .03));  // pad που «ανεβαίνει» σε ένταση
-    if (k > .55 && s === 8) osc('sawtooth', 880, t, .02, .5, .03 + k * .03, master, 1760);          // ανερχόμενος συναγερμός
+    const s = step % 16, k = intensity;
+    if (s === 0 || s === 10 || (k > .45 && s === 6) || (k > .8 && (s === 3 || s === 13))) taiko(t, s === 0 ? 1 : .7);
+    if (s % 4 === 0) tone('sawtooth', OST[(step >> 2) % 8], t, .02, .55, .32 + k * .2, 220 + k * 380);
+    if (k > .3 && s % 4 === 2) tone('sawtooth', OST[(step >> 2) % 8] * 2, t, .01, .2, .08 + k * .1, 300 + k * 500);
+    if (s % 2 === 1 && k > .2) shaker(t, .02 + k * .05);
+    if (s === 0 && step % 32 === 0) CHORD[(step >> 5) % 2].forEach((f) => tone('sawtooth', f, t, 1.2, 2.6, .05 + k * .05, 600 + k * 600));
+    if (k > .7 && s === 8) tone('sawtooth', 110, t, .3, .9, .08, 1200, 165);                           // ανερχόμενη «σειρήνα» χαμηλά
   }
-  function pump() {
-    const c = ctx; const spb = 60 / (112 + intensity * 70) / 4;            // 16ths · tempo 112 → 182 BPM
-    while (next < c.currentTime + .12) { sched(next); next += spb; step++; }
-  }
+  function pump() { const spb = 60 / (72 + intensity * 64) / 4; while (next < ctx.currentTime + .15) { sched(next); next += spb; step++; } }
   return {
-    start() { if (!SFX.on) return; AC(); if (playing) return; playing = true; step = 0; next = ctx.currentTime + .06; master.gain.cancelScheduledValues(ctx.currentTime); master.gain.setValueAtTime(.55, ctx.currentTime); timer = setInterval(pump, 25); },
-    stop(fade = .25) { if (!playing) return; playing = false; clearInterval(timer); if (ctx) { const t = ctx.currentTime; master.gain.setValueAtTime(master.gain.value, t); master.gain.linearRampToValueAtTime(0.0001, t + fade); setTimeout(() => { if (!playing) master.gain.value = .55; }, fade * 1000 + 60); } },
-    set(rem) { intensity = Math.max(0, Math.min(1, 1 - rem / ROUND_S)) ** 1.6; },
+    start() { if (!SFX.on) return; AC(); if (playing) return; playing = true; step = 0; next = ctx.currentTime + .06; master.gain.cancelScheduledValues(ctx.currentTime); master.gain.setValueAtTime(.8, ctx.currentTime); startDrone(); timer = setInterval(pump, 25); },
+    stop(fade = .25) { if (!playing) return; playing = false; clearInterval(timer); if (ctx) stopDrone(fade); },
+    set(rem) { intensity = Math.max(0, Math.min(1, 1 - rem / ROUND_S)) ** 1.4; },
     gong() {
-      if (!SFX.on) return; AC(); const t = ctx.currentTime + .02;
-      [[65.4, .55, 6], [130.8, .3, 5], [174.6, .22, 4.2], [233.1, .16, 3.4], [311.1, .12, 2.6], [415.3, .08, 2]].forEach(([f, v, d]) => {
-        const o = ctx.createOscillator(), g = ctx.createGain(); o.type = 'sine'; o.frequency.setValueAtTime(f * 1.01, t); o.frequency.exponentialRampToValueAtTime(f, t + 1.2);
-        g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(v, t + .015); g.gain.exponentialRampToValueAtTime(0.0001, t + d);
-        o.connect(g).connect(ctx.destination); o.start(t); o.stop(t + d + .1); });
-      const s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain(); s.buffer = noise(); f.type = 'bandpass'; f.frequency.value = 900; f.Q.value = .7;
-      g.gain.setValueAtTime(.35, t); g.gain.exponentialRampToValueAtTime(0.0001, t + .5); s.connect(f).connect(g).connect(ctx.destination); s.start(t);
+      if (!SFX.on) return; AC(); const t = ctx.currentTime + .03, out = ctx.createGain(); out.gain.value = 1.4; out.connect(master); out.connect(verb);
+      // μεγάλο γκονγκ ναού: βαθιά θεμελιώδης + μη αρμονικοί προσφωνητές που «ανθίζουν» και σβήνουν σε ~14''
+      [[49, 1, 14, 0], [49.6, .5, 13, 0], [98.7, .55, 11, .4], [131.4, .45, 10, .7], [167.9, .35, 9, 1], [211.3, .3, 7, 1.3], [264.1, .22, 6, 1.6], [347, .14, 4.5, 2], [449, .1, 3.5, 2.4]]
+        .forEach(([f, v, d, bloom]) => {
+          const o = ctx.createOscillator(), g = ctx.createGain(), lfo = ctx.createOscillator(), lg = ctx.createGain();
+          o.type = 'sine'; o.frequency.setValueAtTime(f * 1.012, t); o.frequency.exponentialRampToValueAtTime(f, t + 2.5);
+          lfo.frequency.value = .6 + Math.random() * 1.6; lg.gain.value = f * .004; lfo.connect(lg).connect(o.frequency);   // «κυμάτισμα» του μετάλλου
+          g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(v * .55, t + .01);
+          g.gain.exponentialRampToValueAtTime(v, t + .3 + bloom); g.gain.exponentialRampToValueAtTime(0.0001, t + d);
+          o.connect(g).connect(out); o.start(t); lfo.start(t); o.stop(t + d + .2); lfo.stop(t + d + .2);
+        });
+      const s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain(); s.buffer = noise(); f.type = 'lowpass'; f.frequency.value = 700;
+      g.gain.setValueAtTime(.9, t); g.gain.exponentialRampToValueAtTime(0.0001, t + .9); s.connect(f).connect(g).connect(out); s.start(t);   // το «χτύπημα» του κόπανου
+      // ψαλμωδία μοναχών (βαθύ «ΟΜ» με φορμάντ) που αναδύεται κάτω από το γκονγκ
+      [[55, 0], [55.4, .15], [82.4, .3]].forEach(([f0, dt]) => {
+        const o = ctx.createOscillator(), g2 = ctx.createGain(); o.type = 'sawtooth'; o.frequency.value = f0;
+        g2.gain.setValueAtTime(0.0001, t + .5 + dt); g2.gain.exponentialRampToValueAtTime(.16, t + 3 + dt); g2.gain.setValueAtTime(.16, t + 7); g2.gain.exponentialRampToValueAtTime(0.0001, t + 12);
+        [[400, 6, 1], [800, 8, .5], [2600, 12, .12]].forEach(([fc, q, gg]) => { const bp = ctx.createBiquadFilter(), bg = ctx.createGain(); bp.type = 'bandpass'; bp.frequency.value = fc; bp.Q.value = q; bg.gain.value = gg; o.connect(bp).connect(bg).connect(g2); });
+        g2.connect(out); o.start(t + .4); o.stop(t + 12.2);
+      });
     },
   };
 })();
@@ -187,7 +215,7 @@ function reveal(b) {
   const item = Q[st.i];
   if (b && b === right) {
     b.classList.remove('pick');
-    const pts = 1000 + Math.round(st.rem) * 20;
+    const pts = 1000 + Math.round(st.rem) * 40;
     const from = st.score; st.score += pts; tween(el.score, from, st.score, 0, 1200);
     const fp = document.createElement('div'); fp.className = 'float-pts'; fp.textContent = '+' + fmtNum(pts, 0);
     fp.style.left = (p.x - 60) + 'px'; fp.style.top = (p.y - 80) + 'px'; el.play.appendChild(fp); setTimeout(() => fp.remove(), 1700);
