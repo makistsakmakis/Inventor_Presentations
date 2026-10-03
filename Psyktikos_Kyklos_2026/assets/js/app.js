@@ -113,13 +113,14 @@ window.confetti = confetti; window.rain = rain;
   const c = $('#bgcv'), x = c.getContext('2d'); let W, Hh, P = [];
   const size = () => { W = c.width = innerWidth * DPR; Hh = c.height = innerHeight * DPR; };
   addEventListener('resize', size); size();
-  for (let i = 0; i < 70; i++) P.push({ x: Math.random(), y: Math.random(), r: .6 + Math.random() * 2.2, v: .00008 + Math.random() * .00025, w: Math.random() * 6.28, c: Math.random() < .5 ? '143,227,255' : '255,170,120' });
+  for (let i = 0; i < 70; i++) P.push({ x: Math.random(), y: Math.random(), r: .6 + Math.random() * 2.2, v: .00008 + Math.random() * .00025, w: Math.random() * 6.28, hot: Math.random() >= .5 });
   const loop = (t) => {
     x.clearRect(0, 0, W, Hh);
     for (const p of P) {
       p.y -= p.v; if (p.y < -.02) { p.y = 1.02; p.x = Math.random(); }
       const px = (p.x + Math.sin(t / 4000 + p.w) * .01) * W, py = p.y * Hh;
-      x.beginPath(); x.fillStyle = `rgba(${p.c},${.25 + .25 * Math.sin(t / 900 + p.w)})`; x.arc(px, py, p.r * DPR, 0, 6.28); x.fill();
+      const pc = p.hot ? (document.body.dataset.mood === 'quiz' ? '255,170,120' : '120,170,255') : '143,227,255';
+      x.beginPath(); x.fillStyle = `rgba(${pc},${.25 + .25 * Math.sin(t / 900 + p.w)})`; x.arc(px, py, p.r * DPR, 0, 6.28); x.fill();
     }
     requestAnimationFrame(loop);
   };
@@ -189,8 +190,8 @@ const poly = (pts) => { const seg = []; let L = 0; for (let i = 1; i < pts.lengt
 const FLOWS = {
   cycle: { w: 1536, h: 1024,
     liquid: [
-      { p: [[945, 374], [1100, 374], [1128, 400], [1130, 480]], c: '#ff3b1f', v: 120 },
-      { p: [[1130, 690], [1132, 830], [1110, 865], [1070, 878], [800, 880]], c: '#ff7a1f', v: 120 },
+      { p: [[945, 374], [1100, 374], [1128, 400], [1130, 480]], c: '#ff3b1f', v: -120 },          // ζεστό (δεξιά): αντίστροφη φορά
+      { p: [[1130, 690], [1132, 830], [1110, 865], [1070, 878], [800, 880]], c: '#ff7a1f', v: -120 },
       { p: [[735, 880], [600, 880], [570, 860], [562, 836], [470, 834], [425, 812], [412, 770], [412, 685]], c: '#1f8bff', v: 120 },
       { p: [[412, 480], [412, 410], [432, 380], [470, 374], [620, 374]], c: '#3ec5ff', v: 120 }],
     air: [{ x: 90, y: 545, w: 110, h: 110, dx: 1, dy: 0, c: '#9fe6ff' }, { x: 1380, y: 550, w: 110, h: 105, dx: 1, dy: 0, c: '#ff8a6a' }] },
@@ -216,7 +217,7 @@ class ImageFlow extends Trails {
   newAir(a, life = 0) { return { a, u: Math.random(), life, ph: Math.random() * 6.28 }; }
   frame(dt) {
     this.clearFade();
-    for (const p of this.P) { p.s += p.v * dt / 1000; if (p.s > p.pl.L) p.s -= p.pl.L; const [x, y] = p.pl.at(p.s); this.dot(x, y, 7, p.c); }
+    for (const p of this.P) { p.s += p.v * dt / 1000; if (p.s > p.pl.L) p.s -= p.pl.L; if (p.s < 0) p.s += p.pl.L; const [x, y] = p.pl.at(p.s); this.dot(x, y, 7, p.c); }
     for (let i = 0; i < this.A.length; i++) {
       const q = this.A[i], a = q.a; q.life += dt / 1600;
       if (q.life > 1) { this.A[i] = this.newAir(a); continue; }
@@ -413,8 +414,8 @@ $$('.slide[data-hook="ex"]').forEach((sl) => {
     const path = mk('path', { d, class: 'route', id: 'rt-' + sl.id }); svg.appendChild(path);
     const dot = mk('circle', { r: 11, fill: '#ffd24a', class: 'route-dot' }); const am = mk('animateMotion', { dur: '4s', repeatCount: 'indefinite', path: d }); dot.appendChild(am); svg.appendChild(dot);
     const pr = photo.getBoundingClientRect(), pp = toStage(pr.left + pr.width / 2, pr.bottom);
-    const t = mk('text', { x: pp.x, y: pp.y + 34, class: 'done-b', 'text-anchor': 'middle' }); t.textContent = '✓ Ο κύκλος έκλεισε!'; svg.appendChild(t);
-    const r = photo.getBoundingClientRect(); confetti(r.left + r.width / 2, r.top + r.height / 2, 90); SFX.right();
+    const t = mk('text', { x: pp.x, y: pp.y + 34, class: 'done-b', 'text-anchor': 'middle' }); t.textContent = 'Ο κύκλος έκλεισε!'; svg.appendChild(t);
+    SFX.right();
   };
   const place = (pt) => {
     if (!sel) return;
@@ -430,7 +431,7 @@ $$('.slide[data-hook="ex"]').forEach((sl) => {
     requestAnimationFrame(() => { p.style.transition = 'stroke-dashoffset .6s ease'; p.style.strokeDashoffset = 0; });
     links[i] = { g, end: pt }; sel.classList.add('linked'); SFX.pop();
     cancel(); const n = count();
-    if (route) drawRoute(); else if (n === comps.length) { const r = photo.getBoundingClientRect(); confetti(r.left + r.width / 2, r.top + r.height / 2, 80); SFX.right(); }
+    if (route) drawRoute(); else if (n === comps.length) SFX.right();
   };
   comps.forEach((c) => c.addEventListener('pointerdown', (e) => {
     e.preventDefault(); e.stopPropagation(); cancel();

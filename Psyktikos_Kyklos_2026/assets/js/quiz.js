@@ -61,6 +61,55 @@ function paintTimer(rem) {
   el.timer.classList.toggle('hurry', left <= 10 && left > 0);
 }
 
+
+/* ---- μουσική αντίστροφης μέτρησης (τηλεπαιχνίδι) — συντίθεται live με Web Audio ----
+   κυκλικό μοτίβο: παλμός μπάσου, hi-hat, σκοτεινό pad και αρπέζ· το tempo και η ένταση
+   ανεβαίνουν όσο πλησιάζουμε στο 0 και στη λήξη ακούγεται «γκονγκ». */
+const Music = (() => {
+  let ctx = null, master = null, timer = 0, next = 0, step = 0, playing = false, intensity = 0;
+  const AC = () => {
+    if (!ctx) { ctx = new (window.AudioContext || window.webkitAudioContext)(); master = ctx.createGain(); master.gain.value = .55;
+      const comp = ctx.createDynamicsCompressor(); master.connect(comp).connect(ctx.destination); }
+    if (ctx.state === 'suspended') ctx.resume();
+    return ctx;
+  };
+  let noiseBuf = null;
+  const noise = () => { if (noiseBuf) return noiseBuf; const c = AC(), b = c.createBuffer(1, c.sampleRate * .5, c.sampleRate), d = b.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; return noiseBuf = b; };
+  const env = (g, t, a, d, v) => { g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(v, t + a); g.gain.exponentialRampToValueAtTime(0.0001, t + a + d); };
+  const osc = (type, f, t, a, d, v, dest = master, f2) => { const c = ctx, o = c.createOscillator(), g = c.createGain(); o.type = type; o.frequency.setValueAtTime(f, t); if (f2) o.frequency.exponentialRampToValueAtTime(f2, t + a + d); env(g, t, a, d, v); o.connect(g).connect(dest); o.start(t); o.stop(t + a + d + .05); };
+  const kick = (t, v = .9) => osc('sine', 150, t, .002, .28, v, master, 42);
+  const hat = (t, v = .12) => { const s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain(); s.buffer = noise(); f.type = 'highpass'; f.frequency.value = 7000; env(g, t, .001, .05, v); s.connect(f).connect(g).connect(master); s.start(t); s.stop(t + .08); };
+  const BASS = [55, 55, 65.41, 55, 49, 49, 51.91, 55];            // A1 … (λα ελάσσονα, «τηλεπαιχνίδι»)
+  const ARP = [440, 523.25, 659.25, 523.25, 440, 523.25, 698.46, 659.25];
+  function sched(t) {
+    const s = step % 16, beat = s % 4 === 0, k = intensity;
+    if (beat) { kick(t, .7 + k * .3); osc('sawtooth', BASS[(step >> 2) % 8], t, .01, .32, .16 + k * .08); }
+    if (k > .75 && s % 4 === 2) kick(t, .5);                              // «καρδιοχτύπι» στα τελευταία δευτερόλεπτα
+    if (s % 2 === 1) hat(t, .06 + k * .1);
+    if (s % 2 === 0) osc('square', ARP[(step >> 1) % 8] * (k > .5 ? 2 : 1), t, .005, .11, .025 + k * .03);
+    if (s === 0) [220, 261.63, 329.63].forEach((f) => osc('triangle', f * (1 + k * .06), t, .4, 1.6, .03 + k * .03));  // pad που «ανεβαίνει» σε ένταση
+    if (k > .55 && s === 8) osc('sawtooth', 880, t, .02, .5, .03 + k * .03, master, 1760);          // ανερχόμενος συναγερμός
+  }
+  function pump() {
+    const c = ctx; const spb = 60 / (112 + intensity * 70) / 4;            // 16ths · tempo 112 → 182 BPM
+    while (next < c.currentTime + .12) { sched(next); next += spb; step++; }
+  }
+  return {
+    start() { if (!SFX.on) return; AC(); if (playing) return; playing = true; step = 0; next = ctx.currentTime + .06; master.gain.cancelScheduledValues(ctx.currentTime); master.gain.setValueAtTime(.55, ctx.currentTime); timer = setInterval(pump, 25); },
+    stop(fade = .25) { if (!playing) return; playing = false; clearInterval(timer); if (ctx) { const t = ctx.currentTime; master.gain.setValueAtTime(master.gain.value, t); master.gain.linearRampToValueAtTime(0.0001, t + fade); setTimeout(() => { if (!playing) master.gain.value = .55; }, fade * 1000 + 60); } },
+    set(rem) { intensity = Math.max(0, Math.min(1, 1 - rem / ROUND_S)) ** 1.6; },
+    gong() {
+      if (!SFX.on) return; AC(); const t = ctx.currentTime + .02;
+      [[65.4, .55, 6], [130.8, .3, 5], [174.6, .22, 4.2], [233.1, .16, 3.4], [311.1, .12, 2.6], [415.3, .08, 2]].forEach(([f, v, d]) => {
+        const o = ctx.createOscillator(), g = ctx.createGain(); o.type = 'sine'; o.frequency.setValueAtTime(f * 1.01, t); o.frequency.exponentialRampToValueAtTime(f, t + 1.2);
+        g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(v, t + .015); g.gain.exponentialRampToValueAtTime(0.0001, t + d);
+        o.connect(g).connect(ctx.destination); o.start(t); o.stop(t + d + .1); });
+      const s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain(); s.buffer = noise(); f.type = 'bandpass'; f.frequency.value = 900; f.Q.value = .7;
+      g.gain.setValueAtTime(.35, t); g.gain.exponentialRampToValueAtTime(0.0001, t + .5); s.connect(f).connect(g).connect(ctx.destination); s.start(t);
+    },
+  };
+})();
+
 /* stars */
 (() => {
   const c = $('.qz-stars', root), x = c.getContext('2d'); const P = [];
@@ -107,15 +156,15 @@ function round() {
   });
   st.rem = ROUND_S; paintTimer(st.rem); setPip();
   SFX.pop();
-  clearTimeout(st.startT); st.startT = setTimeout(() => { running = true; lastT = performance.now(); tickSec = -1; loop(); }, 1300);
+  clearTimeout(st.startT); st.startT = setTimeout(() => { running = true; lastT = performance.now(); tickSec = -1; Music.set(st.rem); Music.start(); loop(); }, 1300);
 }
 function loop() {
   cancelAnimationFrame(raf);
   const f = (t) => {
     if (!running) return;
     st.rem -= (t - lastT) / 1000; lastT = t;
-    if (st.rem <= 0) { st.rem = 0; paintTimer(0); running = false; reveal(null); return; }
-    paintTimer(st.rem);
+    if (st.rem <= 0) { st.rem = 0; paintTimer(0); running = false; Music.stop(.05); Music.gong(); reveal(null); return; }
+    paintTimer(st.rem); Music.set(st.rem);
     const s = Math.ceil(st.rem); if (s !== tickSec) { tickSec = s; if (s <= 10) SFX.tick(s <= 5); }
     raf = requestAnimationFrame(f);
   };
@@ -124,7 +173,7 @@ function loop() {
 function choose(b) {
   if (root.classList.contains('locked') || !running && st.rem > 0 && !el.play.classList.contains('show')) return;
   if (root.classList.contains('locked')) return;
-  running = false; clearTimeout(st.startT); cancelAnimationFrame(raf);
+  running = false; clearTimeout(st.startT); cancelAnimationFrame(raf); Music.stop(.6);
   root.classList.add('locked'); b.classList.add('pick'); SFX.lock();
   setTimeout(() => reveal(b), 1500);
 }
@@ -181,7 +230,7 @@ $('#qzStart').addEventListener('click', start);
 $('#qzAgain').addEventListener('click', start);
 el.next.addEventListener('click', next);
 el.life.addEventListener('click', fifty);
-el.snd.addEventListener('click', () => { SFX.on = !SFX.on; el.snd.classList.toggle('off', !SFX.on); });
+el.snd.addEventListener('click', () => { SFX.on = !SFX.on; el.snd.classList.toggle('off', !SFX.on); if (!SFX.on) Music.stop(.2); else if (running) Music.start(); });
 addEventListener('keydown', (e) => {
   if (!root.closest('.slide').classList.contains('cur')) return;
   const map = { '1': 0, '2': 1, '3': 2, '4': 3, a: 0, b: 1, c: 2, d: 3, 'α': 0, 'β': 1, 'γ': 2, 'δ': 3 };
@@ -191,8 +240,8 @@ addEventListener('keydown', (e) => {
 });
 
 window.Quiz = {
-  enter() { if (!st) { show(el.intro); root.classList.remove('playing', 'done'); } else if (el.play.classList.contains('show') && !root.classList.contains('locked') && st.rem > 0) { running = true; lastT = performance.now(); loop(); } },
-  leave() { running = false; cancelAnimationFrame(raf); if (st) clearTimeout(st.startT); },
+  enter() { if (!st) { show(el.intro); root.classList.remove('playing', 'done'); } else if (el.play.classList.contains('show') && !root.classList.contains('locked') && st.rem > 0) { running = true; lastT = performance.now(); Music.start(); loop(); } },
+  leave() { running = false; cancelAnimationFrame(raf); Music.stop(.3); if (st) clearTimeout(st.startT); },
 };
 show(el.intro);
 })();
