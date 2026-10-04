@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="el"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nav rail mockup</title>
+<style>
+:root{--red:#e0101f;--bg:#07080d}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:#fff;font-family:system-ui,"Segoe UI",sans-serif;height:100vh;overflow:hidden}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 12vw 0 8vw;
+  background:radial-gradient(ellipse at 30% 40%,#1a1d2a,transparent 60%)}
+.slide .k{font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:#ff4a57;font-weight:700}
+.slide h1{font-size:clamp(32px,5vw,72px);font-weight:900;margin-top:14px;max-width:900px;line-height:1.05}
+.slide p{margin-top:20px;color:rgba(255,255,255,.55);max-width:640px;font-size:17px}
+.counter{position:fixed;left:32px;bottom:28px;font-size:14px;letter-spacing:.12em;color:rgba(255,255,255,.55)}
+.counter b{color:#fff;font-size:18px}
+
+/* ---- the rail ---- */
+.nav{position:fixed;right:28px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;height:min(78vh,720px)}
+.nav button{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.04);color:#fff;cursor:pointer;flex:none;display:grid;place-items:center;opacity:.6;transition:.2s}
+.nav button:hover{opacity:1;background:rgba(255,255,255,.1)}
+.nav button svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2}
+.rail{position:relative;flex:1;width:34px;cursor:pointer}
+.track{position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%);background:rgba(255,255,255,.14);border-radius:2px}
+.fill{position:absolute;left:50%;top:0;width:2px;transform:translateX(-50%);background:linear-gradient(var(--red),#ff4a57);border-radius:2px;transition:height .5s cubic-bezier(.2,.8,.2,1);box-shadow:0 0 10px rgba(224,16,31,.6)}
+.tick{position:absolute;left:50%;width:10px;height:2px;transform:translate(-50%,-50%);background:rgba(255,255,255,.4);border-radius:1px}
+.tick.ch{width:16px;background:rgba(255,255,255,.7)}
+.knob{position:absolute;left:50%;width:14px;height:14px;border-radius:50%;background:var(--red);transform:translate(-50%,-50%);box-shadow:0 0 0 4px rgba(224,16,31,.25),0 0 18px var(--red);transition:top .5s cubic-bezier(.2,.8,.2,1)}
+.knob span{position:absolute;right:22px;top:50%;transform:translateY(-50%);font-size:12px;font-weight:800;letter-spacing:.06em;white-space:nowrap;color:#fff;opacity:.85}
+.ghost{position:absolute;left:50%;width:10px;height:10px;border-radius:50%;background:#fff;transform:translate(-50%,-50%);opacity:0;pointer-events:none;transition:opacity .15s}
+.tip{position:absolute;right:30px;transform:translateY(-50%);background:rgba(14,18,24,.92);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:9px 13px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .15s;box-shadow:0 14px 40px rgba(0,0,0,.5)}
+.tip small{display:block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#ff4a57;font-weight:700}
+.tip b{font-size:15px}
+.tip i{font-style:normal;color:rgba(255,255,255,.5);margin-right:8px;font-weight:700}
+.rail:hover .ghost,.rail:hover .tip{opacity:1}
+.note{position:fixed;left:32px;top:24px;font-size:12px;color:rgba(255,255,255,.4);letter-spacing:.04em}
+</style></head><body>
+<div class="note">MOCKUP · κάθετη μπάρα προόδου — hover για τίτλο, κλικ/σύρσιμο για άλμα, ↑/↓ ή PgUp/PgDn</div>
+<div class="slide"><div class="k" id="sk"></div><h1 id="sh"></h1><p>Περιεχόμενο σλάιντ (placeholder). Η μπάρα δεξιά δείχνει τη θέση σε όλα τα 52 σλάιντ της κύριας ροής.</p></div>
+<div class="counter" id="ctr"></div>
+
+<nav class="nav">
+  <button id="up" title="Προηγούμενο"><svg viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg></button>
+  <div class="rail" id="rail">
+    <div class="track"></div><div class="fill" id="fill"></div>
+    <div id="ticks"></div>
+    <div class="ghost" id="ghost"></div>
+    <div class="knob" id="knob"><span id="kn"></span></div>
+    <div class="tip" id="tip"><small id="tc"></small><i id="tn"></i><b id="tt"></b></div>
+  </div>
+  <button id="dn" title="Επόμενο"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+</nav>
+
+<script>
+const chapters=[["Εισαγωγή",["Welcome","Ατζέντα","Ποιοι είμαστε","Inventor σε αριθμούς","Beijer Ref"]],
+["Η αγορά",["Η αγορά λιανικής","Κόστη που ανεβαίνουν","Ενοίκια · Ενέργεια · Μισθοί","Η ουρά στο ταμείο","Πωλήσεις -3%","Online +39%","Εξέλιξη λιανικής"]],
+["Ο καταναλωτής",["Πώς αποφασίζει","91% έχει αποφασίσει","61% στο κατάστημα","Το ταξίδι αγοράς","Ο πωλητής ελέγχει","Σύγκριση μοντέλων","Online vs Offline","Το άπειρο"]],
+["Trivia",["Ερώτηση 1","Ερώτηση 2","Ερώτηση 3","Αποτέλεσμα"]],
+["Phygital",["Φυσικό → Omni → Phygital","BOPIS","myInventor","Ο ρόλος του AI","Η συνταγή","Είμαστε παντού","Το οικοσύστημα","Hub"]],
+["Τα προϊόντα",["Κατηγορίες","Κλιματισμός","Intellia","Premium","Value for money","Αφυγραντήρες","Αντλίες θερμότητας","VRF","Ηλεκτρικές συσκευές","Μικροσυσκευές"]],
+["Κλείσιμο",["Οι πυλώνες","Συνεργασία","Champagne","Ευχαριστούμε","Q&A","Επικοινωνία","Τέλος","Credits","—","Backup","Backup 2","Παράρτημα"]]];
+const S=[];chapters.forEach(([c,l],ci)=>l.forEach((t,j)=>S.push({c,t,first:j===0})));
+const N=S.length,$=id=>document.getElementById(id);
+const y=i=>N<2?0:i/(N-1)*100;
+let cur=0;
+$('ticks').innerHTML=S.map((s,i)=>s.first?`<div class="tick ch" style="top:${y(i)}%"></div>`:'').join('');
+function go(n){cur=Math.max(0,Math.min(N-1,n));const s=S[cur];
+  $('knob').style.top=y(cur)+'%';$('fill').style.height=y(cur)+'%';$('kn').textContent=String(cur+1).padStart(2,'0');
+  $('sk').textContent=s.c;$('sh').textContent=s.t;
+  $('ctr').innerHTML=`<b>${String(cur+1).padStart(2,'0')}</b> / ${N}`;}
+const rail=$('rail');
+const idxAt=e=>{const r=rail.getBoundingClientRect();return Math.round(Math.max(0,Math.min(1,(e.clientY-r.top)/r.height))*(N-1));};
+rail.addEventListener('mousemove',e=>{const i=idxAt(e),s=S[i];
+  $('ghost').style.top=$('tip').style.top=y(i)+'%';$('tc').textContent=s.c;$('tn').textContent=String(i+1).padStart(2,'0');$('tt').textContent=s.t;
+  if(e.buttons&1)go(i);});
+rail.addEventListener('mousedown',e=>go(idxAt(e)));
+$('up').onclick=()=>go(cur-1);$('dn').onclick=()=>go(cur+1);
+addEventListener('keydown',e=>{if(['ArrowDown','PageDown',' ','ArrowRight'].includes(e.key))go(cur+1);if(['ArrowUp','PageUp','ArrowLeft'].includes(e.key))go(cur-1);});
+go(37);
+</script>
+</body></html>

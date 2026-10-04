@@ -610,12 +610,36 @@
   if (window.WS_EXT) window.WS_EXT.forEach(f => { try { f(api); } catch (e) { console.error(e); } });
 
   /* ---------- navigation ---------- */
-  const dotsEl = $('#dots');
-  let dots = [], dotsGroup = null;
-  function buildDots(g) {
-    dotsGroup = g; dotsEl.innerHTML = '';
-    dots = seqOf(g).map(i => { const a = document.createElement('a'); a.title = `${i + 1}`; a.onclick = () => go(i); dotsEl.appendChild(a); return a; });
+  /* κάθετη μπάρα προόδου (rail) με σελιδοδείκτες */
+  const BOOKMARKS = { n8: 'Αγορά Λιανεμπορίου', s6: 'Τι θέλει ο πελάτης σήμερα', tq1: 'TRIVIA #1', tq2: 'TRIVIA #2', x19: 'Μ. Φλουρής', pr70: 'Γ. Λαζαρίδου (Προϊοντική)' };
+  const bmOf = i => { const k = Object.keys(BOOKMARKS).find(c => slides[i].classList.contains(c)); return k ? BOOKMARKS[k] : ''; };
+  const titleOf = i => {
+    const s = slides[i]; if (s.dataset.title) return s.dataset.title;
+    const h = s.querySelector('h1,h2,h3'), e = s.querySelector('.eyebrow');
+    let t = ((h && h.textContent) || (e && e.textContent) || '').replace(/\s+/g, ' ').trim();
+    return t.length > 56 ? t.slice(0, 54) + '…' : t;
+  };
+  const pad2 = n => String(n).padStart(2, '0');
+  const railEl = $('#rail');
+  let railSeq = [], railGroup = null, railDrag = false;
+  const yOf = k => railSeq.length < 2 ? 0 : k / (railSeq.length - 1) * 100;
+  function buildRail(g) {
+    railGroup = g; railSeq = seqOf(g);
+    const bms = railSeq.map((i, k) => bmOf(i) ? `<a class="r-bm" data-k="${k}" style="top:${yOf(k)}%" title="${bmOf(i)}"></a>` : '').join('');
+    railEl.innerHTML = `<div class="r-in"><div class="r-track"></div><div class="r-fill"></div>${bms}<div class="r-ghost"></div><div class="r-knob"><span></span></div><div class="r-tip"><small></small><i></i><b></b></div></div>`;
   }
+  const railIdx = e => { const r = $('.r-in', railEl).getBoundingClientRect(); return Math.round(Math.max(0, Math.min(1, (e.clientY - r.top) / r.height)) * (railSeq.length - 1)); };
+  function railHover(e) {
+    const k = railIdx(e), i = railSeq[k];
+    let sec = ''; for (let j = k; j >= 0; j--) { sec = bmOf(railSeq[j]); if (sec) break; }
+    $('.r-ghost', railEl).style.top = $('.r-tip', railEl).style.top = yOf(k) + '%';
+    $('.r-tip small', railEl).textContent = sec; $('.r-tip i', railEl).textContent = pad2(k + 1); $('.r-tip b', railEl).textContent = titleOf(i);
+    return i;
+  }
+  railEl.addEventListener('pointermove', railHover);
+  railEl.addEventListener('pointerdown', e => { railDrag = true; railEl.classList.add('drag'); railHover(e); e.preventDefault(); });
+  addEventListener('pointermove', e => { if (railDrag) railHover(e); });
+  addEventListener('pointerup', e => { if (!railDrag) return; railDrag = false; railEl.classList.remove('drag'); go(railHover(e)); });
   const notes = $('#notes'), notesText = $('#notesText');
 
   function go(n) {
@@ -641,8 +665,10 @@
     document.body.dataset.group = g;
     document.body.dataset.bg = s.dataset.bg || '';
     document.body.dataset.tv = s.dataset.tv || '';
-    if (dotsGroup !== g) buildDots(g);
-    dots.forEach((d, i) => d.classList.toggle('on', i === pos));
+    if (railGroup !== g) buildRail(g);
+    $('.r-knob', railEl).style.top = $('.r-fill', railEl).style.height = yOf(pos) + '%';
+    $('.r-knob span', railEl).textContent = pad2(pos + 1);
+    $$('.r-bm', railEl).forEach(b => b.classList.toggle('past', +b.dataset.k <= pos));
     const label = g === 'main' ? '' : g[0] === 'g' ? `${(s.dataset.cat || 'Κατηγορία')} · ` : `Πυλώνας ${g.slice(1)} · `;
     $('#counter').innerHTML = `${label}<b>${String(pos + 1).padStart(2, '0')}</b> / ${String(seq.length).padStart(2, '0')}`;
     $('#pbar').style.width = ((pos + 1) / seq.length * 100) + '%';
@@ -658,6 +684,11 @@
     const g = groupOf(cur), seq = seqOf(g), pos = seq.indexOf(cur);
     if (d > 0) { const z = $('.zr', slides[cur]); if (z && !z.classList.contains('open')) { toggleZR(z, true); return; } }
     if (d > 0 && buildStep()) return;
+    /* σειριακή ροή: «επόμενο» στο μενού των 6 σημείων → το επόμενο σημείο που δεν έχει παρουσιαστεί· όταν ολοκληρωθούν και τα 6 → συνέχεια κανονικά */
+    if (d > 0 && cur === menuIdx) {
+      const nx = PILLARS.findIndex((p, i) => !visited.has(i + 1) && seqOf('p' + (i + 1)).length);
+      if (nx >= 0) { go(seqOf('p' + (nx + 1))[0]); return; }
+    }
     const np = pos + d;
     if (np < 0 || np >= seq.length) { if (g !== 'main') go(menuOf(g)); return; }
     go(seq[np]);
@@ -675,6 +706,8 @@
   slides.forEach(s => { if (s.dataset.steps) s.addEventListener('click', e => { if (e.target.closest('button,a,.tile,.shot,.opt,.cat,[data-noclick]')) return; if ((s._st || 0) < +s.dataset.steps) buildStep(); }); });
   const next = () => step(1), prevS = () => step(-1);
   $('#nextBtn').onclick = next; $('#prevBtn').onclick = prevS;
+  /* μετά από κλικ με το ποντίκι το κουμπί δεν κρατά focus (αλλιώς το Space του clicker θα το «πατούσε» δεύτερη φορά) */
+  $$('.nav button, .backbtn').forEach(b => b.addEventListener('mouseup', () => b.blur()));
   $('#fsBtn').onclick = () => document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen().catch(() => {});
   $('#notesBtn').onclick = () => notes.classList.toggle('open');
 

@@ -366,3 +366,31 @@
 /* ---------- σελ. 16 · το πλαίσιο url ορθογώνιο με ίδιες στρογγυλεμένες γωνίες με το «Κατάστημα» ---------- */
 .or-and .url{border-radius:30px}
 .or-and .fuse,.or-and .fuse .fz{border-radius:30px}
+
+
+/* ---------- πλοήγηση: κάθετη μπάρα προόδου με σελιδοδείκτες (αντί για τελείες) ---------- */
+.nav .rail{position:relative;flex:0 1 auto;width:44px;height:clamp(160px,46vh,560px);min-height:0;cursor:pointer;touch-action:none}
+.rail .r-in{position:absolute;left:0;right:0;top:9px;bottom:9px}
+.rail .r-track,.rail .r-fill{position:absolute;left:50%;width:2px;margin-left:-1px;border-radius:2px}
+.rail .r-track{top:0;bottom:0;background:rgba(255,255,255,.16)}
+.rail .r-fill{top:0;height:0;background:linear-gradient(var(--red),#ff4a57);box-shadow:0 0 10px rgba(224,16,31,.6);transition:height .6s var(--ease)}
+.rail .r-bm{position:absolute;left:calc(50% + 3px);width:0;height:0;transform:translateY(-50%);
+  border-top:6px solid transparent;border-bottom:6px solid transparent;border-right:9px solid var(--red);opacity:.6;transition:opacity .3s,transform .3s}
+.rail .r-bm.past{opacity:1}
+.rail .r-bm:hover{opacity:1;transform:translateY(-50%) scale(1.35)}
+.rail .r-knob{position:absolute;left:50%;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--red);
+  box-shadow:0 0 0 4px rgba(224,16,31,.25),0 0 18px var(--red);transition:top .6s var(--ease);pointer-events:none}
+.rail .r-knob span{position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:12px;font-weight:800;letter-spacing:.06em;color:#fff;opacity:.8;transition:opacity .2s}
+.rail .r-ghost{position:absolute;left:50%;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:#fff;opacity:0;pointer-events:none}
+.rail .r-tip{position:absolute;right:46px;transform:translateY(-50%);background:rgba(14,18,24,.92);border:1px solid rgba(255,255,255,.14);border-radius:10px;
+  padding:9px 13px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .15s;box-shadow:0 14px 40px rgba(0,0,0,.5);text-align:left}
+.rail .r-tip small{display:block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#ff4a57;font-weight:700}
+.rail .r-tip small:empty{display:none}
+.rail .r-tip i{font-style:normal;color:rgba(255,255,255,.5);margin-right:8px;font-weight:700;font-size:14px}
+.rail .r-tip b{font-size:15px;color:#fff}
+.rail:hover .r-ghost,.rail:hover .r-tip,.rail.drag .r-ghost,.rail.drag .r-tip{opacity:1}
+.rail:hover .r-knob span,.rail.drag .r-knob span{opacity:0}
+body[data-bg="red"] .rail .r-fill{background:#fff;box-shadow:0 0 10px #fff}
+body[data-bg="red"] .rail .r-knob{background:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.3),0 0 18px #fff}
+body[data-bg="red"] .rail .r-bm{border-right-color:#fff}
+@media (max-height:620px){.nav .rail{display:none}}
