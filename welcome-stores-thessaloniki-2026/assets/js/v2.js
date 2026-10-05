@@ -88,8 +88,8 @@
       const rows = $('.rows', $(id)), max = 56;
       let fn = 0; const notes = [];
       rows.innerHTML = data.map(d => { const m = d[2] ? (notes.push(d[2]), ++fn) : 0;
-        return `<div class="r ${d[0] === 'Inventor' ? 'me' : ''}"><div class="nm">${d[0]}</div><div class="tr"><div class="br" data-v="${d[1]}"></div><div class="vv" style="left:0">${d[1]}${m ? `<sup class="fn">${m}</sup>` : ''}</div></div></div>`; }).join('');
-      $(id).insertAdjacentHTML('beforeend', `<div class="fns">${notes.map((n, i) => `<span><sup class="fn">${i + 1}</sup>${n}</span>`).join('')}</div>`);
+        return `<div class="r ${d[0] === 'Inventor' ? 'me' : ''}"><div class="nm">${d[0]}</div><div class="tr"><div class="br" data-v="${d[1]}"></div><div class="vv" style="left:0">${d[1]}</div></div></div>`; }).join('');
+      $(id).insertAdjacentHTML('beforeend', `<div class="fns">${notes.map((n, i) => `<span>${n}</span>`).join('')}</div>`);
       const brs = $$('.br', rows), vvs = $$('.vv', rows);
       brs.forEach((b, i) => bindTip(b, `${title}<br><b>${data[i][0]}: ${data[i][1]}</b>`));
       return () => brs.forEach((b, i) => { b.style.width = 0; vvs[i].style.left = 0; later(() => { const w = data[i][1] / max * 100 + '%'; b.style.width = w; vvs[i].style.left = w; }, 900 + i * 90); });
