@@ -166,7 +166,7 @@
   /* S13 hub network */
   const hubData = [
     ['Ανάγκη', 'need'], ['Google', 'google', 1], ['Αξιολογήσεις', 'star'], ['YouTube / Δημιουργοί', 'play'], ['Σύγκριση τιμών', 'tag'],
-    ['Site κατασκευαστή', 'globe'], ['eMarketplaces', 'bag'], ['Φυσικό κατάστημα', 'store'], ['Τράπεζα / Κινητό', 'phone'], ['Αγορά', 'cart'],
+    ['Site κατασκευαστή', 'globe'], ['MARKETPLACES', 'bag'], ['Φυσικό κατάστημα', 'store'], ['Τράπεζα / Κινητό', 'phone'], ['Αγορά', 'cart'],
     ['Παράδοση', 'truck'], ['Εγκατάσταση', 'wrench'], ['Σέρβις', 'gear'], ['Κριτική', 'review']
   ];
   const HC = { x: 1190, y: 565 }, RX = 520, RY = 365;
