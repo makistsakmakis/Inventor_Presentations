@@ -556,6 +556,6 @@
       [...btns, ...tts].forEach(b => b.addEventListener('click', () => { clearInterval(iv); iv = null; sel(+b.dataset.t); }));
       hooks.pr72 = { enter() { sel(0); clearInterval(iv); iv = setInterval(() => sel((k + 1) % 4), 3400); }, leave() { clearInterval(iv); iv = null; } };
     }
-    const eb = $('#endBtn'); if (eb) eb.addEventListener('click', e => { e.stopPropagation(); api.go(api.idOf('pr86')); });
+    const eb = $('#endBtn'); if (eb) eb.addEventListener('click', e => { e.stopPropagation(); api.go(api.idOf('pr85')); });
   })();
 });

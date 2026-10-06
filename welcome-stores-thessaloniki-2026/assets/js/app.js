@@ -689,6 +689,10 @@
       const nx = PILLARS.findIndex((p, i) => !visited.has(i + 1) && seqOf('p' + (i + 1)).length);
       if (nx >= 0) { go(seqOf('p' + (nx + 1))[0]); return; }
     }
+    /* ίδια σειριακή ροή στο μενού κατηγοριών της προϊοντικής: επόμενη κατηγορία που δεν έχει παρουσιαστεί */
+    if (d > 0 && cur === prodMenuIdx) {
+      for (let k = 1; k <= 6; k++) if (!pVisited.has(k) && seqOf('g' + k).length) { go(seqOf('g' + k)[0]); return; }
+    }
     const np = pos + d;
     if (np < 0 || np >= seq.length) { if (g !== 'main') go(menuOf(g)); return; }
     go(seq[np]);
