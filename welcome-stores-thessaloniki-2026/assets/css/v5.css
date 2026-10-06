@@ -1,20 +1,95 @@
 /* ==========================================================
-   Welcome Stores · v5 — Προϊοντική παρουσίαση (Γ. Λαζαρίδου), τελικό περιεχόμενο
+   Welcome Stores · v5 — Προϊοντική παρουσίαση (Γ. Λαζαρίδου)
    ========================================================== */
 
-/* τίτλος / κλείσιμο: 3 γραμμές τίτλου */
-.pr70 .ph-txt,.pr86 .ph-txt{width:1250px}
-.pr70 .ph-txt .h-xl,.pr86 .ph-txt .h-xl{font-size:96px;line-height:1.04}
-.pr86 .ph-thanks{margin-top:44px}
+/* τίτλος: 3 γραμμές */
+.pr70 .ph-txt{width:1250px}
+.pr70 .ph-txt .h-xl{font-size:96px;line-height:1.04}
+
+/* μενού κατηγοριών */
+.pmenu .vhead .h-md{font-size:72px}
+.pm-cap b.r{color:#ff2536;font-weight:700}
 
 /* κοινά */
+.sp .sp-t{font-size:60px}
 .sp-sub{font-size:24px;line-height:1.45;color:rgba(255,255,255,.78);font-weight:500;max-width:740px}
-.sp .sp-t{font-size:58px}
+.ptiles .head{position:absolute;left:110px;top:150px;right:210px}
+.ptiles .head .sub{font-size:24px;line-height:1.45;color:rgba(255,255,255,.78);margin-top:18px;max-width:1300px}
+.ptiles .h-md .red-t,.ptiles .h-lg .red-t{color:#ff2536;text-shadow:0 0 40px rgba(224,16,31,.35)}
 .hero.full{right:0}
 .hero.comp>img{position:absolute;max-width:none;max-height:none;width:auto}
 .slide.active .hero.comp>img{animation:heroIn 1.4s var(--ease) both,floatY 6s ease-in-out infinite}
 .slide.active .hero.comp>img.c2{animation-delay:.25s,-2s}
 .slide.active .hero.comp>img.c3{animation-delay:.5s,-4s}
+
+/* πλακίδια (ίδια λογική flip με την υπόλοιπη παρουσίαση) */
+.ptiles .grid{position:absolute;display:grid;gap:26px}
+.ptile .face{padding:24px 26px}
+.ptile h3{font-size:28px}
+.ptile .num{width:84px;height:84px;font-size:36px;margin-bottom:18px}
+.ptile .num.ic svg{width:40px;height:40px;stroke:#07080d;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ptile .back .k{font-size:14px}
+.ptile .back p{font-size:22px;line-height:1.45}
+.ptile .back ul{list-style:none;display:flex;flex-direction:column;gap:10px;text-align:left}
+.ptile .back li{font-size:22px;line-height:1.3;font-weight:600;padding-left:24px;position:relative}
+.ptile .back li::before{content:"";position:absolute;left:0;top:9px;width:10px;height:10px;border-radius:50%;background:#fff}
+.ptile .back .plq{background:#fff;border-radius:14px;padding:12px 16px}
+.ptile .back .plq img{height:84px;width:auto;display:block}
+.ptile .kk{font-size:15px;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:#ff5a66;margin-bottom:12px}
+.ptile.done .front{border-color:rgba(255,110,120,.6)}
+.ptile.hl .front{border-color:#ff3d46;box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 0 0 3px rgba(227,20,30,.15),0 0 40px rgba(227,20,30,.4)}
+
+/* τεχνολογία: 3×2 */
+.t6 .grid{left:110px;right:210px;top:330px;bottom:130px;grid-template-columns:repeat(3,1fr);grid-template-rows:1fr 1fr}
+
+/* εγγύηση · 3D πλακέτα (όπως στον Τιμοκατάλογο Αφυγραντήρων) */
+.pr75 .sp-l{width:820px;justify-content:center;top:120px}
+.pr75 .sp-t{font-size:56px}
+.w3{position:absolute;left:1060px;top:190px;width:470px;height:500px}
+.w3 .float{position:absolute;inset:0;animation:wFloat5 7s ease-in-out infinite;perspective:1500px}
+.w3in{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateY(-18deg) rotateX(10deg) rotateZ(-2deg);transition:transform 1.2s cubic-bezier(.3,1.2,.4,1)}
+.w3:hover .w3in{transform:rotateY(-6deg) rotateX(4deg) rotateZ(-1deg)}
+.w3 .wedge{position:absolute;inset:0;border-radius:30px;transform:translate3d(calc(var(--z) * .45px),calc(var(--z) * 1px),calc(var(--z) * -1.3px));
+  background:linear-gradient(90deg,#b8b8bd,#f6f6f8 22%,#dcdce0 48%,#ffffff 70%,#c4c4c9);box-shadow:inset 0 0 0 1px rgba(255,255,255,.6)}
+.w3 .wedge.d{background:linear-gradient(90deg,#7d0910,#c21520 40%,#a80d16)}
+.w3 .wedge.s{background:#5a0409;filter:blur(1px)}
+.w3 .face{position:absolute;inset:0;border-radius:30px;overflow:hidden;transform:translateZ(.5px);background:#fff;display:grid;place-items:center;
+  box-shadow:0 0 0 1px rgba(255,255,255,.18),0 18px 40px rgba(120,0,6,.45)}
+.w3 .face img{width:92%;height:auto;display:block}
+.w3 .face::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:2;
+  background:linear-gradient(170deg,rgba(255,255,255,.42) 0%,rgba(255,255,255,.10) 26%,transparent 42%,transparent 78%,rgba(0,0,0,.16) 100%)}
+.w3 .face::after{content:"";position:absolute;top:-30%;bottom:-30%;width:28%;left:-40%;z-index:3;pointer-events:none;transform:skewX(-22deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);filter:blur(4px);animation:gloss5 4.8s ease-in-out infinite}
+.w3shadow{position:absolute;left:1080px;top:735px;width:440px;height:80px;border-radius:50%;background:radial-gradient(ellipse,rgba(255,40,50,.75),rgba(227,20,30,.25) 45%,transparent 72%);filter:blur(16px);animation:wShadow5 7s ease-in-out infinite}
+@keyframes wFloat5{0%,100%{transform:translateY(0) rotate(-.4deg)}50%{transform:translateY(-30px) rotate(.5deg)}}
+@keyframes wShadow5{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.78);opacity:.55}}
+@keyframes gloss5{0%,55%{left:-40%;opacity:0}60%{opacity:1}85%{left:120%;opacity:.9}100%{left:120%;opacity:0}}
+
+/* αφυγραντήρες: προϊόντα αριστερά, 6 πλακίδια δεξιά */
+.dh .dhero{position:absolute;left:110px;top:400px;width:620px;bottom:150px}
+.dh .dhero .glow{width:560px;height:560px}
+.dh .dhero .ring{width:520px;bottom:60px}.dh .dhero .ring2{width:380px;bottom:78px}
+.dh .dhero>img{position:absolute;width:auto;filter:drop-shadow(0 30px 34px rgba(0,0,0,.6))}
+.slide.active .dh .dhero>img{animation:heroIn 1.4s var(--ease) both,floatY 6s ease-in-out infinite}
+.dh .dhero>img.c1{height:190px;left:60px;top:10px}
+.dh .dhero>img.c2{height:180px;left:250px;top:20px;animation-delay:.15s,-1s!important}
+.dh .dhero>img.c3{height:330px;left:110px;bottom:84px;z-index:2;animation-delay:.3s,-2s!important}
+.dh .dhero>img.c4{height:330px;left:330px;bottom:76px;z-index:3;animation-delay:.45s,-3s!important}
+.dh-tag{position:absolute;left:0;right:0;bottom:0;text-align:center;font-size:19px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.85)}
+.dh-tag i,.dh-eq i,.v-foot i{font-style:normal;color:#ff3d46;margin:0 10px}
+.dh .grid{left:790px;right:210px;top:400px;bottom:150px;grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,1fr);gap:18px}
+.dh .ptile h3{font-size:24px}
+.dh .ptile .back p{font-size:19px}
+.dh-eq{position:absolute;left:790px;right:210px;bottom:84px;padding:14px 20px;border-radius:14px;text-align:center;font-size:19px;font-weight:800;letter-spacing:.16em;
+  background:rgba(9,12,22,.8);border:1px solid rgba(255,255,255,.16)}
+.dh-eq b{color:#ff2536}
+
+/* λευκές συσκευές: 4 πλακίδια με προϊόν */
+.wg .grid{left:110px;right:210px;top:390px;bottom:120px;grid-template-columns:repeat(4,1fr)}
+.wg .ptile .front{justify-content:flex-end;padding-bottom:30px}
+.wg .wim{flex:1;width:100%;min-height:0;display:grid;place-items:center;margin-bottom:18px;border-radius:18px;background:radial-gradient(ellipse at 50% 40%,#ffffff,#e6e9ee 60%,#cfd4dc);border-bottom:6px solid var(--red);box-shadow:0 0 18px rgba(224,16,31,.35)}
+.wg .wim img{max-width:80%;max-height:88%;filter:drop-shadow(0 16px 18px rgba(0,0,0,.25))}
+.wg .ptile h3{font-size:24px;text-transform:uppercase;letter-spacing:.02em}
 
 /* ετικέτες που «ανάβουν» διαδοχικά */
 .tags{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
@@ -23,119 +98,29 @@
 .slide.active .tag{animation:tagHi 7.5s ease-in-out infinite;animation-delay:calc(1.4s + var(--k) * 2.5s)}
 @keyframes tagHi{0%,30%{background:linear-gradient(135deg,#e3141e,#9a0a12);border-color:#ff3d46;box-shadow:0 0 26px rgba(227,20,30,.6)}38%,100%{background:rgba(20,25,32,.5);border-color:rgba(255,255,255,.18);box-shadow:none}}
 
-/* ---- Οικιακά · γκάμα (pr72): Price Fighter πλέον με προϊόν ---- */
-.pr72 .sp-t{font-size:60px}
+/* συνθέσεις προϊόντων */
+.hero.lc>img.c1{height:500px;left:50%;margin-left:-250px;bottom:70px;z-index:2}
+.hero.lc>img.c2{height:480px;left:50%;margin-left:-20px;bottom:76px}
+.hero.hpx>img.c1{height:240px;left:4%;top:20px}
+.hero.hpx>img.c2{height:390px;left:10%;bottom:72px;z-index:2}
+.hero.hpx>img.c3{height:520px;right:6%;bottom:70px}
 
-/* ---- Οικιακά · τεχνολογία (6 κάρτες) ---- */
-.tech6 .t6-head{position:absolute;left:110px;top:150px;width:900px;display:flex;flex-direction:column;gap:22px}
-.tech6 .sp-t{font-size:60px;font-weight:800;line-height:1.06;letter-spacing:-.02em}
-.tech6 .sp-t .red-t{color:#ff2536;text-shadow:0 0 40px rgba(224,16,31,.35)}
-.t6-ac{position:absolute;right:250px;top:150px;width:560px;height:230px;display:grid;place-items:center}
-.t6-ac::before{content:"";position:absolute;inset:-40px 0;border-radius:50%;background:radial-gradient(ellipse,rgba(255,255,255,.12),rgba(227,20,30,.08) 45%,transparent 70%)}
-.t6-ac img{position:relative;width:520px;max-height:200px;object-fit:contain;height:auto;filter:drop-shadow(0 30px 40px rgba(0,0,0,.6));animation:floatY 6s ease-in-out infinite}
-.t6-ac .airflow{position:absolute;left:90px;right:90px;top:170px;height:140px;pointer-events:none}
-.t6-ac .airflow i{position:absolute;top:0;width:3px;height:90px;left:calc(12% + var(--n,0) * 25%);border-radius:3px;background:linear-gradient(180deg,rgba(140,195,255,.8),transparent);animation:air 2.2s ease-in infinite;opacity:0}
-.t6-ac .airflow i:nth-child(2){--n:1;animation-delay:.4s}.t6-ac .airflow i:nth-child(3){--n:2;animation-delay:.8s}.t6-ac .airflow i:nth-child(4){--n:3;animation-delay:1.2s}
-.t6-grid{position:absolute;left:110px;right:210px;top:430px;bottom:120px;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:1fr 1fr;gap:22px}
-.tc{position:relative;border-radius:24px;padding:22px 26px;display:flex;flex-direction:column;gap:10px;opacity:0;overflow:hidden;
-  transition:transform .5s var(--spring),border-color .4s,box-shadow .4s}
-.tc::after{content:"";position:absolute;left:0;top:0;bottom:0;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.08),transparent);transform:translateX(-120%)}
-.slide.active .tc{animation:rise 1s var(--ease) both;animation-delay:calc(.5s + var(--k) * .14s)}
-.slide.active .tc::after{animation:sweep 1.4s var(--ease) both;animation-delay:calc(1.2s + var(--k) * .14s)}
-@keyframes sweep{to{transform:translateX(300%)}}
-.tc:hover{transform:translateY(-6px);border-color:rgba(255,110,120,.7);box-shadow:0 30px 60px rgba(224,16,31,.25)}
-.tc-i{width:56px;height:56px;border-radius:16px;background:#e3141e;display:grid;place-items:center;box-shadow:0 0 20px rgba(224,16,31,.55)}
-.tc-i svg{width:28px;height:28px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.tc h3{font-size:28px;font-weight:800;letter-spacing:-.01em}
-.tc ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px}
-.tc li{font-size:18px;font-weight:600;padding:8px 14px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);opacity:0}
-.slide.active .tc li{animation:fadeIn .6s var(--ease) both;animation-delay:calc(1s + var(--k) * .14s + var(--j) * .1s)}
-.tc-logo{flex:1;display:flex;align-items:center}
-.tc-logo img{height:78px;width:auto;border-radius:12px;background:#fff;padding:10px 14px}
+/* VRF: προϊόντα + 4 πλακίδια κλίμακας */
+.vrfs .sp-l{bottom:430px}
+.vrfs .sp-r{bottom:400px;top:110px}
+.hero.vrf{padding-bottom:20px}
+.hero.vrf .ring{bottom:10px}.hero.vrf .ring2{bottom:28px}
+.hero.vrf>img.c1{height:440px;left:50%;margin-left:-320px;bottom:30px}
+.hero.vrf>img.c2{height:340px;left:50%;margin-left:60px;bottom:24px;z-index:2}
+.vrfs .grid{left:110px;right:210px;top:720px;bottom:110px;grid-template-columns:repeat(4,1fr);gap:22px}
+.vrfs .ptile .front{flex-direction:row;gap:20px;justify-content:flex-start;text-align:left}
+.vrfs .ptile .num{margin:0;width:70px;height:70px;font-size:28px}
+.vrfs .ptile h3{font-size:30px}
+.vrfs .ptile .back p{font-size:22px}
 
-/* ---- Οικιακά · εγγύηση ---- */
-.w-lead{display:flex;align-items:baseline;gap:14px;font-size:30px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.9)}
-.w-lead b{font-size:78px;line-height:1;color:#ff2536;text-shadow:0 0 30px rgba(224,16,31,.5)}
-.wcard{position:relative;z-index:1;width:440px;height:470px;border-radius:30px;overflow:hidden;background:#fff;display:grid;place-items:center;
-  border:1px solid rgba(255,255,255,.5);box-shadow:0 40px 80px rgba(0,0,0,.6),0 0 70px rgba(227,20,30,.35);transform:perspective(1400px) rotateY(-10deg)}
-.wcard img{width:86%;height:auto}
-.wcard .glare{position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.35),transparent 35%,transparent 70%,rgba(0,0,0,.05))}
-.wcard .shine,.wim .shine{position:absolute;top:-20%;bottom:-20%;width:30%;left:-40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.75),transparent);transform:skewX(-18deg)}
-.slide.active .wcard{animation:heroIn 1.4s var(--ease) both,floatY 6s ease-in-out 1.4s infinite}
-.slide.active .wcard .shine{animation:shineX 4.5s ease-in-out 1.6s infinite}
-@keyframes shineX{0%{left:-40%}35%,100%{left:130%}}
-
-/* ---- Αφυγραντήρες · γιατί Inventor ---- */
-.dhs .sp-l{width:800px;gap:18px}
-.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px}
-.dc{position:relative;padding:16px 20px;border-radius:16px;background:rgba(20,25,32,.5);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(14px);opacity:0;
-  transition:transform .4s var(--spring),border-color .3s,box-shadow .3s}
-.slide.active .dc{animation:rise .9s var(--ease) both;animation-delay:calc(.6s + var(--k) * .12s)}
-.dc:hover{transform:translateY(-4px);border-color:rgba(255,90,100,.6)}
-.dc small{display:block;font-size:13px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#ff5a66}
-.dc b{display:block;font-size:21px;font-weight:800;margin-top:6px}
-.dc p{font-size:16px;line-height:1.4;color:rgba(255,255,255,.72);margin-top:6px}
-.dc.hl{border-color:#ff3d46;background:rgba(227,20,30,.16);box-shadow:0 0 0 3px rgba(227,20,30,.12),0 0 28px rgba(227,20,30,.4)}
-.dhs .sp-r{left:960px}
-.dhs .hero{bottom:90px}
-.dhs .hero .ring{bottom:90px}.dhs .hero .ring2{bottom:108px}
-.dhs .hero.comp>img.c1{width:470px;left:50%;margin-left:-180px;bottom:340px}
-.dhs .hero.comp>img.c2{height:330px;left:50%;margin-left:-250px;bottom:110px;z-index:2}
-.dhs .hero.comp>img.c3{height:330px;left:50%;margin-left:-40px;bottom:96px;z-index:3}
-.dh-tag{position:absolute;left:0;right:0;bottom:62px;text-align:center;font-size:20px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.85)}
-.dh-tag i,.dh-eq i,.v-foot i{font-style:normal;color:#ff3d46;margin:0 10px}
-.dh-eq{position:absolute;left:40px;right:40px;bottom:0;padding:14px 20px;border-radius:14px;text-align:center;font-size:18px;font-weight:800;letter-spacing:.16em;
-  background:rgba(9,12,22,.8);border:1px solid rgba(255,255,255,.16)}
-.dh-eq b{color:#ff2536}
-
-/* ---- Λευκές συσκευές · 4 κάρτες ---- */
-.wg4 .vhead{top:130px}
-.wg4 .sp-t{font-size:58px;font-weight:800;line-height:1.06;letter-spacing:-.02em}
-.wg4 .sp-t .red-t{color:#ff2536;text-shadow:0 0 40px rgba(224,16,31,.35)}
-.wg4 .sp-sub{margin-top:16px;max-width:1300px}
-.wgrid{position:absolute;left:110px;right:210px;top:430px;bottom:120px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
-.wgc{position:relative;border-radius:24px;overflow:hidden;display:flex;flex-direction:column;background:rgba(9,12,22,.72);border:1px solid rgba(255,255,255,.16);
-  box-shadow:0 30px 60px rgba(0,0,0,.45);opacity:0;transition:transform .5s var(--spring),border-color .4s,box-shadow .4s}
-.slide.active .wgc{animation:rise 1s var(--ease) both;animation-delay:calc(.5s + var(--k) * .16s)}
-.wgc:hover{transform:translateY(-10px);border-color:rgba(255,110,120,.8);box-shadow:0 40px 80px rgba(224,16,31,.3)}
-.wim{position:relative;flex:1;min-height:0;display:grid;place-items:center;overflow:hidden;background:radial-gradient(ellipse at 50% 40%,#ffffff,#e6e9ee 60%,#cfd4dc)}
-.wim::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:var(--red);box-shadow:0 0 18px var(--red)}
-.wim img{max-width:78%;max-height:84%;width:auto;height:auto;filter:drop-shadow(0 18px 20px rgba(0,0,0,.25));transition:transform .8s var(--ease)}
-.wgc:hover .wim img{transform:scale(1.07)}
-.slide.active .wim .shine{animation:shineX 5s ease-in-out infinite;animation-delay:calc(1.8s + var(--k) * .4s)}
-.wtx{padding:22px 24px 24px}
-.wtx h3{font-size:24px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;line-height:1.15}
-.wtx p{font-size:16px;line-height:1.45;color:rgba(255,255,255,.7);margin-top:10px}
-
-/* ---- Ημικεντρικά / Αντλίες / VRF: συνθέσεις προϊόντων ---- */
-.hero.lc>img.c1{height:470px;left:50%;margin-left:-190px;bottom:70px;z-index:2}
-.hero.lc>img.c2{height:450px;left:50%;margin-left:-10px;bottom:76px}
-.hero.hpx>img.c1{height:190px;left:2%;top:40px}
-.hero.hpx>img.c2{height:330px;left:6%;bottom:74px;z-index:2}
-.hero.hpx>img.c3{height:470px;right:4%;bottom:70px}
-.hero.vrf>img.c1{height:400px;left:50%;margin-left:-270px;bottom:74px}
-.hero.vrf>img.c2{height:300px;left:50%;margin-left:70px;bottom:70px;z-index:2}
-
-/* VRF · κλίμακα 4 βημάτων */
-.vsteps{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:22px}
-.vsteps::before{content:"";position:absolute;left:0;right:0;top:-14px;height:3px;border-radius:2px;background:linear-gradient(90deg,rgba(255,255,255,.2),var(--red));transform-origin:left;transform:scaleX(0)}
-.slide.active .vsteps::before{animation:strike 1.8s var(--ease) .8s forwards}
-.vs{padding:16px 16px 18px;border-radius:16px;background:rgba(9,12,22,.72);border:1px solid rgba(255,255,255,.14);display:flex;flex-direction:column;gap:4px;opacity:0;
-  transition:transform .4s var(--spring),border-color .3s}
-.vs:hover{transform:translateY(-6px);border-color:rgba(255,110,120,.7)}
-.slide.active .vs{animation:rise .9s var(--ease) both;animation-delay:calc(1s + var(--k) * .25s)}
-.vs span{font-size:14px;font-weight:900;letter-spacing:.2em;color:#ff5a66}
-.vs b{font-size:24px;font-weight:800}
-.vs small{font-size:15px;line-height:1.35;color:rgba(255,255,255,.7)}
-.vs:last-child{border-color:rgba(255,61,70,.6);background:rgba(227,20,30,.14)}
-
-/* ---- Αξία συνεργασίας ---- */
-.pr85 .vhead .h-lg{font-size:76px}
-.v-sub{font-size:26px;line-height:1.45;color:rgba(255,255,255,.8);margin-top:24px;max-width:1150px}
-.scale85.v3{grid-template-columns:repeat(3,1fr);bottom:190px}
-.scale85.v3 .sc5{height:250px}
-.scale85.v3 .sc5 .ic{width:72px;height:72px}
-.scale85.v3 .sc5 b{font-size:30px;text-transform:uppercase;letter-spacing:.02em}
-.sc5.hl{border-color:#ff3d46;box-shadow:0 0 0 3px rgba(227,20,30,.15),0 30px 60px rgba(0,0,0,.4),0 0 40px rgba(227,20,30,.35)}
+/* αξία συνεργασίας */
+.val .h-lg{font-size:78px}
+.val .head .sub{font-size:26px}
+.val .grid{left:110px;right:210px;top:640px;bottom:190px;grid-template-columns:repeat(3,1fr)}
 .v-foot{position:absolute;left:110px;bottom:110px;font-size:30px;font-weight:800;color:#ff2536;letter-spacing:.02em}
 .v-foot i{color:rgba(255,255,255,.6)}

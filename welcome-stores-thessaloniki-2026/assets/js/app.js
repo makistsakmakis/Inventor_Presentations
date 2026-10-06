@@ -693,8 +693,21 @@
     if (d > 0 && cur === prodMenuIdx) {
       for (let k = 1; k <= 6; k++) if (!pVisited.has(k) && seqOf('g' + k).length) { go(seqOf('g' + k)[0]); return; }
     }
+    /* Page Up στο μενού: αντίστροφη σειριακή ροή — πίσω στην τελευταία οθόνη της τελευταίας ολοκληρωμένης ενότητας */
+    if (d < 0 && (cur === menuIdx || cur === prodMenuIdx)) {
+      const P = cur === menuIdx, S = P ? visited : pVisited, pre = P ? 'p' : 'g';
+      const ks = [...S].filter(k => seqOf(pre + k).length).sort((x, y) => y - x);
+      if (ks.length) { S.delete(ks[0]); const q = seqOf(pre + ks[0]); go(q[q.length - 1]); return; }
+    }
     const np = pos + d;
-    if (np < 0 || np >= seq.length) { if (g !== 'main') go(menuOf(g)); return; }
+    if (np < 0 || np >= seq.length) {
+      if (g !== 'main') {
+        go(menuOf(g));
+        /* Page Up από την 1η οθόνη ενότητας: επιστροφή στο μενού χωρίς ✓, ώστε το επόμενο Page Up να πάει στην προηγούμενη ενότητα */
+        if (d < 0) { const k = +g.slice(1); (g[0] === 'p' ? visited : pVisited).delete(k); const h = hooks[slides[cur].classList[1]]; h && h.enter && h.enter(); }
+      }
+      return;
+    }
     go(seq[np]);
   }
   /* build steps: <section data-steps="N"> · κάθε κλικ/PgDn προσθέτει .st1 … .stN */
