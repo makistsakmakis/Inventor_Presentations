@@ -124,3 +124,23 @@
 .val .grid{left:110px;right:210px;top:640px;bottom:190px;grid-template-columns:repeat(3,1fr)}
 .v-foot{position:absolute;left:110px;bottom:110px;font-size:30px;font-weight:800;color:#ff2536;letter-spacing:.02em}
 .v-foot i{color:rgba(255,255,255,.6)}
+
+/* ---- γκάμα κλιματιστικών: επιλογέας οριζόντια στη βάση, μεγάλη φωτογραφία δεξιά (×2) ---- */
+.pr72 .sp-r{left:880px;right:200px;top:110px;bottom:300px}
+.pr72 .hero{right:0;padding-bottom:30px}
+.pr72 .hero .glow{width:860px;height:860px}
+.pr72 .hero .ring{width:800px;height:140px;bottom:4px}
+.pr72 .hero .ring2{width:600px;height:96px;bottom:26px}
+.pr72 .tset{inset:0 0 30px;pointer-events:none}
+.pr72 .tset img.hp0{max-width:none;max-height:none;width:600px;margin-right:-360px;margin-bottom:40px}
+.pr72 .tset img.hp1{max-width:none;max-height:none;width:500px;margin-bottom:270px}
+.pr72 .tset img:only-child{max-width:740px;max-height:none;width:auto;height:430px;margin:0 0 50px}
+.pr72 .tthumbs{position:absolute;left:-770px;right:10px;top:720px;bottom:auto;height:150px;width:auto;flex-direction:row;gap:20px}
+.pr72 .tthumbs .thumb{flex:1;flex-direction:row;gap:18px;padding:12px 22px}
+.pr72 .tthumbs .thumb .ti{width:auto;max-width:58%;max-height:96px;height:auto}
+.pr72 .tthumbs .thumb b{font-size:22px;text-align:left}
+.pr72 .tthumbs .thumb:hover{transform:translateY(-6px) scale(1.02)}
+.slide.active.pr72 .thumb{animation-name:thumbUp}
+@keyframes thumbUp{from{opacity:0;transform:translateY(40px)}}
+.pr72 .tset[data-t="1"] img.hp1{width:360px;margin-bottom:250px}
+.pr72 .tset[data-t="1"] img.hp0{width:580px;margin-right:-300px}
