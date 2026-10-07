@@ -659,6 +659,7 @@
     const s = slides[n], g = groupOf(n), seq = seqOf(g), pos = seq.indexOf(n);
     s.classList.remove('prev');
     s._st = 0; for (let k = 1; k <= 9; k++) s.classList.remove('st' + k);
+    s._tk = -1; flipTiles(s).forEach(t => t.classList.remove('flipped'));
     void s.offsetWidth;
     s.classList.add('active');
     document.body.dataset.slide = n + 1;
@@ -683,6 +684,7 @@
   function step(d) {
     const g = groupOf(cur), seq = seqOf(g), pos = seq.indexOf(cur);
     if (d > 0) { const z = $('.zr', slides[cur]); if (z && !z.classList.contains('open')) { toggleZR(z, true); return; } }
+    if (tileNav(d)) return;
     if (d > 0 && buildStep()) return;
     /* σειριακή ροή: «επόμενο» στο μενού των 6 σημείων → το επόμενο σημείο που δεν έχει παρουσιαστεί· όταν ολοκληρωθούν και τα 6 → συνέχεια κανονικά */
     if (d > 0 && cur === menuIdx) {
@@ -709,6 +711,20 @@
       return;
     }
     go(seq[np]);
+  }
+  /* πλακίδια με κείμενο από πίσω: Page Down ανοίγει το επόμενο (κλείνει το προηγούμενο), Page Up το αντίστροφο */
+  const flipTiles = sl => $$('.tile', sl).filter(t => t.querySelector('.face.back'));
+  function tileNav(d) {
+    const s = slides[cur], ts = flipTiles(s);
+    if (!ts.length) return false;
+    let k = s._tk == null ? -1 : s._tk;
+    const open = i => { ts.forEach((t, j) => t.classList.toggle('flipped', j === i)); if (i >= 0) ts[i].dispatchEvent(new Event('mouseenter')); };
+    if (d > 0) {
+      if (k >= ts.length - 1) { open(-1); s._tk = -1; return false; }
+      s._tk = k + 1; open(k + 1); return true;
+    }
+    if (k < 0) return false;
+    s._tk = k - 1; open(k - 1); return true;
   }
   /* build steps: <section data-steps="N"> · κάθε κλικ/PgDn προσθέτει .st1 … .stN */
   function buildStep() {
