@@ -516,10 +516,10 @@
 
   /* ================= προϊόντα · μενού κατηγοριών ================= */
   (() => {
-    const CATS = [['Οικιακά κλιματιστικά', 'p75'], ['Αφυγραντήρες & καθαριστές αέρα', 'p76'], ['Λευκές συσκευές', 'p77'], ['Ημικεντρικά κλιματιστικά', 'p82'], ['Αντλίες θερμότητας', 'p83'], ['VRF', 'p84']];
+    const CATS = [['Οικιακά κλιματιστικά', ['m-ac']], ['Αφυγραντήρες & καθαριστές αέρα', ['m-dehum']], ['Λευκές συσκευές', ['m-micro']], ['Ημικεντρικά κλιματιστικά', ['m-cassette']], ['Αντλίες θερμότητας', ['hp-mono-w', 'm-hp-indoor']], ['VRF', ['m-vrf']]];
     const host = $('#cats');
     host.innerHTML = CATS.map((c, i) => { const n = api.seqOf('g' + (i + 1)).length;
-      return `<div class="cat" data-g="${i + 1}" style="--k:${i}"><div class="im" style="background-image:url(assets/img/v2/${c[1]}.jpg)"></div><div class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><div class="cn"><h3>${c[0].replace('&', '&amp;')}</h3><small>${n} ${n === 1 ? 'οθόνη' : 'οθόνες'}</small></div></div>`; }).join('');
+      return `<div class="cat" data-g="${i + 1}" style="--k:${i}"><div class="pim">${c[1].map((f, j) => `<img class="p${j}" src="assets/img/lz/${f}.webp" alt="" style="--j:${i + j}">`).join('')}</div><div class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><div class="cn"><h3>${c[0].replace('&', '&amp;')}</h3><small>${n} ${n === 1 ? 'οθόνη' : 'οθόνες'}</small></div></div>`; }).join('');
     const els = $$('.cat', host);
     els.forEach(el => el.addEventListener('click', () => { el.classList.add('launch'); setTimeout(() => { el.classList.remove('launch'); api.go(api.seqOf('g' + el.dataset.g)[0]); }, 380); }));
     hooks.pmenu = { enter() { els.forEach(el => el.classList.toggle('done', api.pVisited.has(+el.dataset.g))); $('#pmProg').textContent = `${api.pVisited.size} / 6`; } };
@@ -556,6 +556,6 @@
       [...btns, ...tts].forEach(b => b.addEventListener('click', () => { clearInterval(iv); iv = null; sel(+b.dataset.t); }));
       hooks.pr72 = { enter() { sel(0); clearInterval(iv); iv = setInterval(() => sel((k + 1) % 4), 3400); }, leave() { clearInterval(iv); iv = null; } };
     }
-    const eb = $('#endBtn'); if (eb) eb.addEventListener('click', e => { e.stopPropagation(); api.go(api.idOf('pr85')); });
+    const eb = $('#endBtn'); if (eb) eb.addEventListener('click', e => { e.stopPropagation(); api.go(api.idOf('lz13')); });
   })();
 });

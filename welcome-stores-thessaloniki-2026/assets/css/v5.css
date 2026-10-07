@@ -2,13 +2,7 @@
    Welcome Stores · v5 — Προϊοντική παρουσίαση (Γ. Λαζαρίδου)
    ========================================================== */
 
-/* τίτλος: 3 γραμμές */
-.pr70 .ph-txt{width:1250px}
-.pr70 .ph-txt .h-xl{font-size:96px;line-height:1.04}
 
-/* μενού κατηγοριών */
-.pmenu .vhead .h-md{font-size:72px}
-.pm-cap b.r{color:#ff2536;font-weight:700}
 
 /* κοινά */
 .sp .sp-t{font-size:60px}
@@ -39,9 +33,6 @@
 .ptile.done .front{border-color:rgba(255,110,120,.6)}
 .ptile.hl .front{border-color:#ff3d46;box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 0 0 3px rgba(227,20,30,.15),0 0 40px rgba(227,20,30,.4)}
 
-/* τεχνολογία: 3×2 */
-.t6 .grid{left:110px;right:210px;top:330px;bottom:130px;grid-template-columns:repeat(3,1fr);grid-template-rows:1fr 1fr}
-
 /* εγγύηση · 3D πλακέτα (όπως στον Τιμοκατάλογο Αφυγραντήρων) */
 .pr75 .sp-l{width:820px;justify-content:center;top:120px}
 .pr75 .sp-t{font-size:56px}
@@ -71,16 +62,14 @@
 .dh .dhero .ring{width:520px;bottom:60px}.dh .dhero .ring2{width:380px;bottom:78px}
 .dh .dhero>img{position:absolute;width:auto;filter:drop-shadow(0 30px 34px rgba(0,0,0,.6))}
 .slide.active .dh .dhero>img{animation:heroIn 1.4s var(--ease) both,floatY 6s ease-in-out infinite}
-.dh .dhero>img.c1{height:190px;left:60px;top:10px}
-.dh .dhero>img.c2{height:180px;left:250px;top:20px;animation-delay:.15s,-1s!important}
-.dh .dhero>img.c3{height:330px;left:110px;bottom:84px;z-index:2;animation-delay:.3s,-2s!important}
-.dh .dhero>img.c4{height:330px;left:330px;bottom:76px;z-index:3;animation-delay:.45s,-3s!important}
+.dh .dhero>img.c1{height:300px;left:10px;bottom:120px}
+.dh .dhero>img.c2{height:330px;left:250px;bottom:84px;z-index:2;animation-delay:.2s,-3s!important}
 .dh-tag{position:absolute;left:0;right:0;bottom:0;text-align:center;font-size:19px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.85)}
 .dh-tag i,.dh-eq i,.v-foot i{font-style:normal;color:#ff3d46;margin:0 10px}
 .dh .grid{left:790px;right:210px;top:400px;bottom:150px;grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,1fr);gap:18px}
 .dh .ptile h3{font-size:24px}
 .dh .ptile .back p{font-size:19px}
-.dh-eq{position:absolute;left:790px;right:210px;bottom:84px;padding:14px 20px;border-radius:14px;text-align:center;font-size:19px;font-weight:800;letter-spacing:.16em;
+.dh-eq-unused{position:absolute;left:790px;right:210px;bottom:84px;padding:14px 20px;border-radius:14px;text-align:center;font-size:19px;font-weight:800;letter-spacing:.16em;
   background:rgba(9,12,22,.8);border:1px solid rgba(255,255,255,.16)}
 .dh-eq b{color:#ff2536}
 
@@ -105,23 +94,10 @@
 .hero.hpx>img.c2{height:390px;left:10%;bottom:72px;z-index:2}
 .hero.hpx>img.c3{height:520px;right:6%;bottom:70px}
 
-/* VRF: προϊόντα + 4 πλακίδια κλίμακας */
-.vrfs .sp-l{bottom:430px}
-.vrfs .sp-r{bottom:400px;top:110px}
-.hero.vrf{padding-bottom:20px}
-.hero.vrf .ring{bottom:10px}.hero.vrf .ring2{bottom:28px}
-.hero.vrf>img.c1{height:440px;left:50%;margin-left:-320px;bottom:30px}
-.hero.vrf>img.c2{height:340px;left:50%;margin-left:60px;bottom:24px;z-index:2}
-.vrfs .grid{left:110px;right:210px;top:720px;bottom:110px;grid-template-columns:repeat(4,1fr);gap:22px}
-.vrfs .ptile .front{flex-direction:row;gap:20px;justify-content:flex-start;text-align:left}
-.vrfs .ptile .num{margin:0;width:70px;height:70px;font-size:28px}
-.vrfs .ptile h3{font-size:30px}
-.vrfs .ptile .back p{font-size:22px}
-
 /* αξία συνεργασίας */
 .val .h-lg{font-size:78px}
 .val .head .sub{font-size:26px}
-.val .grid{left:110px;right:210px;top:640px;bottom:190px;grid-template-columns:repeat(3,1fr)}
+.val .grid{left:110px;right:210px;top:560px;bottom:200px;grid-template-columns:repeat(3,1fr)}
 .v-foot{position:absolute;left:110px;bottom:110px;font-size:30px;font-weight:800;color:#ff2536;letter-spacing:.02em}
 .v-foot i{color:rgba(255,255,255,.6)}
 
@@ -144,3 +120,139 @@
 @keyframes thumbUp{from{opacity:0;transform:translateY(40px)}}
 .pr72 .tset[data-t="1"] img.hp1{width:360px;margin-bottom:250px}
 .pr72 .tset[data-t="1"] img.hp0{width:580px;margin-right:-300px}
+
+/* ================= v5.2 · τελικό περιεχόμενο Γ. Λαζαρίδου ================= */
+.lz1 .wrap,.lz2 .wrap{position:absolute;left:150px;right:220px;top:0;bottom:0;display:flex;flex-direction:column;justify-content:center}
+.lz1 .duo,.lz2 .duo{display:flex;align-items:center;gap:34px;margin-bottom:70px;align-self:center}
+.lz1 .duo .inv,.lz2 .duo .inv{height:74px}
+.lz1 .duo .x,.lz2 .duo .x{font-size:44px;font-weight:300;opacity:.7}
+.lz1 .duo .logo-plate img,.lz2 .duo .logo-plate img{height:78px}
+.lz1 .h-xl{font-size:104px;line-height:1.08}
+.lz2 .duo{position:absolute;top:110px;left:50%;transform:translateX(-50%);margin:0}
+.lz2 .l3{display:flex;flex-direction:column;gap:30px;margin-top:80px}
+.lz2 .ln{font-size:128px;font-weight:800;line-height:1;letter-spacing:-.02em;opacity:0}
+.lz2 .n2{padding-left:240px}.lz2 .n3{padding-left:500px}
+.lz2.active .ln{animation:lnIn 1s var(--ease) both}
+.lz2.active .n1{animation-delay:.4s}.lz2.active .n2{animation-delay:1.3s}.lz2.active .n3{animation-delay:2.4s}
+@keyframes lnIn{from{opacity:0;transform:translateX(-80px);filter:blur(10px)}to{opacity:1;transform:none;filter:none}}
+.lz2 .kw{position:relative;display:inline-block;color:#5a0007;text-shadow:0 0 0 rgba(0,0,0,0)}
+.lz2.active .n1 .kw{animation:kwPop .9s cubic-bezier(.2,1.6,.4,1) .7s both,kwGlow 2.6s ease-in-out 1.8s infinite}
+.lz2.active .n2 .kw{animation:kwPop .9s cubic-bezier(.2,1.6,.4,1) 1.6s both,kwGlow 2.6s ease-in-out 2.7s infinite}
+@keyframes kwPop{0%{transform:scale(.4) rotate(-6deg);opacity:0}60%{transform:scale(1.18) rotate(2deg);opacity:1}100%{transform:none}}
+@keyframes kwGlow{0%,100%{color:#5a0007;text-shadow:none}50%{color:#fff;text-shadow:0 0 30px rgba(255,255,255,.7)}}
+/* «Όλες»: δυνατό animation — «σφυρί», κύματα, τρέμουλο, παλμός */
+.lz2 .kw.big{font-size:1.3em;color:#fff;-webkit-text-stroke:0;transform-origin:50% 70%}
+.lz2.active .kw.big{animation:slam 1.1s cubic-bezier(.2,.9,.3,1.2) 2.9s both,allPulse 2.2s ease-in-out 4.2s infinite}
+@keyframes slam{0%{transform:scale(4) translateY(-60px);opacity:0;filter:blur(14px);color:#fff}
+  55%{transform:scale(.88);opacity:1;filter:none;color:#fff}70%{transform:scale(1.12) rotate(-2deg)}82%{transform:scale(.97) rotate(1deg)}100%{transform:none;color:#2a0004}}
+@keyframes allPulse{0%,100%{transform:scale(1);color:#2a0004;text-shadow:0 0 0 rgba(255,255,255,0)}
+  45%{transform:scale(1.1);color:#fff;text-shadow:0 0 40px #fff,0 0 90px rgba(255,255,255,.6)}}
+.lz2 .kw .sw{position:absolute;left:50%;top:55%;width:100%;padding-bottom:100%;border-radius:50%;border:4px solid rgba(255,255,255,.9);transform:translate(-50%,-50%) scale(0);opacity:0;pointer-events:none}
+.lz2.active .kw .sw{animation:shock 2.2s ease-out 3.45s infinite}
+.lz2.active .kw .sw.s2{animation-delay:3.75s}.lz2.active .kw .sw.s3{animation-delay:4.05s}
+@keyframes shock{0%{transform:translate(-50%,-50%) scale(.2);opacity:.95}70%{opacity:0}100%{transform:translate(-50%,-50%) scale(2.4);opacity:0}}
+.lz2.active .l3{animation:shake .5s linear 3.5s 1}
+@keyframes shake{0%,100%{transform:none}20%{transform:translate(-8px,4px)}40%{transform:translate(7px,-5px)}60%{transform:translate(-5px,3px)}80%{transform:translate(4px,-2px)}}
+
+/* μενού: προϊόντα που αιωρούνται */
+.pmenu .vhead .h-md{font-size:72px}
+.lzcats .cat{background:radial-gradient(ellipse at 50% 35%,rgba(255,255,255,.12),rgba(20,25,34,.85) 70%)}
+.lzcats .cat::before{background:linear-gradient(0deg,rgba(5,6,10,.85),rgba(5,6,10,0) 45%)}
+.lzcats .pim{position:absolute;left:0;right:0;top:16px;bottom:128px;display:flex;align-items:center;justify-content:center;gap:12px;z-index:1}
+.lzcats .pim img{height:100%;width:auto;max-width:78%;object-fit:contain;min-width:0;filter:drop-shadow(0 22px 22px rgba(0,0,0,.55));animation:floatY 5.5s ease-in-out infinite;animation-delay:calc(var(--j) * -.9s);transition:transform .8s var(--ease)}
+.lzcats .pim img.p1{max-width:30%}
+.lzcats .pim img:first-child:not(:only-child){max-width:52%}
+.lzcats .cat:hover .pim img{transform:scale(1.08)}
+
+/* κλιματιστικά τοίχου */
+.pr72 .sp-l{gap:26px}
+.pr72 .sp-t{font-size:76px}
+
+/* τεχνολογίες: 4 πλακίδια με κινούμενα εικονίδια */
+.t4 .grid{left:110px;right:210px;top:330px;bottom:130px;grid-template-columns:repeat(4,1fr)}
+.t4 .ptile .front{justify-content:flex-end;padding-bottom:34px}
+.t4 .aico{flex:1;width:100%;min-height:0;display:grid;place-items:center;margin-bottom:18px}
+.t4 .aico svg{width:100%;max-width:300px;height:auto;max-height:100%;overflow:visible;filter:drop-shadow(0 18px 24px rgba(0,0,0,.45))}
+.t4 .ptile h3{font-size:28px}
+.t4 .ptile .back li{font-size:21px}
+.ani text{font-family:var(--font)}
+/* μετρητής ρεύματος παλαιού τύπου */
+.meter .mt-lbl{font-size:13px;font-weight:800;letter-spacing:.2em;fill:#3a434f}
+.meter .mt-digs text{font-size:30px;font-weight:800;fill:#f2f5f8;font-variant-numeric:tabular-nums}
+.meter .drum{animation:roll1 6s steps(10) infinite}
+.meter .drum.d2{animation:roll1 60s steps(10) infinite}
+@keyframes roll1{to{transform:translateY(-400px)}}
+.meter .drum.d1 text{fill:#fff}
+.meter .mt-mark{animation:disc 1.3s linear infinite}
+@keyframes disc{0%{transform:translateX(-10px)}100%{transform:translateX(110px)}}
+.meter .mt-led{animation:led 1.3s steps(2) infinite}
+@keyframes led{50%{opacity:.25}}
+/* τηλεχειριστήριο */
+.remote .rm-t{font-size:40px;font-weight:800;fill:#bfe9ff;font-variant-numeric:tabular-nums}
+.remote .rm-c{font-size:14px;font-weight:700;fill:#7fd4ff}
+.remote.blink .rm-t{animation:rmBl .5s ease}
+@keyframes rmBl{0%{fill:#fff;filter:drop-shadow(0 0 6px #7fd4ff)}100%{fill:#bfe9ff}}
+.remote .rm-up{opacity:.35}.remote .rm-dn{opacity:.35}
+.remote:not(.dn) .rm-up,.remote.dn .rm-dn{opacity:1}
+.remote .rm-ir{animation:led .75s steps(2) infinite}
+.remote .rm-glow{animation:led 3s ease-in-out infinite}
+/* ιονιστής: ροή αέρα με 3D βέλος */
+.ion .io-ions circle{animation:ionF 3s ease-in-out infinite}
+.ion .io-ions .i2{animation-delay:-.6s}.ion .io-ions .i3{animation-delay:-1.2s}.ion .io-ions .i4{animation-delay:-1.8s}.ion .io-ions .i5{animation-delay:-2.4s}
+@keyframes ionF{0%,100%{transform:translate(0,0)}33%{transform:translate(6px,-8px)}66%{transform:translate(-5px,5px)}}
+.ion .io-arrow{animation:arrowP 2.2s ease-in-out infinite;transform-origin:120px 140px}
+@keyframes arrowP{0%,100%{transform:translateX(0) scale(1)}50%{transform:translateX(10px) scale(1.04)}}
+.ion .io-flow{animation:flow 1s linear infinite}
+.ion .io-flow.f2{animation-duration:.7s}
+@keyframes flow{to{stroke-dashoffset:-52}}
+.ion .io-out circle{animation:out 1.8s linear infinite;opacity:0}
+.ion .io-out .o2{animation-delay:-.6s}.ion .io-out .o3{animation-delay:-1.2s}
+@keyframes out{0%{transform:translate(150px,140px);opacity:0}15%{opacity:1}100%{transform:translate(240px,124px);opacity:0}}
+/* εξωτερική μονάδα: παγώνει σταδιακά και ξεπαγώνει */
+.frost .fr-fan{animation:spin 1.4s linear infinite}
+.frost .fr-ice{animation:ice 9s ease-in-out infinite}
+@keyframes ice{0%,8%{opacity:0}55%,70%{opacity:.92}100%{opacity:0}}
+.frost .fr-cap{animation:ice 9s ease-in-out infinite}
+.frost .fr-cicles path{transform-box:fill-box;transform-origin:50% 0;animation:cicle 9s ease-in-out infinite}
+.frost .fr-cicles path:nth-child(2n){animation-delay:.3s}.frost .fr-cicles path:nth-child(3n){animation-delay:.6s}
+@keyframes cicle{0%,10%{transform:scaleY(0);opacity:0}60%,72%{transform:scaleY(1);opacity:1}100%{transform:scaleY(0);opacity:0}}
+.frost .fr-flakes g{animation:flake 9s ease-in-out infinite}
+@keyframes flake{0%,20%{opacity:0}50%,72%{opacity:1}100%{opacity:0}}
+
+/* Eurovent: ένα μεγάλο πλακίδιο */
+.euv .head{right:auto;width:860px;top:330px}
+.euv .grid{left:1010px;right:230px;top:150px;bottom:130px;grid-template-columns:1fr}
+.euv .ptile .face{padding:0}
+.euv .ptile .front{overflow:hidden}
+.euv .evimg{width:100%;height:100%;object-fit:cover;border-radius:inherit}
+.euv .ptile .back{padding:56px 60px;text-align:left;align-items:flex-start}
+.euv .ptile .back .k{font-size:16px}
+.euv .ptile .back p{font-size:32px;line-height:1.45;font-weight:500}
+.euv .ptile .back p b{display:block;font-size:36px;margin-bottom:14px}
+
+/* εγγύηση */
+.pr75 .sp-l{gap:26px}
+.pr75 .h-md{font-size:72px}
+.w-h{font-size:40px;font-weight:700;color:rgba(255,255,255,.92);margin-top:20px}
+
+/* λευκές */
+.wg .grid{top:430px}
+
+/* ημικεντρικά / αντλίες / VRF */
+.sp .sp-t .em{-webkit-text-stroke-width:2px}
+.hero.lc>img.c1{height:640px;left:50%;margin-left:-250px;bottom:40px;z-index:2}
+.hero.lc>img.c2{height:620px;left:50%;margin-left:10px;bottom:44px}
+.hero.hpx>img.c1{height:250px;left:10%;top:90px}
+.hero.hpx>img.c2{height:470px;right:6%;bottom:70px}
+.hero.hpx>img.c3{height:340px;left:30%;bottom:62px;z-index:2}
+.hero.hpx>img.c4{height:200px;left:0;bottom:66px;z-index:3}
+.hero.vrf>img.c1{height:520px;left:50%;margin-left:-200px;bottom:60px}
+.hero.vrf>img.c2{height:470px;left:50%;margin-left:-370px;bottom:56px;z-index:2}
+
+/* «Γιατί να επιλέξω inventor» — φωτογραφία σε όλη την οθόνη */
+.lz13 .ph-img{background-position:center}
+.lz13-vig{position:absolute;inset:0;background:radial-gradient(ellipse at 55% 55%,transparent 55%,rgba(5,6,10,.55));pointer-events:none}
+
+/* αξία συνεργασίας */
+.v-foot{left:0;right:0;text-align:center;font-size:40px;color:#fff}
+.v-foot i{color:#ff3d46}
