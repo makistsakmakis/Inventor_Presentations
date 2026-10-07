@@ -161,9 +161,9 @@
 
 /* τεχνολογίες: 4 πλακίδια με κινούμενα εικονίδια */
 .t4 .grid{left:110px;right:210px;top:330px;bottom:130px;grid-template-columns:repeat(4,1fr)}
-.t4 .ptile .front{justify-content:flex-end;padding-bottom:34px}
-.t4 .aico{flex:1;width:100%;min-height:0;display:grid;place-items:center;margin-bottom:18px}
-.t4 .aico img{max-width:72%;max-height:100%;width:auto;height:auto;object-fit:contain;filter:drop-shadow(0 18px 24px rgba(0,0,0,.45))}
+.t4 .ptile .front{justify-content:center;gap:26px}
+.t4 .aico{flex:none;width:250px;height:270px;display:flex;align-items:center;justify-content:center}
+.t4 .aico img{max-width:100%;max-height:100%;width:auto;height:auto;filter:drop-shadow(0 18px 24px rgba(0,0,0,.45))}
 .t4 .ptile h3{font-size:28px}
 .t4 .ptile .back li{font-size:21px}
 /* Eurovent: κείμενο αριστερά, πλακίδιο δεξιά (πίσω όψη: οφέλη) */
@@ -202,9 +202,9 @@
 /* «Γιατί να επιλέξω inventor» — αργό glow στο πλήκτρο με το λογότυπο */
 .lz13 .kbw{position:absolute;inset:0}
 .lz13 .ph-img{background-position:center}
-.lz13 .glow13{mix-blend-mode:screen;opacity:.15}
+.lz13 .glow13{mix-blend-mode:screen;opacity:.35}
 .lz13.active .glow13{animation:keyGlow 4.8s ease-in-out 1s infinite}
-@keyframes keyGlow{0%,100%{opacity:.15}50%{opacity:.85}}
+@keyframes keyGlow{0%,100%{opacity:.35}50%{opacity:1}}
 .lz13-vig{position:absolute;inset:0;background:radial-gradient(ellipse at 55% 55%,transparent 55%,rgba(5,6,10,.55));pointer-events:none}
 
 /* αξία συνεργασίας */
@@ -220,3 +220,29 @@
 .pr81 .tags,.pr83 .tags,.pr84 .tags{gap:18px;margin-top:54px;flex-wrap:nowrap}
 .pr81 .tag,.pr83 .tag,.pr84 .tag{font-size:20px;padding:22px 26px;border-radius:18px;white-space:nowrap}
 .pr81 .sp-r,.pr83 .sp-r,.pr84 .sp-r{left:1070px}
+
+/* Eurovent: 3D πλακέτα (όπως η εγγύηση) που γυρίζει με Page Down / hover / κλικ */
+.euv .grid{left:1040px;right:240px;top:170px;bottom:auto;height:640px;display:block}
+.euv .ev3{position:absolute;left:0;top:0;width:640px;height:637px;cursor:pointer}
+.euv .ev3 .float{position:absolute;inset:0;animation:wFloat5 7s ease-in-out infinite;perspective:1600px}
+.euv .ev3 .in{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateY(-16deg) rotateX(9deg) rotateZ(-1.5deg);transition:transform 1.25s cubic-bezier(.3,1.2,.4,1)}
+.euv .ev3:hover .in,.euv .ev3.flipped .in{transform:rotateY(-16deg) rotateX(189deg) rotateZ(1.5deg)}
+.euv .ev3 .wedge{position:absolute;inset:0;border-radius:81px;transform:translate3d(calc(var(--z) * .45px),calc(var(--z) * 1px),calc(var(--z) * -1.3px));
+  background:linear-gradient(90deg,#b8b8bd,#f6f6f8 22%,#dcdce0 48%,#ffffff 70%,#c4c4c9);box-shadow:inset 0 0 0 1px rgba(255,255,255,.6)}
+.euv .ev3 .wedge.d{background:linear-gradient(90deg,#7d0910,#c21520 40%,#a80d16)}
+.euv .ev3 .wedge.s{background:#5a0409;filter:blur(1px)}
+.euv .ev3 .face,.euv .ev3:hover .face,.euv .ev3.flipped .face{position:absolute;inset:0;border-radius:81px;overflow:hidden;padding:0;border:0;backdrop-filter:none;-webkit-backdrop-filter:none;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.18),0 18px 40px rgba(120,0,6,.45);transition:none}
+.euv .ev3 .face.front,.euv .ev3:hover .face.front,.euv .ev3.flipped .face.front{transform:translateZ(.5px);background:transparent}
+.euv .ev3 .face.front img{width:100%;height:100%;display:block;object-fit:cover}
+.euv .ev3 .face.front::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:2;
+  background:linear-gradient(170deg,rgba(255,255,255,.42) 0%,rgba(255,255,255,.10) 26%,transparent 42%,transparent 78%,rgba(0,0,0,.16) 100%)}
+.euv .ev3 .face.front::after{content:"";position:absolute;top:-30%;bottom:-30%;width:28%;left:-40%;z-index:3;pointer-events:none;transform:skewX(-22deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);filter:blur(4px);animation:gloss5 4.8s ease-in-out infinite;inset:auto;top:-30%;bottom:-30%}
+.euv .ev3 .face.back,.euv .ev3:hover .face.back,.euv .ev3.flipped .face.back{transform:translate3d(5.4px,12px,-15px) rotateX(180deg);
+  background:radial-gradient(120% 140% at 15% 0%,#ff4b53 0%,#e3141e 38%,#a50c14 100%);display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:56px 60px;text-align:left}
+.euv .ev3 .back .k{font-size:16px;opacity:.85;margin-bottom:16px}
+.euv .ev3 .back ul{list-style:none;display:flex;flex-direction:column;gap:14px}
+.euv .ev3 .back li{font-size:21px;line-height:1.4;font-weight:500;padding-left:26px;position:relative;color:#fff}
+.euv .ev3 .back li::before{content:"";position:absolute;left:0;top:10px;width:9px;height:9px;border-radius:50%;background:#fff}
+.ev3shadow{position:absolute;left:1080px;top:845px;width:560px;height:90px;border-radius:50%;background:radial-gradient(ellipse,rgba(255,40,50,.75),rgba(227,20,30,.25) 45%,transparent 72%);filter:blur(16px);animation:wShadow5 7s ease-in-out infinite}
