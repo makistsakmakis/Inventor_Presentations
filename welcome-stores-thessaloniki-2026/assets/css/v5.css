@@ -202,9 +202,10 @@
 /* «Γιατί να επιλέξω inventor» — αργό glow στο πλήκτρο με το λογότυπο */
 .lz13 .kbw{position:absolute;inset:0}
 .lz13 .ph-img{background-position:center}
-.lz13 .glow13{mix-blend-mode:screen;opacity:.35}
-.lz13.active .glow13{animation:keyGlow 4.8s ease-in-out 1s infinite}
-@keyframes keyGlow{0%,100%{opacity:.35}50%{opacity:1}}
+.lz13 .glow13{mix-blend-mode:screen;opacity:0}
+.lz13 .kb,.slide.active.lz13 .kb{animation:none!important;transform:none!important}
+.lz13.active .glow13{animation:keyGlow 1.6s ease-in-out .6s infinite}
+@keyframes keyGlow{0%,100%{opacity:0}50%{opacity:1}}
 .lz13-vig{position:absolute;inset:0;background:radial-gradient(ellipse at 55% 55%,transparent 55%,rgba(5,6,10,.55));pointer-events:none}
 
 /* αξία συνεργασίας */
