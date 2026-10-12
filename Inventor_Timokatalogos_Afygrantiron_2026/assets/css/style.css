@@ -697,6 +697,8 @@ table.cmp tr.same{display:none}
 .s-chart[data-metric="price"] .bar .b::after{box-shadow:0 0 12px #fff,0 0 22px #7fb2f0}
 .s-chart[data-metric="price"] .bar:hover .b{background:linear-gradient(180deg,#86b8f2,#3d64a8);box-shadow:0 0 34px rgba(100,155,230,.75),inset 0 1px 0 rgba(255,255,255,.5)}
 .s-chart[data-metric="price"] .bar:hover .v{color:#a9cdfa;text-shadow:0 0 16px rgba(100,155,230,.9)}
+.s-chart[data-metric="cap"] .bar:hover .b{background:linear-gradient(180deg,#ff5a64,#b30d15);box-shadow:0 0 34px rgba(227,20,30,.75),inset 0 1px 0 rgba(255,255,255,.5)}
+.s-chart[data-metric="cap"] .bar:hover .v{color:var(--red2);text-shadow:0 0 16px var(--red)}
 /* ---- Χάρτης Service Points: fading radar σε όλα τα σημεία μαζί ---- */
 .sp-radar{background:none;border:0}
 .sp-radar i{position:absolute;left:50%;top:50%;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;border:2px solid #ff3d46;box-shadow:0 0 10px rgba(227,20,30,.6);opacity:0;animation:spRadar 2.6s cubic-bezier(.2,.6,.3,1) infinite}

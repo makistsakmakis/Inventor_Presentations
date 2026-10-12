@@ -426,7 +426,7 @@
       $$('.col', stage).forEach(col => {
         const h = relPos($('h3', col), stage); const hx = h.x + h.w / 2;
         const ty = 188; paths.push(`M70 ${ty} H${hx - 16} Q${hx} ${ty} ${hx} ${ty + 16} V${h.y}`);
-        $$('.mcard', col).forEach(c => { const r = relPos(c, stage); const cx = r.x + r.w / 2; paths.push(`M${hx} ${h.y + h.h} V${h.y + h.h + 10} Q${hx} ${r.y - 8} ${cx} ${r.y}`); });
+        $$('.mcard', col).forEach(c => { const r = relPos(c, stage); const cx = r.x + r.w / 2; paths.push(`M${cx} ${h.y + h.h} V${r.y}`); });   // κάθετη γραμμή από την υποκατηγορία προς κάθε μοντέλο
       });
     } else if (kind === 'svc') {
       const tt = relPos($('.tile', stage), stage).y, ty = tt - 20;
