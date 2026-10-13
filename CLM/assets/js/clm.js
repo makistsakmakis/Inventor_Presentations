@@ -105,6 +105,13 @@
   document.addEventListener('click', e => {
     if (!V || V.status !== 'live') return;
     const t = e.target;
+    const bo = t.closest('[data-bo]');
+    if (bo) {                                              // μεγάλο 👍 / 👎 συνολικά για το μοντέλο (κάτω από τη φωτογραφία)
+      e.preventDefault(); e.stopPropagation();
+      const m = bo.closest('section.slide').id.slice(2); const mk = mark(m); const pol = +bo.dataset.bo;
+      mk.overall = mk.overall === pol ? 0 : pol; mk.t = now(); ev('rep_mark', { model: m }); save(); refreshUI(); if (panel.classList.contains('open')) renderPanel();
+      toast((mk.overall === 1 ? '👍 Του αρέσει: ' : mk.overall === -1 ? '👎 Δεν του αρέσει: ' : 'Αναίρεση: ') + P[m].name); return;
+    }
     const uv = t.closest('.clm-uv');
     if (uv) {                                              // 👍 / 👎 πάνω στα εικονίδια χαρακτηριστικών της σελίδας
       e.preventDefault(); e.stopPropagation();
@@ -138,7 +145,7 @@
     return ORDER.filter(m => set.has(m)).sort((a, b) => (d[b] || 0) - (d[a] || 0));
   }
   function currentModel() { const s = activeSlide(); return s && s.id.startsWith('p-') ? s.id.slice(2) : null; }
-  const mark = m => (V.marks[m] = V.marks[m] || { outcome: null, reason: null, initiated_by: 'rep', aspects: {}, questions: [], note: '', source: 'rep', t: now() });
+  const mark = m => (V.marks[m] = V.marks[m] || { outcome: null, overall: 0, reason: null, initiated_by: 'rep', aspects: {}, questions: [], note: '', source: 'rep', t: now() });
   const markedCount = () => Object.values(V.marks).filter(x => x.outcome).length;
   function updBadge() { const n = V ? markedCount() : 0; const b = $('.bd', fab); b.textContent = n; b.classList.toggle('on', n > 0); }
 
@@ -149,6 +156,8 @@
     return `
       <div class="clm-out">${Object.entries(OUT).map(([o, [i, l]]) => `<button data-co="${o}" class="${k.outcome === o ? 'on' : ''}"><i>${i}</i>${l}</button>`).join('')}</div>
       ${k.outcome === 'reject' ? `<div class="clm-lab">Λόγος (υποχρεωτικό)</div><div class="clm-chips">${REASONS.map(([c, l]) => `<button data-cr="${c}" class="${k.reason === c ? 'on' : ''}">${l}</button>`).join('')}</div>` : ''}
+      <div class="clm-lab">Συνολικά για το μοντέλο</div>
+      <div class="clm-ovr"><button data-cb="1" class="${k.overall === 1 ? 'on' : ''}">👍 Του αρέσει</button><button data-cb="-1" class="${k.overall === -1 ? 'on' : ''}">👎 Δεν του αρέσει</button></div>
       <button class="clm-tog ${k.initiated_by === 'customer' ? 'on' : ''}" data-ci>🙋 Το ζήτησε ο ίδιος ο πελάτης</button>
       <div class="clm-lab">Χαρακτηριστικά · τι του άρεσε 👍 / δεν του άρεσε 👎 (προαιρετικά)</div>
       <div class="clm-asp">${aspectsOf(m).map(([c, l]) => `<div class="a ${a[c] === 1 ? 'pos' : a[c] === -1 ? 'neg' : ''}"><span>${esc(l)}</span><button data-ca="${esc(c)}" data-pol="1" class="${a[c] === 1 ? 'on' : ''}" aria-label="Του άρεσε">👍</button><button data-ca="${esc(c)}" data-pol="-1" class="${a[c] === -1 ? 'on' : ''}" aria-label="Δεν του άρεσε">👎</button></div>`).join('')}</div>
@@ -163,6 +172,7 @@
       let x, msg = null;
       if ((x = e.target.closest('[data-co]'))) { const k = mark(m); const o = x.dataset.co; k.outcome = k.outcome === o ? null : o; if (k.outcome !== 'reject') k.reason = null; msg = k.outcome ? OUT[o][0] + ' ' + OUT[o][1] : 'Αναίρεση'; }
       else if ((x = e.target.closest('[data-cr]'))) { const k = mark(m); k.reason = x.dataset.cr; msg = '✕ ' + lab(REASONS, k.reason); }
+      else if ((x = e.target.closest('[data-cb]'))) { const k = mark(m); const pol = +x.dataset.cb; k.overall = k.overall === pol ? 0 : pol; msg = k.overall === 1 ? '👍 Του αρέσει' : k.overall === -1 ? '👎 Δεν του αρέσει' : 'Αναίρεση'; }
       else if (e.target.closest('[data-ci]')) { const k = mark(m); k.initiated_by = k.initiated_by === 'customer' ? 'rep' : 'customer'; msg = k.initiated_by === 'customer' ? '🙋 Το ζήτησε ο πελάτης' : 'Το έδειξε ο πωλητής'; }
       else if ((x = e.target.closest('[data-ca]'))) { const k = mark(m); const c = x.dataset.ca; const pol = +x.dataset.pol; const nv = (k.aspects[c] || 0) === pol ? 0 : pol; if (nv) k.aspects[c] = nv; else delete k.aspects[c]; msg = (nv === 1 ? '👍 ' : nv === -1 ? '👎 ' : 'Αναίρεση: ') + aspectLabel(m, c); }
       else if ((x = e.target.closest('[data-cq]'))) { const k = mark(m); const c = x.dataset.cq; k.questions = k.questions.includes(c) ? k.questions.filter(q => q !== c) : k.questions.concat(c); msg = 'Ρώτησε: ' + lab(QUESTIONS, c); }
@@ -204,6 +214,8 @@
   /* ---------------- ορατά χειριστήρια πάνω στη σελίδα ---------------- */
   // 👍/👎 δίπλα σε κάθε εικονίδιο χαρακτηριστικού (USP) των σελίδων μοντέλων
   $$('#deck .usp[data-usp]').forEach(u => u.insertAdjacentHTML('beforeend', '<button class="clm-uv up" data-uv="1" aria-label="Του άρεσε">👍</button><button class="clm-uv dn" data-uv="-1" aria-label="Δεν του άρεσε">👎</button>'));
+  // μεγάλο 👍/👎 συνολικά για το μοντέλο, κάτω από τη φωτογραφία
+  $$('#deck section.s-prod .r').forEach(r => r.insertAdjacentHTML('beforeend', '<div class="clm-big"><button data-bo="1" aria-label="Του αρέσει το μοντέλο"><i>👍</i>Του αρέσει</button><button data-bo="-1" aria-label="Δεν του αρέσει το μοντέλο"><i>👎</i>Δεν του αρέσει</button></div>'));
   // γρήγορη μπάρα ✓ ⭐ ✕ για το μοντέλο της τρέχουσας σελίδας
   const quick = $('#clmQuick');
   ['keydown', 'wheel', 'touchend'].forEach(t => quick.addEventListener(t, e => e.stopPropagation()));
@@ -212,6 +224,8 @@
     if (!V || V.status !== 'live') { quick.innerHTML = ''; return; }
     $$('#deck .usp[data-usp]').forEach(u => { const [m, k] = u.dataset.usp.split(':'); const c = aspectsOf(m)[+k][0]; const v = (V.marks[m] && V.marks[m].aspects[c]) || 0;
       $('.clm-uv.up', u).classList.toggle('on', v === 1); $('.clm-uv.dn', u).classList.toggle('on', v === -1); });
+    $$('#deck section.s-prod').forEach(sec => { const mm = sec.id.slice(2); const o = (V.marks[mm] && V.marks[mm].overall) || 0;
+      $$('.clm-big [data-bo]', sec).forEach(b => b.classList.toggle('on', +b.dataset.bo === o)); });
     const m = currentModel();
     if (!m) { quick.innerHTML = ''; return; }
     const k = V.marks[m] || {};
@@ -381,7 +395,7 @@
         const o = { model: m, sku: sku(m), name: P[m].name, series: seriesOf(m)[0], presented, dwell_sec: Math.round(d[m] || 0) };
         if (!presented) return o;
         return Object.assign(o, {
-          signal: k ? k.outcome : null, reason: k && k.outcome === 'reject' ? k.reason : null,
+          signal: k ? k.outcome : null, overall: k && k.overall ? k.overall : null, reason: k && k.outcome === 'reject' ? k.reason : null,
           initiated_by: k ? k.initiated_by : 'rep', source: 'rep',
           aspects: k ? Object.entries(k.aspects).map(([code, pol]) => ({ code, label: aspectLabel(m, code), pol })) : [],
           questions: k ? k.questions : [],
@@ -492,7 +506,7 @@
       <div class="sect">Αντίδραση ανά μοντέλο · και τα ${ORDER.length}</div>
       <div class="card"><table><thead><tr><th>Μοντέλο</th><th class="n">Λιανική</th><th class="n">Χρόνος</th><th>Αντίδραση</th><th>Χαρακτηριστικά</th><th>Ρώτησε για</th><th>Σημείωση</th></tr></thead><tbody>
         ${pres.concat(notPres).map(p => !p.presented ? `<tr style="color:#9ca3af"><td><b>${esc(p.name)}</b><div class="sub" style="margin:0">${esc(p.sku)}</div></td><td class="n">${esc(price(p.model))}</td><td class="n">${p.dwell_sec ? fmtDur(p.dwell_sec) : '—'}</td><td colspan="4"><span class="tag t-g">δεν παρουσιάστηκε</span></td></tr>` : `<tr><td><b>${esc(p.name)}</b>${p.initiated_by === 'customer' ? ' <span class="tag t-q">🙋 το ζήτησε</span>' : ''}${p.customer_top3 ? ` <span class="tag t-no">❤ #${p.customer_top3}</span>` : ''}${p.in_comparison ? ' <span class="tag t-g">σύγκριση</span>' : ''}<div class="sub" style="margin:0">${esc(p.sku)}</div></td>
-          <td class="n">${esc(price(p.model))}</td><td class="n">${p.dwell_sec ? fmtDur(p.dwell_sec) : '—'}</td><td>${sigTag(p)}</td>
+          <td class="n">${esc(price(p.model))}</td><td class="n">${p.dwell_sec ? fmtDur(p.dwell_sec) : '—'}</td><td>${p.overall === 1 ? '<span class="tag t-ok">👍 συνολικά</span>' : p.overall === -1 ? '<span class="tag t-no">👎 συνολικά</span>' : ''}${sigTag(p)}</td>
           <td>${p.aspects.map(a => `<span class="tag ${a.pol > 0 ? 't-ok' : 't-no'}">${a.pol > 0 ? '👍' : '👎'} ${esc(a.label)}</span>`).join('') || '—'}</td>
           <td>${p.questions.map(q => `<span class="tag t-q">${esc(lab(QUESTIONS, q))}</span>`).join('') || '—'}</td><td>${esc(p.note || '')}</td></tr>`).join('')}
       </tbody></table></div>
@@ -521,7 +535,7 @@
       const c = s => ps.filter(p => p.signal === s).length;
       const reasons = {}; ps.filter(p => p.signal === 'reject').forEach(p => reasons[p.reason] = (reasons[p.reason] || 0) + 1);
       const main = Object.entries(reasons).sort((a, b) => b[1] - a[1])[0];
-      return { m, pres: ps.length, offer: c('offer'), int: c('interest'), rej: c('reject'), top3: ps.filter(p => p.customer_top3).length, cust: ps.filter(p => p.initiated_by === 'customer').length,
+      return { m, pres: ps.length, offer: c('offer'), int: c('interest'), rej: c('reject'), top3: ps.filter(p => p.customer_top3).length, up: ps.filter(p => p.overall === 1).length, dn: ps.filter(p => p.overall === -1).length, cust: ps.filter(p => p.initiated_by === 'customer').length,
         dwell: ps.length ? ps.reduce((s, p) => s + p.dwell_sec, 0) / ps.length : 0, main: main ? lab(REASONS, main[0]) : '—' };
     });
     const allRej = visits.flatMap(v => v.payload.products.filter(p => p.signal === 'reject'));
@@ -539,8 +553,8 @@
         <div class="card kpi"><b>${visits.filter(v => v.top3 && v.top3.length).length}</b><span>με Top-3 πελάτη</span></div>
       </div>
       <div class="sect">Ανά μοντέλο</div>
-      <div class="card"><table><thead><tr><th>Μοντέλο</th><th class="n">Λιανική</th><th class="n">Παρουσιάστηκε</th><th class="n">Μέσος χρόνος</th><th class="n">✓</th><th class="n">⭐</th><th class="n">✕</th><th class="n">🙋</th><th class="n">❤ Top-3</th><th>Κύριος λόγος ✕</th></tr></thead><tbody>
-        ${rows.map(r => `<tr${r.pres ? '' : ' style="color:#9ca3af"'}><td><b>${esc(P[r.m].name)}</b></td><td class="n">${esc(price(r.m))}</td><td class="n">${r.pres}</td><td class="n">${r.pres ? fmtDur(r.dwell) : '—'}</td><td class="n">${r.offer}</td><td class="n">${r.int}</td><td class="n">${r.rej}</td><td class="n">${r.cust}</td><td class="n">${r.top3}</td><td>${esc(r.main)}</td></tr>`).join('')}
+      <div class="card"><table><thead><tr><th>Μοντέλο</th><th class="n">Λιανική</th><th class="n">Παρουσιάστηκε</th><th class="n">Μέσος χρόνος</th><th class="n">👍</th><th class="n">👎</th><th class="n">✓</th><th class="n">⭐</th><th class="n">✕</th><th class="n">🙋</th><th class="n">❤ Top-3</th><th>Κύριος λόγος ✕</th></tr></thead><tbody>
+        ${rows.map(r => `<tr${r.pres ? '' : ' style="color:#9ca3af"'}><td><b>${esc(P[r.m].name)}</b></td><td class="n">${esc(price(r.m))}</td><td class="n">${r.pres}</td><td class="n">${r.pres ? fmtDur(r.dwell) : '—'}</td><td class="n">${r.up}</td><td class="n">${r.dn}</td><td class="n">${r.offer}</td><td class="n">${r.int}</td><td class="n">${r.rej}</td><td class="n">${r.cust}</td><td class="n">${r.top3}</td><td>${esc(r.main)}</td></tr>`).join('')}
       </tbody></table></div>
       <div class="g g2" style="margin-top:14px">
         <div class="card"><h3>Γιατί λένε όχι</h3><div class="sub">${allRej.length} απορρίψεις</div>

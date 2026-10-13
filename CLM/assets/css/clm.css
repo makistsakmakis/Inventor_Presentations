@@ -181,3 +181,19 @@ body:not(.clm-live) .clm-uv{display:none}
 #clmQuick button[data-qo="reject"].on{background:rgba(255,61,70,.3);border-color:var(--clmNo)}
 #clmQuick em{font-style:normal;font-size:12px;color:#ffb3b7;margin-left:4px}
 body:not(.clm-live) #clmQuick{display:none}
+
+/* μεγάλο 👍 / 👎 συνολικά για το μοντέλο (κάτω από τη φωτογραφία) */
+.clm-big{position:absolute;left:0;right:190px;top:calc(100% + 8px);display:flex;justify-content:center;gap:14px;z-index:4}
+.clm-big button{display:flex;align-items:center;gap:10px;height:54px;padding:0 22px 0 16px;border-radius:28px;border:1px solid rgba(255,255,255,.2);
+  background:rgba(14,18,24,.7);color:#e6e8eb;font-size:15px;font-weight:600;cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:.18s}
+.clm-big button i{font-style:normal;font-size:28px;line-height:1;filter:grayscale(.5)}
+.clm-big button:hover{border-color:rgba(255,255,255,.45);transform:translateY(-2px)}
+.clm-big button:hover i{filter:none}
+.clm-big button[data-bo="1"].on{background:rgba(63,191,127,.35);border-color:var(--clmOk);color:#fff;box-shadow:0 0 24px rgba(63,191,127,.5)}
+.clm-big button[data-bo="-1"].on{background:rgba(255,61,70,.32);border-color:var(--clmNo);color:#fff;box-shadow:0 0 24px rgba(255,61,70,.45)}
+.clm-big button.on i{filter:none}
+body:not(.clm-live) .clm-big{display:none}
+.clm-ovr{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.clm-ovr button{padding:9px 6px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);color:#fff;font-size:13px;cursor:pointer}
+.clm-ovr button[data-cb="1"].on{background:rgba(63,191,127,.3);border-color:var(--clmOk)}
+.clm-ovr button[data-cb="-1"].on{background:rgba(255,61,70,.28);border-color:var(--clmNo)}
