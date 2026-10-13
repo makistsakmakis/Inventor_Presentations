@@ -77,7 +77,7 @@
   });
   // κουμπί αναφορών στην πάνω μπάρα
   const tools = $('#topbar .tb-tools');
-  if (tools) { tools.insertAdjacentHTML('afterbegin', `<button class="tb-btn" id="clmRpBtn" title="CLM · Αναφορές επισκέψεων" aria-label="Αναφορές επισκέψεων">${ico.rep}</button>`); $('#clmRpBtn').onclick = () => openReport(); }
+  if (tools) { tools.insertAdjacentHTML('afterbegin', `<button class="tb-btn tb-pdf" id="clmRpBtn" title="CLM · Αναφορές επισκέψεων" aria-label="Αναφορές επισκέψεων">${ico.rep}<b>Αναφορές</b></button>`); $('#clmRpBtn').onclick = () => openReport(); }
 
   let toastT = 0;
   function toast(msg) { toastEl.textContent = msg; toastEl.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => toastEl.classList.remove('on'), 1300); }
@@ -139,8 +139,8 @@
       <div class="clm-out">${Object.entries(OUT).map(([o, [i, l]]) => `<button data-co="${o}" class="${k.outcome === o ? 'on' : ''}"><i>${i}</i>${l}</button>`).join('')}</div>
       ${k.outcome === 'reject' ? `<div class="clm-lab">Λόγος (υποχρεωτικό)</div><div class="clm-chips">${REASONS.map(([c, l]) => `<button data-cr="${c}" class="${k.reason === c ? 'on' : ''}">${l}</button>`).join('')}</div>` : ''}
       <button class="clm-tog ${k.initiated_by === 'customer' ? 'on' : ''}" data-ci>🙋 Το ζήτησε ο ίδιος ο πελάτης</button>
-      <div class="clm-lab">Χαρακτηριστικά · 1 πάτημα 👍, 2 πατήματα 👎</div>
-      <div class="clm-chips">${aspectsOf(m).map(([c, l]) => `<button data-ca="${esc(c)}" class="${a[c] === 1 ? 'pos' : a[c] === -1 ? 'neg' : ''}">${esc(l)}</button>`).join('')}</div>
+      <div class="clm-lab">Χαρακτηριστικά · τι του άρεσε 👍 / δεν του άρεσε 👎 (προαιρετικά)</div>
+      <div class="clm-asp">${aspectsOf(m).map(([c, l]) => `<div class="a ${a[c] === 1 ? 'pos' : a[c] === -1 ? 'neg' : ''}"><span>${esc(l)}</span><button data-ca="${esc(c)}" data-pol="1" class="${a[c] === 1 ? 'on' : ''}" aria-label="Του άρεσε">👍</button><button data-ca="${esc(c)}" data-pol="-1" class="${a[c] === -1 ? 'on' : ''}" aria-label="Δεν του άρεσε">👎</button></div>`).join('')}</div>
       <div class="clm-lab">Ρώτησε για</div>
       <div class="clm-chips">${QUESTIONS.map(([c, l]) => `<button class="q ${(k.questions || []).includes(c) ? 'on' : ''}" data-cq="${c}">${l}</button>`).join('')}</div>
       <textarea class="clm-note" data-cn rows="1" placeholder="Σημείωση (προαιρετικά · 🎤 υπαγόρευση από το πληκτρολόγιο)">${esc(k.note || '')}</textarea>`;
@@ -153,7 +153,7 @@
       if ((x = e.target.closest('[data-co]'))) { const k = mark(m); const o = x.dataset.co; k.outcome = k.outcome === o ? null : o; if (k.outcome !== 'reject') k.reason = null; msg = k.outcome ? OUT[o][0] + ' ' + OUT[o][1] : 'Αναίρεση'; }
       else if ((x = e.target.closest('[data-cr]'))) { const k = mark(m); k.reason = x.dataset.cr; msg = '✕ ' + lab(REASONS, k.reason); }
       else if (e.target.closest('[data-ci]')) { const k = mark(m); k.initiated_by = k.initiated_by === 'customer' ? 'rep' : 'customer'; msg = k.initiated_by === 'customer' ? '🙋 Το ζήτησε ο πελάτης' : 'Το έδειξε ο πωλητής'; }
-      else if ((x = e.target.closest('[data-ca]'))) { const k = mark(m); const c = x.dataset.ca; const v = k.aspects[c] || 0; const nv = v === 0 ? 1 : v === 1 ? -1 : 0; if (nv) k.aspects[c] = nv; else delete k.aspects[c]; msg = (nv === 1 ? '👍 ' : nv === -1 ? '👎 ' : '') + aspectLabel(m, c); }
+      else if ((x = e.target.closest('[data-ca]'))) { const k = mark(m); const c = x.dataset.ca; const pol = +x.dataset.pol; const nv = (k.aspects[c] || 0) === pol ? 0 : pol; if (nv) k.aspects[c] = nv; else delete k.aspects[c]; msg = (nv === 1 ? '👍 ' : nv === -1 ? '👎 ' : 'Αναίρεση: ') + aspectLabel(m, c); }
       else if ((x = e.target.closest('[data-cq]'))) { const k = mark(m); const c = x.dataset.cq; k.questions = k.questions.includes(c) ? k.questions.filter(q => q !== c) : k.questions.concat(c); msg = 'Ρώτησε: ' + lab(QUESTIONS, c); }
       else return;
       V.marks[m].t = now(); ev('rep_mark', { model: m }); save(); updBadge(); rerender(m); toast(msg);
@@ -208,7 +208,7 @@
         ${draft && draft.status === 'live' ? `<button class="clm-btn" data-cres>Συνέχεια ανοιχτής επίσκεψης (${fmtT(draft.started_at)})</button>` : ''}
         <button class="clm-btn red" data-cnew>Έναρξη επίσκεψης</button>
       </div>
-      ${visits.length ? `<div style="margin-top:14px"><button class="clm-btn ghost" data-crep style="width:100%">Αναφορές προηγούμενων επισκέψεων (${visits.length})</button></div>` : ''}
+      <div style="margin-top:14px"><button class="clm-btn ghost" data-crep style="width:100%">Αναφορές · επίσκεψης & συγκεντρωτική όλων των μοντέλων (${visits.length} επισκέψεις)</button></div>
       <div class="clm-hint" style="margin-top:14px">Κατά την παρουσίαση: διακριτικό κουμπί ✎ κάτω αριστερά για σημειώσεις πωλητή. Στο τέλος: «Ολοκλήρωση επίσκεψης».</div>
     </div></div>`;
     startOv.classList.add('open');
@@ -387,7 +387,7 @@
     const top = `<div class="rp-top"><div><b>CLM · Αναφορές επισκέψεων</b> <span class="clm-demo">DEMO</span></div>
       <div class="rp-tabs">
         <button data-rt="visit" class="${rpTab === 'visit' ? 'on' : ''}">Αναφορά επίσκεψης</button>
-        <button data-rt="all" class="${rpTab === 'all' ? 'on' : ''}">Σύνολο επισκέψεων</button>
+        <button data-rt="all" class="${rpTab === 'all' ? 'on' : ''}">Συγκεντρωτική · όλα τα μοντέλα</button>
         <button data-rt="json" class="${rpTab === 'json' ? 'on' : ''}">Δεδομένα προς CRM</button>
       </div>
       <div class="rp-tabs">
@@ -455,13 +455,12 @@
       <div class="sect">Η διαδρομή της παρουσίασης</div>
       <div class="card"><div class="path">${segsV.length ? segsV.map((s, i) => `${i ? '<span class="ar">→</span>' : ''}<div class="st ${s.model ? 'p' : ''}"><b>${esc(s.model ? P[s.model].name : s.title)}</b><i>${fmtDur(s.d)}</i></div>`).join('') : '<span class="sub">—</span>'}</div>
         <div class="sub" style="margin:10px 0 0">Αυτόματα: ${evCount('gallery_open')} φωτογραφίες · ${evCount('table_zoom')} μεγεθύνσεις πίνακα · ${evCount('usp_tap')} χαρακτηριστικά · ${evCount('compare_add')} προσθήκες στη σύγκριση${metrics.length ? ' · διάγραμμα: ' + metrics.join(', ') : ''}</div></div>
-      <div class="sect">Αντίδραση ανά μοντέλο</div>
+      <div class="sect">Αντίδραση ανά μοντέλο · και τα ${ORDER.length}</div>
       <div class="card"><table><thead><tr><th>Μοντέλο</th><th class="n">Λιανική</th><th class="n">Χρόνος</th><th>Αντίδραση</th><th>Χαρακτηριστικά</th><th>Ρώτησε για</th><th>Σημείωση</th></tr></thead><tbody>
-        ${pres.map(p => `<tr><td><b>${esc(p.name)}</b>${p.initiated_by === 'customer' ? ' <span class="tag t-q">🙋 το ζήτησε</span>' : ''}${p.customer_top3 ? ` <span class="tag t-no">❤ #${p.customer_top3}</span>` : ''}${p.in_comparison ? ' <span class="tag t-g">σύγκριση</span>' : ''}<div class="sub" style="margin:0">${esc(p.sku)}</div></td>
+        ${pres.concat(notPres).map(p => !p.presented ? `<tr style="color:#9ca3af"><td><b>${esc(p.name)}</b><div class="sub" style="margin:0">${esc(p.sku)}</div></td><td class="n">${esc(price(p.model))}</td><td class="n">${p.dwell_sec ? fmtDur(p.dwell_sec) : '—'}</td><td colspan="4"><span class="tag t-g">δεν παρουσιάστηκε</span></td></tr>` : `<tr><td><b>${esc(p.name)}</b>${p.initiated_by === 'customer' ? ' <span class="tag t-q">🙋 το ζήτησε</span>' : ''}${p.customer_top3 ? ` <span class="tag t-no">❤ #${p.customer_top3}</span>` : ''}${p.in_comparison ? ' <span class="tag t-g">σύγκριση</span>' : ''}<div class="sub" style="margin:0">${esc(p.sku)}</div></td>
           <td class="n">${esc(price(p.model))}</td><td class="n">${p.dwell_sec ? fmtDur(p.dwell_sec) : '—'}</td><td>${sigTag(p)}</td>
           <td>${p.aspects.map(a => `<span class="tag ${a.pol > 0 ? 't-ok' : 't-no'}">${a.pol > 0 ? '👍' : '👎'} ${esc(a.label)}</span>`).join('') || '—'}</td>
           <td>${p.questions.map(q => `<span class="tag t-q">${esc(lab(QUESTIONS, q))}</span>`).join('') || '—'}</td><td>${esc(p.note || '')}</td></tr>`).join('')}
-        ${notPres.length ? `<tr><td colspan="7" class="sub" style="color:#6b7280">Δεν παρουσιάστηκαν: ${notPres.map(p => esc(p.name)).join(', ')}</td></tr>` : ''}
       </tbody></table></div>
       <div class="g g2" style="margin-top:14px">
         <div class="card"><h3>❤ Top-3 του πελάτη</h3><div class="sub">Επιλογή του ίδιου του καταστηματάρχη</div>
@@ -497,7 +496,7 @@
     const asp = {}; visits.forEach(v => v.payload.products.forEach(p => (p.aspects || []).forEach(a => { const k = p.name + ' · ' + a.label; asp[k] = asp[k] || { pos: 0, neg: 0 }; a.pol > 0 ? asp[k].pos++ : asp[k].neg++; })));
     const aspTop = Object.entries(asp).sort((a, b) => (b[1].pos + b[1].neg) - (a[1].pos + a[1].neg)).slice(0, 8);
     return `<div class="rp">
-      <div class="card"><h3 style="font-size:18px">Σύνολο επισκέψεων</h3><div class="sub" style="margin:0">Όλες οι ολοκληρωμένες επισκέψεις σε αυτό το tablet (demo). Στην παραγωγή: όλο το πελατολόγιο, με φίλτρα περιοχή / κατηγορία / πωλητή και σύνδεση με παραγγελίες Entersoft.</div></div>
+      <div class="card"><h3 style="font-size:18px">Συγκεντρωτική αναφορά · όλα τα μοντέλα</h3><div class="sub" style="margin:0">Όλες οι ολοκληρωμένες επισκέψεις σε αυτό το tablet (demo). Στην παραγωγή: όλο το πελατολόγιο, με φίλτρα περιοχή / κατηγορία / πωλητή και σύνδεση με παραγγελίες Entersoft.</div></div>
       <div class="g g5" style="margin-top:14px">
         <div class="card kpi"><b>${n}</b><span>επισκέψεις</span></div>
         <div class="card kpi"><b>${fmtDur(avgDur)}</b><span>μέση διάρκεια</span></div>

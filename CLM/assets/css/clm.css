@@ -146,3 +146,17 @@ body:not(.clm-live) #clmFab{display:none}
   #clmReport{position:static;display:block;overflow:visible}
   #clmReport .rp-top{display:none}
 }
+
+/* 👍 / 👎 ανά χαρακτηριστικό: ρητά κουμπιά */
+.clm-asp{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+@media(max-width:520px){.clm-asp{grid-template-columns:1fr}}
+.clm-asp .a{display:flex;align-items:center;gap:4px;padding:4px 4px 4px 10px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);font-size:12px;color:#ddd}
+.clm-asp .a span{flex:1;line-height:1.2}
+.clm-asp .a button{width:34px;height:30px;border-radius:9px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);cursor:pointer;font-size:15px;filter:grayscale(1);opacity:.55;transition:.15s}
+.clm-asp .a button:hover{opacity:.9}
+.clm-asp .a button.on{filter:none;opacity:1}
+.clm-asp .a button[data-pol="1"].on{background:rgba(63,191,127,.3);border-color:var(--clmOk)}
+.clm-asp .a button[data-pol="-1"].on{background:rgba(255,61,70,.28);border-color:var(--clmNo)}
+.clm-asp .a.pos{border-color:rgba(63,191,127,.6);color:#fff}
+.clm-asp .a.neg{border-color:rgba(255,61,70,.6);color:#fff}
+#clmRpBtn b{margin-left:6px}
