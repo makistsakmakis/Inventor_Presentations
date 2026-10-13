@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="el"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Inventor · Υπόδειγμα αναφορών ενδιαφέροντος</title>
+<style>
+:root{--bg:#f4f5f7;--card:#fff;--ink:#16181d;--mute:#6b7280;--line:#e5e7eb;--red:#d7141e;--red2:#fde8e9;--green:#3f7560;--green2:#e6f1ec;--blue:#3d64a8;--blue2:#e8eef8;--amber:#b7791f;--amber2:#fdf3e1}
+*{box-sizing:border-box}body{margin:0;font-family:Segoe UI,system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.45}
+header{background:#111;color:#fff;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+header h1{font-size:18px;margin:0;font-weight:600}header small{color:#bbb}
+.tabs{display:flex;gap:6px}.tabs button{border:1px solid #444;background:#222;color:#ddd;padding:8px 14px;border-radius:8px;cursor:pointer;font-size:13px}
+.tabs button.on{background:var(--red);border-color:var(--red);color:#fff}
+.note{background:var(--amber2);color:#7a5413;padding:8px 24px;font-size:12.5px}
+main{max-width:1180px;margin:0 auto;padding:20px 16px 60px}
+.pane{display:none}.pane.on{display:block}
+.grid{display:grid;gap:16px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g5{grid-template-columns:repeat(5,1fr)}
+@media(max-width:860px){.g2,.g3,.g5{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.card h2{font-size:15px;margin:0 0 4px}.card .sub{color:var(--mute);font-size:12.5px;margin-bottom:14px}
+.kpi b{display:block;font-size:26px;font-weight:700}.kpi span{color:var(--mute);font-size:12.5px}
+.head{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:flex-start}
+.head h2{font-size:20px;margin:0}.meta{color:var(--mute);font-size:13px}
+.tag{display:inline-block;padding:3px 9px;border-radius:20px;font-size:12px;font-weight:600;margin:2px 4px 2px 0}
+.t-red{background:var(--red2);color:var(--red)}.t-green{background:var(--green2);color:var(--green)}.t-blue{background:var(--blue2);color:var(--blue)}.t-amber{background:var(--amber2);color:var(--amber)}
+.path{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.step{border:1px solid var(--line);border-radius:10px;padding:7px 10px;background:#fafafa;font-size:12.5px}
+.step b{display:block;font-size:13px}.step i{font-style:normal;color:var(--mute)}
+.step.hot{border-color:var(--red);background:var(--red2)}.arrow{color:#bbb}
+.bar{display:grid;grid-template-columns:130px 1fr 52px;gap:10px;align-items:center;margin:7px 0;font-size:13px}
+.bar .tr{background:#f0f1f3;border-radius:6px;height:14px;overflow:hidden}.bar .tr i{display:block;height:100%;background:var(--red);border-radius:6px}
+.bar.g .tr i{background:var(--green)}.bar.b .tr i{background:var(--blue)}.bar em{font-style:normal;text-align:right;color:var(--mute)}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}th{color:var(--mute);font-weight:600;font-size:12px}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+ul.ins{margin:0;padding-left:18px}ul.ins li{margin:6px 0}
+.act{border-left:4px solid var(--green);background:var(--green2);padding:12px 14px;border-radius:8px}
+.funnel .row{display:grid;grid-template-columns:190px 1fr 70px;gap:10px;align-items:center;margin:6px 0}
+.funnel .row div:nth-child(2){background:var(--blue);height:24px;border-radius:5px}
+.sect{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin:26px 0 10px;font-weight:600}
+</style></head><body>
+<header><div><h1>Inventor Αφυγραντήρες 2026 · Αναφορές ενδιαφέροντος πελατών</h1><small>Υπόδειγμα · τα προϊόντα, οι τιμές και οι προδιαγραφές είναι από τον κατάλογο, οι επισκέψεις είναι εικονικές</small></div>
+<div class="tabs"><button class="on" data-t="p1">1 · Αναφορά πελάτη</button><button data-t="p2">2 · Συνολική αναφορά</button></div></header>
+<div class="note">Παράδειγμα για αξιολόγηση. Ο πελάτης, ο πωλητής, τα καταστήματα και όλοι οι αριθμοί επισκέψεων είναι φανταστικά.</div>
+<main>
+
+<!-- ================= 1. ΠΡΟΣΩΠΟΠΟΙΗΜΕΝΗ ================= -->
+<section class="pane on" id="p1">
+<div class="card head">
+  <div><h2>Γιώργος Νικολάου <span class="tag t-green">Συναίνεση ✓</span></h2>
+  <div class="meta">Επίσκεψη #2417 · Πέμ 8/10/2026, 11:42–11:54 (12′ 10″) · Κατάστημα Θεσσαλονίκης · Πωλητής: Α. Δημητρίου</div></div>
+  <div><span class="tag t-red">Υψηλό ενδιαφέρον</span><span class="tag t-blue">Μεγάλος χώρος</span><span class="tag t-amber">Ευαίσθητος στην τιμή</span></div>
+</div>
+
+<div class="sect">Το μονοπάτι του πελάτη</div>
+<div class="card"><div class="path">
+  <div class="step"><b>Εξώφυλλο</b><i>0′20″</i></div><span class="arrow">→</span>
+  <div class="step"><b>Όλη η σειρά</b><i>1′10″</i></div><span class="arrow">→</span>
+  <div class="step hot"><b>Zora</b><i>2′40″ · 3 φωτογραφίες · Wi-Fi, Στέγνωμα ρούχων</i></div><span class="arrow">→</span>
+  <div class="step"><b>Atmosphere XL</b><i>0′50″</i></div><span class="arrow">→</span>
+  <div class="step"><b>Διάγραμμα: Κάλυψη</b><i>0′45″</i></div><span class="arrow">→</span>
+  <div class="step"><b>Διάγραμμα: Τιμή</b><i>0′30″</i></div><span class="arrow">→</span>
+  <div class="step hot"><b>Σύγκριση</b><i>3′05″ · Zora / Atmosphere XL / Power WiFi</i></div><span class="arrow">→</span>
+  <div class="step"><b>Power WiFi</b><i>1′20″ · πίνακας προδιαγραφών</i></div><span class="arrow">→</span>
+  <div class="step"><b>10 & 5 χρόνια εγγύηση</b><i>0′40″</i></div><span class="arrow">→</span>
+  <div class="step"><b>Διάγραμμα: Τιμή</b><i>0′20″ · 2η φορά</i></div>
+</div></div>
+
+<div class="grid g2" style="margin-top:16px">
+<div class="card"><h2>Ενδιαφέρον ανά μοντέλο</h2><div class="sub">Χρόνος παραμονής + κλικ + συμμετοχή στη σύγκριση</div>
+  <div class="bar"><span><b>Zora</b> · 399€</span><div class="tr"><i style="width:100%"></i></div><em>41%</em></div>
+  <div class="bar"><span>Power WiFi · 449€</span><div class="tr"><i style="width:54%"></i></div><em>22%</em></div>
+  <div class="bar"><span>Atmosphere XL · 379€</span><div class="tr"><i style="width:41%"></i></div><em>17%</em></div>
+  <div class="bar"><span>Comfort · 259–299€</span><div class="tr"><i style="width:15%"></i></div><em>6%</em></div>
+  <div class="bar"><span>Υπόλοιπα (6)</span><div class="tr"><i style="width:34%;background:#c9cdd3"></i></div><em>14%</em></div>
+</div>
+<div class="card"><h2>Τι μας λέει</h2><div class="sub">Αυτόματη σύνοψη από τις κινήσεις</div>
+<ul class="ins">
+  <li>Ψάχνει για <b>μεγάλο χώρο</b>: άνοιξε την «Κάλυψη» και σύγκρινε μόνο μοντέλα για 130 m² και πάνω (Zora 130, Atmosphere XL 130, Power WiFi 190 m²).</li>
+  <li>Τον ενδιαφέρουν <b>Wi-Fi και στέγνωμα ρούχων</b>: άνοιξε αυτά τα δύο χαρακτηριστικά στη Zora.</li>
+  <li>Κοίταξε την <b>τιμή 2 φορές</b>, τη 2η μετά την εγγύηση. Είναι μάλλον ανάμεσα στα 379€ και 449€.</li>
+  <li>Δεν άνοιξε τους καθαριστές αέρα ούτε τη σελίδα EcoDrive AI.</li>
+</ul></div>
+</div>
+
+<div class="card act" style="margin-top:16px"><b>Προτεινόμενο επόμενο βήμα για τον πωλητή:</b> τηλεφώνημα μέσα σε 3 μέρες με κύρια πρόταση τη <b>Zora (399€, 30 L, 130 m²)</b>. Αν ο χώρος είναι πάνω από 130 m² (π.χ. υπόγειο), εναλλακτικά η <b>Power WiFi (449€, 50 L, 190 m²)</b>. Να τονιστούν η 10ετής εγγύηση και το EcoDrive AI (εξοικονόμηση έως 40%), που δεν το είδε.<br><span class="meta">Στάλθηκε email στον πελάτη: «Η σύγκρισή σας: Zora · Atmosphere XL · Power WiFi»</span></div>
+</section>
+
+<!-- ================= 2. ΣΥΝΟΛΙΚΗ ================= -->
+<section class="pane" id="p2">
+<div class="card head"><div><h2>Συνολική αναφορά · Σεπτέμβριος 2026</h2><div class="meta">3 καταστήματα · 14 πωλητές · όλες οι επισκέψεις, ανώνυμες και ονομαστικές</div></div></div>
+
+<div class="grid g5" style="margin-top:16px">
+  <div class="card kpi"><b>412</b><span>επισκέψεις με tablet</span></div>
+  <div class="card kpi"><b>7′40″</b><span>μέση διάρκεια</span></div>
+  <div class="card kpi"><b>46%</b><span>έκαναν σύγκριση</span></div>
+  <div class="card kpi"><b>61%</b><span>κοίταξαν τιμή</span></div>
+  <div class="card kpi"><b>38%</b><span>έγιναν ονομαστικές (157)</span></div>
+</div>
+
+<div class="sect">Προϊόντα</div>
+<div class="card"><h2>Ενδιαφέρον ανά μοντέλο</h2><div class="sub">«Κορυφαίο ενδιαφέρον» = το μοντέλο με το μεγαλύτερο σκορ στην επίσκεψη</div>
+<table><thead><tr><th>Μοντέλο</th><th>Series</th><th class="n">Τιμή</th><th class="n">Επισκέψεις που το είδαν</th><th class="n">Μέσος χρόνος</th><th class="n">Σε σύγκριση</th><th class="n">Κορυφαίο ενδιαφέρον</th></tr></thead><tbody>
+<tr><td><b>Iria</b> <span class="tag t-red">Νέο</span></td><td>Essential</td><td class="n">159–179€</td><td class="n">58%</td><td class="n">1′35″</td><td class="n">34%</td><td class="n"><b>24%</b></td></tr>
+<tr><td><b>Zora</b> <span class="tag t-red">Νέο</span></td><td>Power</td><td class="n">399€</td><td class="n">52%</td><td class="n">2′10″</td><td class="n">29%</td><td class="n"><b>19%</b></td></tr>
+<tr><td>Sera <span class="tag t-red">Νέο</span></td><td>Premium</td><td class="n">249–279€</td><td class="n">44%</td><td class="n">1′50″</td><td class="n">22%</td><td class="n">14%</td></tr>
+<tr><td>Alva</td><td>Essential</td><td class="n">159–179€</td><td class="n">41%</td><td class="n">0′55″</td><td class="n">31%</td><td class="n">9%</td></tr>
+<tr><td>Power WiFi</td><td>Power</td><td class="n">449€</td><td class="n">33%</td><td class="n">1′25″</td><td class="n">18%</td><td class="n">8%</td></tr>
+<tr><td>Melody</td><td>Premium</td><td class="n">299€</td><td class="n">30%</td><td class="n">1′05″</td><td class="n">12%</td><td class="n">7%</td></tr>
+<tr><td>Comfort</td><td>Power</td><td class="n">259–299€</td><td class="n">28%</td><td class="n">0′50″</td><td class="n">14%</td><td class="n">6%</td></tr>
+<tr><td>Atmosphere XL</td><td>Power</td><td class="n">379€</td><td class="n">26%</td><td class="n">0′45″</td><td class="n">15%</td><td class="n">5%</td></tr>
+<tr><td>Stardust</td><td>Premium</td><td class="n">349€</td><td class="n">21%</td><td class="n">1′10″</td><td class="n">8%</td><td class="n">4%</td></tr>
+<tr><td>Rise Pro</td><td>Essential</td><td class="n">279€</td><td class="n">14%</td><td class="n">0′40″</td><td class="n">4%</td><td class="n">2%</td></tr>
+<tr><td>QLT-700 / QLT-500</td><td>Καθαριστές</td><td class="n">399€ / 299€</td><td class="n">9%</td><td class="n">0′35″</td><td class="n">—</td><td class="n">2%</td></tr>
+</tbody></table></div>
+
+<div class="grid g2" style="margin-top:16px">
+<div class="card"><h2>Συχνότερες συγκρίσεις</h2><div class="sub">Ποια μοντέλα «παλεύουν» μεταξύ τους</div>
+  <div class="bar b"><span>Iria ↔ Alva</span><div class="tr"><i style="width:100%"></i></div><em>31%</em></div>
+  <div class="bar b"><span>Zora ↔ Atmosphere XL</span><div class="tr"><i style="width:71%"></i></div><em>22%</em></div>
+  <div class="bar b"><span>Sera ↔ Comfort</span><div class="tr"><i style="width:45%"></i></div><em>14%</em></div>
+  <div class="bar b"><span>Zora ↔ Power WiFi</span><div class="tr"><i style="width:35%"></i></div><em>11%</em></div>
+  <div class="bar b"><span>Melody ↔ Stardust</span><div class="tr"><i style="width:29%"></i></div><em>9%</em></div>
+</div>
+<div class="card"><h2>Πορεία επίσκεψης</h2><div class="sub">Πόσοι φτάνουν σε κάθε βήμα</div>
+<div class="funnel">
+  <div class="row"><span>Ξεκίνησαν</span><div style="width:100%"></div><em>412</em></div>
+  <div class="row"><span>Είδαν «Όλη η σειρά»</span><div style="width:90%"></div><em>371</em></div>
+  <div class="row"><span>Άνοιξαν μοντέλο</span><div style="width:82%"></div><em>338</em></div>
+  <div class="row"><span>Κοίταξαν τιμή</span><div style="width:61%"></div><em>251</em></div>
+  <div class="row"><span>Έκαναν σύγκριση</span><div style="width:46%"></div><em>190</em></div>
+  <div class="row"><span>Έγιναν ονομαστικές</span><div style="width:38%;background:var(--green)"></div><em>157</em></div>
+</div></div>
+</div>
+
+<div class="grid g2" style="margin-top:16px">
+<div class="card"><h2>Συχνότερα μονοπάτια</h2><div class="sub">Οι 4 πιο κοινές διαδρομές</div>
+<table><tbody>
+<tr><td>Σειρά → Essential → Iria → Τιμή → <span class="tag t-amber">τέλος</span></td><td class="n">17%</td></tr>
+<tr><td>Σειρά → Zora → Κάλυψη → Σύγκριση (Zora/Atmosphere XL)</td><td class="n">12%</td></tr>
+<tr><td>Εμπειρία → Τεχνολογία → Sera → Εγγύηση</td><td class="n">8%</td></tr>
+<tr><td>Τιμή (κατευθείαν) → Iria → Alva → Σύγκριση</td><td class="n">7%</td></tr>
+</tbody></table></div>
+<div class="card"><h2>Σελίδες με λίγη προσοχή</h2><div class="sub">Μέσος χρόνος / % επισκέψεων που τις είδαν</div>
+  <div class="bar g"><span>EcoDrive AI</span><div class="tr"><i style="width:22%"></i></div><em>18%</em></div>
+  <div class="bar g"><span>Καθαριστές αέρα</span><div class="tr"><i style="width:11%"></i></div><em>9%</em></div>
+  <div class="bar g"><span>TIPS</span><div class="tr"><i style="width:8%"></i></div><em>6%</em></div>
+  <div class="bar g"><span>Λύσεις & υπηρεσίες</span><div class="tr"><i style="width:14%"></i></div><em>11%</em></div>
+</div>
+</div>
+
+<div class="sect">Καταστήματα & πωλητές</div>
+<div class="card"><table><thead><tr><th>Κατάστημα</th><th class="n">Επισκέψεις</th><th class="n">Μέση διάρκεια</th><th class="n">% σύγκριση</th><th class="n">% ονομαστικές</th><th>Κορυφαίο μοντέλο</th></tr></thead><tbody>
+<tr><td>Θεσσαλονίκη</td><td class="n">168</td><td class="n">8′55″</td><td class="n">52%</td><td class="n"><b>47%</b></td><td>Zora</td></tr>
+<tr><td>Αθήνα · Κέντρο</td><td class="n">151</td><td class="n">7′10″</td><td class="n">45%</td><td class="n">36%</td><td>Iria</td></tr>
+<tr><td>Πάτρα</td><td class="n">93</td><td class="n">6′05″</td><td class="n">37%</td><td class="n">25%</td><td>Iria</td></tr>
+</tbody></table></div>
+
+<div class="sect">Τι κάνουμε με αυτά</div>
+<div class="card"><ul class="ins">
+  <li><b>Iria ↔ Alva συγχέονται:</b> ίδια ικανότητα (10/12 L), κάλυψη (60 m²) και τιμή (159–179€). Ο πελάτης δεν βλέπει τη διαφορά (Alva 35 dB έναντι 38/39 dB, δοχείο 2,8 L έναντι 2,3 L). → Πρόταση: ένα πλαίσιο «Ποιο να διαλέξω;» στο slide της σύγκρισης.</li>
+  <li><b>Το 17% φεύγει μετά την τιμή της Iria:</b> οι πελάτες με χαμηλό budget δεν βλέπουν την αξία. → Να εμφανίζεται εκεί η 10ετής εγγύηση και το EcoDrive.</li>
+  <li><b>Το EcoDrive AI δεν το βλέπει σχεδόν κανείς (18%)</b>, αν και είναι το βασικό επιχείρημα εξοικονόμησης. → Να εκπαιδευτούν οι πωλητές να το δείχνουν ή να μπει πιο νωρίς στη ροή.</li>
+  <li><b>Οι καθαριστές αέρα ανοίγουν σε 9% των επισκέψεων.</b> → Ευκαιρία για cross-sell με τη Stardust (αφυγραντήρας και καθαριστής μαζί).</li>
+  <li><b>Η Πάτρα έχει 25% ονομαστικές έναντι 47% στη Θεσσαλονίκη.</b> → Να δούμε πώς ζητά ο πωλητής τη συναίνεση εκεί.</li>
+</ul></div>
+</section>
+</main>
+<script>
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tabs button,.pane').forEach(x=>x.classList.remove('on'));b.classList.add('on');document.getElementById(b.dataset.t).classList.add('on');});
+</script>
+</body></html>

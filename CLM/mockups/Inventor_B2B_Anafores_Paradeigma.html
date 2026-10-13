@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="el"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Inventor B2B · Υπόδειγμα αναφορών</title>
+<style>
+:root{--bg:#f4f5f7;--card:#fff;--ink:#16181d;--mute:#6b7280;--line:#e5e7eb;--red:#d7141e;--red2:#fde8e9;--green:#2f7d5b;--green2:#e3f2ea;--blue:#3d64a8;--blue2:#e8eef8;--amber:#a86a12;--amber2:#fdf3e1;--grey2:#f0f1f3}
+*{box-sizing:border-box}body{margin:0;font-family:Segoe UI,system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.45}
+header{background:#111;color:#fff;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+header h1{font-size:18px;margin:0;font-weight:600}header small{color:#bbb}
+.tabs{display:flex;gap:6px}.tabs button{border:1px solid #444;background:#222;color:#ddd;padding:8px 14px;border-radius:8px;cursor:pointer;font-size:13px}
+.tabs button.on{background:var(--red);border-color:var(--red);color:#fff}
+.note{background:var(--amber2);color:#7a5413;padding:8px 24px;font-size:12.5px}
+main{max-width:1200px;margin:0 auto;padding:20px 16px 60px}
+.pane{display:none}.pane.on{display:block}
+.grid{display:grid;gap:16px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g5{grid-template-columns:repeat(5,1fr)}.g32{grid-template-columns:3fr 2fr}
+@media(max-width:900px){.g2,.g3,.g5,.g32{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;overflow-x:auto}
+.card h2{font-size:15px;margin:0 0 4px}.card .sub{color:var(--mute);font-size:12.5px;margin-bottom:12px}
+.kpi b{display:block;font-size:26px;font-weight:700}.kpi span{color:var(--mute);font-size:12.5px}
+.head{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:flex-start}
+.head h2{font-size:20px;margin:0}.meta{color:var(--mute);font-size:13px}
+.tag{display:inline-block;padding:3px 9px;border-radius:20px;font-size:12px;font-weight:600;margin:2px 4px 2px 0;white-space:nowrap}
+.t-red{background:var(--red2);color:var(--red)}.t-green{background:var(--green2);color:var(--green)}.t-blue{background:var(--blue2);color:var(--blue)}.t-amber{background:var(--amber2);color:var(--amber)}.t-grey{background:var(--grey2);color:var(--mute)}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--mute);font-weight:600;font-size:12px}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.dim td{color:var(--mute)}
+ul.ins{margin:0;padding-left:18px}ul.ins li{margin:7px 0}
+.act{border-left:4px solid var(--green);background:var(--green2);padding:14px 16px;border-radius:8px}
+.warn{border-left:4px solid var(--amber);background:var(--amber2);padding:14px 16px;border-radius:8px}
+.sect{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin:26px 0 10px;font-weight:600}
+.bar{display:grid;grid-template-columns:170px 1fr 48px;gap:10px;align-items:center;margin:7px 0;font-size:13px}
+.bar .tr{background:var(--grey2);border-radius:6px;height:14px;overflow:hidden}.bar .tr i{display:block;height:100%;background:var(--red);border-radius:6px}
+.bar em{font-style:normal;text-align:right;color:var(--mute)}
+.fun{display:flex;height:16px;border-radius:5px;overflow:hidden;background:var(--grey2);min-width:140px}
+.fun i{display:block;height:100%}.fun .a{background:#c9d5ea}.fun .b{background:#8fa9d6}.fun .c{background:var(--blue)}.fun .d{background:var(--green)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--mute);margin-bottom:8px}.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.tl{display:flex;gap:0;flex-wrap:wrap;margin-top:6px}.tl div{flex:1;min-width:120px;border-top:3px solid var(--line);padding:8px 8px 0 0;font-size:12.5px}.tl div.done{border-color:var(--green)}.tl div.now{border-color:var(--amber)}
+.tl b{display:block;font-size:13px}
+.src{font-size:11.5px;color:var(--blue);font-weight:600}
+</style></head><body>
+<header><div><h1>Inventor Αφυγραντήρες 2026 · Αναφορές B2B επισκέψεων</h1><small>Υπόδειγμα · μοντέλα και τιμές λιανικής από τον κατάλογο, λογαριασμοί, πωλητές και αριθμοί εικονικοί</small></div>
+<div class="tabs"><button class="on" data-t="p1">1 · Αναφορά επίσκεψης</button><button data-t="p2">2 · Πελατολόγιο</button></div></header>
+<div class="note">Παράδειγμα για αξιολόγηση. Οι πελάτες, οι κωδικοί Entersoft, οι πωλητές, οι ποσότητες και τα ποσοστά είναι φανταστικά. <span class="src">ENTERSOFT</span> = στοιχείο που έρχεται αυτόματα από το ERP.</div>
+<main>
+
+<!-- ================= 1. ΕΠΙΣΚΕΨΗ ================= -->
+<section class="pane on" id="p1">
+<div class="card head">
+  <div><h2>Ηλεκτρικά Παπαδόπουλος Ο.Ε.</h2>
+  <div class="meta">Κατερίνη · Κεντρική Μακεδονία · Κωδ. 30.0412 <span class="src">ENTERSOFT</span> · Ανεξάρτητο κατάστημα · Κατηγορία Β</div>
+  <div class="meta">Επίσκεψη Τρι 13/10/2026, 10:15–10:39 (24′) · Πωλητής: Α. Δημητρίου · 7 από 12 μοντέλα παρουσιάστηκαν</div></div>
+  <div><span class="tag t-green">2 μοντέλα για προσφορά</span><span class="tag t-red">3 ⭐ ενδιαφέρον</span><span class="tag t-amber">Follow-up έως 16/10</span></div>
+</div>
+
+<div class="grid g32" style="margin-top:16px">
+<div class="card"><h2>Τι παρουσιάστηκε και πώς αντέδρασε</h2><div class="sub">Τα σήματα (⭐ ✓ ✕) τα βάζει ο πωλητής με ένα πάτημα. Ο χρόνος καταγράφεται αυτόματα.</div>
+<table><thead><tr><th>Μοντέλο</th><th class="n">Λιανική</th><th class="n">Χρόνος</th><th>Σήμα</th><th>Σημείωση</th></tr></thead><tbody>
+<tr><td><b>Sera</b> <span class="tag t-red">Νέο</span></td><td class="n">249–279€</td><td class="n">4′10″</td><td><span class="tag t-green">✓ Θέλει προσφορά</span></td><td>Του άρεσε το Wi-Fi και η φωτεινή ένδειξη υγρασίας</td></tr>
+<tr><td><b>Zora</b> <span class="tag t-red">Νέο</span></td><td class="n">399€</td><td class="n">3′35″</td><td><span class="tag t-green">✓ Θέλει προσφορά</span></td><td>Ρώτησε για εκθετήριο και διαθεσιμότητα Νοεμβρίου</td></tr>
+<tr><td><b>Iria</b> <span class="tag t-red">Νέο</span></td><td class="n">159–179€</td><td class="n">1′20″</td><td><span class="tag t-red">⭐ Ενδιαφέρον</span></td><td>Αντικαθιστά την Alva που ήδη έχει;</td></tr>
+<tr><td>Comfort</td><td class="n">259–299€</td><td class="n">0′50″</td><td><span class="tag t-grey">ήδη το έχει</span></td><td>Αναπλήρωση</td></tr>
+<tr><td>Power WiFi</td><td class="n">449€</td><td class="n">1′40″</td><td><span class="tag t-red">✕ Τιμή</span></td><td>«Πάνω από 400€ δεν φεύγει στο κοινό μου»</td></tr>
+<tr><td>Atmosphere XL</td><td class="n">379€</td><td class="n">0′45″</td><td><span class="tag t-red">✕ Μοιάζει με Zora</span></td><td></td></tr>
+<tr><td>Melody</td><td class="n">299€</td><td class="n">0′25″</td><td><span class="tag t-grey">χωρίς σήμα</span></td><td></td></tr>
+<tr class="dim"><td>Stardust, Alva, Rise Pro</td><td></td><td></td><td colspan="2">δεν παρουσιάστηκαν</td></tr>
+<tr class="dim"><td>QLT-700 / QLT-500</td><td></td><td></td><td colspan="2">δεν παρουσιάστηκαν</td></tr>
+</tbody></table></div>
+
+<div class="grid">
+<div class="card"><h2>Τι έχει ήδη <span class="src">ENTERSOFT</span></h2><div class="sub">Αγορές τελευταίων 12 μηνών</div>
+<table><tbody>
+<tr><td>Alva</td><td class="n">14 τεμ.</td></tr>
+<tr><td>Comfort</td><td class="n">6 τεμ.</td></tr>
+<tr><td>Rise Pro</td><td class="n">3 τεμ.</td></tr>
+<tr><td><b>Σύνολο</b></td><td class="n"><b>23 τεμ. · 3 μοντέλα</b></td></tr>
+</tbody></table></div>
+<div class="card"><h2>Ερωτήσεις του πελάτη</h2>
+<span class="tag t-blue">Τιμή χονδρικής Sera</span><span class="tag t-blue">Εκθετήριο Zora</span><span class="tag t-blue">Διαθεσιμότητα Νοεμβρίου</span><span class="tag t-blue">Υλικό προβολής</span></div>
+</div>
+</div>
+
+<div class="grid g2" style="margin-top:16px">
+<div class="card act"><b>Προτεινόμενη προσφορά και επόμενο βήμα</b>
+<ul class="ins">
+  <li>Προσφορά για <b>Sera</b> και <b>Zora</b>, με το εκθετήριο Zora και επιβεβαίωση διαθεσιμότητας για Νοέμβριο.</li>
+  <li>Αναπλήρωση <b>Comfort</b>. Εξήγηση της διαφοράς <b>Iria / Alva</b>, αφού έχει ήδη Alva.</li>
+  <li>Αποστολή έως <b>Παρ 16/10</b>, με κίνηση στο Entersoft CRM αυτόματα.</li>
+</ul></div>
+<div class="card warn"><b>Χαμένες ευκαιρίες σε αυτή την επίσκεψη</b>
+<ul class="ins">
+  <li>Οι <b>καθαριστές αέρα</b> δεν παρουσιάστηκαν. Στα καταστήματα κατηγορίας Β που τους είδαν, το 55% έδειξε ενδιαφέρον.</li>
+  <li>Η <b>Stardust</b> (αφύγρανση και καθαρισμός αέρα μαζί, 349€) δεν παρουσιάστηκε.</li>
+  <li>Καταστήματα σαν αυτό (κατηγορία Β, Κεντρική Μακεδονία) έχουν κατά μέσο όρο <b>5 μοντέλα</b> Inventor. Αυτός έχει 3.</li>
+</ul></div>
+</div>
+
+<div class="card" style="margin-top:16px"><h2>Τι έγινε μετά <span class="src">ENTERSOFT</span></h2><div class="sub">Η εφαρμογή παρακολουθεί αν η επίσκεψη έφερε παραγγελία</div>
+<div class="tl">
+  <div class="done"><b>13/10 · Επίσκεψη</b>2 ✓, 1 ⭐</div>
+  <div class="done"><b>15/10 · Προσφορά</b>Sera, Zora, εκθετήριο</div>
+  <div class="now"><b>Αναμονή παραγγελίας</b>έως 30 μέρες</div>
+  <div><b>Παραγγελία</b>θα συνδεθεί αυτόματα</div>
+</div></div>
+</section>
+
+<!-- ================= 2. ΠΕΛΑΤΟΛΟΓΙΟ ================= -->
+<section class="pane" id="p2">
+<div class="card head"><div><h2>Πελατολόγιο · Προσεζόν Σεπτ.–Οκτ. 2026</h2><div class="meta">Όλες οι επισκέψεις με tablet · σύνδεση με παραγγελίες Entersoft 30 ημερών</div></div>
+<div><span class="tag t-grey">Περιοχή: Όλες</span><span class="tag t-grey">Κατηγορία: Όλες</span><span class="tag t-grey">Πωλητής: Όλοι</span></div></div>
+
+<div class="grid g5" style="margin-top:16px">
+  <div class="card kpi"><b>186</b><span>επισκέψεις σε 142 λογαριασμούς</span></div>
+  <div class="card kpi"><b>6,2</b><span>μοντέλα ανά παρουσίαση (από 12)</span></div>
+  <div class="card kpi"><b>41%</b><span>επισκέψεις με παραγγελία σε 30 ημ.</span></div>
+  <div class="card kpi"><b>12 ημ.</b><span>μέσος χρόνος έως παραγγελία</span></div>
+  <div class="card kpi"><b>23</b><span>λογαριασμοί με ✓ χωρίς παραγγελία</span></div>
+</div>
+
+<div class="sect">Από την παρουσίαση στην παραγγελία, ανά μοντέλο</div>
+<div class="card"><div class="legend"><span><i style="background:#c9d5ea"></i>Παρουσιάστηκε</span><span><i style="background:#8fa9d6"></i>⭐ Ενδιαφέρον</span><span><i style="background:var(--blue)"></i>✓ Θέλει προσφορά</span><span><i style="background:var(--green)"></i>Παραγγελία 30 ημ. (Entersoft)</span></div>
+<table><thead><tr><th>Μοντέλο</th><th class="n">Λιανική</th><th class="n">Παρουσ.</th><th class="n">⭐</th><th class="n">✓</th><th class="n">Παραγγ.</th><th class="n">Παρουσ.→Παραγγ.</th><th style="min-width:150px"></th><th>Κύριος λόγος ✕</th></tr></thead><tbody>
+<tr><td><b>Iria</b></td><td class="n">159–179€</td><td class="n">171</td><td class="n">102</td><td class="n">74</td><td class="n">66</td><td class="n"><b>39%</b></td><td><div class="fun"><i class="d" style="width:39%"></i><i class="c" style="width:4%"></i><i class="b" style="width:17%"></i><i class="a" style="width:40%"></i></div></td><td>Έχει ανταγωνιστικό</td></tr>
+<tr><td><b>Sera</b></td><td class="n">249–279€</td><td class="n">158</td><td class="n">97</td><td class="n">61</td><td class="n">44</td><td class="n"><b>28%</b></td><td><div class="fun"><i class="d" style="width:28%"></i><i class="c" style="width:11%"></i><i class="b" style="width:22%"></i><i class="a" style="width:39%"></i></div></td><td>Τιμή</td></tr>
+<tr><td><b>Zora</b></td><td class="n">399€</td><td class="n">149</td><td class="n">104</td><td class="n">52</td><td class="n">31</td><td class="n"><b>21%</b></td><td><div class="fun"><i class="d" style="width:21%"></i><i class="c" style="width:14%"></i><i class="b" style="width:35%"></i><i class="a" style="width:30%"></i></div></td><td><span class="tag t-amber">Διαθεσιμότητα</span></td></tr>
+<tr><td>Alva</td><td class="n">159–179€</td><td class="n">132</td><td class="n">41</td><td class="n">30</td><td class="n">28</td><td class="n">21%</td><td><div class="fun"><i class="d" style="width:21%"></i><i class="c" style="width:2%"></i><i class="b" style="width:8%"></i><i class="a" style="width:69%"></i></div></td><td><span class="tag t-amber">Μοιάζει με Iria</span></td></tr>
+<tr><td>Comfort</td><td class="n">259–299€</td><td class="n">118</td><td class="n">46</td><td class="n">29</td><td class="n">24</td><td class="n">20%</td><td><div class="fun"><i class="d" style="width:20%"></i><i class="c" style="width:4%"></i><i class="b" style="width:15%"></i><i class="a" style="width:61%"></i></div></td><td>Τιμή</td></tr>
+<tr><td>Melody</td><td class="n">299€</td><td class="n">96</td><td class="n">31</td><td class="n">15</td><td class="n">11</td><td class="n">11%</td><td><div class="fun"><i class="d" style="width:11%"></i><i class="c" style="width:5%"></i><i class="b" style="width:16%"></i><i class="a" style="width:68%"></i></div></td><td>Τιμή</td></tr>
+<tr><td>Power WiFi</td><td class="n">449€</td><td class="n">88</td><td class="n">39</td><td class="n">14</td><td class="n">9</td><td class="n">10%</td><td><div class="fun"><i class="d" style="width:10%"></i><i class="c" style="width:6%"></i><i class="b" style="width:28%"></i><i class="a" style="width:56%"></i></div></td><td>Τιμή</td></tr>
+<tr><td>Atmosphere XL</td><td class="n">379€</td><td class="n">81</td><td class="n">18</td><td class="n">8</td><td class="n">6</td><td class="n">7%</td><td><div class="fun"><i class="d" style="width:7%"></i><i class="c" style="width:3%"></i><i class="b" style="width:12%"></i><i class="a" style="width:78%"></i></div></td><td><span class="tag t-amber">Μοιάζει με Zora</span></td></tr>
+<tr><td>Stardust</td><td class="n">349€</td><td class="n">74</td><td class="n">29</td><td class="n">12</td><td class="n">7</td><td class="n">9%</td><td><div class="fun"><i class="d" style="width:9%"></i><i class="c" style="width:7%"></i><i class="b" style="width:23%"></i><i class="a" style="width:61%"></i></div></td><td>Τιμή</td></tr>
+<tr><td>Rise Pro</td><td class="n">279€</td><td class="n">41</td><td class="n">9</td><td class="n">4</td><td class="n">3</td><td class="n">7%</td><td><div class="fun"><i class="d" style="width:7%"></i><i class="c" style="width:2%"></i><i class="b" style="width:13%"></i><i class="a" style="width:78%"></i></div></td><td>Δεν ταιριάζει στο κοινό</td></tr>
+<tr><td><b>QLT-700 / QLT-500</b></td><td class="n">399€ / 299€</td><td class="n">38</td><td class="n">21</td><td class="n">9</td><td class="n">6</td><td class="n">16%</td><td><div class="fun"><i class="d" style="width:16%"></i><i class="c" style="width:8%"></i><i class="b" style="width:31%"></i><i class="a" style="width:45%"></i></div></td><td>Δεν ταιριάζει στο κοινό</td></tr>
+</tbody></table></div>
+
+<div class="grid g2" style="margin-top:16px">
+<div class="card"><h2>Γιατί λένε όχι</h2><div class="sub">Λόγοι ✕ σε όλα τα μοντέλα (412 σήματα)</div>
+  <div class="bar"><span>Τιμή</span><div class="tr"><i style="width:100%"></i></div><em>38%</em></div>
+  <div class="bar"><span>Έχει ανταγωνιστικό</span><div class="tr"><i style="width:63%"></i></div><em>24%</em></div>
+  <div class="bar"><span>Δεν ταιριάζει στο κοινό</span><div class="tr"><i style="width:47%"></i></div><em>18%</em></div>
+  <div class="bar"><span>Μοιάζει με άλλο Inventor</span><div class="tr"><i style="width:32%"></i></div><em>12%</em></div>
+  <div class="bar"><span>Διαθεσιμότητα</span><div class="tr"><i style="width:21%"></i></div><em>8%</em></div>
+</div>
+<div class="card"><h2>Ανά περιοχή</h2><div class="sub">Τι τραβάει ενδιαφέρον (⭐) σε κάθε περιοχή</div>
+<table><thead><tr><th>Περιοχή</th><th class="n">Επισκ.</th><th>Κορυφαία ⭐</th><th class="n">Παρουσ.→Παραγγ.</th></tr></thead><tbody>
+<tr><td>Αττική</td><td class="n">54</td><td>Sera, Iria</td><td class="n">27%</td></tr>
+<tr><td>Κεντρική Μακεδονία</td><td class="n">41</td><td>Iria, Comfort</td><td class="n">24%</td></tr>
+<tr><td>Κρήτη & νησιά</td><td class="n">33</td><td><b>Zora, Power WiFi</b></td><td class="n">31%</td></tr>
+<tr><td>Πελοπόννησος</td><td class="n">31</td><td>Iria, Alva</td><td class="n">19%</td></tr>
+<tr><td>Θεσσαλία & Ήπειρος</td><td class="n">27</td><td>Sera, Zora</td><td class="n">22%</td></tr>
+</tbody></table></div>
+</div>
+
+<div class="sect">Πωλητές</div>
+<div class="card"><table><thead><tr><th>Πωλητής</th><th class="n">Επισκέψεις</th><th class="n">Μοντέλα / παρουσίαση</th><th class="n">Δείχνει καθαριστές</th><th class="n">✓ → Παραγγελία</th><th class="n">Ανοιχτά ✓ >30 ημ.</th></tr></thead><tbody>
+<tr><td>Α. Δημητρίου</td><td class="n">44</td><td class="n">7,1</td><td class="n">32%</td><td class="n">71%</td><td class="n">3</td></tr>
+<tr><td>Κ. Ιωάννου</td><td class="n">39</td><td class="n">6,8</td><td class="n">28%</td><td class="n">66%</td><td class="n">4</td></tr>
+<tr><td>Μ. Παππά</td><td class="n">37</td><td class="n">6,0</td><td class="n">19%</td><td class="n">58%</td><td class="n">5</td></tr>
+<tr><td>Ν. Γεωργίου</td><td class="n">35</td><td class="n">5,4</td><td class="n">11%</td><td class="n">62%</td><td class="n">4</td></tr>
+<tr><td>Θ. Αλεξίου</td><td class="n">31</td><td class="n"><b>4,3</b></td><td class="n"><b>3%</b></td><td class="n"><b>44%</b></td><td class="n"><b>7</b></td></tr>
+</tbody></table></div>
+
+<div class="sect">Λίστες δράσης</div>
+<div class="grid g3">
+<div class="card"><h2>23 λογαριασμοί</h2><div class="sub">με ✓ «θέλει προσφορά» και χωρίς παραγγελία μετά από 30 μέρες</div><span class="tag t-amber">→ λίστα για τηλεφωνική υπενθύμιση</span></div>
+<div class="card"><h2>47 λογαριασμοί κατ. Α/Β</h2><div class="sub">έχουν μόνο Essential <span class="src">ENTERSOFT</span> και δεν τους παρουσιάστηκε ποτέ η Power Series</div><span class="tag t-blue">→ στόχος για τον επόμενο γύρο</span></div>
+<div class="card"><h2>104 λογαριασμοί</h2><div class="sub">δεν τους έχουν παρουσιαστεί ποτέ οι καθαριστές αέρα</div><span class="tag t-blue">→ ευκαιρία cross-sell</span></div>
+</div>
+
+<div class="sect">Τι κάνουμε με αυτά</div>
+<div class="card"><ul class="ins">
+  <li><b>Η Zora έχει το μεγαλύτερο ενδιαφέρον (104 ⭐) αλλά μόνο 21% γίνεται παραγγελία, με κύριο λόγο τη διαθεσιμότητα.</b> → Θέμα αποθέματος και προγραμματισμού παραλαβών, όχι προϊόντος. Επιβεβαιωμένη ημερομηνία στην παρουσίαση.</li>
+  <li><b>Alva και Atmosphere XL χάνουν επειδή «μοιάζουν» με Iria και Zora.</b> Στον κατάλογο: Iria και Alva έχουν ίδια ικανότητα (10/12 L), κάλυψη (60 m²) και τιμή, αλλά η Alva είναι πιο αθόρυβη (35 dB) με μεγαλύτερο δοχείο (2,8 L). → Σαφής ρόλος για κάθε μοντέλο στο υλικό του πωλητή, ή απόφαση για απόσυρση.</li>
+  <li><b>Οι καθαριστές αέρα παρουσιάζονται σπάνια (38 φορές), αλλά όταν παρουσιάζονται το 55% δείχνει ενδιαφέρον.</b> → Το πρόβλημα είναι ότι οι πωλητές δεν τους δείχνουν, όχι το προϊόν.</li>
+  <li><b>Κρήτη και νησιά: ενδιαφέρον για μεγάλη ικανότητα (Zora 30 L, Power WiFi 50 L) και το καλύτερο ποσοστό παραγγελίας.</b> → Προτεραιότητα αποθέματος σε αυτά τα μοντέλα για τα νησιά.</li>
+  <li><b>Ο Θ. Αλεξίου δείχνει 4,3 μοντέλα ανά επίσκεψη και έχει τα περισσότερα ανοιχτά ✓.</b> → Coaching: πλήρης παρουσίαση γκάμας και follow-up.</li>
+</ul></div>
+</section>
+</main>
+<script>
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tabs button,.pane').forEach(x=>x.classList.remove('on'));b.classList.add('on');document.getElementById(b.dataset.t).classList.add('on');});
+</script>
+</body></html>
