@@ -115,7 +115,7 @@
     const uv = t.closest('.clm-uv');
     if (uv) {                                              // 👍 / 👎 πάνω στα εικονίδια χαρακτηριστικών της σελίδας
       e.preventDefault(); e.stopPropagation();
-      const [m, k] = uv.parentNode.dataset.usp.split(':'); const c = aspectsOf(m)[+k][0]; const pol = +uv.dataset.uv;
+      const [m, k] = uv.closest('[data-usp]').dataset.usp.split(':'); const c = aspectsOf(m)[+k][0]; const pol = +uv.dataset.uv;
       const mk = mark(m); const nv = (mk.aspects[c] || 0) === pol ? 0 : pol; if (nv) mk.aspects[c] = nv; else delete mk.aspects[c];
       mk.t = now(); ev('rep_mark', { model: m }); save(); refreshUI(); if (panel.classList.contains('open')) renderPanel();
       toast((nv === 1 ? '👍 ' : nv === -1 ? '👎 ' : 'Αναίρεση: ') + aspectLabel(m, c)); return;
@@ -213,9 +213,9 @@
 
   /* ---------------- ορατά χειριστήρια πάνω στη σελίδα ---------------- */
   // 👍/👎 δίπλα σε κάθε εικονίδιο χαρακτηριστικού (USP) των σελίδων μοντέλων
-  $$('#deck .usp[data-usp]').forEach(u => u.insertAdjacentHTML('beforeend', '<button class="clm-uv up" data-uv="1" aria-label="Του άρεσε">👍</button><button class="clm-uv dn" data-uv="-1" aria-label="Δεν του άρεσε">👎</button>'));
+  $$('#deck .usp[data-usp]').forEach(u => u.insertAdjacentHTML('beforeend', '<div class="clm-uvrow"><button class="clm-uv up" data-uv="1" aria-label="Του άρεσε">👍</button><button class="clm-uv dn" data-uv="-1" aria-label="Δεν του άρεσε">👎</button></div>'));
   // μεγάλο 👍/👎 συνολικά για το μοντέλο, κάτω από τη φωτογραφία
-  $$('#deck section.s-prod .r').forEach(r => r.insertAdjacentHTML('beforeend', '<div class="clm-big"><button data-bo="1" aria-label="Του αρέσει το μοντέλο"><i>👍</i>Του αρέσει</button><button data-bo="-1" aria-label="Δεν του αρέσει το μοντέλο"><i>👎</i>Δεν του αρέσει</button></div>'));
+  $$('#deck section.s-prod .r').forEach(r => r.insertAdjacentHTML('beforeend', '<div class="clm-big"><button data-bo="1" aria-label="Του αρέσει το μοντέλο" title="Του αρέσει το μοντέλο"><i>👍</i></button><button data-bo="-1" aria-label="Δεν του αρέσει το μοντέλο" title="Δεν του αρέσει το μοντέλο"><i>👎</i></button></div>'));
   // γρήγορη μπάρα ✓ ⭐ ✕ για το μοντέλο της τρέχουσας σελίδας
   const quick = $('#clmQuick');
   ['keydown', 'wheel', 'touchend'].forEach(t => quick.addEventListener(t, e => e.stopPropagation()));

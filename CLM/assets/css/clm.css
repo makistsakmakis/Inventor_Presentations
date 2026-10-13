@@ -197,3 +197,16 @@ body:not(.clm-live) .clm-big{display:none}
 .clm-ovr button{padding:9px 6px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);color:#fff;font-size:13px;cursor:pointer}
 .clm-ovr button[data-cb="1"].on{background:rgba(63,191,127,.3);border-color:var(--clmOk)}
 .clm-ovr button[data-cb="-1"].on{background:rgba(255,61,70,.28);border-color:var(--clmNo)}
+
+/* v2: 👍/👎 κάτω από το λεκτικό του χαρακτηριστικού (όχι πάνω στο εικονίδιο) */
+.clm-uvrow{display:flex;justify-content:center;gap:8px;margin-top:-2px}
+.clm-uv{position:static;top:auto;left:auto;right:auto;width:32px;height:32px;font-size:15px}
+.clm-uv.up,.clm-uv.dn{left:auto;right:auto}
+body:not(.clm-live) .clm-uvrow{display:none}
+/* v2: μεγάλα στρογγυλά 👍/👎 χωρίς κείμενο */
+.clm-big{gap:22px}
+.clm-big button{width:76px;height:76px;padding:0;border-radius:50%;justify-content:center;gap:0}
+.clm-big button i{font-size:38px}
+.clm-uvrow{position:relative;z-index:8;gap:6px;margin-top:-3px}
+.clm-uv{width:28px;height:28px;font-size:14px}
+body.clm-live .s-prod .l{z-index:7}
