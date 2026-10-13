@@ -66,6 +66,7 @@
     <button id="clmFab" aria-label="Σημείωση πωλητή" title="Σημείωση πωλητή">${ico.pen}<span class="dot"></span><span class="bd"></span></button>
     <div id="clmPanel" data-scroll role="dialog" aria-label="Σημείωση πωλητή"></div>
     <div id="clmToast"></div>
+    <div id="clmQuick" aria-label="Γρήγορη αντίδραση"></div>
     <div id="clmStart" class="clm-ov" data-scroll></div>
     <div id="clmTop3" class="clm-ov" data-scroll></div>
     <div id="clmWrapup" class="clm-ov" data-scroll></div>
@@ -94,6 +95,7 @@
     V.path.push({ id: el.id, title: el.getAttribute('aria-label') || el.id, model: el.id.startsWith('p-') ? el.id.slice(2) : null, t0: t, t1: null });
     save();
     if (panel.classList.contains('open')) { const m = currentModel(); if (m) sel = m; renderPanel(); }
+    refreshUI();
   }
   new MutationObserver(ms => { for (const m of ms) if (m.target.parentNode === deck && m.target.classList.contains('is-active')) { onSlide(m.target); break; } })
     .observe(deck, { subtree: true, attributes: true, attributeFilter: ['class'] });
@@ -102,7 +104,16 @@
   function ev(type, data) { if (!V || V.status !== 'live') return; V.events.push(Object.assign({ t: now(), type, slide: (activeSlide() || {}).id }, data || {})); save(); }
   document.addEventListener('click', e => {
     if (!V || V.status !== 'live') return;
-    const t = e.target; if (t.closest('#clmPanel,#clmFab,.clm-ov,#clmRpBtn')) return;
+    const t = e.target;
+    const uv = t.closest('.clm-uv');
+    if (uv) {                                              // 👍 / 👎 πάνω στα εικονίδια χαρακτηριστικών της σελίδας
+      e.preventDefault(); e.stopPropagation();
+      const [m, k] = uv.parentNode.dataset.usp.split(':'); const c = aspectsOf(m)[+k][0]; const pol = +uv.dataset.uv;
+      const mk = mark(m); const nv = (mk.aspects[c] || 0) === pol ? 0 : pol; if (nv) mk.aspects[c] = nv; else delete mk.aspects[c];
+      mk.t = now(); ev('rep_mark', { model: m }); save(); refreshUI(); if (panel.classList.contains('open')) renderPanel();
+      toast((nv === 1 ? '👍 ' : nv === -1 ? '👎 ' : 'Αναίρεση: ') + aspectLabel(m, c)); return;
+    }
+    if (t.closest('#clmPanel,#clmFab,.clm-ov,#clmRpBtn,#clmQuick')) return;
     let x;
     if ((x = t.closest('[data-pick]'))) { const m = x.dataset.pick; const wasOn = x.classList.contains('on'); ev(wasOn ? 'compare_remove' : 'compare_add', { model: m }); if (!wasOn && !V.compare_added.includes(m)) V.compare_added.push(m); return; }
     if ((x = t.closest('[data-rm]'))) { ev('compare_remove', { model: x.dataset.rm }); return; }
@@ -156,7 +167,7 @@
       else if ((x = e.target.closest('[data-ca]'))) { const k = mark(m); const c = x.dataset.ca; const pol = +x.dataset.pol; const nv = (k.aspects[c] || 0) === pol ? 0 : pol; if (nv) k.aspects[c] = nv; else delete k.aspects[c]; msg = (nv === 1 ? '👍 ' : nv === -1 ? '👎 ' : 'Αναίρεση: ') + aspectLabel(m, c); }
       else if ((x = e.target.closest('[data-cq]'))) { const k = mark(m); const c = x.dataset.cq; k.questions = k.questions.includes(c) ? k.questions.filter(q => q !== c) : k.questions.concat(c); msg = 'Ρώτησε: ' + lab(QUESTIONS, c); }
       else return;
-      V.marks[m].t = now(); ev('rep_mark', { model: m }); save(); updBadge(); rerender(m); toast(msg);
+      V.marks[m].t = now(); ev('rep_mark', { model: m }); save(); refreshUI(); rerender(m); toast(msg);
     });
     box.addEventListener('input', e => { const n = e.target.closest('[data-cn]'); if (!n) return; const m = getModel(n); if (!m) return; mark(m).note = n.value; save(); });
   }
@@ -190,6 +201,29 @@
   }
   fab.onclick = () => togglePanel();
 
+  /* ---------------- ορατά χειριστήρια πάνω στη σελίδα ---------------- */
+  // 👍/👎 δίπλα σε κάθε εικονίδιο χαρακτηριστικού (USP) των σελίδων μοντέλων
+  $$('#deck .usp[data-usp]').forEach(u => u.insertAdjacentHTML('beforeend', '<button class="clm-uv up" data-uv="1" aria-label="Του άρεσε">👍</button><button class="clm-uv dn" data-uv="-1" aria-label="Δεν του άρεσε">👎</button>'));
+  // γρήγορη μπάρα ✓ ⭐ ✕ για το μοντέλο της τρέχουσας σελίδας
+  const quick = $('#clmQuick');
+  ['keydown', 'wheel', 'touchend'].forEach(t => quick.addEventListener(t, e => e.stopPropagation()));
+  function refreshUI() {
+    updBadge();
+    if (!V || V.status !== 'live') { quick.innerHTML = ''; return; }
+    $$('#deck .usp[data-usp]').forEach(u => { const [m, k] = u.dataset.usp.split(':'); const c = aspectsOf(m)[+k][0]; const v = (V.marks[m] && V.marks[m].aspects[c]) || 0;
+      $('.clm-uv.up', u).classList.toggle('on', v === 1); $('.clm-uv.dn', u).classList.toggle('on', v === -1); });
+    const m = currentModel();
+    if (!m) { quick.innerHTML = ''; return; }
+    const k = V.marks[m] || {};
+    quick.innerHTML = `<b>${esc(P[m].name)}</b>${Object.entries(OUT).map(([o, [i, l]]) => `<button data-qo="${o}" class="${k.outcome === o ? 'on' : ''}" title="${l}">${i}<span>${l}</span></button>`).join('')}${k.outcome === 'reject' ? `<em>${k.reason ? esc(lab(REASONS, k.reason)) : 'λόγος;'}</em>` : ''}`;
+  }
+  quick.addEventListener('click', e => {
+    const b = e.target.closest('[data-qo]'); const m = currentModel(); if (!b || !m || !V) return;
+    const k = mark(m); const o = b.dataset.qo; k.outcome = k.outcome === o ? null : o; if (k.outcome !== 'reject') k.reason = null; k.t = now();
+    ev('rep_mark', { model: m }); save(); refreshUI(); toast(k.outcome ? OUT[o][0] + ' ' + OUT[o][1] : 'Αναίρεση');
+    if (k.outcome === 'reject' && !k.reason) togglePanel(true); else if (panel.classList.contains('open')) renderPanel();
+  });
+
   /* ---------------- έναρξη επίσκεψης ---------------- */
   const startOv = $('#clmStart');
   function openStart() {
@@ -222,7 +256,7 @@
     startOv.classList.remove('open');
     document.body.classList.add('clm-live');
     if (resumed) closePath(V.path.length ? V.path[V.path.length - 1].t0 + 1000 : now());   // κλείσιμο τμήματος που έμεινε ανοιχτό
-    ev(resumed ? 'visit_resume' : 'visit_start'); onSlide(activeSlide()); save(); updBadge();
+    ev(resumed ? 'visit_resume' : 'visit_start'); onSlide(activeSlide()); save(); refreshUI();
     toast(resumed ? 'Συνέχεια επίσκεψης' : 'Η επίσκεψη ξεκίνησε');
   }
 
@@ -367,7 +401,7 @@
     const visits = LS.get(K_VISITS, []); visits.push(rec); LS.set(K_VISITS, visits);
     LS.del(K_DRAFT);
     wrapOv.classList.remove('open'); togglePanel(false);
-    document.body.classList.remove('clm-live');
+    document.body.classList.remove('clm-live'); quick.innerHTML = '';
     V = null; updBadge();
     openReport(visits.length - 1);
   }
