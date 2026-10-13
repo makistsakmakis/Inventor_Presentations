@@ -1,0 +1,148 @@
+/* =====================================================================
+   clm.css · CLM demo — καταγραφή επίσκεψης πωλητή (Οκτ. 2026)
+   Φορτώνεται μετά τα style.css / premium.css. Όλα τα στοιχεία έχουν πρόθεμα .clm / #clm
+   ===================================================================== */
+:root{--clmOk:#3fbf7f;--clmInt:#f0b429;--clmNo:#ff3d46;--clmPanel:rgba(12,15,20,.94)}
+
+/* ---------- κουμπί πωλητή (διακριτικό, κάτω αριστερά) ---------- */
+#clmFab{position:fixed;left:18px;bottom:22px;z-index:45;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(14,18,24,.55);border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  transition:.25s;cursor:pointer;opacity:.55}
+#clmFab:hover,#clmFab.on{opacity:1;border-color:var(--red2);color:#fff}
+#clmFab svg{width:20px;height:20px}
+#clmFab .bd{position:absolute;right:-4px;top:-4px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--red);color:#fff;font-size:11px;font-weight:700;display:none;place-items:center}
+#clmFab .bd.on{display:grid}
+#clmFab .dot{position:absolute;left:-2px;top:-2px;width:10px;height:10px;border-radius:50%;background:var(--clmOk);box-shadow:0 0 8px var(--clmOk)}
+body:not(.clm-live) #clmFab{display:none}
+
+/* ---------- πάνελ πωλητή ---------- */
+#clmPanel{position:fixed;left:18px;bottom:78px;z-index:46;width:min(430px,calc(100vw - 36px));max-height:calc(100vh - 150px);overflow:auto;
+  background:var(--clmPanel);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:14px 14px 12px;color:#fff;font-size:13px;
+  box-shadow:0 24px 60px rgba(0,0,0,.6);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  transform:translateY(12px);opacity:0;pointer-events:none;transition:.22s}
+#clmPanel.open{transform:none;opacity:1;pointer-events:auto}
+#clmPanel h4{margin:0;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);font-weight:600}
+.clm-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.clm-x{width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:transparent;color:#fff;cursor:pointer;font-size:16px;line-height:1}
+.clm-model{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.clm-model img{height:46px;width:46px;object-fit:contain}
+.clm-model b{font-size:16px}.clm-model span{color:var(--mute);font-size:12px;display:block}
+.clm-pick{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.clm-pick button{padding:5px 9px;border-radius:9px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);color:#ddd;font-size:12px;cursor:pointer}
+.clm-pick button.on{border-color:var(--red2);background:rgba(227,20,30,.25);color:#fff}
+.clm-pick button.has::after{content:"•";color:var(--clmOk);margin-left:4px}
+.clm-lab{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin:10px 0 6px}
+.clm-out{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.clm-out button{padding:10px 6px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);color:#fff;font-size:13px;cursor:pointer;line-height:1.2}
+.clm-out button i{display:block;font-style:normal;font-size:18px;margin-bottom:2px}
+.clm-out button[data-co="offer"].on{background:rgba(63,191,127,.25);border-color:var(--clmOk)}
+.clm-out button[data-co="interest"].on{background:rgba(240,180,41,.22);border-color:var(--clmInt)}
+.clm-out button[data-co="reject"].on{background:rgba(255,61,70,.22);border-color:var(--clmNo)}
+.clm-chips{display:flex;flex-wrap:wrap;gap:6px}
+.clm-chips button{padding:6px 10px;border-radius:20px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);color:#ddd;font-size:12px;cursor:pointer;text-align:left}
+.clm-chips button.on{background:rgba(255,61,70,.22);border-color:var(--clmNo);color:#fff}
+.clm-chips button.q.on{background:rgba(110,165,240,.25);border-color:#6ea5f0}
+.clm-chips button.pos{background:rgba(63,191,127,.22);border-color:var(--clmOk);color:#fff}
+.clm-chips button.neg{background:rgba(255,61,70,.2);border-color:var(--clmNo);color:#fff}
+.clm-chips button.pos::before{content:"👍 "}.clm-chips button.neg::before{content:"👎 "}
+.clm-tog{display:flex;align-items:center;gap:8px;margin-top:10px;padding:8px 10px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);cursor:pointer;color:#ddd;width:100%;font-size:13px}
+.clm-tog.on{border-color:#6ea5f0;background:rgba(110,165,240,.2);color:#fff}
+.clm-note{width:100%;margin-top:6px;padding:8px 10px;border-radius:10px;border:1px solid rgba(255,255,255,.14);background:rgba(0,0,0,.3);color:#fff;font:inherit;resize:vertical;min-height:38px}
+.clm-hint{color:var(--mute);font-size:11.5px;margin-top:4px}
+.clm-foot{display:flex;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.1)}
+.clm-btn{flex:1;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#fff;font-size:13px;cursor:pointer;font-weight:600}
+.clm-btn.red{background:linear-gradient(135deg,var(--red),#b30d15);border-color:transparent}
+.clm-btn.ghost{background:transparent}
+.clm-btn:disabled{opacity:.4;cursor:not-allowed}
+
+#clmToast{position:fixed;left:76px;bottom:30px;z-index:47;padding:7px 12px;border-radius:10px;background:rgba(63,191,127,.9);color:#05140c;font-size:12px;font-weight:700;opacity:0;transform:translateY(6px);transition:.25s;pointer-events:none}
+#clmToast.on{opacity:1;transform:none}
+
+/* ---------- πλήρεις οθόνες (έναρξη, top-3, ολοκλήρωση) ---------- */
+.clm-ov{position:fixed;inset:0;z-index:90;background:rgba(5,7,10,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;overflow:auto;display:none}
+.clm-ov.open{display:block}
+.clm-wrap{max-width:1100px;margin:0 auto;padding:40px 22px 60px}
+.clm-ov h2{font-size:26px;font-weight:300;margin:0 0 6px}.clm-ov h2 b{font-weight:700}
+.clm-sub{color:var(--mute);font-size:14px;margin-bottom:22px}
+.clm-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:18px}
+
+#clmStart .clm-wrap{max-width:560px;padding-top:12vh}
+.clm-kv{display:grid;grid-template-columns:130px 1fr;gap:10px 14px;font-size:14px;margin:16px 0 22px}
+.clm-kv span{color:var(--mute)}
+.clm-demo{display:inline-block;font-size:11px;letter-spacing:.1em;padding:3px 8px;border-radius:6px;background:rgba(240,180,41,.18);color:var(--clmInt);margin-left:8px;vertical-align:3px}
+
+/* top-3 */
+#clmTop3 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+#clmTop3 .m{position:relative;border-radius:16px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);padding:12px 8px 10px;text-align:center;cursor:pointer;transition:.2s;color:#fff}
+#clmTop3 .m img{height:110px;width:100%;object-fit:contain}
+#clmTop3 .m b{display:block;margin-top:6px;font-size:14px}
+#clmTop3 .m span{color:var(--mute);font-size:12px}
+#clmTop3 .m.on{border-color:var(--red2);background:rgba(227,20,30,.18);box-shadow:0 0 26px rgba(227,20,30,.3)}
+#clmTop3 .m .n{position:absolute;right:10px;top:10px;width:30px;height:30px;border-radius:50%;background:var(--red);font-weight:700;display:none;place-items:center}
+#clmTop3 .m.on .n{display:grid}
+#clmTop3 h2{font-size:34px;text-align:center}
+#clmTop3 .clm-sub{text-align:center}
+
+/* ολοκλήρωση */
+.clm-rows{display:grid;gap:12px}
+.clm-row{display:grid;grid-template-columns:170px 1fr;gap:16px}
+@media(max-width:820px){.clm-row{grid-template-columns:1fr}}
+.clm-row .who{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px}
+.clm-row .who img{height:90px;width:100%;object-fit:contain}
+.clm-row .who b{font-size:15px}.clm-row .who span{color:var(--mute);font-size:12px}
+.clm-row .tags{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:4px}
+.clm-row.miss{border-color:var(--clmNo);box-shadow:0 0 0 1px var(--clmNo) inset}
+.clm-t{display:inline-block;padding:2px 7px;border-radius:10px;font-size:11px;background:rgba(255,255,255,.08);color:#ccc}
+.clm-t.c{background:rgba(110,165,240,.22);color:#cfe0ff}.clm-t.h{background:rgba(227,20,30,.25);color:#ffd0d3}
+.clm-add{display:flex;gap:8px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.clm-add select,.clm-f select,.clm-f input{padding:9px 10px;border-radius:10px;border:1px solid rgba(255,255,255,.18);background:#11151b;color:#fff;font:inherit}
+.clm-f{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:820px){.clm-f{grid-template-columns:1fr}}
+.clm-f label{display:block;font-size:12px;color:var(--mute);margin-bottom:5px}
+.clm-err{color:var(--clmNo);font-size:13px;margin-top:10px;min-height:18px}
+.clm-sec{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin:26px 0 10px;font-weight:600}
+.clm-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:22px;flex-wrap:wrap}
+.clm-actions .clm-btn{flex:0 0 auto;padding:12px 20px}
+
+/* ---------- αναφορά (φωτεινό θέμα για ανάγνωση/εκτύπωση) ---------- */
+#clmReport{background:#f4f5f7;color:#16181d;backdrop-filter:none}
+#clmReport .rp-top{position:sticky;top:0;z-index:2;background:#111;color:#fff;padding:12px 22px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+#clmReport .rp-top b{font-size:15px}
+#clmReport .rp-tabs{display:flex;gap:6px;flex-wrap:wrap}
+#clmReport .rp-tabs button{border:1px solid #444;background:#222;color:#ddd;padding:7px 12px;border-radius:8px;cursor:pointer;font-size:13px}
+#clmReport .rp-tabs button.on{background:var(--red);border-color:var(--red);color:#fff}
+#clmReport .rp{max-width:1150px;margin:0 auto;padding:20px 16px 60px}
+#clmReport .card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:18px;overflow-x:auto}
+#clmReport h3{font-size:15px;margin:0 0 4px}
+#clmReport .sub{color:#6b7280;font-size:12.5px;margin-bottom:12px}
+#clmReport .g{display:grid;gap:14px}
+#clmReport .g2{grid-template-columns:1fr 1fr}#clmReport .g5{grid-template-columns:repeat(5,1fr)}
+@media(max-width:860px){#clmReport .g2,#clmReport .g5{grid-template-columns:1fr 1fr}}
+#clmReport .kpi b{display:block;font-size:24px}#clmReport .kpi span{color:#6b7280;font-size:12px}
+#clmReport .sect{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#6b7280;margin:24px 0 10px;font-weight:600}
+#clmReport table{width:100%;border-collapse:collapse;font-size:13px}
+#clmReport th,#clmReport td{text-align:left;padding:8px 6px;border-bottom:1px solid #e5e7eb;vertical-align:top}
+#clmReport th{color:#6b7280;font-size:12px;font-weight:600}
+#clmReport td.n,#clmReport th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+#clmReport .tag{display:inline-block;padding:2px 8px;border-radius:20px;font-size:12px;font-weight:600;margin:2px 4px 2px 0;white-space:nowrap}
+#clmReport .t-ok{background:#e3f2ea;color:#2f7d5b}#clmReport .t-int{background:#fdf3e1;color:#a86a12}#clmReport .t-no{background:#fde8e9;color:#d7141e}
+#clmReport .t-q{background:#e8eef8;color:#3d64a8}#clmReport .t-g{background:#f0f1f3;color:#6b7280}
+#clmReport .path{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+#clmReport .st{border:1px solid #e5e7eb;border-radius:10px;padding:6px 9px;background:#fafafa;font-size:12px}
+#clmReport .st b{display:block;font-size:12.5px}#clmReport .st i{font-style:normal;color:#6b7280}
+#clmReport .st.p{border-color:#d7141e;background:#fde8e9}
+#clmReport .ar{color:#bbb}
+#clmReport .act{border-left:4px solid #2f7d5b;background:#e3f2ea;padding:14px 16px;border-radius:8px}
+#clmReport .warn{border-left:4px solid #a86a12;background:#fdf3e1;padding:14px 16px;border-radius:8px}
+#clmReport ul{margin:6px 0 0;padding-left:18px}#clmReport li{margin:5px 0}
+#clmReport pre{background:#0f1218;color:#d6e2f5;padding:14px;border-radius:10px;font-size:12px;overflow:auto;max-height:420px}
+#clmReport .bar{display:grid;grid-template-columns:200px 1fr 40px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+#clmReport .bar .tr{background:#f0f1f3;border-radius:6px;height:12px;overflow:hidden}#clmReport .bar .tr i{display:block;height:100%;background:#d7141e}
+#clmReport .bar em{font-style:normal;color:#6b7280;text-align:right}
+#clmReport .empty{color:#6b7280;padding:30px;text-align:center}
+#clmReport .rp-btn{border:1px solid #444;background:#222;color:#fff;padding:7px 12px;border-radius:8px;cursor:pointer;font-size:13px}
+@media print{
+  body>*:not(#clmReport){display:none!important}
+  #clmReport{position:static;display:block;overflow:visible}
+  #clmReport .rp-top{display:none}
+}
