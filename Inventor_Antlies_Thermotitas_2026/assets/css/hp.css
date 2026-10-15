@@ -1,0 +1,174 @@
+/* =====================================================================
+   hp.css · Κατάλογος Αντλιών Θερμότητας 2026 — προσαρμογές πάνω στο style.css / premium.css
+   ===================================================================== */
+
+/* ---------- εξώφυλλο ---------- */
+.hp-cover .ttl{font-size:30px;top:556px}
+.hp-cover .tag{position:absolute;left:92px;top:652px;font-size:18px;color:#cfd6dc;font-weight:300;letter-spacing:.02em}
+.hp-cover .cta{top:712px}
+
+/* ---------- εμπειρία / πλανήτης: 4 πλακίδια σε 2x2 ---------- */
+.hp-exp4 .h-thin{font-size:56px}
+.hp-exp4 .right{top:100px}
+.hp-exp4 .lead{font-size:16.5px;line-height:1.6}
+.hp-exp4 .tiles{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;height:470px;bottom:40px}
+.hp-exp4 .tile .ttl{font-size:15.5px}
+.hp-exp4 .tile .num{width:58px;height:58px;font-size:30px}
+.hp-exp4 .tile .front{gap:14px;padding:18px}
+.hp-exp4 .badges{display:flex;flex-direction:column;gap:6px;margin-top:14px}
+.hp-exp4 .badges span{font-size:13px;color:#cfd6dc;padding-left:14px;border-left:2px solid var(--mint);line-height:1.45}
+.hp-planet .photo::after{background:linear-gradient(90deg,rgba(0,0,0,.25),transparent 40%),linear-gradient(180deg,rgba(0,0,0,.55),transparent 35%,transparent 65%,rgba(0,0,0,.75))}
+.hp-planet .h-thin .ln:last-child{color:var(--mint)}
+
+/* ---------- R290 ---------- */
+.hp-r290 .h-thin{font-size:44px;margin-bottom:22px}
+.hp-r290 .h-thin .ln:last-child,.hp-r290 .h-thin .ln:nth-child(2){color:var(--mint)}
+.hp-r290 .lead{font-size:16px;line-height:1.6}
+.hp-r290 .gwp{display:flex;gap:16px;margin-top:26px}
+.hp-r290 .gwp .g{flex:1;border-radius:18px;padding:16px 18px;border:1px solid rgba(127,216,176,.35)}
+.hp-r290 .gwp .g span{font-size:13px;letter-spacing:.2em;color:var(--mint)}
+.hp-r290 .gwp .g b{display:block;font-size:54px;font-weight:800;line-height:1.05;color:#fff;text-shadow:0 0 30px rgba(127,216,176,.45)}
+.hp-r290 .gwp .g b i{font-style:normal}
+.hp-r290 .gwp .g p{font-size:13.5px;color:#cfd6dc;margin-top:4px}
+.hp-r290 .xpl{display:block;height:200px;width:auto;margin:22px 0 0 40px;filter:drop-shadow(0 20px 30px rgba(0,0,0,.6))}
+.hp-r290 .tile .back ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:9px}
+.hp-r290 .tile .back li{font-size:var(--tfs,14.5px);line-height:1.5;color:#dfe5ea;font-weight:300}
+.hp-r290 .tile .back li b{color:#fff;font-weight:600}
+.hp-r290 .tile .back li::marker{color:var(--mint)}
+
+/* ---------- Τεχνολογία & Αξιοπιστία ---------- */
+.hp-rel .hd{position:absolute;left:70px;top:88px}
+.hp-rel .stats{position:absolute;left:70px;top:250px;width:690px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.hp-rel .st{border-radius:18px;padding:16px 18px 14px;min-height:168px}
+.hp-rel .st small{display:block;font-size:13px;color:var(--mute);letter-spacing:.06em;height:16px}
+.hp-rel .st b{display:block;font-size:44px;font-weight:800;line-height:1.1;color:#fff;text-shadow:0 0 26px rgba(227,20,30,.45)}
+.hp-rel .st p{font-size:13px;line-height:1.45;color:#cfd6dc;margin-top:6px}
+.hp-rel .fan{position:absolute;left:70px;top:640px;width:690px;display:flex;align-items:center;gap:18px;font-size:15px;color:#cfd6dc}
+.hp-rel .fan img{height:110px;width:auto;filter:drop-shadow(0 10px 24px rgba(0,0,0,.6))}
+.hp-rel .ranges{position:absolute;left:820px;right:110px;top:88px;height:470px;border-radius:22px;padding:20px 24px}
+.hp-rel .rcs{display:grid;grid-template-columns:1fr 1fr;gap:26px;height:360px;margin-top:12px}
+.hp-rel .rc h5{font-size:14px;font-weight:600;margin-bottom:10px;color:#fff}
+.hp-rel .rcb{position:relative;height:300px;margin-left:44px;display:flex;justify-content:space-around;align-items:stretch;border-left:1px solid var(--line2)}
+.hp-rel .rcb>i{position:absolute;left:0;right:0;height:1px;background:rgba(255,255,255,.07)}
+.hp-rel .rcb>i span{position:absolute;left:-46px;top:-8px;width:40px;text-align:right;font-family:var(--fm);font-size:11.5px;color:var(--dim)}
+.hp-rel .rb{position:relative;width:40px}
+.hp-rel .rb u{position:absolute;left:8px;right:8px;bottom:var(--a);top:calc(100% - var(--b));border-radius:12px;background:linear-gradient(180deg,#ff5a64,#b30d15);box-shadow:0 0 22px rgba(227,20,30,.5);transform:scaleY(0);transform-origin:bottom}
+.is-active .hp-rel .rb u,.hp-rel.is-active .rb u{animation:barUp 1s var(--ease) forwards;animation-delay:calc(.5s + var(--i) * .12s)}
+.hp-rel .rb em{position:absolute;left:50%;transform:translateX(-50%);font-style:normal;font-family:var(--fm);font-size:12px;white-space:nowrap;color:#fff}
+.hp-rel .rb em.hi{top:calc(100% - var(--b) - 20px)}
+.hp-rel .rb em.lo{bottom:calc(var(--a) - 20px)}
+.hp-rel .rb span{position:absolute;left:50%;bottom:-26px;transform:translateX(-50%);font-size:12.5px;color:var(--mute);white-space:nowrap}
+.hp-rel .ranges .note{font-size:11.5px;color:var(--dim);margin-top:26px}
+.hp-rel .ota{position:absolute;left:820px;right:110px;top:578px;border-radius:22px;padding:16px 20px;display:flex;gap:18px;align-items:flex-start}
+.hp-rel .ota img{height:72px;width:auto;flex:none}
+.hp-rel .ota b{font-size:16px}
+.hp-rel .ota p{font-size:13.5px;line-height:1.5;color:#cfd6dc;margin:4px 0 6px}
+.hp-rel .ota ul{margin:0;padding-left:18px;font-size:13px;color:#dfe5ea;line-height:1.5}
+.hp-rel .ota li::marker{color:var(--red2)}
+
+/* ---------- σελίδες χαρακτηριστικών: 6 πλακίδια 3x2 ---------- */
+.hp-feat .tiles{grid-template-columns:repeat(3,1fr);grid-template-rows:1fr 1fr;width:800px;gap:16px}
+.hp-feat .h-thin{font-size:60px}
+.hp-feat .tile .front{padding:18px;gap:14px}
+.hp-feat .tile .ttl{font-size:14.5px}
+.hp-feat .tile .num .ticon{height:84px}
+.hp-feat .tile .back{padding:18px 18px 16px}
+.hp-feat .tile .back h4{font-size:12.5px}
+.hp-feat .cap{width:640px}
+
+/* ---------- σειρά ---------- */
+.hp-range .cols{display:flex;grid-template-columns:none;gap:16px}
+.hp-range .col{gap:110px;min-width:0}
+.hp-range .col h3{padding:10px 14px;gap:10px}
+.hp-range .col h3 img{height:26px;width:auto;max-width:70%;object-fit:contain;object-position:left}
+.hp-range .col h3 span{font-size:11.5px;text-align:right;line-height:1.2}
+.hp-range .col.zero h3{background:linear-gradient(90deg,rgba(63,117,96,.95),rgba(63,117,96,.3))}
+.hp-range .col.mono h3,.hp-range .col.xforce h3,.hp-range .col.split h3,.hp-range .col.integ h3{background:linear-gradient(90deg,rgba(40,46,56,.95),rgba(40,46,56,.35));border-color:rgba(255,255,255,.18)}
+.hp-range .mcard{padding:14px 6px 12px}
+.hp-range .mcard .nm{font-size:13.5px;text-align:center;line-height:1.2;height:34px}
+.hp-range .mcard img.pr{max-height:150px}
+.hp-range .mcard .kv{font-size:12.5px}.hp-range .mcard .kv b{font-size:14px}
+.hp-range .mcard .pz{font-size:13.5px}
+.hp-range .mcard .wmw{height:44px}
+
+/* ---------- διάγραμμα ---------- */
+.hp-chart .bar .lbl{width:110px}
+.hp-chart .bar .lbl img{height:52px}
+.hp-chart .bar .lbl span{font-size:12px}
+.hp-chart .bar .v{font-size:16px}
+.hp-chart .chart .grp{font-size:11px;letter-spacing:.08em}
+
+/* ---------- εισαγωγή σειράς ---------- */
+.hp-ser .photo::after{background:linear-gradient(90deg,transparent 55%,rgba(6,8,11,.7)),linear-gradient(0deg,rgba(0,0,0,.35),transparent 40%)}
+.hp-ser .right{left:830px;top:110px}
+.hp-ser .swm{height:58px;width:auto;margin-bottom:22px;display:block}
+.hp-ser .h-thin{position:static;font-size:42px;color:#fff;text-shadow:none;margin-bottom:24px}
+.hp-ser .h-thin .ln:last-child{font-weight:700}
+.hp-ser .right p{font-size:17px;line-height:1.65}
+.hp-ser .right p b{color:#fff;font-weight:600}
+.hp-ser .go{flex-wrap:wrap}
+
+/* ---------- σελίδες προϊόντων ---------- */
+.hp-prod .wmrow img{height:44px;max-width:460px}
+.hp-prod .pill span{font-size:13px}
+.hp-prod .pt{font-size:23px}
+.hp-prod .desc{font-size:15px;line-height:1.55}
+.hp-prod .capb{min-width:118px}
+.hp-prod .capb>span{font-size:13px}
+.hp-prod .capb b{font-size:23px;white-space:nowrap}
+.hp-prod .capb b small{font-size:.55em;font-weight:400;margin-left:3px}
+.hp-prod .usp{width:92px}
+.hp-prod table.spec td{font-size:13.5px;padding:6px 6px}
+.hp-prod table.spec td:first-child{font-size:12.5px;white-space:nowrap}
+.hp-prod table.spec td:first-child small{display:block;font-size:10.5px;font-weight:400;color:var(--mute);letter-spacing:0}
+.hp-prod table.spec td:last-child{font-size:15px}
+.hp-prod table.spec td:nth-last-child(3){font-family:var(--f);font-weight:600;color:#e6eaee}
+.hp-prod table.spec td:nth-last-child(2){font-size:11.5px;color:var(--mute)}
+.hp-prod table.spec th{font-size:10.5px;padding:4px 5px 7px}
+.hp-prod .foot{font-size:10px;line-height:1.35;bottom:6px}
+.hp-prod .tblwrap{bottom:34px;padding:12px 16px 10px}
+.hp-prod.rows5 .tblwrap td{padding:4px 6px}
+.hp-prod.rows6 .tblwrap td,.hp-prod.rows7 .tblwrap td{padding:2px 6px;font-size:12.5px}
+.hp-prod.rows6 .tblwrap td:first-child,.hp-prod.rows7 .tblwrap td:first-child{font-size:11.5px}
+.hp-prod.rows6 .tblwrap td:first-child small,.hp-prod.rows7 .tblwrap td:first-child small{display:inline;margin-left:6px}
+.hp-prod.rows6 .r,.hp-prod.rows7 .r{height:400px}
+.hp-prod.rows6 .hero img,.hp-prod.rows7 .hero img{max-height:330px}
+.hp-prod.rows6 .l,.hp-prod.rows7 .l{gap:9px;top:74px}
+.hp-prod.rows7 .desc{font-size:14px}
+.hp-prod .hero.two img{max-width:58%}
+.dlg-tbl table.spec td:first-child small{display:block;font-size:12px;color:var(--mute);font-weight:400}
+.dlg-tbl table.spec td{font-size:17px;padding:10px 9px}
+.dlg-tbl table.spec th{font-size:12.5px}
+
+/* ---------- σύγκριση ---------- */
+.s-cmp .pick span{font-size:11.5px;line-height:1.2;text-align:center}
+
+/* ---------- σε κάθε βήμα ---------- */
+.hp-steps .photo{left:0;right:0;top:0;height:430px;border-radius:0 0 0 0;opacity:.55}
+.hp-steps .photo::after{background:linear-gradient(180deg,rgba(6,8,11,.2),var(--bg) 96%)}
+.hp-steps .h-thin{position:absolute;left:64px;top:96px;font-size:56px}
+.hp-steps .lead{position:absolute;left:64px;top:262px;width:980px;font-size:17px;line-height:1.6}
+.hp-steps .tiles{position:absolute;left:64px;right:110px;top:420px;bottom:40px;grid-template-columns:repeat(4,1fr);gap:22px}
+.hp-steps .tile .front{gap:30px}
+.hp-steps .tile .ttl{display:flex;flex-direction:column;gap:10px;align-items:center}
+.hp-steps .tile .ttl .ft{font-size:25px;font-weight:700;line-height:1.15}
+.hp-steps .tile .ttl .fs{font-size:15px;font-weight:400;color:#cfd6dc}
+.hp-steps .tile .back h4{font-size:16px}
+
+/* ---------- διορθώσεις μετά τον έλεγχο ---------- */
+.hp-feat .h-thin{font-size:52px;right:120px;text-shadow:0 2px 24px rgba(0,0,0,.65)}
+.hp-feat .photo::after{background:radial-gradient(ellipse 60% 40% at 85% 12%,rgba(0,0,0,.7),transparent 70%),linear-gradient(180deg,rgba(0,0,0,.55),transparent 32%),linear-gradient(0deg,rgba(0,0,0,.75),transparent 45%),linear-gradient(90deg,rgba(6,8,11,.5),transparent 30%)}
+.hp-feat .cap{right:120px}
+.hp-rel .rcb{height:280px}
+.hp-rel .rb span{bottom:-40px}
+.hp-rel .rb em.lo{bottom:calc(var(--a) - 18px);font-size:11px;color:#cfd6dc}
+.hp-rel .ranges .note{margin-top:40px}
+/* CLM: γρήγορη μπάρα κάθετα στο αριστερό περιθώριο, ώστε να μην καλύπτει τους πίνακες */
+body #clmQuick{left:12px;bottom:80px;flex-direction:column-reverse;align-items:stretch;gap:6px}
+body #clmQuick b{display:none}
+body #clmQuick button{width:42px;height:42px;padding:0;justify-content:center;font-size:17px}
+body #clmQuick button span{display:none}
+body #clmQuick em{position:absolute;left:50px;bottom:0;white-space:nowrap;background:rgba(14,18,24,.85);padding:4px 8px;border-radius:8px}
+body #clmFab{left:10px}
+body #clmToast{left:70px;bottom:24px}
+.hp-feat .h-thin{padding:12px 24px 16px;border-radius:20px;background:rgba(6,8,11,.42);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}

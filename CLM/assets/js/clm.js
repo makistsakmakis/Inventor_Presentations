@@ -15,18 +15,19 @@
   const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
   /* ---------------- σταθερές / λίστες κωδικών ---------------- */
-  const CATALOG_VERSION = 'afygrantires-2026.10';
+  const CFG = window.CLM_CFG || {};                     // ρυθμίσεις ανά κατάλογο (προαιρετικά, πριν το clm.js)
+  const CATALOG_VERSION = CFG.catalog || 'afygrantires-2026.10';
   const DWELL_MIN = 20;                                   // δευτ. σε slide μοντέλου ⇒ «συζητήθηκε»
   const CUSTOMER = { code: 'TEST-0001', name: 'TEST ΕΠΕ' };
   const REP = { code: 'DEMO', name: 'Demo Πωλητής' };
   const ORDER = Object.values(C.SERIES).flatMap(s => s.models);
   const seriesOf = m => Object.entries(C.SERIES).find(([, s]) => s.models.includes(m));
   const pimg = m => I + 'p-' + P[m].hero[0] + '.webp';
-  const sku = m => { const r = (P[m].table && P[m].table.rows || []).find(r => typeof r[0] === 'string'); return r ? r[0] : m.toUpperCase(); };
+  const sku = m => { if (P[m].sku) return P[m].sku; const r = (P[m].table && P[m].table.rows || []).find(r => typeof r[0] === 'string'); return r ? r[0] : m.toUpperCase(); };
   const price = m => P[m].spec.price;
   const OUT = { offer: ['✓', 'Θέλει προσφορά'], interest: ['⭐', 'Ενδιαφέρον'], reject: ['✕', 'Όχι'] };
   const REASONS = [['PRICE', 'Τιμή'], ['COMPETITOR', 'Έχει ανταγωνιστικό'], ['NOT_FIT', 'Δεν ταιριάζει στο κοινό του'], ['SIMILAR', 'Μοιάζει με άλλο Inventor'], ['AVAILABILITY', 'Διαθεσιμότητα'], ['OTHER', 'Άλλο']];
-  const QUESTIONS = [['WHOLESALE_PRICE', 'Τιμή χονδρικής'], ['AVAILABILITY', 'Διαθεσιμότητα / παράδοση'], ['DISPLAY_STAND', 'Εκθετήριο'], ['POS_MATERIAL', 'Υλικό προβολής'], ['PROMO', 'Προωθητική ενέργεια'], ['WARRANTY', 'Εγγύηση / Service']];
+  const QUESTIONS = CFG.questions || [['WHOLESALE_PRICE', 'Τιμή χονδρικής'], ['AVAILABILITY', 'Διαθεσιμότητα / παράδοση'], ['DISPLAY_STAND', 'Εκθετήριο'], ['POS_MATERIAL', 'Υλικό προβολής'], ['PROMO', 'Προωθητική ενέργεια'], ['WARRANTY', 'Εγγύηση / Service']];
   const COMMON = [['PRICE_LEVEL', 'Τιμή'], ['NOISE', 'Θόρυβος'], ['CAPACITY', 'Ικανότητα / απόδοση'], ['DESIGN', 'Εμφάνιση'], ['ENERGY', 'Κατανάλωση']];
   const NEXT = [['SEND_OFFER', 'Αποστολή προσφοράς'], ['CALL', 'Τηλεφωνική επικοινωνία'], ['REVISIT', 'Νέα επίσκεψη'], ['NONE', 'Καμία ενέργεια']];
   const lab = (list, code) => (list.find(x => x[0] === code) || [code, code])[1];
@@ -39,7 +40,7 @@
     set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
     del(k) { try { localStorage.removeItem(k); } catch (e) {} }
   };
-  const K_DRAFT = 'clm_draft_v1', K_VISITS = 'clm_visits_v1';
+  const K_DRAFT = 'clm_draft_v1' + (CFG.key ? '_' + CFG.key : ''), K_VISITS = 'clm_visits_v1' + (CFG.key ? '_' + CFG.key : '');
   let V = null;                          // τρέχουσα επίσκεψη
   const save = () => { if (V) LS.set(K_DRAFT, V); };
   const now = () => Date.now();
@@ -393,6 +394,7 @@
         const k = marks[m];
         const presented = list.includes(m);
         const o = { model: m, sku: sku(m), name: P[m].name, series: seriesOf(m)[0], presented, dwell_sec: Math.round(d[m] || 0) };
+        if (P[m].codes) o.items = P[m].codes;              // κωδικοί είδους ανά μοντέλο (τιμοκατάλογος)
         if (!presented) return o;
         return Object.assign(o, {
           signal: k ? k.outcome : null, overall: k && k.overall ? k.overall : null, reason: k && k.outcome === 'reject' ? k.reason : null,
