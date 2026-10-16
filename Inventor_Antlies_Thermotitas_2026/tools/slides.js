@@ -57,7 +57,22 @@
     <div class="stats">${R.stats.map((s, i) => `<div class="st glass rise" style="--d:${.15 + i * .07}s"><small>${s[0]}</small><b class="run">${s[1]}</b><p>${s[2]}</p></div>`).join('')}</div>
     <p class="fan rise" style="--d:.6s"><img class="spin" src="${pimg('mx290-fan')}" alt="">${R.fan}</p>
     <div class="ranges glass rise" style="--d:.3s"><span class="kicker">Μεγάλο εύρος λειτουργίας</span><div class="rcs">${rangeChart(R.ranges.amb, 'amb')}${rangeChart(R.ranges.wat, 'wat')}</div><p class="note">${R.ranges.note}</p></div>
-    <div class="ota glass rise" style="--d:.5s"><img src="${img('i-hp-ota')}" alt=""><div><b>${R.ota.t}</b><p>${R.ota.text}</p><ul>${R.ota.pts.map(p => `<li>${p}</li>`).join('')}</ul></div></div>`
+    <div class="ota glass rise" style="--d:.5s"><img src="${img('i-hp-ota')}" alt=""><div><b>${R.ota.t}</b><p>${R.ota.text}</p><ul>${R.ota.pts.map(p => `<li>${p}</li>`).join('')}</ul></div></div>`,
+    /* ανεμιστήρας: 5″ αργά → απότομη επιτάχυνση → αργή επιβράδυνση → ξανά */
+    init(el) {
+      const fan = $('.fan img.spin', el); let ang = 0, last = 0, t0 = 0;
+      const SLOW = 36, FAST = 1500, T1 = 5, T2 = 0.7, T3 = 4.5, CYC = T1 + T2 + T3;   // °/s · δευτ.
+      const speed = t => { if (t < T1) return SLOW; t -= T1;
+        if (t < T2) { const u = t / T2; return SLOW + (FAST - SLOW) * u * u * u; }           // απότομη επιτάχυνση
+        t -= T2; const u = t / T3; return FAST - (FAST - SLOW) * (1 - Math.pow(1 - u, 3)); };  // αργή επιβράδυνση
+      const tick = now => { requestAnimationFrame(tick);
+        if (!el.classList.contains('is-active')) { last = 0; return; }
+        if (!last) { last = now; t0 = now; return; }
+        const dt = Math.min(.05, (now - last) / 1000); last = now;
+        ang = (ang + speed(((now - t0) / 1000) % CYC) * dt) % 360;
+        fan.style.transform = `rotate(${ang}deg)`; };
+      requestAnimationFrame(tick);
+    }
   });
 
   /* ---- 06-09 Features (6 tiles each) ---- */
