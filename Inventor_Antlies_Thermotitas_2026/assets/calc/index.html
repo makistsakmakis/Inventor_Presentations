@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="el"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Ελληνικός υπολογιστής θερμικών απωλειών και προκαταρκτικής διαστασιολόγησης αντλίας θερμότητας με ΖΝΧ. Λειτουργεί εκτός σύνδεσης."><title>Θερμομέτρο — Υπολογιστής αντλίας θερμότητας</title>
+<style>
+:root{--ink:#153b37;--muted:#61736c;--line:#d9e1d8;--bg:#f3f5ef;--green:#d4f480;--paper:#fff;--orange:#f7eedb}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}header{background:var(--ink);color:white;padding:28px max(24px,calc((100vw - 1336px)/2)) 40px}nav{display:flex;justify-content:space-between;align-items:center;gap:12px}.brand{font-size:20px;font-weight:800;letter-spacing:-.7px}.badge{font-size:11px;letter-spacing:1.5px;border:1px solid #69857b;border-radius:30px;padding:5px 12px}.intro{max-width:810px;margin-top:36px}h1{font-size:clamp(30px,4vw,49px);line-height:1.14;letter-spacing:-1.8px;margin:12px 0 18px}.intro p{color:#d1dfd7;max-width:680px;margin:0}.eyebrow{font-size:11px;font-weight:750;letter-spacing:2px;text-transform:uppercase;color:#b9df85}main{max-width:1384px;margin:auto;padding:30px 24px 60px}.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}button,.button{font:inherit;font-size:13px;font-weight:650;padding:10px 16px;border:1px solid var(--line);background:white;color:var(--ink);border-radius:8px;cursor:pointer;text-decoration:none}button:hover{border-color:#6e8877;background:#f0f6e8}button.primary{background:var(--green);border-color:var(--green)}button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #699e30;outline-offset:3px}.layout{display:grid;grid-template-columns:minmax(0,1fr) 365px;align-items:start;gap:24px}.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:25px;margin-bottom:20px}h2{font-size:20px;line-height:1.3;letter-spacing:-.4px;margin:0 0 7px}h2 .step{font-size:12px;color:#6e7e73;display:block;letter-spacing:1.8px;margin-bottom:9px}h3{font-size:15px;margin:22px 0 9px}.hint{color:var(--muted);font-size:12px;margin:6px 0 18px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}label{display:block;font-size:12px;font-weight:650}input,select{display:block;width:100%;min-width:0;padding:11px 10px;margin-top:6px;border:1px solid #cdd8ce;background:#fbfcf9;border-radius:7px;color:var(--ink);font:inherit;font-size:14px}input[readonly]{background:#edf2e8}input:invalid{border-color:#c07e55}small{font-weight:400;display:block;color:var(--muted);font-size:11px;line-height:1.5;margin-top:5px}.notice{border-radius:10px;background:var(--orange);padding:14px 16px;font-size:12px;line-height:1.65;margin-top:16px}.notice.green{background:#eef6df}.notice strong{font-weight:750}.result{position:sticky;top:20px}.hero-result{background:var(--ink);color:white;border-radius:16px;padding:28px}.hero-result .eyebrow{color:var(--green)}.number{font-size:64px;line-height:1.1;font-weight:750;letter-spacing:-3px;margin:18px 0 8px}.number span{font-size:20px;letter-spacing:0;font-weight:450}.hero-result p{font-size:12px;color:#d7e5da;margin:9px 0}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0 4px;border-top:1px solid #507168;padding-top:20px}.metrics b{display:block;font-size:22px;color:white}.metrics span{font-size:11px;color:#c5d6cd}.breakdown{margin-top:18px}.barrow{margin:15px 0;font-size:12px}.barrow>div:first-child{display:flex;justify-content:space-between;gap:12px}.track{height:6px;background:#eaf0e5;border-radius:8px;margin-top:7px;overflow:hidden}.fill{height:100%;background:#608775;border-radius:8px}.totalrow{display:flex;justify-content:space-between;font-size:13px;border-top:1px solid var(--line);padding-top:12px}.mini{background:#ecf3e4;padding:14px;border-radius:9px;font-size:12px;margin-top:16px}.status{font-size:12px;min-height:24px;margin:0 0 12px;color:#476b39}.err{color:#a43820}.tablewrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:12px}th{text-align:left;color:var(--muted);font-weight:650;padding:8px 6px;border-bottom:1px solid var(--line)}td{padding:8px 5px;border-bottom:1px solid #e7ece3}td input,td select{font-size:12px;padding:8px;margin:0}td input[type=number]{min-width:75px}td:first-child input{min-width:140px}td select{min-width:135px}td button{padding:6px 10px}td input[data-key=b]{min-width:62px}.tcell{display:flex;gap:4px;align-items:center}.tcell input{flex:1}summary{cursor:pointer;font-weight:700;font-size:14px}details>div{margin-top:18px}details.card>summary{font-size:18px}a{color:#315c46;text-underline-offset:3px}.formula{background:#f0f4eb;padding:14px;border-radius:8px;font-family:ui-monospace,monospace;font-size:12px;overflow-wrap:anywhere}.sources li{margin:10px 0}.sources{padding-left:20px;font-size:12px}.muted{color:var(--muted)}footer{border-top:1px solid var(--line);padding-top:20px;color:var(--muted);font-size:12px}#dhwFields[hidden], [hidden]{display:none!important}.inlinecheck{display:flex;align-items:center;gap:8px;margin:15px 0}.inlinecheck input{width:auto;margin:0}.chart{width:100%;height:auto}.chart text{font:10px system-ui;fill:#61736c}.noscript{background:#ffe8d9;padding:20px}#errors:not(:empty){background:#ffe8df;color:#8a321d;padding:14px;border-radius:8px}.result .card{margin-top:18px}.printonly{display:none}@media(max-width:1050px){.layout{grid-template-columns:minmax(0,1fr) 310px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.number{font-size:56px}.card{padding:20px}}@media(max-width:780px){.layout{display:flex;flex-direction:column}.layout>section,.result{width:100%}.result{position:static}.grid,.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}header{padding:22px 20px 30px}.intro{margin-top:28px}main{padding:20px 14px}.card{padding:20px 16px}.badge{letter-spacing:.7px;font-size:10px}h1{letter-spacing:-1px}.toolbar button{font-size:12px;padding:9px 11px}}@media(max-width:420px){.grid,.grid.two{grid-template-columns:1fr}}@media print{body{background:white;font-size:10px;color:#111}header{padding:0;background:white;color:#153b37}.intro{margin-top:12px}.intro p{color:#333}h1{font-size:24px}.toolbar,.noprint,.badge{display:none!important}main{padding:15px 0}.layout{display:block}.result{position:static}.card,.hero-result{break-inside:avoid;border:1px solid #bbb;border-radius:0;margin:10px 0;padding:16px;background:white;color:#153b37}.hero-result p,.hero-result .eyebrow,.metrics span,.metrics b{color:#153b37}.number{font-size:40px}input,select{border:0;background:white;padding:0;font-size:11px;appearance:none}small,.hint{font-size:10px}.grid{gap:10px}.printonly{display:block}.eyebrow{color:#153b37}.notice{background:white;border:1px solid #bbb}details{display:block}.card details:not([open]){display:none}}
+</style>
+<style>
+/* ===== Inventor · θέμα παρουσίασης (σκούρο, γυάλινο, κόκκινο) ===== */
+@font-face{font-family:Commissioner;src:url(../fonts/commissioner-greek-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0370-03FF,U+1F00-1FFF}
+@font-face{font-family:Commissioner;src:url(../fonts/commissioner-latin-wght-normal.woff2) format("woff2");font-weight:100 900;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2190-2199,U+2212}
+:root{--ink:#e9edf1;--muted:#9aa4ae;--line:rgba(255,255,255,.12);--bg:#07090c;--green:#e3141e;--paper:rgba(255,255,255,.035);--orange:rgba(240,180,41,.1);--red:#e3141e;--red2:#ff3d46;--mint:#7fd8b0}
+html{background:#07090c}
+body{background:radial-gradient(1200px 600px at 85% -10%,rgba(227,20,30,.16),transparent 60%),radial-gradient(900px 500px at -10% 110%,rgba(127,216,176,.07),transparent 60%),#07090c;color:var(--ink);font-family:Commissioner,system-ui,"Segoe UI",sans-serif;font-weight:300}
+header{background:transparent;border-bottom:1px solid var(--line);padding-top:22px;padding-bottom:30px}
+.badge{border-color:rgba(255,61,70,.5);color:#ffb3b7}
+.eyebrow{color:var(--red2);font-weight:600}
+h1{font-weight:300;letter-spacing:-.5px;color:#fff}
+.intro p{color:#cfd6dc}
+h2{color:#fff;font-weight:600}h2 .step{color:var(--red2)}
+h3{color:#fff;font-weight:600}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:20px;box-shadow:0 20px 50px rgba(0,0,0,.35);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+label{color:#dfe5ea;font-weight:500}
+input,select{background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.16);color:#fff;border-radius:10px}
+select option{background:#11151b;color:#fff}
+input[readonly]{background:rgba(255,255,255,.06);color:#cfd6dc}
+input:focus,select:focus{border-color:var(--red2);box-shadow:0 0 0 3px rgba(227,20,30,.18);outline:none}
+button,.button{background:rgba(255,255,255,.05);color:#fff;border:1px solid rgba(255,255,255,.16);border-radius:12px;font-weight:500}
+button:hover{background:rgba(227,20,30,.18);border-color:var(--red2);box-shadow:0 0 18px rgba(227,20,30,.35)}
+button.primary{background:linear-gradient(135deg,#e3141e,#b30d15);border-color:transparent;color:#fff}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--red2)}
+.hint,small,.muted{color:var(--muted)}
+.notice{background:rgba(240,180,41,.1);border:1px solid rgba(240,180,41,.3);color:#f3e2bf}
+.notice.green{background:rgba(127,216,176,.08);border-color:rgba(127,216,176,.3);color:#d6efe4}
+.hero-result{background:linear-gradient(160deg,rgba(227,20,30,.32),rgba(12,15,20,.92) 70%);border:1px solid rgba(255,61,70,.45);box-shadow:0 0 50px rgba(227,20,30,.25),inset 0 1px 0 rgba(255,255,255,.12);border-radius:22px}
+.hero-result .eyebrow{color:#ffb3b7}
+.number{color:#fff;font-weight:800;letter-spacing:-1px;text-shadow:0 0 40px rgba(227,20,30,.6)}
+.metrics{border-top-color:rgba(255,255,255,.18)}.metrics b{color:#fff;font-weight:700}.metrics span,.hero-result p{color:#e3c9cb}
+.track{background:rgba(255,255,255,.08);height:10px;border-radius:10px;box-shadow:inset 0 1px 2px rgba(0,0,0,.5)}
+.fill{background:linear-gradient(180deg,rgba(255,255,255,.35),transparent 45%),linear-gradient(90deg,#b30d15,#ff5a64);border-radius:10px;box-shadow:0 0 14px rgba(227,20,30,.55)}
+.barrow:hover .fill{filter:brightness(1.25) saturate(1.3);box-shadow:0 0 24px rgba(255,61,70,.9)}
+.totalrow{border-top-color:var(--line)}
+.mini{background:rgba(255,255,255,.05);border:1px solid var(--line)}
+.status{color:var(--mint)}.err{color:#ff8a90}
+th{color:var(--muted);border-bottom-color:var(--line)}td{border-bottom-color:rgba(255,255,255,.06)}
+.formula{background:rgba(0,0,0,.35);color:#dfe5ea}
+a{color:#ff8a90}
+.chart text{fill:#9aa4ae;font-family:Commissioner,system-ui}
+#errors:not(:empty){background:rgba(227,20,30,.15);color:#ffb3b7;border:1px solid rgba(255,61,70,.4)}
+footer{border-top-color:var(--line)}
+::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:10px}::-webkit-scrollbar-track{background:transparent}
+@media print{body{background:#fff;color:#111}}
+</style></head><body>
+<header><nav><div class="brand"><img src="../img/logo-inventor-tagline-w.png" alt="Inventor" style="height:42px;width:auto;display:block"></div><span class="badge">HEAT PUMP • ΕΡΓΑΛΕΙΟ ΠΡΟΕΚΤΙΜΗΣΗΣ</span></nav><div class="intro"><div class="eyebrow">Από τις απώλειες στη σωστή ισχύ</div><h1>Τι αντλία θερμότητας<br>χρειάζεται ο χώρος σου;</h1><p>Υπολόγισε το θερμικό φορτίο του κτιρίου, πρόσθεσε ζεστό νερό χρήσης και έλεγξε την ισχύ στις πραγματικές συνθήκες λειτουργίας.</p></div></header>
+<noscript><div class="noscript">Για να λειτουργήσει ο υπολογιστής, ενεργοποίησε τη JavaScript στον περιηγητή σου. Δεν χρειάζεται σύνδεση στο διαδίκτυο.</div></noscript>
+<main><div class="toolbar"><button type="button" class="primary" id="download">↓ Λήψη HTML με τις τιμές μου</button><button type="button" id="export">Εξαγωγή δεδομένων</button><button type="button" id="import">Εισαγωγή δεδομένων</button><button type="button" id="print">Εκτύπωση / PDF</button><button type="button" id="save">Αποθήκευση στη συσκευή</button><button type="button" id="load">Φόρτωση αποθήκευσης</button><button type="button" id="reset">Αρχικό παράδειγμα</button><input type="file" id="file" accept="application/json,.json" hidden></div><p id="status" class="status" role="status">Αυτοτελές αρχείο · χωρίς εξωτερικές βιβλιοθήκες · τα δεδομένα παραμένουν στη συσκευή σου.</p><div class="layout"><section aria-label="Παράμετροι υπολογισμού"><form id="form" novalidate>
+<div class="card"><h2><span class="step">01 / ΤΟΠΟΘΕΣΙΑ</span>Πού βρίσκεται το ακίνητο;</h2><p class="hint">Η γεωγραφική περιοχή διευκολύνει την επιλογή σταθμού. Στον υπολογισμό χρησιμοποιείται η εξωτερική θερμοκρασία σχεδιασμού, όχι ένας γενικός πολλαπλασιαστής «Βορρά / Νότου».</p><div class="grid"><label for="region">Γεωγραφική περιοχή<select id="region"><option value="north">Βόρεια Ελλάδα</option><option value="central">Κεντρική Ελλάδα / Ήπειρος</option><option value="south">Νότια Ελλάδα / Αττική</option><option value="islands">Κρήτη / νησιά</option></select></label><label for="city">Σταθμός αναφοράς<select id="city"></select></label><label for="outdoor">Θερμοκρασία βάσης σταθμού (°C)<input id="outdoor" type="number" value="-2" min="-35" max="18" step="0.1" required><small>DB 1% από ΤΟΤΕΕ 20701-3, πίν. 2.1. Μπορείς να την αλλάξεις.</small></label><label for="refAltitude">Υψόμετρο σταθμού (m)<input id="refAltitude" type="number" value="4" min="0" max="2500" step="0.1" required></label><label for="altitude">Υψόμετρο ακινήτου (m)<input id="altitude" type="number" value="4" min="0" max="2500" step="0.1" required></label><label for="indoor">Εσωτερική θερμοκρασία (°C)<input id="indoor" type="number" value="20" min="10" max="30" step="0.1" required></label><label for="groundTemp">Θερμοκρασία εδάφους (°C)<input id="groundTemp" type="number" value="15.9" min="0" max="25" step="0.1" required><small>Ενδεικτική μέση ετήσια θερμοκρασία αέρα του σταθμού. Εφαρμόζεται αυτόματα στα δάπεδα επί εδάφους.</small></label></div><label class="inlinecheck"><input id="altCorrection" type="checkbox" checked> Διόρθωση υψομέτρου όταν η διαφορά υπερβαίνει τα 200 m</label><div id="climateNote" class="notice green"></div></div><div class="card"><h2><span class="step">02 / ΓΕΩΜΕΤΡΙΑ & ΚΕΛΥΦΟΣ</span>Ο χώρος και η μόνωσή του</h2><p class="hint">Ξεκίνα από μια απλή γεωμετρία και έπειτα προσάρμοσε κάθε επιφάνεια. Το εμβαδόν είναι το συνολικό θερμαινόμενο εμβαδόν όλων των επιπέδων.</p><div class="grid"><label for="area">Θερμαινόμενο εμβαδόν (m²)<input id="area" type="number" value="100" min="5" max="10000" step="0.1" required></label><label for="height">Μέσο καθαρό ύψος (m)<input id="height" type="number" value="2.8" min="1.8" max="8" step="0.1" required></label><label for="floors">Θερμαινόμενα επίπεδα<input id="floors" type="number" value="1" min="1" max="20" step="1" required></label><label for="aspect">Λόγος μήκους / πλάτους<input id="aspect" type="number" value="1.4" min="0.2" max="5" step="0.1" required></label><label for="exposed">Εκτεθειμένη περίμετρος (%)<input id="exposed" type="number" value="100" min="0" max="100" step="1" required><small>100% για ανεξάρτητη κατοικία. Μείωσε για μεσοτοιχίες.</small></label><label for="glazing">Ποσοστό ανοιγμάτων στους εξωτ. τοίχους (%)<input id="glazing" type="number" value="20" min="0" max="90" step="1" required></label><label for="insulation">Πρότυπο μόνωσης<select id="insulation"><option value="medium">Μέτρια / μερική μόνωση</option><option value="none">Χωρίς μόνωση</option><option value="good">Καλή μόνωση</option><option value="excellent">Πολύ καλή μόνωση</option></select></label><label for="roofBoundary">Πάνω όριο<select id="roofBoundary"><option value="outside">Οροφή προς ύπαιθρο</option><option value="unheated">Προς μη θερμαινόμενο χώρο</option><option value="heated">Προς θερμαινόμενο χώρο</option></select></label><label for="floorBoundary">Κάτω όριο<select id="floorBoundary"><option value="ground">Δάπεδο επί εδάφους</option><option value="outside">Πιλοτή / εξωτερικός αέρας</option><option value="unheated">Προς μη θερμαινόμενο χώρο</option><option value="heated">Προς θερμαινόμενο χώρο</option></select></label></div><div class="notice">Τα πρότυπα U είναι <strong>ενδεικτικές παραδοχές</strong>, όχι πιστοποιημένες τιμές ούτε κατηγορίες ΠΕΑ. Η αλλαγή των παραπάνω πεδίων δεν αντικαθιστά αυτόματα τον πίνακα. Πάτησε το κουμπί για αναδημιουργία και έλεγξε τα πραγματικά δεδομένα.</div><p><button type="button" id="generate" class="primary">↻ Δημιουργία επιφανειών από τη γεωμετρία</button></p><div id="geometryNote" class="hint"></div><div class="tablewrap"><table><caption style="text-align:left;font-size:12px;padding-bottom:9px">Αναλυτικές επιφάνειες — οι τοίχοι εισάγονται καθαροί, χωρίς ανοίγματα.</caption><thead><tr><th>Στοιχείο</th><th>A (m²)</th><th>U (W/m²K)</th><th>Όριο</th><th>b*</th><th>Θερμ. ορίου (°C)**</th><th></th></tr></thead><tbody id="surfaces"></tbody></table></div><p class="hint">* Συντελεστής μείωσης θερμοκρασίας για μη θερμαινόμενο χώρο: T = Tεντός − b × (Tεντός − Tεξ). 0 = όπως ο θερμαινόμενος χώρος, 1 = όπως το ύπαιθρο. Ενδεικτικά: σοφίτα κάτω από αμόνωτη στέγη 0,8–0,9 · υπόγειο / κλειστή πιλοτή με ανοίγματα 0,5–0,8 · υπόγειο χωρίς ανοίγματα 0,4–0,5 · κλιμακοστάσιο 0,4–0,6.<br>** Ύπαιθρο και μη θερμαινόμενος χώρος: υπολογίζεται αυτόματα. Έδαφος και θερμαινόμενος γειτονικός χώρος: ακολουθούν αυτόματα τη θερμοκρασία εδάφους / εσωτερική θερμοκρασία· αν πληκτρολογήσεις τιμή γίνεται χειροκίνητη (↺ για επαναφορά). U εδάφους: ισοδύναμο U από μελέτη EN ISO 13370 όταν υπάρχει· η προεπιλογή είναι απλοποίηση.</p><button type="button" id="addSurface">+ Προσθήκη επιφάνειας</button><h3>Θερμογέφυρες</h3><div class="grid two"><label for="bridgeMode">Τρόπος υπολογισμού<select id="bridgeMode"><option value="uplift">Προσαύξηση απωλειών μετάδοσης</option><option value="psi">Αναλυτικό άθροισμα Σ(ψ × L)</option></select></label><label for="bridgePercent">Προσαύξηση (%)<input id="bridgePercent" type="number" value="10" min="0" max="40" step="1" required></label><label for="psiL">Σ(ψ × L) προς ύπαιθρο (W/K)<input id="psiL" type="number" value="0" min="0" max="1000" step="0.1" required><small>Συμπλήρωσε το άθροισμα από πραγματικά μήκη και συντελεστές ψ. Δεν προστίθεται και ποσοστιαία προσαύξηση.</small></label></div></div><div class="card"><h2><span class="step">03 / ΑΕΡΙΣΜΟΣ & ΛΕΙΤΟΥΡΓΙΑ</span>Αέρας που ανανεώνεται, θερμότητα που χάνεται</h2><p class="hint">Διαχώρισε τις ανεξέλεγκτες διηθήσεις από τον οργανωμένο αερισμό. Η ανάκτηση εφαρμόζεται μόνο στη μηχανική παροχή, όχι στις διηθήσεις.</p><div class="grid"><label for="airtight">Ενδεικτική αεροστεγανότητα<select id="airtight"><option value="medium">Μέτρια → 0,5 h⁻¹</option><option value="tight">Καλή → 0,2 h⁻¹</option><option value="leaky">Χαμηλή → 1,0 h⁻¹</option><option value="custom">Χειροκίνητη τιμή</option></select></label><label for="infiltration">Διηθήσεις n (h⁻¹)<input id="infiltration" type="number" value="0.5" min="0" max="5" step="0.05" required><small>Συνθήκες λειτουργίας, όχι τιμή n50 από blower-door.</small></label><label for="minAch">Ελάχιστος υγειονομικός αερισμός (h⁻¹)<input id="minAch" type="number" value="0.5" min="0" max="2" step="0.05" required><small>Αν διηθήσεις + αερισμός υπολείπονται, η διαφορά προστίθεται χωρίς ανάκτηση. 0 = χωρίς έλεγχο.</small></label><label for="natural">Επιπλέον φυσικός αερισμός (m³/h)<input id="natural" type="number" value="0" min="0" max="10000" step="1" required><small>Μόνο αν δεν περιλαμβάνεται ήδη στο n.</small></label><label for="mechanical">Μηχανικός αερισμός (m³/h)<input id="mechanical" type="number" value="0" min="0" max="10000" step="1" required></label><label for="recovery">Ενεργή ανάκτηση θερμότητας (%)<input id="recovery" type="number" value="0" min="0" max="95" step="1" required><small>Πραγματική απόδοση στη συνθήκη σχεδιασμού, με πρόβλεψη παγετού.</small></label><label for="reheat">Πρόσθετη ισχύς επαναθέρμανσης (kW)<input id="reheat" type="number" value="0" min="0" max="100" step="0.1" required><small>Από ειδικό υπολογισμό για διακοπτόμενη λειτουργία. Προεπιλογή: συνεχής θέρμανση.</small></label><label for="margin">Επιλεγμένο περιθώριο ισχύος (%)<input id="margin" type="number" value="0" min="0" max="30" step="1" required><small>Δεν εφαρμόζεται αυτόματο περιθώριο. Μεγάλη προσαύξηση μπορεί να προκαλέσει υπερδιαστασιολόγηση.</small></label></div><div id="ventNote" class="notice green"></div><div class="notice">Η έκθεση σε άνεμο, οι χαραμάδες, οι καπνοδόχοι και η στεγανότητα επηρεάζουν το n. Ο προσανατολισμός, οι σκιάσεις και τα ηλιακά / εσωτερικά κέρδη δεν αφαιρούνται από το χειμερινό φορτίο αιχμής: δεν θεωρούνται εγγυημένα στη δυσμενέστερη ώρα.</div></div><div class="card"><h2><span class="step">04 / ΖΕΣΤΟ ΝΕΡΟ ΧΡΗΣΗΣ</span>Θα παράγει και ΖΝΧ;</h2><div class="grid"><label for="dhw">ΖΝΧ από την αντλία<select id="dhw"><option value="no">Όχι</option><option value="yes">Ναι</option></select></label></div><div id="dhwFields" hidden><p class="hint">Η κατανάλωση δηλώνεται σε λίτρα αναμεμειγμένου νερού στη θερμοκρασία χρήσης. Το ΖΝΧ δεν προστίθεται ως αυθαίρετο σταθερό kW ανά άτομο.</p><div class="grid"><label for="people">Χρήστες<input id="people" type="number" value="4" min="1" max="100" step="1" required></label><label for="liters">Λίτρα / άτομο / ημέρα<input id="liters" type="number" value="45" min="5" max="200" step="1" required></label><label for="useTemp">Θερμοκρασία χρήσης (°C)<input id="useTemp" type="number" value="40" min="30" max="50" step="0.1" required></label><label for="coldTemp">Κρύο νερό χειμώνα (°C)<input id="coldTemp" type="number" value="10" min="1" max="25" step="0.1" required></label><label for="tankTemp">Θερμοκρασία αποθήκευσης (°C)<input id="tankTemp" type="number" value="50" min="40" max="65" step="0.1" required></label><label for="tankLoss">Απώλειες δοχείου (kWh/ημέρα)<input id="tankLoss" type="number" value="1.5" min="0" max="20" step="0.1" required></label><label for="recircLoss">Απώλειες δικτύου / ανακυκλοφορίας (kWh/ημέρα)<input id="recircLoss" type="number" value="0" min="0" max="50" step="0.1" required></label><label for="solar">Εγγυημένη χειμερινή κάλυψη χρήσης από άλλο μέσο (%)<input id="solar" type="number" value="0" min="0" max="100" step="1" required><small>Ηλιακός: συνήθως 0% στη δυσμενή ημέρα. Δεν μειώνει τις απώλειες δοχείου / δικτύου.</small></label><label for="dhwHours">Ώρες παραγωγής ΖΝΧ / ημέρα<input id="dhwHours" type="number" value="2" min="0.25" max="12" step="0.25" required></label><label for="dhwMode">Στρατηγική ΖΝΧ<select id="dhwMode"><option value="priority">Προτεραιότητα ΖΝΧ / διακοπή θέρμανσης</option><option value="simultaneous">Πραγματικά ταυτόχρονη παραγωγή</option></select></label><label for="peakLiters">Αιχμή αναμεμειγμένου νερού (L)<input id="peakLiters" type="number" value="150" min="10" max="2000" step="1" required><small>Κατανάλωση πριν από ουσιαστική αναθέρμανση δοχείου, στη θερμοκρασία χρήσης.</small></label><label for="usable">Ωφέλιμο ποσοστό δοχείου (%)<input id="usable" type="number" value="85" min="30" max="100" step="1" required><small>Απλοποίηση στρωμάτωσης / μη αξιοποιήσιμου όγκου.</small></label><label for="tankVolume">Υποψήφιο δοχείο (L)<input id="tankVolume" type="number" value="200" min="30" max="3000" step="1" required></label></div><div id="dhwNote" class="notice green"></div><p class="hint">Ο υγειονομικός κύκλος κατά της λεγιονέλλας, η μέγιστη θερμοκρασία αντλίας, η ηλεκτρική υποβοήθηση, ο εναλλάκτης και η προστασία από εγκαύματα απαιτούν χωριστή μελέτη. Η θερμοκρασία αποθήκευσης εδώ δεν αποτελεί υγειονομική οδηγία.</p></div></div><div class="card"><h2><span class="step">05 / ΑΝΤΛΙΑ & ΤΕΡΜΑΤΙΚΑ</span>Έλεγχος στις πραγματικές συνθήκες</h2><p class="hint">Τα απαιτούμενα kW είναι θερμική ισχύς στο σημείο σχεδιασμού. Η ονομαστική ισχύς A7/W35 ενός μοντέλου μπορεί να διαφέρει ουσιαστικά.</p><div class="grid"><label for="emitters">Τερματικές μονάδες<select id="emitters"><option value="floor">Ενδοδαπέδια → 35/30°C</option><option value="fan">Fan coils → 45/40°C</option><option value="radiators">Σώματα → 55/45°C</option><option value="custom">Χειροκίνητη ρύθμιση</option></select></label><label for="supply">Προσαγωγή νερού (°C)<input id="supply" type="number" value="35" min="25" max="75" step="0.1" required></label><label for="returnTemp">Επιστροφή νερού (°C)<input id="returnTemp" type="number" value="30" min="20" max="70" step="0.1" required></label><label for="cop">COP στο σημείο σχεδιασμού<input id="cop" type="number" value="3" min="1" max="8" step="0.1" required><small>Ενδεικτική αρχική τιμή· αντικατάσταση από στοιχεία κατασκευαστή. Δεν είναι SCOP.</small></label><label for="candidateHeat">Διαθέσιμη ισχύς μοντέλου στη θέρμανση (kW)<input id="candidateHeat" type="number" value="0" min="0" max="2000" step="0.1" required><small>0 = δεν έχει εισαχθεί μοντέλο. Στο διορθωμένο A / επιλεγμένο W, χωρίς ηλεκτρική αντίσταση.</small></label><label for="candidateDhw">Διαθέσιμη ισχύς μοντέλου στο ΖΝΧ (kW)<input id="candidateDhw" type="number" value="0" min="0" max="2000" step="0.1" required><small>0 = άγνωστη. Στο ίδιο A και στην απαιτούμενη θερμοκρασία φόρτισης ΖΝΧ.</small></label><label for="minCapacity">Ελάχιστη ισχύς μοντέλου σε A12 / επιλεγμένο W (kW)<input id="minCapacity" type="number" value="0" min="0" max="1000" step="0.1" required><small>0 = άγνωστη. Για ενδεικτικό έλεγχο συχνών εκκινήσεων σε ήπιο καιρό.</small></label><label for="radiatorNominal">Συνολική ισχύς σωμάτων σε ΔΤ50 (kW)<input id="radiatorNominal" type="number" value="0" min="0" max="1000" step="0.1" required><small>Προαιρετικό, 0 = χωρίς έλεγχο. Για θερμαντικά σώματα μόνο.</small></label><label for="radiatorN">Εκθέτης σωμάτων n<input id="radiatorN" type="number" value="1.3" min="1" max="1.6" step="0.01" required><small>Από τον κατασκευαστή. Προσεγγιστική σχέση Q = Q50 × (ΔΤ/50)ⁿ.</small></label></div><div class="notice">Χρησιμοποίησε πιστοποιημένους πίνακες ισχύος που λαμβάνουν υπόψη την απόψυξη όπου απαιτείται· δεν εφαρμόζεται αυθαίρετη δεύτερη απομείωση. Έλεγξε όρια λειτουργίας, διμερή λειτουργία / εφεδρεία, απαιτούμενη παροχή, διαθέσιμο μανομετρικό, ελάχιστο όγκο νερού, θόρυβο και ηλεκτρική παροχή με τον εγκαταστάτη.</div><div id="modelNote" class="notice green"></div></div><details class="card" id="method"><summary>Μεθοδολογία, παραδοχές & βιβλιογραφία</summary><div><p>Πρόκειται για μονοζωνική, στατική προεκτίμηση κατοικίας. Δεν είναι πλήρης μελέτη ΕΛΟΤ EN 12831-1, μελέτη ΚΕΝΑΚ, ΠΕΑ ή υπολογισμός ψύξης. Δεν υπολογίζει όλες τις ειδικές περιπτώσεις της βιβλιογραφίας. Για τελική επιλογή απαιτούνται αποτύπωση και υπολογισμός ανά δωμάτιο από μηχανικό.</p><h3>Απώλειες σχεδιασμού</h3><div class="formula">Qμετάδοσης = Σ[Uᵢ × Aᵢ × max(0, Tεντός − Tορίου,ᵢ)] / 1000<br>Qεδάφους = 1,45 × U × A × (Tεντός − Tεδάφους) / 1000 (fg1 = 1,45, Gw = 1)<br>Tορίου: ύπαιθρο = Tεξ · μη θερμαιν. = Tεντός − b × (Tεντός − Tεξ) · έδαφος = Tεδάφους · θερμαιν. = Tεντός ή δηλωμένη τιμή<br>Qθερμογεφυρών = Qμετάδοσης × p / 100 ή Σ(ψ × L) × ΔΤ / 1000<br>V = εμβαδόν × καθαρό ύψος<br>Vνωπού = n × V + Vφυσ + Vμηχ · Vέλλειμμα = max(0, nmin × V − Vνωπού)<br>Qαέρα = 0,33 × [n × V + Vφυσ + Vμηχ × (1 − η) + Vέλλειμμα] × ΔΤ / 1000<br>Qχώρου = Qμετάδοσης + Qθερμογεφυρών + Qαέρα<br>Qθέρμανσης = (Qχώρου + Qεπαναθέρμανσης) × (1 + περιθώριο / 100)</div><p class="hint">Οι ισχείς είναι σε kW, οι παροχές αέρα σε m³/h, οι θερμοκρασιακές διαφορές σε K. Το 0,33 Wh/(m³·K) είναι προσεγγιστική ογκομετρική θερμοχωρητικότητα αέρα. Η επίδραση υψομέτρου στην πυκνότητα δεν υπολογίζεται. Το δάπεδο επί εδάφους μοντελοποιείται απλοποιημένα με τη μέση ετήσια θερμοκρασία και fg1 = 1,45 κατά EN 12831-1, χωρίς διόρθωση υπόγειων νερών (Gw = 1) και όχι με πλήρη EN ISO 13370. Οι θερμοκρασίες εδάφους ανά σταθμό είναι ενδεικτικές μέσες ετήσιες τιμές και πρέπει να επιβεβαιώνονται από ΤΟΤΕΕ 20701-3 / ΕΜΥ. Γειτονικές θερμαινόμενες ζώνες μπορούν να έχουν απώλειες αν είναι ψυχρότερες από τον χώρο.</p><h3>ΖΝΧ και ισχύς</h3><div class="formula">EΖΝΧ = 0,001163 × χρήστες × L/χρήστη × (Tχρήσης − Tκρύου) × (1 − κάλυψη/100) + Eδοχείου + Eδικτύου<br>PΖΝΧ = EΖΝΧ / hΖΝΧ<br>Pθέρμανσης,προτερ. = Qθέρμανσης × 24 / (24 − hΖΝΧ)<br>Pισοδ.,προτερ. = max(Pθέρμανσης,προτερ., PΖΝΧ)<br>Pισοδ.,ταυτόχρ. = Qθέρμανσης + PΖΝΧ<br>Vδοχείου,min = Lαιχμής × (Tχρήσης − Tκρύου) / [(Tδοχείου − Tκρύου) × ωφέλιμο ποσοστό]<br>Παροχή νερού θέρμανσης ≈ 0,86 × Pθέρμανσης / (Tπροσαγωγής − Tεπιστροφής) m³/h</div><p class="hint">Το ισοδύναμο ενιαίο μέγεθος ισχύος για ΖΝΧ είναι μόνο σύγκριση φορτίων. Το ίδιο μοντέλο έχει διαφορετική ισχύ στη θέρμανση και στη φόρτιση ΖΝΧ. Με προτεραιότητα, ο έλεγχος μοντέλου ελέγχει επιπλέον αν οι πραγματικές ώρες παραγωγής ΖΝΧ αφήνουν αρκετό χρόνο για το φορτίο θέρμανσης. Απαιτείται αποδεκτή θερμική αδράνεια / αποθήκευση. Η πραγματική ταυτόχρονη λειτουργία πρέπει να υποστηρίζεται ρητά από το σύστημα. Δεν προτείνεται αυτόματα στρογγυλοποίηση σε εμπορική κατηγορία.</p><h3>Τι περιλαμβάνεται — τι χρειάζεται ειδική μελέτη</h3><p class="hint">Περιλαμβάνονται γεωμετρία, εκτεθειμένες επιφάνειες, U, γειτονικές θερμοκρασίες, θερμογέφυρες, τοπική θερμοκρασία και υψόμετρο, διηθήσεις, φυσικός / μηχανικός αερισμός και ανάκτηση, επαναθέρμανση, ΖΝΧ και τερματικά. Δεν προσομοιώνονται ωριαία αδράνεια / ανάκτηση θερμοκρασίας, υγρασία / λανθάνοντα φορτία, ψύξη, πισίνα, επαγγελματικά φορτία, ετήσια κατανάλωση, υδραυλικό δίκτυο ή βέλτιστη διμερής λειτουργία. Δεν αφαιρούνται μη εγγυημένα εσωτερικά ή ηλιακά κέρδη.</p><h3>Πηγές και τεχνική αναφορά</h3><ol class="sources"><li><a href="https://web.tee.gr/wp-content/uploads/TOTEE-20701-3-Final-TEE-3nd-Edition.pdf" target="_blank" rel="noopener">ΤΕΕ — ΤΟΤΕΕ 20701-3/2010, Γ΄ έκδοση (2014)</a>: πίν. 1.1 (υψόμετρα σταθμών), πίν. 2.1 (DB 1%), §2.3 (διόρθωση 6,5°C / 1000 m για διαφορά άνω των 200 m). Η επιλογή περιοχής δεν αποτελεί αντιστοίχιση κλιματικής ζώνης ΚΕΝΑΚ.</li><li><a href="https://heatloadcalculator.mcscertified.com/docs/getting-started/introduction" target="_blank" rel="noopener">MCS — Heat Load Calculator, Introduction</a>: πλαίσιο υπολογισμού φορτίου με αναφορά στο BS EN 12831-1:2017. Το παρόν εργαλείο υιοθετεί βασικές αρχές ισοζυγίου απωλειών, χωρίς ισχυρισμό συμμόρφωσης.</li><li><a href="https://www.seai.ie/ber/support-for-ber-assessors/deap/domestic-support/heat-pumps" target="_blank" rel="noopener">SEAI — Heat pumps / DEAP</a>: σημασία θερμικών απωλειών, τερματικών και θερμοκρασιών λειτουργίας.</li><li>EN ISO 6946 (θερμοπερατότητα αδιαφανών στοιχείων), EN ISO 10077 (κουφώματα), EN ISO 10211 / 14683 (θερμογέφυρες), EN ISO 13370 (έδαφος), EN 12831-3 (φορτίο ΖΝΧ), EN 14511 (απόδοση αντλίας), EN 14825 (μερικά φορτία / εποχιακή απόδοση), EN 16147 (ΖΝΧ): τεχνικές αναφορές για τον μελετητή· οι πλήρεις μέθοδοι δεν υλοποιούνται εδώ.</li></ol><p class="hint">Έκδοση εργαλείου 1.1 · 16/10/2026. Τα U, οι διηθήσεις, οι καταναλώσεις ΖΝΧ και το COP εκκίνησης είναι δηλωμένες παραδοχές του εργαλείου, όχι αυτούσια δεδομένα προτύπων. Οι σύνδεσμοι πηγών χρειάζονται σύνδεση· ο υπολογιστής λειτουργεί offline.</p></div></details></form></section>
+<aside class="result" aria-label="Αποτελέσματα"><div id="errors" role="alert"></div><div class="hero-result"><div class="eyebrow">ΑΠΑΙΤΟΥΜΕΝΗ ΘΕΡΜΙΚΗ ΙΣΧΥΣ</div><div id="capacity" class="number">— <span>kW</span></div><p id="capacityLabel"></p><p id="designPoint"></p><div class="metrics"><div><b id="spaceLoad">—</b><span>kW απώλειες χώρου</span></div><div><b id="specific">—</b><span>W/m² απώλειες χώρου</span></div></div></div><div class="card breakdown"><h2>Πού χάνεται η θερμότητα</h2><div id="bars"></div><div class="totalrow"><span>Συντελεστής απωλειών*</span><b id="hlc">—</b></div><p class="hint">*Ισοδύναμο Qχώρου / ΔΤ στη συγκεκριμένη συνθήκη.</p><div class="mini" id="systemSummary"></div></div><div class="card"><h2>Φορτίο στον ήπιο καιρό</h2><p class="hint">Στατική καμπύλη χώρου χωρίς κέρδη, ΖΝΧ ή επαναθέρμανση. Βοηθά στον έλεγχο ελάχιστης ισχύος.</p><svg id="curve" class="chart" viewBox="0 0 300 170" role="img" aria-label="Θερμικές απώλειες χώρου ανά εξωτερική θερμοκρασία"></svg><p class="hint" id="curveText"></p></div><div class="card"><h2>Πριν την τελική επιλογή</h2><p class="hint" style="margin-bottom:0">Επιβεβαίωσε τις απώλειες ανά δωμάτιο, την ισχύ των τερματικών και τα στοιχεία του μοντέλου στην πραγματική εξωτερική θερμοκρασία / προσαγωγή. Η προεκτίμηση δεν αποτελεί οριστική επιλογή εξοπλισμού.</p></div></aside></div><footer>Ένα αρχείο, όλοι οι υπολογισμοί στη συσκευή σου. Η αποθήκευση είναι προαιρετική. Εξήγαγε JSON ή HTML για ασφαλές αντίγραφο των παραμέτρων σου.</footer></main>
+<script type="application/json" id="saved-state">null</script>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+const fmt=(x,d=1)=>Number(x).toLocaleString('el-GR',{minimumFractionDigits:d,maximumFractionDigits:d});
+const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+// [id, όνομα, DB σχεδιασμού °C, υψόμετρο m, ενδεικτική μέση ετήσια θερμοκρασία °C (για έδαφος)]
+const cities={north:[['thess','Θεσσαλονίκη / Μίκρα',-2,4.8,15.9],['alex','Αλεξανδρούπολη',-4,3.5,14.6],['kast','Καστοριά',-7.5,660.9,12.5],['serres','Σέρρες',-4,34.5,15],['chrys','Χρυσούπολη / Καβάλα',-2.5,5.4,14.8],['trik','Τρίκαλα Ημαθίας',-3,.8,15]],central:[['ioan','Ιωάννινα',-4.5,484,14.3],['lar','Λάρισα',-4.5,73.6,15.8],['lam','Λαμία',-1,17.4,16.9],['anch','Αγχίαλος / Μαγνησία',-1,15.3,16.4],['arta','Άρτα',0,10.5,17.2],['agr','Αγρίνιο',-.5,25,17]],south:[['ath','Αθήνα / Ελληνικό',3,15,18.6],['athn','Αθήνα / Ν. Φιλαδέλφεια',2.5,138,17.9],['tan','Τανάγρα',-.5,140.1,17],['kor','Κόρινθος / Βέλο',2.5,20,18],['kalam','Καλαμάτα',2,11.1,17.8],['argos','Άργος / Πυργέλα',0,11.2,17.9],['pyr','Πύργος',1.5,12,17.6],['andr','Ανδραβίδα',.5,15.1,17.3]],islands:[['her','Ηράκλειο',7,39.3,19],['soud','Σούδα / Χανιά',6,151.6,18.3],['rod','Ρόδος',7.5,11.5,19.3],['nax','Νάξος',7.5,9.8,18.6],['sam','Σάμος',3.5,7.3,18.4],['cor','Κέρκυρα',1.5,4,17.5],['argost','Αργοστόλι',6,22,18.5],['sit','Σητεία',8,115.6,19.3],['sky','Σκύρος',3.5,17.9,17.4]]};
+const FG1=1.45;
+const MIGRATED=' Αρχείο παλαιότερης έκδοσης: προστέθηκαν θερμοκρασία εδάφους, ελάχιστος αερισμός 0,5 h⁻¹ και συντελεστής b· έλεγξε τα αποτελέσματα.';
+const presets={none:[1.8,5.4,2.5,1.5],medium:[.8,2.8,.7,.8],good:[.35,1.5,.3,.4],excellent:[.2,.9,.18,.25]};
+let surfaces=[],lastResult=null;
+const controls=[...document.querySelectorAll('#form input[id],#form select[id]')];
+const defaults=Object.fromEntries(controls.map(e=>[e.id,e.type==='checkbox'?e.checked:e.value]));
+function fillCities(selected){$('city').innerHTML=cities[$('region').value].map(c=>`<option value="${c[0]}">${escapeHTML(c[1])}</option>`).join('');if(selected)$('city').value=selected;}
+// Επιστρέφει true αν διατηρήθηκε υψόμετρο ακινήτου που είχε αλλάξει ο χρήστης.
+function useCity(){
+ const c=cities[$('region').value].find(c=>c[0]===$('city').value);
+ const keep=$('altitude').value.trim()!==''&&Math.abs(+$('altitude').value-+$('refAltitude').value)>.05;
+ $('outdoor').value=c[2];$('refAltitude').value=c[3];$('groundTemp').value=c[4];
+ if(!keep)$('altitude').value=c[3];
+ return keep;
+}
+function surfaceTemp(s,v,out){
+ if(s.boundary==='outside')return out;
+ if(s.boundary==='unheated')return v.indoor-s.b*(v.indoor-out);
+ if(s.auto)return s.boundary==='ground'?v.groundTemp:v.indoor;
+ return s.temp;
+}
+function generateSurfaces(){
+ const ids=['area','height','floors','aspect','exposed','glazing','indoor'];
+ if(ids.some(id=>!$(id).checkValidity())){say('Συμπλήρωσε έγκυρη γεωμετρία πριν δημιουργήσεις επιφάνειες.',true);return;}
+ const area=+$('area').value,foot=area/+$('floors').value,r=+$('aspect').value;
+ const perimeter=2*(Math.sqrt(foot*r)+Math.sqrt(foot/r));
+ const gross=perimeter*+$('height').value*+$('floors').value*+$('exposed').value/100;
+ const win=gross*+$('glazing').value/100;
+ const u=presets[$('insulation').value],roof=$('roofBoundary').value,floor=$('floorBoundary').value;
+ const ti=+$('indoor').value,tg=Number.isFinite(+$('groundTemp').value)?+$('groundTemp').value:15;
+ const t0=b=>b==='ground'?tg:ti;
+ surfaces=[{name:'Εξωτερικοί τοίχοι (καθαροί)',area:gross-win,u:u[0],boundary:'outside',b:.7,temp:0,auto:true},{name:'Κουφώματα / εξώπορτες',area:win,u:u[1],boundary:'outside',b:.7,temp:0,auto:true},{name:'Οροφή / δώμα',area:foot,u:u[2],boundary:roof,b:.8,temp:t0(roof),auto:true},{name:'Δάπεδο',area:foot,u:u[3],boundary:floor,b:.5,temp:t0(floor),auto:true}];
+ $('geometryNote').textContent=`Αποτύπωμα ${fmt(foot)} m² · συνολική περίμετρος ${fmt(perimeter)} m ανά επίπεδο · μικτή εκτεθειμένη τοιχοποιία ${fmt(gross)} m². Απλή ορθογωνική κάτοψη με ίδια επίπεδα· τροποποίησε τον πίνακα για διαφορετική γεωμετρία.`;
+ renderSurfaces();update();
+}
+function renderSurfaces(){
+ $('surfaces').innerHTML=surfaces.map((s,i)=>`<tr data-index="${i}"><td><input aria-label="Όνομα επιφάνειας ${i+1}" data-key="name" value="${escapeHTML(s.name)}" maxlength="100"></td><td><input aria-label="Εμβαδόν επιφάνειας ${i+1}" data-key="area" type="number" min="0" max="100000" step="any" value="${s.area}" required></td><td><input aria-label="Θερμοπερατότητα επιφάνειας ${i+1}" data-key="u" type="number" min="0" max="15" step="any" value="${s.u}" required></td><td><select aria-label="Όριο επιφάνειας ${i+1}" data-key="boundary">${[['outside','Ύπαιθρο'],['ground','Έδαφος (απλοπ.)'],['unheated','Μη θερμαινόμενος'],['heated','Θερμαινόμενος']].map(([v,t])=>`<option value="${v}"${v===s.boundary?' selected':''}>${t}</option>`).join('')}</select></td><td><input aria-label="Συντελεστής b επιφάνειας ${i+1}" data-key="b" type="number" min="0" max="1" step="0.05" value="${s.b}" ${s.boundary==='unheated'?'':'disabled'} required></td><td><div class="tcell"><input aria-label="Θερμοκρασία ορίου επιφάνειας ${i+1}" data-key="temp" type="number" min="-35" max="40" step="any" value="${s.temp}" ${['ground','heated'].includes(s.boundary)?'':'disabled'} required><button type="button" data-auto="${i}" title="Επαναφορά αυτόματης τιμής" aria-label="Αυτόματη θερμοκρασία ορίου επιφάνειας ${i+1}"${!s.auto&&['ground','heated'].includes(s.boundary)?'':' hidden'}>↺</button></div></td><td><button type="button" data-remove="${i}" aria-label="Διαγραφή επιφάνειας ${i+1}">×</button></td></tr>`).join('');
+}
+function state(){return{version:2,values:Object.fromEntries(controls.map(e=>[e.id,e.type==='checkbox'?e.checked:e.value])),surfaces:surfaces.map(s=>({...s}))};}
+function collect(){const v={};for(const e of controls)v[e.id]=e.type==='checkbox'?e.checked:e.tagName==='SELECT'?e.value:+e.value;return v;}
+function external(v){return v.outdoor-(v.altCorrection&&Math.abs(v.altitude-v.refAltitude)>200?.0065*(v.altitude-v.refAltitude):0);}
+function calculate(v,rows){
+ const out=external(v),dt=v.indoor-out,volume=v.area*v.height;
+ const temps=rows.map(s=>surfaceTemp(s,v,out));
+ // fg1 = 1,45: διόρθωση ετήσιας διακύμανσης εξωτερικής θερμοκρασίας για έδαφος (EN 12831-1, Gw = 1).
+ const losses=rows.map((s,i)=>({name:s.name,q:s.area*s.u*(s.boundary==='ground'?FG1:1)*Math.max(0,v.indoor-temps[i])/1000}));
+ const transmission=losses.reduce((a,s)=>a+s.q,0);
+ const bridges=v.bridgeMode==='psi'?v.psiL*dt/1000:transmission*v.bridgePercent/100;
+ const fresh=v.infiltration*volume+v.natural+v.mechanical,deficit=Math.max(0,v.minAch*volume-fresh);
+ const airflow=v.infiltration*volume+v.natural+v.mechanical*(1-v.recovery/100)+deficit;
+ const ventilation=.33*airflow*dt/1000,space=transmission+bridges+ventilation;
+ const heating=(space+v.reheat)*(1+v.margin/100);
+ let energy=0,dhwPower=0,heatRequired=heating,equivalent=heating,tankMin=0,cycleEnergy=0;
+ if(v.dhw==='yes'){
+ energy=.001163*v.people*v.liters*(v.useTemp-v.coldTemp)*(1-v.solar/100)+v.tankLoss+v.recircLoss;
+ dhwPower=energy/v.dhwHours;
+ heatRequired=v.dhwMode==='priority'?heating*24/(24-v.dhwHours):heating;
+ equivalent=v.dhwMode==='priority'?Math.max(heatRequired,dhwPower):heating+dhwPower;
+ tankMin=v.peakLiters*(v.useTemp-v.coldTemp)/((v.tankTemp-v.coldTemp)*v.usable/100);
+ cycleEnergy=.001163*v.tankVolume*(v.tankTemp-v.coldTemp);
+ }
+ const flow=.86*heatRequired/(v.supply-v.returnTemp),electric=heatRequired/v.cop;
+ const rad=v.radiatorNominal*Math.pow(Math.max(0,((v.supply+v.returnTemp)/2-v.indoor))/50,v.radiatorN);
+ return{out,dt,volume,temps,fresh,deficit,losses,transmission,bridges,airflow,ventilation,space,heating,energy,dhwPower,heatRequired,equivalent,tankMin,cycleEnergy,flow,electric,rad};
+}
+function errors(v){
+ const errs=[];
+ for(const e of controls){
+ if(e.closest('#dhwFields')&&v.dhw==='no')continue;
+ if(e.id==='bridgePercent'&&v.bridgeMode!=='uplift'||e.id==='psiL'&&v.bridgeMode!=='psi')continue;
+ if(!e.checkValidity())errs.push(`Έλεγξε το πεδίο «${e.parentElement.childNodes[0].textContent.trim()}».`);
+ }
+ if(external(v)>=v.indoor)errs.push('Η εξωτερική θερμοκρασία σχεδιασμού πρέπει να είναι χαμηλότερη από την εσωτερική.');
+ if(v.supply<=v.returnTemp)errs.push('Η προσαγωγή πρέπει να είναι υψηλότερη από την επιστροφή.');
+ if(v.returnTemp<=v.indoor)errs.push('Η επιστροφή πρέπει να είναι υψηλότερη από τη θερμοκρασία χώρου.');
+ if(v.dhw==='yes'&&(v.useTemp<=v.coldTemp||v.tankTemp<v.useTemp))errs.push('Για ΖΝΧ απαιτείται: αποθήκευση ≥ χρήση > κρύο νερό.');
+ if(!surfaces.length)errs.push('Πρόσθεσε τουλάχιστον μία επιφάνεια.');
+ for(const [i,s] of surfaces.entries()){
+ const manual=!s.auto&&['ground','heated'].includes(s.boundary);
+ if(!s.name.trim()||!Number.isFinite(s.area)||s.area<0||s.area>100000||!Number.isFinite(s.u)||s.u<0||s.u>15||!Number.isFinite(s.b)||s.b<0||s.b>1||manual&&(!Number.isFinite(s.temp)||s.temp< -35||s.temp>40))errs.push(`Έλεγξε τις τιμές της επιφάνειας ${i+1}.`);
+ }
+ return [...new Set(errs)];
+}
+function showVisibility(){
+ $('dhwFields').hidden=$('dhw').value!=='yes';
+ $('bridgePercent').parentElement.hidden=$('bridgeMode').value!=='uplift';$('psiL').parentElement.hidden=$('bridgeMode').value!=='psi';
+ for(const id of ['candidateDhw'])$(id).parentElement.hidden=$('dhw').value!=='yes';
+ for(const id of ['radiatorNominal','radiatorN'])$(id).parentElement.hidden=$('emitters').value!=='radiators';
+}
+function update(){
+ showVisibility();const v=collect(),err=errors(v);
+ $('errors').textContent=err.join(' ');
+ if(err.length){lastResult=null;for(const id of ['capacity','spaceLoad','specific','hlc'])$(id).textContent='—';$('capacityLabel').textContent='Διόρθωσε τα πεδία για νέο υπολογισμό.';$('bars').innerHTML='';$('systemSummary').textContent='';$('curve').innerHTML='';$('curveText').textContent='';$('modelNote').textContent='';$('dhwNote').textContent='';$('designPoint').textContent='';$('ventNote').textContent='';return;}
+ const r=calculate(v,surfaces);lastResult=r;
+ // Ενημέρωση υπολογισμένων θερμοκρασιών ορίων χωρίς αναδημιουργία του πίνακα.
+ [...$('surfaces').rows].forEach((tr,i)=>{const s=surfaces[i];if(!s)return;const ti=tr.querySelector('[data-key=temp]'),btn=tr.querySelector('[data-auto]');
+ btn.hidden=s.auto||!['ground','heated'].includes(s.boundary);
+ if(document.activeElement!==ti&&(s.auto||!['ground','heated'].includes(s.boundary)))ti.value=Math.round(r.temps[i]*10)/10;});
+ $('ventNote').innerHTML=`Νωπός αέρας από διηθήσεις και αερισμό: <b>${fmt(r.fresh,0)} m³/h</b> (${fmt(r.fresh/r.volume,2)} h⁻¹).`+(r.deficit>0?` Υπολείπεται του ελάχιστου ${fmt(v.minAch,2)} h⁻¹: <b>προστέθηκαν ${fmt(r.deficit,0)} m³/h</b> χωρίς ανάκτηση θερμότητας.`:v.minAch>0?' Καλύπτει τον ελάχιστο υγειονομικό αερισμό.':'')+(r.fresh===0&&v.minAch===0?' <b>Μηδενικός αερισμός: δεν είναι αποδεκτή παραδοχή για κατοικία.</b>':'');
+ $('climateNote').textContent=`Συνθήκη υπολογισμού: ${fmt(r.out)}°C έξω / ${fmt(v.indoor)}°C μέσα · ΔΤ ${fmt(r.dt)} K · έδαφος ${fmt(v.groundTemp)}°C. ${v.altCorrection&&Math.abs(v.altitude-v.refAltitude)>200?'Εφαρμόστηκε διόρθωση υψομέτρου.':'Δεν εφαρμόστηκε διόρθωση υψομέτρου.'} Για άλλη τοποθεσία επίλεξε κοντινό αντιπροσωπευτικό σταθμό και έλεγξε το τοπικό μικροκλίμα· μπορείς να εισαγάγεις χειροκίνητη θερμοκρασία.`;
+ $('capacity').innerHTML=`${fmt(r.equivalent)} <span>kW</span>`;
+ $('capacityLabel').textContent=v.dhw==='yes'?'Ισοδύναμη απαίτηση με ΖΝΧ — έλεγξε χωριστά τις διαθέσιμες ισχείς παρακάτω.':'Απαίτηση θέρμανσης στη συνθήκη σχεδιασμού.';
+ $('designPoint').textContent=`A${fmt(r.out)} / W${fmt(v.supply,0)} · ${v.margin?`περιθώριο ${fmt(v.margin,0)}%`:'χωρίς πρόσθετο περιθώριο'}`;
+ $('spaceLoad').textContent=fmt(r.space);$('specific').textContent=fmt(r.space*1000/v.area,0);$('hlc').textContent=fmt(r.space*1000/r.dt,0)+' W/K';
+ const items=[...r.losses,{name:'Θερμογέφυρες',q:r.bridges},{name:'Αερισμός / διηθήσεις',q:r.ventilation}];
+ $('bars').innerHTML=items.map(s=>`<div class="barrow"><div><span>${escapeHTML(s.name)}</span><b>${fmt(s.q,2)} kW</b></div><div class="track"><div class="fill" style="width:${r.space?s.q/r.space*100:0}%"></div></div></div>`).join('');
+ $('systemSummary').innerHTML=`Όγκος χώρου: <b>${fmt(r.volume,0)} m³</b><br>Απαίτηση θέρμανσης${v.dhw==='yes'&&v.dhwMode==='priority'?' με αναπλήρωση διακοπής ΖΝΧ':''}: <b>${fmt(r.heatRequired,2)} kW</b><br>Παροχή νερού θέρμανσης: <b>${fmt(r.flow,2)} m³/h</b><br>Ηλεκτρική ισχύς συμπιεστή θέρμανσης ≈ <b>${fmt(r.electric,2)} kW</b> με το COP που δήλωσες. Δεν περιλαμβάνονται βοηθητικά / αντίσταση.`;
+ if(v.dhw==='yes'){
+ $('dhwNote').innerHTML=`Ημερήσια θερμική ενέργεια ΖΝΧ: <b>${fmt(r.energy,2)} kWh</b>.<br>Απαιτούμενη μέση ισχύς κατά τις ${fmt(v.dhwHours)} ώρες παραγωγής: <b>${fmt(r.dhwPower,2)} kW</b> στη λειτουργία ΖΝΧ.<br>Ελάχιστος θεωρητικός όγκος δοχείου για την αιχμή: <b>${fmt(r.tankMin,0)} L</b>. Υποψήφιο δοχείο ${fmt(v.tankVolume,0)} L: <b>${v.tankVolume>=r.tankMin?'καλύπτει':'δεν καλύπτει'} την παραδοχή αιχμής</b>.<br>Πλήρης θέρμανση όλου του δοχείου από ${fmt(v.coldTemp,0)} σε ${fmt(v.tankTemp,0)}°C: ${fmt(r.cycleEnergy,2)} kWh${v.candidateDhw>0?` / ιδανικός χρόνος ${fmt(r.cycleEnergy/v.candidateDhw,2)} h`:''} (χωρίς ταυτόχρονη κατανάλωση και απώλειες· η πραγματική φόρτιση εξαρτάται από εναλλάκτη και μεταβολή ισχύος).`;
+ }
+ const notes=[];
+ if(v.candidateHeat>0){
+ if(v.dhw==='yes'){
+ if(v.candidateDhw<=0)notes.push('Δεν έχει εισαχθεί διαθέσιμη ισχύς ΖΝΧ: ο έλεγχος κάλυψης του μοντέλου είναι ελλιπής.');
+ else if(v.dhwMode==='priority'){
+ const hours=r.energy/v.candidateDhw,heatEnergy=v.candidateHeat*Math.max(0,24-hours),needed=r.heating*24;
+ const ok=hours<=v.dhwHours&&heatEnergy>=needed;
+ notes.push(`<b>${ok?'Το μοντέλο περνά':'Το μοντέλο δεν περνά'} τον ενεργειακό έλεγχο προτεραιότητας ΖΝΧ.</b> Παραγωγή ΖΝΧ ≈ ${fmt(hours,2)} h/ημέρα (διαθέσιμες ${fmt(v.dhwHours)} h). Υπόλοιπο χρόνου θέρμανσης ${fmt(Math.max(0,24-hours),2)} h· διαθέσιμη ενέργεια θέρμανσης ${fmt(heatEnergy,1)} / απαιτούμενη ${fmt(needed,1)} kWh. Η άνεση κατά τη διακοπή δεν ελέγχεται δυναμικά.`);
+ }else{
+ const util=r.heating/v.candidateHeat+r.dhwPower/v.candidateDhw;
+ notes.push(`<b>${util<=1?'Το μοντέλο περνά':'Το μοντέλο δεν περνά'} τον απλοποιημένο έλεγχο κοινής ισχύος για ταυτόχρονη λειτουργία.</b> Σ(Q/P) = ${fmt(util,2)} (απαίτηση ≤ 1). Ισχύει μόνο για κοινό μηχάνημα με επιβεβαιωμένη δυνατότητα και καμπύλες ταυτόχρονης παραγωγής· διαφορετικά απαιτείται έλεγχος από τον κατασκευαστή.`);
+ }
+ }else notes.push(`<b>${v.candidateHeat>=r.heating?'Η διαθέσιμη ισχύς καλύπτει':'Η διαθέσιμη ισχύς δεν καλύπτει'} το φορτίο θέρμανσης.</b> ${fmt(v.candidateHeat,2)} / ${fmt(r.heating,2)} kW. Απαίτηση για τυχόν υποβοήθηση: ${fmt(Math.max(0,r.heating-v.candidateHeat),2)} kW στη συνθήκη σχεδιασμού.`);
+ }else notes.push('Συμπλήρωσε τη διαθέσιμη ισχύ ενός συγκεκριμένου μοντέλου για έλεγχο κάλυψης. Το αποτέλεσμα ισχύος δεν ισοδυναμεί με πρόταση αγοράς ονομαστικού μεγέθους.');
+ if(v.emitters==='radiators'&&v.radiatorNominal>0)notes.push(`Εκτιμώμενη ισχύς σωμάτων στις ${fmt(v.supply,0)}/${fmt(v.returnTemp,0)}°C: <b>${fmt(r.rad,2)} kW</b>. ${r.rad>=r.heatRequired?'Καλύπτει συνολικά':'Δεν καλύπτει συνολικά'} την απαίτηση ${fmt(r.heatRequired,2)} kW· απαιτείται έλεγχος ανά δωμάτιο.`);
+ if(v.supply>55)notes.push('Υψηλή θερμοκρασία προσαγωγής: επιβεβαίωσε τη διαθέσιμη ισχύ, το COP και το όριο λειτουργίας στο ψύχος.');
+ const mild=calculate({...v,outdoor:12,altCorrection:false},surfaces).space;
+ if(v.minCapacity>0)notes.push(`Στους +12°C το φορτίο χώρου χωρίς κέρδη είναι περίπου ${fmt(mild,2)} kW. ${v.minCapacity>mild?'Η δηλωμένη ελάχιστη ισχύς είναι μεγαλύτερη: υπάρχει ένδειξη κινδύνου συχνών εκκινήσεων.':'Η δηλωμένη ελάχιστη ισχύς δεν υπερβαίνει αυτό το φορτίο.'} Τα πραγματικά κέρδη μειώνουν περαιτέρω το φορτίο.`);
+ $('modelNote').innerHTML=notes.join('<br><br>');
+ drawCurve(v);
+}
+function drawCurve(v){
+ const temps=[-10,-5,0,5,10,15,20].filter(t=>t<v.indoor);
+ const qs=temps.map(t=>calculate({...v,outdoor:t,altCorrection:false},surfaces).space);
+ const max=Math.max(1,...qs),left=35,top=15,w=250,h=120;
+ const x=t=>left+(t+10)/30*w,y=q=>top+h-q/max*h;
+ let svg=`<defs><linearGradient id="cg" x1="0" x2="1"><stop offset="0" stop-color="#ff5a64"/><stop offset="1" stop-color="#ff9aa0"/></linearGradient><filter id="cglow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><title>Απώλειες χώρου από −10°C μέχρι τη θερμοκρασία χώρου, χωρίς θερμικά κέρδη</title>`;
+ for(let i=0;i<4;i++){const q=max*i/3;svg+=`<line x1="${left}" x2="285" y1="${y(q)}" y2="${y(q)}" stroke="rgba(255,255,255,.09)"/><text x="1" y="${y(q)+3}">${fmt(q,1)}</text>`;}
+ svg+=`<text x="2" y="9">kW</text><polyline points="${temps.map((t,i)=>`${x(t)},${y(qs[i])}`).join(' ')}" fill="none" stroke="url(#cg)" stroke-width="3.5" filter="url(#cglow)"/>`;
+ temps.forEach((t,i)=>{svg+=`<circle cx="${x(t)}" cy="${y(qs[i])}" r="3.5" fill="#fff" stroke="#ff3d46" stroke-width="2"/><text x="${x(t)}" y="155" text-anchor="middle">${t}°</text>`;});
+ $('curve').innerHTML=svg;
+ $('curveText').textContent=temps.map((t,i)=>`${t}°C: ${fmt(qs[i])} kW`).join(' · ');
+}
+function say(text,error=false){$('status').textContent=text;$('status').className='status'+(error?' err':'');}
+// Μετατροπή αρχείων v1 ώστε να διατηρούνται κατά το δυνατόν τα αποτελέσματα.
+function migrate(s){
+ if(!s||s.version!==1||!s.values||!Array.isArray(s.surfaces))return s;
+ const v={...s.values},c=cities[v.region]?.find(c=>c[0]===v.city);
+ if(v.groundTemp===undefined)v.groundTemp=String(c?c[4]:15);
+ if(v.minAch===undefined)v.minAch='0.5';
+ const ti=+v.indoor,da=+v.altitude-+v.refAltitude,te=+v.outdoor-(v.altCorrection&&Math.abs(da)>200?.0065*da:0);
+ const surfaces=s.surfaces.map(r=>{const o={...r,b:.7,auto:r.boundary==='outside'};
+ if(r.boundary==='unheated'){const b=(ti-r.temp)/(ti-te);o.b=ti>te&&Number.isFinite(b)?Math.min(1,Math.max(0,Math.round(b*100)/100)):.7;o.auto=true;}
+ if(r.boundary==='heated'&&r.temp===ti)o.auto=true;
+ return o;});
+ return{version:2,values:v,surfaces,migrated:true};
+}
+function validateState(s){
+ if(!s||s.version!==2||!s.values||!Array.isArray(s.surfaces)||s.surfaces.length<1||s.surfaces.length>200)throw Error('Μη συμβατό αρχείο παραμέτρων.');
+ for(const e of controls){
+ const val=s.values[e.id];
+ if(e.type==='checkbox'){if(typeof val!=='boolean')throw Error('Μη έγκυρη επιλογή.');}
+ else if(e.tagName==='SELECT'){
+ const allowed=e.id==='city'?cities[s.values.region]?.map(c=>c[0]):[...e.options].map(o=>o.value);
+ if(!allowed?.includes(val))throw Error('Μη έγκυρη επιλογή '+e.id);
+ }else if(typeof val!=='string'||val.trim()===''||!Number.isFinite(+val)||+val<+e.min||+val>+e.max)throw Error('Μη έγκυρος αριθμός '+e.id);
+ }
+ for(const r of s.surfaces)if(typeof r.name!=='string'||r.name.length>100||!r.name.trim()||!['outside','ground','heated','unheated'].includes(r.boundary)||!Number.isFinite(r.area)||r.area<0||r.area>100000||!Number.isFinite(r.u)||r.u<0||r.u>15||!Number.isFinite(r.temp)||r.temp< -35||r.temp>40||!Number.isFinite(r.b)||r.b<0||r.b>1||typeof r.auto!=='boolean')throw Error('Μη έγκυρη επιφάνεια.');
+}
+// Επιστρέφει true αν το αρχείο μετατράπηκε από παλαιότερη έκδοση.
+function applyState(s){
+ s=migrate(s);validateState(s);
+ $('region').value=s.values.region;fillCities(s.values.city);
+ for(const e of controls){if(e.type==='checkbox')e.checked=s.values[e.id];else e.value=s.values[e.id];}
+ surfaces=s.surfaces.map(({name,area,u,boundary,b,temp,auto})=>({name,area,u,boundary,b,temp,auto}));
+ renderSurfaces();$('geometryNote').textContent='Φορτωμένες αναλυτικές επιφάνειες. Ο πίνακας είναι η βάση του υπολογισμού· τα πεδία γεωμετρίας χρησιμοποιούνται μόνο για νέα δημιουργία.';update();
+ return !!s.migrated;
+}
+function downloadBlob(data,type,name){const url=URL.createObjectURL(new Blob([data],{type}));const a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+function requireValid(){update();if(!lastResult){say('Διόρθωσε τις μη έγκυρες τιμές πριν συνεχίσεις.',true);return false;}return true;}
+$('form').addEventListener('submit',e=>e.preventDefault());
+$('form').addEventListener('input',e=>{
+ if(e.target.closest('#surfaces')){
+ const tr=e.target.closest('tr'),key=e.target.dataset.key;if(!key)return;
+ const s=surfaces[+tr.dataset.index];
+ s[key]=['area','u','temp','b'].includes(key)?(e.target.value.trim()===''?NaN:+e.target.value):e.target.value;
+ if(key==='temp')s.auto=false;
+ }else if(['area','height','floors','aspect','exposed','glazing','insulation','roofBoundary','floorBoundary'].includes(e.target.id))$('geometryNote').textContent='Οι παράμετροι γεωμετρίας / μόνωσης άλλαξαν. Πάτησε «Δημιουργία επιφανειών» για να ενημερώσεις τον πίνακα ή άλλαξέ τον χειροκίνητα.';
+ update();
+});
+$('form').addEventListener('change',e=>{
+ const id=e.target.id;
+ if(id==='region'||id==='city'){if(id==='region')fillCities();if(useCity())say(`Το υψόμετρο ακινήτου (${fmt(+$('altitude').value,0)} m) διατηρήθηκε· έλεγξέ το για τη νέα τοποθεσία.`);}
+ if(id==='airtight'&&e.target.value!=='custom')$('infiltration').value={medium:.5,tight:.2,leaky:1}[e.target.value];
+ if(id==='infiltration')$('airtight').value='custom';
+ if(id==='emitters'&&e.target.value!=='custom'){const vals={floor:[35,30],fan:[45,40],radiators:[55,45]}[e.target.value];$('supply').value=vals[0];$('returnTemp').value=vals[1];}
+ if(e.target.dataset.key==='boundary'){
+ const i=+e.target.closest('tr').dataset.index;surfaces[i].boundary=e.target.value;surfaces[i].auto=true;if(!Number.isFinite(surfaces[i].temp))surfaces[i].temp=10;renderSurfaces();
+ }
+ update();
+});
+$('surfaces').addEventListener('click',e=>{
+ const btn=e.target.closest('button');if(!btn)return;
+ if(btn.dataset.remove!==undefined){surfaces.splice(+btn.dataset.remove,1);renderSurfaces();update();}
+ else if(btn.dataset.auto!==undefined){const s=surfaces[+btn.dataset.auto];s.auto=true;const v=collect(),t=surfaceTemp(s,v,external(v));s.temp=Number.isFinite(t)?t:10;update();}
+});
+$('addSurface').addEventListener('click',()=>{if(surfaces.length>=200){say('Μέγιστο πλήθος: 200 επιφάνειες.',true);return;}surfaces.push({name:'Νέα επιφάνεια',area:10,u:.5,boundary:'outside',b:.7,temp:0,auto:true});renderSurfaces();update();});
+$('generate').addEventListener('click',()=>{generateSurfaces();say('Ο πίνακας αντικαταστάθηκε από τη γεωμετρία και το επιλεγμένο πρότυπο μόνωσης.');});
+$('export').addEventListener('click',()=>{if(!requireValid())return;downloadBlob(JSON.stringify(state(),null,2),'application/json','heatpump-parameters.json');say('Εξαγωγή παραμέτρων σε JSON.');});
+$('import').addEventListener('click',()=>$('file').click());
+$('file').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>1000000)throw Error('Το αρχείο υπερβαίνει το 1 MB.');const s=JSON.parse(await file.text());const m=applyState(s);say('Οι παράμετροι φορτώθηκαν.'+(m?MIGRATED:''));}catch(err){say('Αδυναμία εισαγωγής: '+err.message,true);}finally{e.target.value='';}});
+$('save').addEventListener('click',()=>{if(!requireValid())return;try{localStorage.setItem('thermometro-v1',JSON.stringify(state()));say('Οι παράμετροι αποθηκεύτηκαν στον συγκεκριμένο περιηγητή. Κράτησε και εξαγωγή JSON· η τοπική αποθήκευση μπορεί να διαγραφεί.');}catch{say('Η αποθήκευση δεν επιτρέπεται από τον περιηγητή. Χρησιμοποίησε εξαγωγή JSON.',true);}});
+$('load').addEventListener('click',()=>{try{const s=localStorage.getItem('thermometro-v1');if(!s)throw Error('Δεν υπάρχει αποθήκευση.');const m=applyState(JSON.parse(s));say('Φορτώθηκε η αποθήκευση της συσκευής.'+(m?MIGRATED:''));}catch(err){say('Αδυναμία φόρτωσης: '+err.message,true);}});
+$('reset').addEventListener('click',()=>{for(const e of controls){if(e.id==='city')continue;if(e.type==='checkbox')e.checked=defaults[e.id];else e.value=defaults[e.id];}fillCities();useCity();generateSurfaces();say('Επανήλθε το αρχικό παράδειγμα. Η αποθήκευση της συσκευής δεν διαγράφηκε.');});
+$('download').addEventListener('click',()=>{
+ if(!requireValid())return;
+ const clone=document.documentElement.cloneNode(true);
+ clone.querySelector('#saved-state').textContent=JSON.stringify(state()).replace(/</g,'\\u003c');
+ // Remove live generated fields; initialization reconstructs them from saved state.
+ clone.querySelector('#surfaces').innerHTML='';clone.querySelector('#status').textContent='Αυτοτελές αρχείο με αποθηκευμένες παραμέτρους.';
+ downloadBlob('<!doctype html>\n'+clone.outerHTML,'text/html;charset=utf-8','heatpump-calculator-el.html');say('Λήψη της σελίδας μαζί με τις τρέχουσες παραμέτρους.');
+});
+let printDetails=[];
+window.addEventListener('beforeprint',()=>{printDetails=[...document.querySelectorAll('details')].map(e=>[e,e.open]);printDetails.forEach(([e])=>e.open=true);});
+window.addEventListener('afterprint',()=>printDetails.forEach(([e,open])=>e.open=open));
+$('print').addEventListener('click',()=>{if(requireValid())window.print();});
+fillCities();useCity();generateSurfaces();
+try{const saved=JSON.parse($('saved-state').textContent);if(saved){const m=applyState(saved);say('Φορτώθηκαν οι παράμετροι που περιέχονται σε αυτό το HTML.'+(m?MIGRATED:''));}}catch(err){say('Το ενσωματωμένο σενάριο δεν φορτώθηκε: '+err.message,true);}
+</script></body></html>

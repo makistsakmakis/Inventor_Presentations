@@ -207,9 +207,7 @@ window.CAT = (function () {
     "mx290"
    ],
    "gallery": [
-    "g-zero",
-    "mx290-x",
-    "mx290-fan"
+    "mx290-x"
    ],
    "caps": [
     [
@@ -404,9 +402,7 @@ window.CAT = (function () {
     "mx290"
    ],
    "gallery": [
-    "g-zero",
-    "mx290-x",
-    "mx290-fan"
+    "mx290-x"
    ],
    "caps": [
     [
@@ -619,11 +615,7 @@ window.CAT = (function () {
    "hero": [
     "atm-s"
    ],
-   "gallery": [
-    "g-mono",
-    "g-energy",
-    "g-control"
-   ],
+   "gallery": [],
    "caps": [
     [
      "Θέρμανση",
@@ -836,11 +828,7 @@ window.CAT = (function () {
     "atm-l",
     "atm-s"
    ],
-   "gallery": [
-    "g-mono",
-    "g-perf",
-    "g-install"
-   ],
+   "gallery": [],
    "caps": [
     [
      "Θέρμανση",
@@ -1021,11 +1009,7 @@ window.CAT = (function () {
    "hero": [
     "atm-s"
    ],
-   "gallery": [
-    "g-mono",
-    "g-perf",
-    "g-energy"
-   ],
+   "gallery": [],
    "caps": [
     [
      "Θέρμανση",
@@ -1253,11 +1237,7 @@ window.CAT = (function () {
    "hero": [
     "xf"
    ],
-   "gallery": [
-    "g-xforce",
-    "g-control",
-    "g-energy"
-   ],
+   "gallery": [],
    "caps": [
     [
      "Θέρμανση",
@@ -1427,11 +1407,7 @@ window.CAT = (function () {
    "hero": [
     "xf"
    ],
-   "gallery": [
-    "g-xforce",
-    "g-perf",
-    "g-control"
-   ],
+   "gallery": [],
    "caps": [
     [
      "Θέρμανση",
@@ -1674,11 +1650,7 @@ window.CAT = (function () {
     "ats",
     "hu"
    ],
-   "gallery": [
-    "g-split",
-    "g-control",
-    "g-install"
-   ],
+   "gallery": [],
    "caps": [
     [
      "Θέρμανση",
@@ -1852,11 +1824,7 @@ window.CAT = (function () {
     "ats",
     "hu"
    ],
-   "gallery": [
-    "g-split",
-    "g-control",
-    "g-perf"
-   ],
+   "gallery": [],
    "caps": [
     [
      "Θέρμανση",
@@ -2071,11 +2039,7 @@ window.CAT = (function () {
     "ats-i",
     "hut"
    ],
-   "gallery": [
-    "g-integ",
-    "g-control",
-    "g-exp"
-   ],
+   "gallery": [],
    "caps": [
     [
      "Θέρμανση",
@@ -2249,11 +2213,7 @@ window.CAT = (function () {
     "ats-i",
     "hut"
    ],
-   "gallery": [
-    "g-integ",
-    "g-control",
-    "g-perf"
-   ],
+   "gallery": [],
    "caps": [
     [
      "Θέρμανση",

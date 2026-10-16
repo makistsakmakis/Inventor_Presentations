@@ -172,3 +172,68 @@ body #clmQuick em{position:absolute;left:50px;bottom:0;white-space:nowrap;backgr
 body #clmFab{left:10px}
 body #clmToast{left:70px;bottom:24px}
 .hp-feat .h-thin{padding:12px 24px 16px;border-radius:20px;background:rgba(6,8,11,.42);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+
+/* ===================== v2 (16/10) ===================== */
+/* εξώφυλλο: φωτογραφία με πρόσωπα & προϊόν σε κάδρο */
+.hp-cover .photo{left:640px;right:0;top:0;bottom:0;border-top-left-radius:560px 900px;border-bottom-left-radius:0}
+.hp-cover .photo img{object-position:50% 34%}
+.hp-cover .photo::after{background:linear-gradient(90deg,rgba(6,8,11,.55) 0%,transparent 22%),linear-gradient(0deg,rgba(6,8,11,.35),transparent 18%)}
+.hp-cover .arc{left:610px;top:-60px;width:1400px;height:1100px}
+
+/* σελίδες 2-3: ψηλότερα πλακίδια */
+.hp-exp4 .right{top:92px}
+.hp-exp4 .tiles{top:318px;bottom:34px;height:auto}
+.hp-planet .tiles{top:270px}
+
+/* R290: φωτογραφία +50% δίπλα στα GWP / ODP */
+.hp-r290 .gx{display:flex;align-items:center;gap:22px;margin-top:22px}
+.hp-r290 .gwp{flex-direction:column;gap:12px;margin-top:0;width:250px;flex:none}
+.hp-r290 .gwp .g{padding:12px 16px}
+.hp-r290 .gwp .g b{font-size:46px}
+.hp-r290 .xpl{height:300px;margin:0;cursor:zoom-in}
+
+/* Τεχνολογία & Αξιοπιστία: ανεμιστήρας +50%, αργή περιστροφή */
+.hp-rel .fan{top:610px}
+.hp-rel .fan img{height:165px}
+.hp-rel .fan img.spin{animation:hpSpin 9s linear infinite}
+@keyframes hpSpin{to{transform:rotate(360deg)}}
+
+/* διαγράμματα εύρους: γυάλινοι 3D κύλινδροι (όπως στο διάγραμμα προϊόντων), fluorescent στο hover */
+.hp-rel .rb{width:58px;--ry:9px;--c1:rgba(255,72,86,.82);--c2:rgba(170,8,24,.3);--ct:rgba(255,170,178,.9);cursor:default}
+.hp-rel .rc.wat .rb{--c1:rgba(110,165,240,.84);--c2:rgba(40,80,170,.3);--ct:rgba(200,225,255,.9)}
+.hp-rel .rb u{left:6px;right:6px;border-radius:50% / var(--ry);overflow:visible;
+  --g1:color-mix(in srgb,var(--c1) 62%,transparent);--g2:color-mix(in srgb,var(--c2) 70%,transparent);--g3:color-mix(in srgb,var(--c1) 30%,transparent);--gt:color-mix(in srgb,var(--ct) 55%,transparent);
+  background:
+    linear-gradient(90deg,rgba(255,255,255,.78) 0,rgba(255,255,255,.2) 1.4%,transparent 4.5%,transparent 95.5%,rgba(255,255,255,.14) 98.4%,rgba(255,255,255,.6) 100%),
+    linear-gradient(90deg,transparent 13%,rgba(255,255,255,.07) 16%,rgba(255,255,255,.45) 19.4%,rgba(255,255,255,.74) 20.8%,rgba(255,255,255,.3) 23%,transparent 27.5%),
+    linear-gradient(90deg,transparent 64%,rgba(255,255,255,.07) 74%,rgba(255,255,255,.2) 83%,rgba(255,255,255,.05) 89%,transparent 91.5%),
+    linear-gradient(180deg,rgba(255,255,255,.12),transparent 26%,transparent 72%,rgba(0,0,0,.16)),
+    linear-gradient(90deg,var(--g1) 0,var(--g2) 26%,var(--g3) 52%,var(--g2) 78%,var(--g1) 100%);
+  -webkit-backdrop-filter:blur(2.5px) saturate(1.35) brightness(1.06);backdrop-filter:blur(2.5px) saturate(1.35) brightness(1.06);
+  box-shadow:0 0 46px -14px var(--c1),inset 0 calc(-1 * var(--ry)) 30px -18px color-mix(in srgb,var(--c1) 80%,#fff);transition:filter .3s,box-shadow .3s,background .3s}
+.hp-rel .rb u .cap{position:absolute;left:0;right:0;top:calc(-1 * var(--ry));height:calc(var(--ry) * 2);border-radius:50%;pointer-events:none;
+  background:radial-gradient(ellipse 46% 34% at 38% 38%,rgba(255,255,255,.34),transparent 70%),linear-gradient(172deg,var(--gt) 0,color-mix(in srgb,var(--c1) 26%,transparent) 55%,color-mix(in srgb,var(--c2) 40%,transparent) 100%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.42),inset 0 -1.6px 0 1px rgba(255,255,255,.75),inset 0 3px 6px rgba(255,255,255,.18)}
+.hp-rel .rb u::after{content:"";position:absolute;left:4%;right:4%;bottom:0;height:calc(var(--ry) * 3.2);border-radius:50% / var(--ry);
+  background:radial-gradient(ellipse 60% 70% at 50% 100%,color-mix(in srgb,var(--ct) 85%,#fff) 0,color-mix(in srgb,var(--c1) 45%,transparent) 38%,transparent 72%);opacity:.75;mix-blend-mode:screen}
+.hp-rel .rb:hover u{background:linear-gradient(180deg,#ff5a64,#b30d15);filter:saturate(1.25) brightness(1.15);box-shadow:0 0 60px -6px var(--c1),0 0 34px rgba(227,20,30,.75),inset 0 1px 0 rgba(255,255,255,.5)}
+.hp-rel .rc.wat .rb:hover u{background:linear-gradient(180deg,#86b8f2,#3d64a8);box-shadow:0 0 60px -6px var(--c1),0 0 34px rgba(100,155,230,.75),inset 0 1px 0 rgba(255,255,255,.5)}
+.hp-rel .rb:hover em{color:var(--red2);text-shadow:0 0 14px var(--red)}
+.hp-rel .rc.wat .rb:hover em{color:#a9cdfa;text-shadow:0 0 14px rgba(100,155,230,.9)}
+.hp-rel .rb em.hi{top:calc(100% - var(--b) - 30px)}
+
+/* σελίδες προϊόντων χωρίς πλαϊνά thumbnails: η φωτογραφία πιάνει όλο το πλάτος */
+.hp-prod .r.nog .hero{right:0}
+.hp-prod .r.nog .clm-big{right:0}
+
+/* υπηρεσίες: πλακίδιο υπολογισμού */
+.s-svc .calcbox{cursor:pointer;gap:34px}
+.s-svc .calcbox .n svg{width:150px;height:150px;filter:drop-shadow(0 0 26px rgba(227,20,30,.55))}
+.s-svc .calcbox .t p{font-size:26px;line-height:1.3;color:#fff}
+.s-svc .calcbox .t p b{font-weight:700}
+.s-svc .calcbox .btn{font-size:16px;letter-spacing:.08em;padding:12px 26px}
+.s-svc .calcbox:hover{border-color:var(--red2);box-shadow:0 0 40px rgba(227,20,30,.3)}
+.dlg-body iframe.calcfr{width:100%;height:100%;border:0;display:block;background:#07090c}
+.hp-prod .thumb{flex:0 0 200px;background:radial-gradient(circle at 50% 45%,#f4f6f8,#cfd5da)}
+.hp-prod .thumb img{object-fit:contain;padding:10px}
+.hp-rel .rcb{margin-top:30px}

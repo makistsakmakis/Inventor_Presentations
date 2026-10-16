@@ -210,3 +210,11 @@ body:not(.clm-live) .clm-uvrow{display:none}
 .clm-uvrow{position:relative;z-index:8;gap:6px;margin-top:-3px}
 .clm-uv{width:28px;height:28px;font-size:14px}
 body.clm-live .s-prod .l{z-index:7}
+
+/* 👍/👎 στην πίσω όψη των πλακιδίων τεχνολογιών */
+.clm-tf{display:flex;justify-content:center;gap:12px;padding-top:8px;border-top:1px solid rgba(255,255,255,.1);flex:none;min-height:56px}
+body:not(.clm-live) .clm-tf{visibility:hidden}
+.clm-tfb{width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.22);background:rgba(14,18,24,.7);font-size:22px;line-height:1;cursor:pointer;filter:grayscale(.5);transition:.15s}
+.clm-tfb:hover{filter:none;transform:scale(1.08)}
+.clm-tfb.on[data-pol="1"]{filter:none;background:rgba(63,191,127,.4);border-color:var(--clmOk);box-shadow:0 0 18px rgba(63,191,127,.5)}
+.clm-tfb.on[data-pol="-1"]{filter:none;background:rgba(255,61,70,.35);border-color:var(--clmNo);box-shadow:0 0 18px rgba(255,61,70,.45)}

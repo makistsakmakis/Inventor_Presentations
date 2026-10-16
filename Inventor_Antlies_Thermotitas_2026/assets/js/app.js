@@ -98,23 +98,23 @@
       <span class="kicker rise">Γιατί R290;</span>
       ${burst(C.R290.title, 'h-thin', .1)}
       <p class="lead rise" style="--d:.4s">${C.R290.lead}</p>
-      <div class="gwp rise" style="--d:.6s">${C.R290.stats.map(s => `<div class="g glass"><span>${s[0]}</span><b>=<i class="run">${s[1]}</i></b><p>${s[2]}</p></div>`).join('')}</div>
-      <img class="xpl rise" style="--d:.8s" src="${pimg('mx290-x')}" alt="Matrix Zero R290 · προηγμένος σχεδιασμός">
+      <div class="gx"><div class="gwp rise" style="--d:.6s">${C.R290.stats.map(s => `<div class="g glass"><span>${s[0]}</span><b>=<i class="run">${s[1]}</i></b><p>${s[2]}</p></div>`).join('')}</div>
+      <img class="xpl rise zoomable" data-photo="${pimg('mx290-x')}" data-cap="Matrix Zero R290 · Προηγμένος σχεδιασμός" style="--d:.8s" src="${pimg('mx290-x')}" alt="Matrix Zero R290 · προηγμένος σχεδιασμός"></div>
     </div>
     <div class="tiles" data-fit="min">${C.R290.tiles.map((t, i) => tile(i + 1, t[0], `<h4>${t[0]}</h4><div class="scroll" data-scroll><ul>${t[1].map(x => `<li>${x}</li>`).join('')}</ul></div>`, i)).join('')}</div>`
   });
 
   /* ---- 05 Technology & reliability ---- */
   const R = C.REL;
-  const rangeChart = (g) => { const k = v => ((v - g.min) / (g.max - g.min) * 100).toFixed(2);
+  const rangeChart = (g, cls) => { const k = v => ((v - g.min) / (g.max - g.min) * 100).toFixed(2);
     const ticks = []; for (let v = Math.ceil(g.min / 10) * 10; v <= g.max; v += 10) ticks.push(v);
-    return `<div class="rc"><h5>${g.t}</h5><div class="rcb">${ticks.map(v => `<i style="bottom:${k(v)}%"><span>${v}°</span></i>`).join('')}
-      ${g.bars.map((b, i) => `<div class="rb" style="--i:${i};--a:${k(b[1])}%;--b:${k(b[2])}%"><em class="hi">${b[2]}°C</em><em class="lo">${b[1]}°C</em><u></u><span>${b[0]}</span></div>`).join('')}</div></div>`; };
+    return `<div class="rc ${cls}"><h5>${g.t}</h5><div class="rcb">${ticks.map(v => `<i style="bottom:${k(v)}%"><span>${v}°</span></i>`).join('')}
+      ${g.bars.map((b, i) => `<div class="rb" style="--i:${i};--a:${k(b[1])}%;--b:${k(b[2])}%"><em class="hi">${b[2]}°C</em><em class="lo">${b[1]}°C</em><u><i class="cap"></i></u><span>${b[0]}</span></div>`).join('')}</div></div>`; };
   add({ id: 'reliability', sec: 'tech', title: 'Τεχνολογία και Αξιοπιστία', thumb: pimg('mx290'), cls: 'hp-rel', html: `
     <div class="hd"><span class="kicker rise">Matrix Zero R290</span>${burst(R.title, 'h-thin', .1, 'font-size:50px;margin-top:8px')}</div>
     <div class="stats">${R.stats.map((s, i) => `<div class="st glass rise" style="--d:${.15 + i * .07}s"><small>${s[0]}</small><b class="run">${s[1]}</b><p>${s[2]}</p></div>`).join('')}</div>
-    <p class="fan rise" style="--d:.6s"><img src="${pimg('mx290-fan')}" alt="">${R.fan}</p>
-    <div class="ranges glass rise" style="--d:.3s"><span class="kicker">Μεγάλο εύρος λειτουργίας</span><div class="rcs">${rangeChart(R.ranges.amb)}${rangeChart(R.ranges.wat)}</div><p class="note">${R.ranges.note}</p></div>
+    <p class="fan rise" style="--d:.6s"><img class="spin" src="${pimg('mx290-fan')}" alt="">${R.fan}</p>
+    <div class="ranges glass rise" style="--d:.3s"><span class="kicker">Μεγάλο εύρος λειτουργίας</span><div class="rcs">${rangeChart(R.ranges.amb, 'amb')}${rangeChart(R.ranges.wat, 'wat')}</div><p class="note">${R.ranges.note}</p></div>
     <div class="ota glass rise" style="--d:.5s"><img src="${img('i-hp-ota')}" alt=""><div><b>${R.ota.t}</b><p>${R.ota.text}</p><ul>${R.ota.pts.map(p => `<li>${p}</li>`).join('')}</ul></div></div>`
   });
 
@@ -123,7 +123,7 @@
     <div class="photo"><img src="${img(f.photo)}" alt=""></div>
     ${burst(f.title, 'h-thin', .2)}
     ${burst(f.caption, 'cap', .9)}
-    <div class="tiles tech-ic" data-fit="min">${f.tiles.map((t, i) => tile(`<img class="ticon" src="${img(t[2])}" alt="">`, t[0], `<h4>${t[0]}</h4><div class="scroll" data-scroll><p>${t[1]}</p></div>`, i)).join('')}</div>`
+    <div class="tiles tech-ic" data-fit="min">${f.tiles.map((t, i) => tile(`<img class="ticon" src="${img(t[2])}" alt="">`, t[0], `<h4>${t[0]}</h4><div class="scroll" data-scroll><p>${t[1]}</p></div><div class="clm-tf" data-tf="${t[2].replace('i-hp-', '')}" data-tfl="${t[0]}"></div>`, i)).join('')}</div>`
   }));
 
   /* ---- RANGE OVERVIEW ---- */
@@ -199,7 +199,7 @@
         ${head}
         ${mid}
       </div>
-      <div class="r">${heroHTML(p)}</div>
+      <div class="r ${p.gallery.length ? '' : 'nog'}">${heroHTML(p)}</div>
       <div class="tblwrap glass rise" style="--d:.6s"><div class="tb-h"><span class="kicker">Μοντέλα & τιμές 2026</span><button class="zbtn" data-ztable>${zoomIco}Μεγέθυνση πίνακα</button></div>${specTable(p.table)}</div>
       ${p.foot ? `<p class="foot">${p.foot}</p>` : ''}`,
       enter(el) { runAll($('.tblwrap', el), 700, 700); }
@@ -259,10 +259,10 @@
     <svg class="flows" data-flows="svc"></svg>
     ${burst(svc.title, 'h-thin', .1)}
     <p class="lead rise" style="--d:.4s">${svc.lead}</p>
-    <div class="spbox glass rise" style="--d:.3s">
-      <div class="n run">28</div>
-      <div class="t"><img src="${img('logo-servicepoint')}" alt="Inventor service point"><p><b>Εξουσιοδοτημένα Service Points</b><br>σε όλη την Ελλάδα, η υποστήριξη της Inventor είναι πάντα κοντά σου.</p>
-      <button class="btn red" data-locator style="align-self:flex-start">Βρείτε το κοντινότερο Service Point ${arrowIco}</button></div>
+    <div class="spbox calcbox glass rise" style="--d:.3s" data-calc>
+      <div class="n"><svg viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><rect x="12" y="5" width="40" height="54" rx="7"/><rect x="19" y="12" width="26" height="11" rx="2.5"/><circle cx="22" cy="32" r="1.6" fill="#fff"/><circle cx="32" cy="32" r="1.6" fill="#fff"/><circle cx="42" cy="32" r="1.6" fill="#fff"/><circle cx="22" cy="41" r="1.6" fill="#fff"/><circle cx="32" cy="41" r="1.6" fill="#fff"/><circle cx="42" cy="41" r="1.6" fill="#fff"/><circle cx="22" cy="50" r="1.6" fill="#fff"/><circle cx="32" cy="50" r="1.6" fill="#fff"/><path d="M42 47v6"/></svg></div>
+      <div class="t"><p><b>Τι αντλία θερμότητας<br>χρειάζεται ο χώρος σου;</b></p>
+      <button class="btn red" data-calc style="align-self:flex-start">ΥΠΟΛΟΓΙΣΜΟΣ ${arrowIco}</button></div>
     </div>
     <div class="tiles" data-fit="each">${svc.cards.map((c, i) => tile(i + 1, `<span class="ft">${c.front[0]}</span><span class="fs">${c.front[1]}</span>`, svcBack(c), i)).join('')}</div>`
   });
@@ -284,25 +284,13 @@
   SL.forEach((s, i) => { s.el = deck.children[i]; s.init && s.init(s.el); });
 
   /* Tile backs: one font size per slide, the largest that fits every tile without scrolling */
-  function fitTiles() {
-    SL.forEach(s => {
-      const scr = $$('.tile .back .scroll', s.el); if (!scr.length) return;
-      if ($('[data-fit="min"]', s.el)) {   // το μεγαλύτερο μέγεθος που χωράει, ίδιο σε όλα τα πλακίδια
-        let mn = 18;
-        scr.forEach(x => { const t = x.closest('.tile'); let px = 18; for (; px >= 9; px -= 0.25) { t.style.setProperty('--tfs', px + 'px'); if (x.scrollHeight <= x.clientHeight + 1) break; } mn = Math.min(mn, px); });
-        scr.forEach(x => x.closest('.tile').style.setProperty('--tfs', mn + 'px'));
-        return;
-      }
-      if ($('[data-fit="each"]', s.el)) {
-        scr.forEach(x => { const t = x.closest('.tile'); for (let px = 18; px >= 9; px -= 0.25) { t.style.setProperty('--tfs', px + 'px'); if (x.scrollHeight <= x.clientHeight + 1) break; } });
-        return;
-      }
-      for (let px = 15; px >= 9; px -= 0.25) {
-        s.el.style.setProperty('--tfs', px + 'px');
-        if (scr.every(x => x.scrollHeight <= x.clientHeight + 1)) break;
-      }
-    });
+  function fitTiles() {   // κάθε πλακίδιο: το μεγαλύτερο μέγεθος κειμένου που χωράει στον διαθέσιμο χώρο
+    $$('.tile .back .scroll').forEach(x => { const t = x.closest('.tile');
+      let lo = 10, hi = 30;
+      for (let k = 0; k < 9; k++) { const m = (lo + hi) / 2; t.style.setProperty('--tfs', m + 'px'); if (x.scrollHeight <= x.clientHeight + 1) lo = m; else hi = m; }
+      t.style.setProperty('--tfs', Math.floor(lo * 4) / 4 + 'px'); });
   }
+  addEventListener('resize', () => setTimeout(fitTiles, 200));
   // TIPS: μπροστινοί τίτλοι διπλάσιοι (32px), με αυτόματη μικρή σμίκρυνση όπου δεν χωρούν
   function fitFronts() {
     $$('.s-tips .tile').forEach(t => { const f = $('.front', t); for (let px = 21; px >= 14; px -= 0.5) { t.style.setProperty('--ffs', px + 'px'); if (f.scrollHeight <= f.clientHeight + 1) break; } });
@@ -510,6 +498,7 @@
     const qr = t.closest('[data-qr]'); if (qr) { e.preventDefault(); openQR(qr.dataset.qr, qr.dataset.qrcap, qr.dataset.qrurl); return; }
     const zt = t.closest('[data-ztable]'); if (zt) { openTable(SL[cur]); return; }
     if (t.closest('[data-locator]')) { e.preventDefault(); openLocator(); return; }
+    if (t.closest('[data-calc]')) { e.preventDefault(); openCalc(); return; }
     const tl = t.closest('.tile, .wcard'); if (tl && matchMedia('(hover:none)').matches) tl.classList.toggle('flip');
   });
   $('#pgUp').onclick = prev; $('#pgDn').onclick = next;
@@ -607,6 +596,12 @@
     const p = P[s.prod]; if (!p) return;
     const body = dialog(`<span>${p.name}</span><small>${seriesName(p.series)} · Κατάλογος & τιμές 2026</small>`, `<div class="dlg-tbl"><div style="width:100%">${specTable(p.table)}${p.foot ? `<p class="foot" style="margin-top:18px;font-size:13px">${p.foot}</p>` : ''}</div></div><div class="scanbar"></div>`);
     runAll(body, 800, 250);
+  }
+  function openCalc() {
+    const body = dialog(`<span>Τι αντλία θερμότητας χρειάζεται ο χώρος σου;</span><small>Προεκτίμηση θερμικών απωλειών & ισχύος</small>`,
+      `<iframe class="calcfr" src="assets/calc/index.html" title="Υπολογισμός αντλίας θερμότητας"></iframe>`,
+      `<a class="zbtn" href="assets/calc/index.html" target="_blank" rel="noopener">Νέα καρτέλα ↗</a>`);
+    return body;
   }
   function openLocator() {
     const SP = window.SERVICE_POINTS || [];

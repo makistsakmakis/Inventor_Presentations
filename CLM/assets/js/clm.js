@@ -54,7 +54,7 @@
     const t = now();
     return { visit_id: 'DEMO-' + new Date(t).toISOString().slice(0, 10).replace(/-/g, '') + '-' + String(t).slice(-5),
       crm_visit_id: null, customer: CUSTOMER, rep: REP, started_at: t, ended_at: null,
-      path: [], events: [], marks: {}, top3: [], compare_added: [], visit_note: '',
+      path: [], events: [], marks: {}, tech: {}, top3: [], compare_added: [], visit_note: '',
       next: { type: 'SEND_OFFER', due: new Date(t + 3 * 864e5).toISOString().slice(0, 10) }, status: 'live' };
   }
 
@@ -106,6 +106,16 @@
   document.addEventListener('click', e => {
     if (!V || V.status !== 'live') return;
     const t = e.target;
+    const tb = t.closest('.clm-tfb');
+    if (tb) {                                              // 👍 / 👎 σε πλακίδια τεχνολογιών (πίσω όψη)
+      e.preventDefault(); e.stopPropagation();
+      const box = tb.closest('.clm-tf'); const c = box.dataset.tf; const pol = +tb.dataset.pol;
+      V.tech = V.tech || {}; const cur = V.tech[c] && V.tech[c].pol;
+      if (cur === pol) delete V.tech[c]; else V.tech[c] = { pol, label: box.dataset.tfl, slide: (activeSlide() || {}).id };
+      ev('tech_mark', { code: c }); save(); refreshUI();
+      toast((cur === pol ? 'Αναίρεση: ' : pol > 0 ? '👍 ' : '👎 ') + box.dataset.tfl); return;
+    }
+    if (t.closest('.clm-tf')) { e.stopPropagation(); return; }
     const bo = t.closest('[data-bo]');
     if (bo) {                                              // μεγάλο 👍 / 👎 συνολικά για το μοντέλο (κάτω από τη φωτογραφία)
       e.preventDefault(); e.stopPropagation();
@@ -134,6 +144,7 @@
     if ((x = t.closest('[data-go]'))) { ev('nav_click', { to: x.dataset.go }); return; }
     if (t.closest('#btnPdf')) { ev('pdf_download'); return; }
     if (t.closest('[data-locator]')) { ev('service_locator'); return; }
+    if (t.closest('[data-calc]')) { ev('calculator_open'); return; }
   }, true);
 
   /* ---------------- υπολογισμοί ---------------- */
@@ -223,6 +234,8 @@
   function refreshUI() {
     updBadge();
     if (!V || V.status !== 'live') { quick.innerHTML = ''; return; }
+    $$('#deck .clm-tf').forEach(b => { if (!b.firstChild) b.innerHTML = '<button class="clm-tfb" data-pol="1" aria-label="Του άρεσε">👍</button><button class="clm-tfb" data-pol="-1" aria-label="Δεν του άρεσε">👎</button>';
+      const v = (V.tech || {})[b.dataset.tf]; $$('.clm-tfb', b).forEach(x => x.classList.toggle('on', !!v && v.pol === +x.dataset.pol)); });
     $$('#deck .usp[data-usp]').forEach(u => { const [m, k] = u.dataset.usp.split(':'); const c = aspectsOf(m)[+k][0]; const v = (V.marks[m] && V.marks[m].aspects[c]) || 0;
       $('.clm-uv.up', u).classList.toggle('on', v === 1); $('.clm-uv.dn', u).classList.toggle('on', v === -1); });
     $$('#deck section.s-prod').forEach(sec => { const mm = sec.id.slice(2); const o = (V.marks[mm] && V.marks[mm].overall) || 0;
@@ -406,6 +419,7 @@
           note: k && k.note ? k.note : null
         });
       }),
+      tech_feedback: Object.entries(v.tech || {}).map(([code, x]) => ({ code, label: x.label, pol: x.pol })),
       events_ref: `/api/clm/visits/${v.visit_id}/events`
     };
   }
@@ -519,6 +533,7 @@
           ${qs.length ? qs.map(q => `<span class="tag t-q">${esc(lab(QUESTIONS, q))}</span>`).join('') : '<div class="sub">Καμία.</div>'}
           ${S.visit_note ? `<h3 style="margin-top:14px">Σημείωση επίσκεψης</h3><div>${esc(S.visit_note)}</div>` : ''}</div>
       </div>
+      ${(pl.tech_feedback || []).length ? `<div class="card" style="margin-top:14px"><h3>Τεχνολογίες που σχολιάστηκαν</h3><div class="sub">👍 / 👎 στα πλακίδια τεχνολογιών της παρουσίασης</div>${pl.tech_feedback.map(t => `<span class="tag ${t.pol > 0 ? 't-ok' : 't-no'}">${t.pol > 0 ? '👍' : '👎'} ${esc(t.label)}</span>`).join('')}</div>` : ''}
       <div class="g g2" style="margin-top:14px">
         <div class="act"><b>Σύνοψη & επόμενο βήμα</b><div style="margin-top:6px">${esc(S.text || '—')}</div>
           <div style="margin-top:8px"><b>${esc(lab(NEXT, S.next_action.type))}</b>${S.next_action.due ? ' έως ' + new Date(S.next_action.due).toLocaleDateString('el-GR') : ''}</div></div>
@@ -544,7 +559,8 @@
     const rc = {}; allRej.forEach(p => rc[p.reason] = (rc[p.reason] || 0) + 1);
     const rmax = Math.max(1, ...Object.values(rc));
     const asp = {}; visits.forEach(v => v.payload.products.forEach(p => (p.aspects || []).forEach(a => { const k = p.name + ' · ' + a.label; asp[k] = asp[k] || { pos: 0, neg: 0 }; a.pol > 0 ? asp[k].pos++ : asp[k].neg++; })));
-    const aspTop = Object.entries(asp).sort((a, b) => (b[1].pos + b[1].neg) - (a[1].pos + a[1].neg)).slice(0, 8);
+    visits.forEach(v => (v.payload.tech_feedback || []).forEach(t => { const k = 'Τεχνολογία · ' + t.label; asp[k] = asp[k] || { pos: 0, neg: 0 }; t.pol > 0 ? asp[k].pos++ : asp[k].neg++; }));
+    const aspTop = Object.entries(asp).sort((a, b) => (b[1].pos + b[1].neg) - (a[1].pos + a[1].neg)).slice(0, 12);
     return `<div class="rp">
       <div class="card"><h3 style="font-size:18px">Συγκεντρωτική αναφορά · όλα τα μοντέλα</h3><div class="sub" style="margin:0">Όλες οι ολοκληρωμένες επισκέψεις σε αυτό το tablet (demo). Στην παραγωγή: όλο το πελατολόγιο, με φίλτρα περιοχή / κατηγορία / πωλητή και σύνδεση με παραγγελίες Entersoft.</div></div>
       <div class="g g5" style="margin-top:14px">
