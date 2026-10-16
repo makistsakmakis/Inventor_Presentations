@@ -55,7 +55,7 @@
   add({ id: 'reliability', sec: 'tech', title: 'Τεχνολογία και Αξιοπιστία', thumb: pimg('mx290'), cls: 'hp-rel', html: `
     <div class="hd"><span class="kicker rise">Matrix Zero R290</span>${burst(R.title, 'h-thin', .1, 'font-size:50px;margin-top:8px')}</div>
     <div class="stats">${R.stats.map((s, i) => `<div class="st glass rise" style="--d:${.15 + i * .07}s"><small>${s[0]}</small><b class="run">${s[1]}</b><p>${s[2]}</p></div>`).join('')}</div>
-    <p class="fan rise" style="--d:.6s"><img class="spin" src="${pimg('mx290-fan')}" alt="">${R.fan}</p>
+    <p class="fan rise" style="--d:.6s"><img class="spin" src="${pimg('mx290-fan-c')}" alt="">${R.fan}</p>
     <div class="ranges glass rise" style="--d:.3s"><span class="kicker">Μεγάλο εύρος λειτουργίας</span><div class="rcs">${rangeChart(R.ranges.amb, 'amb')}${rangeChart(R.ranges.wat, 'wat')}</div><p class="note">${R.ranges.note}</p></div>
     <div class="ota glass rise" style="--d:.5s"><img src="${img('i-hp-ota')}" alt=""><div><b>${R.ota.t}</b><p>${R.ota.text}</p><ul>${R.ota.pts.map(p => `<li>${p}</li>`).join('')}</ul></div></div>`,
     /* ανεμιστήρας: 5″ αργά → απότομη επιτάχυνση → αργή επιβράδυνση → ξανά */

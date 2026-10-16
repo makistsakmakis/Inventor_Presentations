@@ -195,7 +195,7 @@ body #clmToast{left:70px;bottom:24px}
 /* Τεχνολογία & Αξιοπιστία: ανεμιστήρας +50%, αργή περιστροφή */
 .hp-rel .fan{top:610px}
 .hp-rel .fan img{height:165px}
-.hp-rel .fan img.spin{will-change:transform}
+.hp-rel .fan img.spin{will-change:transform;height:173px;width:173px;transform-origin:50% 50%;margin:-4px}
 @keyframes hpSpin{to{transform:rotate(360deg)}}
 
 /* διαγράμματα εύρους: γυάλινοι 3D κύλινδροι (όπως στο διάγραμμα προϊόντων), fluorescent στο hover */
