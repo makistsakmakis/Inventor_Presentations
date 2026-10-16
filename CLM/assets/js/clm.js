@@ -145,6 +145,7 @@
     if (t.closest('#btnPdf')) { ev('pdf_download'); return; }
     if (t.closest('[data-locator]')) { ev('service_locator'); return; }
     if (t.closest('[data-calc]')) { ev('calculator_open'); return; }
+    if (t.closest('.xplw')) { ev('anatomy_open'); return; }
   }, true);
 
   /* ---------------- υπολογισμοί ---------------- */

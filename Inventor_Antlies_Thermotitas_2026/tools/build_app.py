@@ -31,7 +31,7 @@ s=s[:a]+"""  function fitTiles() {   // κάθε πλακίδιο: το μεγα
 # calculator dialog
 rep("    if (t.closest('[data-locator]')) { e.preventDefault(); openLocator(); return; }","    if (t.closest('[data-locator]')) { e.preventDefault(); openLocator(); return; }\n    if (t.closest('[data-calc]')) { e.preventDefault(); openCalc(); return; }")
 rep("  function openLocator() {","""  function openCalc() {
-    const body = dialog(`<span>Τι αντλία θερμότητας χρειάζεται ο χώρος σου;</span><small>Προεκτίμηση θερμικών απωλειών & ισχύος</small>`,
+    const body = dialog(`<span>Τι αντλία θερμότητας χρειάζεται το έργο σας;</span><small>Προεκτίμηση θερμικών απωλειών & ισχύος</small>`,
       `<iframe class="calcfr" src="assets/calc/index.html" title="Υπολογισμός αντλίας θερμότητας"></iframe>`,
       `<a class="zbtn" href="assets/calc/index.html" target="_blank" rel="noopener">Νέα καρτέλα ↗</a>`);
     return body;
