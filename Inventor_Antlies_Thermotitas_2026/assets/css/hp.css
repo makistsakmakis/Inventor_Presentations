@@ -237,3 +237,12 @@ body #clmToast{left:70px;bottom:24px}
 .hp-prod .thumb{flex:0 0 200px;background:radial-gradient(circle at 50% 45%,#f4f6f8,#cfd5da)}
 .hp-prod .thumb img{object-fit:contain;padding:10px}
 .hp-rel .rcb{margin-top:30px}
+
+/* R290: κλειστό καπάκι · στο hover / πάτημα «ανοίγει» στη θέση της αρχικής φωτογραφίας */
+.hp-r290 .xplw{position:relative;width:353px;height:300px;flex:none;cursor:pointer;filter:drop-shadow(0 20px 30px rgba(0,0,0,.6))}
+.hp-r290 .xplw img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:contain}
+.hp-r290 .xplw .xl{transform:translate(16.54%,14.63%);transition:transform 1.3s cubic-bezier(.5,0,.15,1);will-change:transform}
+.hp-r290 .xplw:hover .xl,.hp-r290 .xplw.open .xl{transform:translate(0,0);animation:lidOpen 1.3s cubic-bezier(.5,0,.15,1)}
+@keyframes lidOpen{0%{transform:translate(16.54%,14.63%)}14%{transform:translate(17.2%,15.3%)}100%{transform:translate(0,0)}}
+.hp-r290 .xplw .xb{filter:brightness(.9)}
+.hp-r290 .xplw:hover .xb,.hp-r290 .xplw.open .xb{filter:none;transition:filter 1s .4s}

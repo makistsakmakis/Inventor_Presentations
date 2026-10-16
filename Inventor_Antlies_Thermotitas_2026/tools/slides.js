@@ -39,9 +39,11 @@
       ${burst(C.R290.title, 'h-thin', .1)}
       <p class="lead rise" style="--d:.4s">${C.R290.lead}</p>
       <div class="gx"><div class="gwp rise" style="--d:.6s">${C.R290.stats.map(s => `<div class="g glass"><span>${s[0]}</span><b>=<i class="run">${s[1]}</i></b><p>${s[2]}</p></div>`).join('')}</div>
-      <img class="xpl rise zoomable" data-photo="${pimg('mx290-x')}" data-cap="Matrix Zero R290 · Προηγμένος σχεδιασμός" style="--d:.8s" src="${pimg('mx290-x')}" alt="Matrix Zero R290 · προηγμένος σχεδιασμός"></div>
+      <div class="xplw rise" style="--d:.8s" title="Matrix Zero R290 · Προηγμένος σχεδιασμός"><img class="xb" src="${pimg('mx290-body')}" alt="Matrix Zero R290"><img class="xl" src="${pimg('mx290-lid')}" alt=""></div></div>
     </div>
-    <div class="tiles" data-fit="min">${C.R290.tiles.map((t, i) => tile(i + 1, t[0], `<h4>${t[0]}</h4><div class="scroll" data-scroll><ul>${t[1].map(x => `<li>${x}</li>`).join('')}</ul></div>`, i)).join('')}</div>`
+    <div class="tiles" data-fit="min">${C.R290.tiles.map((t, i) => tile(i + 1, t[0], `<h4>${t[0]}</h4><div class="scroll" data-scroll><ul>${t[1].map(x => `<li>${x}</li>`).join('')}</ul></div>`, i)).join('')}</div>`,
+    init(el) { const w = $('.xplw', el); w.addEventListener('click', () => w.classList.toggle('open')); },
+    enter(el) { $('.xplw', el).classList.remove('open'); }
   });
 
   /* ---- 05 Technology & reliability ---- */
