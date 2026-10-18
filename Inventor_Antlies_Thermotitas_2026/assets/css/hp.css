@@ -256,3 +256,7 @@ body .s-war .wtxt p:first-child{font-size:44px}
 /* v4: like / dislike σε όλα τα περιστρεφόμενα πλακίδια — λίγο πιο σφιχτό πίσω μέρος ώστε να χωρά το κείμενο */
 .hp-exp4 .tile .back,.hp-feat .tile .back{padding:18px 22px 12px;gap:8px}
 .tile .back .clm-tf{min-height:52px;padding-top:6px}
+/* v5: κύλινδροι εύρους — ίσια πλάγια μέχρι τη γραμμή του καπακιού (όχι «χείλος» κουτιού), αδιαφανές πάνω καπάκι με λεπτό περίγραμμα */
+.hp-rel .rb u{border-radius:0 0 50% 50% / 0 0 var(--ry) var(--ry)}
+.hp-rel .rb u .cap{left:0;right:0;box-shadow:inset 0 0 0 1px rgba(255,255,255,.32),inset 0 2px 5px rgba(255,255,255,.12);
+  background:radial-gradient(ellipse 46% 36% at 38% 40%,rgba(255,255,255,.22),transparent 70%),linear-gradient(180deg,color-mix(in srgb,var(--ct) 34%,#17171d),color-mix(in srgb,var(--c1) 46%,#17171d))}
