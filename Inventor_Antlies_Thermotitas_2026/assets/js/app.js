@@ -73,6 +73,9 @@
     <div class="chips rise" style="--d:.9s">${SECTIONS.map(s => `<button class="chipbtn" data-sec="${s.id}"><b>${s.n}</b>${s.name}</button>`).join('')}</div>`
   });
 
+  /* like / dislike (CLM) στο πίσω μέρος κάθε περιστρεφόμενου πλακιδίου */
+  const tf = (key, label) => `<div class="clm-tf" data-tf="${key}" data-tfl="${String(label).replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().replace(/"/g, '&quot;')}"></div>`;
+
   /* ---- 02 EXPERIENCE ---- */
   add({ id: 'experience', sec: 'welcome', title: 'Λύσεις άνεσης και απόδοσης', thumb: img('ph-exp.jpg'), cls: 's-exp hp-exp4', html: `
     <div class="photo"><img src="${img('ph-exp.jpg')}" alt=""></div>
@@ -80,7 +83,7 @@
     ${burst(C.INTRO.caption, 'cap', 1)}
     <div class="right"><span class="kicker rise">Κάνουμε περισσότερα…</span><p class="lead rise" style="--d:.1s;margin-top:14px">${C.INTRO.lead}</p>
       <div class="badges rise" style="--d:.3s">${C.INTRO.badges.map(b => `<span>${b}</span>`).join('')}</div></div>
-    <div class="tiles">${C.INTRO.tiles.map((t, i) => tile(i + 1, t[0], `<h4>${t[0]}</h4><div class="scroll" data-scroll><p>${t[1]}</p></div>`, i)).join('')}</div>`
+    <div class="tiles">${C.INTRO.tiles.map((t, i) => tile(i + 1, t[0], `<h4>${t[0]}</h4><div class="scroll" data-scroll><p>${t[1]}</p></div>${tf('exp-' + (i + 1), 'Κάνουμε περισσότερα · ' + t[0])}`, i)).join('')}</div>`
   });
 
   /* ---- 03 PLANET (R290) ---- */
@@ -89,7 +92,7 @@
     ${burst(C.PLANET.title, 'h-thin', .2)}
     ${burst(C.PLANET.caption, 'cap', 1)}
     <div class="right"><span class="kicker rise">R290 · Matrix Zero</span><p class="lead rise" style="--d:.1s;margin-top:14px">${C.PLANET.lead}</p></div>
-    <div class="tiles">${C.PLANET.tiles.map((t, i) => tile(i + 1, t[0], `<h4>${t[0]}</h4><div class="scroll" data-scroll><p>${t[1]}</p></div>`, i)).join('')}</div>`
+    <div class="tiles">${C.PLANET.tiles.map((t, i) => tile(i + 1, t[0], `<h4>${t[0]}</h4><div class="scroll" data-scroll><p>${t[1]}</p></div>${tf('planet-' + (i + 1), 'Πλανήτης · ' + t[0])}`, i)).join('')}</div>`
   });
 
   /* ---- 04 R290 safe & eco ---- */
@@ -101,7 +104,7 @@
       <div class="gx"><div class="gwp rise" style="--d:.6s">${C.R290.stats.map(s => `<div class="g glass"><span>${s[0]}</span><b>=<i class="run">${s[1]}</i></b><p>${s[2]}</p></div>`).join('')}</div>
       <div class="xplw rise" style="--d:.8s" title="Κλικ: δείτε τα επιμέρους σημεία"><img class="xb" src="${pimg('mx290-body')}" alt="Matrix Zero R290"><img class="xl" src="${pimg('mx290-lid')}" alt=""></div></div>
     </div>
-    <div class="tiles" data-fit="min">${C.R290.tiles.map((t, i) => tile(i + 1, t[0], `<h4>${t[0]}</h4><div class="scroll" data-scroll><ul>${t[1].map(x => `<li>${x}</li>`).join('')}</ul></div>`, i)).join('')}</div>`,
+    <div class="tiles" data-fit="min">${C.R290.tiles.map((t, i) => tile(i + 1, t[0], `<h4>${t[0]}</h4><div class="scroll" data-scroll><ul>${t[1].map(x => `<li>${x}</li>`).join('')}</ul></div>${tf('r290-' + (i + 1), 'R290 · ' + t[0])}`, i)).join('')}</div>`,
     init(el) { const w = $('.xplw', el); w.addEventListener('click', () => { w.classList.add('open');
       dialog(`<span>Matrix Zero R290</span><small>Τα βασικά μέρη της αντλίας</small>`, `<div class="dlg-img hp-anat"><img src="${img('hp-mx-anatomy.webp')}" alt="Matrix Zero R290 · επιμέρους σημεία"></div>`); }); },
     enter(el) { $('.xplw', el).classList.remove('open'); }
@@ -263,7 +266,7 @@
     <div class="photo"><img src="${img('ph-future.jpg')}" alt=""></div>
     ${burst(C.STEPS.title, 'h-thin', .1)}
     <p class="lead rise" style="--d:.4s">${C.STEPS.lead}</p>
-    <div class="tiles" data-fit="each">${C.STEPS.cards.map((c, i) => tile(i + 1, `<span class="ft">${c[0]}</span><span class="fs">${c[1]}</span>`, `<h4>${c[1]}</h4><div class="scroll" data-scroll><p>${c[2]}</p></div>`, i)).join('')}</div>`
+    <div class="tiles" data-fit="each">${C.STEPS.cards.map((c, i) => tile(i + 1, `<span class="ft">${c[0]}</span><span class="fs">${c[1]}</span>`, `<h4>${c[1]}</h4><div class="scroll" data-scroll><p>${c[2]}</p></div>${tf('steps-' + (i + 1), 'Βήματα · ' + c[0])}`, i)).join('')}</div>`
   });
 
   /* ---- SERVICES ---- */
@@ -282,7 +285,7 @@
       <div class="t"><p><b>Τι αντλία θερμότητας<br>χρειάζεται το έργο σας;</b></p>
       <button class="btn red" data-calc style="align-self:flex-start">ΥΠΟΛΟΓΙΣΜΟΣ ${arrowIco}</button></div>
     </div>
-    <div class="tiles" data-fit="each">${svc.cards.map((c, i) => tile(i + 1, `<span class="ft">${c.front[0]}</span><span class="fs">${c.front[1]}</span>`, svcBack(c), i)).join('')}</div>`
+    <div class="tiles" data-fit="each">${svc.cards.map((c, i) => tile(i + 1, `<span class="ft">${c.front[0]}</span><span class="fs">${c.front[1]}</span>`, svcBack(c) + tf('svc-' + (i + 1), 'Υπηρεσίες · ' + c.front[0]), i)).join('')}</div>`
   });
 
   /* ---- END ---- */
