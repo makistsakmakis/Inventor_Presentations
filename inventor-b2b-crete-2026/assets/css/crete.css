@@ -436,15 +436,15 @@
 /* 77,78,79: φωτογραφίες με διαφανές φόντο */
 .c82 .tb .ti,.c83 .tb .ti,.c84 .tb .ti{background:none;padding:0;border-radius:0}
 /* Live demo (μετά το 83) */
-.demo .demo-bg{position:absolute;left:260px;top:90px;width:1400px;height:900px;object-fit:contain;opacity:.13;filter:grayscale(.3)}
-.demo-tag{position:absolute;display:flex;align-items:center;gap:44px;isolation:isolate;color:#fff;font-weight:900;text-transform:uppercase;letter-spacing:.08em;text-decoration:none;filter:drop-shadow(0 20px 40px rgba(224,16,31,.45))}
-.demo-tag::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(135deg,#ff3040,#e0101f 60%,#b3000f)}
-.demo-tag.tl{left:0;top:150px;padding:26px 110px 26px 110px;font-size:40px;opacity:.22!important}
-.demo-tag.tl::before{clip-path:polygon(0 0,100% 0,calc(100% - 60px) 100%,0 100%)}
-.demo-tag.br{right:0;bottom:150px;padding:38px 110px 38px 120px;font-size:84px;line-height:1;cursor:pointer;pointer-events:auto;transition:filter .3s,transform .3s var(--ease)}
-.demo-tag.br::before{clip-path:polygon(70px 0,100% 0,100% 100%,0 100%)}
-.demo-tag.br:hover{filter:brightness(1.15) drop-shadow(0 20px 40px rgba(224,16,31,.6));transform:translateX(-10px)}
-.demo-tag .radar{position:relative;width:96px;height:96px;flex:none;border-radius:50%;background:#fff;box-shadow:0 0 30px rgba(255,255,255,.9)}
+.demo .demo-vis{position:absolute;left:60px;top:110px;width:1697px;height:970px;overflow:hidden;-webkit-mask-image:linear-gradient(#000 82%,transparent);mask-image:linear-gradient(#000 82%,transparent)}
+.demo .demo-vis img{position:absolute;left:0;top:-6px;width:1697px;height:auto}
+.demo .demo-vis img.bg{opacity:.72}
+.demo .demo-vis img.cap{clip-path:inset(15px 461px 1082px 78px round 0 112px 112px 112px);filter:drop-shadow(0 16px 30px rgba(0,0,0,.45))}
+.demo-tag{position:absolute;display:flex;align-items:center;gap:38px;isolation:isolate;color:#fff;font-weight:800;letter-spacing:.02em;text-decoration:none;filter:drop-shadow(0 20px 40px rgba(0,0,0,.55))}
+.demo-tag::before{content:"";position:absolute;inset:0;z-index:-1;background:#cf131d;border-radius:88px 88px 0 88px}
+.demo-tag.br{right:163px;bottom:70px;height:176px;padding:0 76px 0 66px;font-size:68px;line-height:1;text-transform:uppercase;cursor:pointer;pointer-events:auto;transition:filter .3s,transform .3s var(--ease)}
+.demo-tag.br:hover{filter:brightness(1.12) drop-shadow(0 20px 46px rgba(207,19,29,.7));transform:scale(1.03)}
+.demo-tag .radar{position:relative;width:72px;height:72px;flex:none;border-radius:50%;background:#fff;box-shadow:0 0 30px rgba(255,255,255,.9)}
 .demo-tag .radar b{position:absolute;inset:0;border-radius:50%;border:3px solid #fff;animation:radar 3.6s cubic-bezier(.2,.6,.3,1) infinite}
 .demo-tag .radar b:nth-child(2){animation-delay:1.2s}.demo-tag .radar b:nth-child(3){animation-delay:2.4s}
-@keyframes radar{0%{transform:scale(1);opacity:.9}100%{transform:scale(3.4);opacity:0}}
+@keyframes radar{0%{transform:scale(1);opacity:.9}100%{transform:scale(3.2);opacity:0}}
