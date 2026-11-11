@@ -100,7 +100,7 @@
 
   /* ================= προϊόντα · μενού κατηγοριών ================= */
   (() => {
-    const CATS = [['Οικιακά κλιματιστικά', ['m-ac']], ['Εμπορικός κλιματισμός', ['m-cassette']], ['Αντλίες θερμότητας', ['hp-mono-w', 'm-hp-indoor']], ['VRF', ['m-vrf']]];
+    const CATS = [['Οικιακά κλιματιστικά', ['m-ac']], ['Ημικεντρικά Κλιματιστικά', ['m-cassette']], ['Αντλίες θερμότητας', ['hp-mono-w', 'm-hp-indoor']], ['VRF', ['m-vrf']]];
     const host = $('#cats');
     host.innerHTML = CATS.map((c, i) => { const n = api.seqOf('g' + (i + 1)).length;
       return `<div class="cat" data-g="${i + 1}" style="--k:${i}"><div class="pim">${c[1].map((f, j) => `<img class="p${j}" src="assets/img/lz/${f}.webp" alt="" style="--j:${i + j}">`).join('')}</div><div class="ck"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><div class="cn"><h3>${c[0].replace('&', '&amp;')}</h3><small>${n} ${n === 1 ? 'οθόνη' : 'οθόνες'}</small></div></div>`; }).join('');
