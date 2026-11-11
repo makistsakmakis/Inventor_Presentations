@@ -2,6 +2,7 @@
 // Για νέα παρουσίαση: προσθέστε μία γραμμή εδώ + μία κάρτα στο index.html.
 export const PRESENTATIONS = {
   'welcome-stores-thessaloniki-2026': 'Welcome Stores · Θεσσαλονίκη 2026',
+  'inventor-b2b-crete-2026': 'B2B Network · Κρήτη 2026',
   'Inventor_Organogram_2026': 'Οργανόγραμμα 2026',
   'Psyktikos_Kyklos_2026': 'Ο Ψυκτικός Κύκλος · Σεμινάριο Κλιματισμού',
   'Inventor_Timokatalogos_Afygrantiron_2026': 'Τιμοκατάλογος Αφυγραντήρων 2026',
