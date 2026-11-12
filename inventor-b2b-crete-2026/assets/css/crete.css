@@ -475,3 +475,7 @@
 .c65 .tb>*:not(.ctlzoom){transition:filter .6s,opacity .6s}
 .c65.st1 .tb>*:not(.ctlzoom){filter:brightness(.35) saturate(.7)}
 .c65.st1 .tb::after{opacity:.35}
+
+/* 31: Price Fighter – Ikura μπροστά, Nobu πίσω και μικρότερο */
+.pr72 .tset[data-t="3"] img.hp0{width:640px;margin-right:-300px;margin-bottom:30px}
+.pr72 .tset[data-t="3"] img.hp1{width:400px;margin-bottom:290px}
