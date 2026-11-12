@@ -448,3 +448,13 @@
 .demo-tag .radar b{position:absolute;inset:0;border-radius:50%;border:3px solid #fff;animation:radar 3.6s cubic-bezier(.2,.6,.3,1) infinite}
 .demo-tag .radar b:nth-child(2){animation-delay:1.2s}.demo-tag .radar b:nth-child(3){animation-delay:2.4s}
 @keyframes radar{0%{transform:scale(1);opacity:.9}100%{transform:scale(3.2);opacity:0}}
+
+/* 35 (pr75): πλακίδιο «Inventor Εγγύηση» (οριζόντιο) */
+.pr75 .w3{left:1090px;top:260px;width:610px;height:393px}
+.pr75 .w3 .wedge,.pr75 .w3 .face{border-radius:22px}
+.pr75 .w3 .face img{width:100%;height:100%;object-fit:cover}
+.pr75 .w3shadow{left:1120px;top:705px;width:560px}
+
+/* 6 (c10): στατικό γράφημα – ολόκληρο, με θολό «γέμισμα» στα πλάγια */
+.c10 .vbg.blur{filter:blur(40px) brightness(.8);transform:scale(1.15)}
+.c10 .vbg.contain{background:none}
