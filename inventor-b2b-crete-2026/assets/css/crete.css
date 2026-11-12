@@ -479,3 +479,8 @@
 /* 31: Price Fighter – Ikura μπροστά, Nobu πίσω και μικρότερο */
 .pr72 .tset[data-t="3"] img.hp0{width:640px;margin-right:-300px;margin-bottom:30px}
 .pr72 .tset[data-t="3"] img.hp1{width:400px;margin-bottom:290px}
+
+/* 21 (p4c): web διεύθυνση κάτω από το κινητό */
+.p4c .phone-wrap{margin-top:-34px}
+.p4c-web{position:absolute;left:90px;top:946px;width:640px;display:flex;align-items:center;justify-content:center;gap:16px;color:#fff;font-weight:800;font-size:33px;letter-spacing:.01em;white-space:nowrap;text-shadow:0 2px 14px rgba(0,0,0,.6)}
+.p4c-web svg{width:44px;height:44px;flex:none;fill:none;stroke:#fff;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
