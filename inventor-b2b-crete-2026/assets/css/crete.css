@@ -408,7 +408,7 @@
 .p5e.st1 .swap .iw img.a{opacity:0;transform:translateY(-40px)}
 /* 37 (c42): νέα φωτογραφία εξωτερικής μονάδας (διαφανές φόντο) */
 .c42 .ti[src*="s42_1"]{left:150px!important;top:330px!important;width:530px!important;height:516px!important;filter:drop-shadow(0 30px 40px rgba(0,0,0,.55))}
-.c42 .ti[src*="s42_2"]{left:760px!important;top:207px!important;width:1040px!important;height:574px!important}
+.c42 .ti[src*="t42"]{left:760px!important;top:207px!important;width:1040px!important;height:574px!important}
 .c42 .tt{top:800px!important;left:760px!important}
 
 /* 2: ατζέντα 6 πλακιδίων (χωρίς coffee break) */
@@ -458,3 +458,12 @@
 /* 6 (c10): στατικό γράφημα – ολόκληρο, με θολό «γέμισμα» στα πλάγια */
 .c10 .vbg.blur{filter:blur(40px) brightness(.8);transform:scale(1.15)}
 .c10 .vbg.contain{background:none}
+
+/* 36 (c41): νέες φωτογραφίες υψηλής ανάλυσης */
+.c41 .wim img{max-width:84%;max-height:100%}
+
+/* 39 (c44): νέες φωτογραφίες ολόκληρης μονάδας */
+.c44 .tb .tbl.big td.pimg img{max-height:205px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.18))}
+
+/* 40 (c45): νέες φωτογραφίες */
+.c45 .tb .tbl.big td.pimg img{max-height:112px;max-width:210px;filter:drop-shadow(0 5px 8px rgba(0,0,0,.18))}

@@ -137,8 +137,9 @@
     const sec = $('.pr72'); if (sec) {
       const btns = $$('.tier-b', sec), tts = $$('.tthumbs .thumb', sec), sets = $$('.tset', sec); let iv = null, k = 0;
       const sel = i => { k = i; [btns, tts, sets].forEach(L => L.forEach((e, j) => e.classList.toggle('on', j === i))); };
-      [...btns, ...tts].forEach(b => b.addEventListener('click', () => { clearInterval(iv); iv = null; sel(+b.dataset.t); }));
-      hooks.pr72 = { enter() { sel(0); clearInterval(iv); iv = setInterval(() => sel((k + 1) % 4), 3400); }, leave() { clearInterval(iv); iv = null; } };
+      [...btns, ...tts].forEach(b => b.addEventListener('click', () => { sel(+b.dataset.t); sec._st = +b.dataset.t; }));
+      /* μετάβαση από σειρά σε σειρά μόνο με κλικ / PgDn (clicker) – όχι αυτόματα */
+      hooks.pr72 = { enter() { sel(0); }, step(n) { sel(Math.min(n, 3)); } };
     }
     const eb = $('#endBtn'); if (eb) eb.addEventListener('click', e => { e.stopPropagation(); api.go(api.idOf('lz13')); });
   })();
