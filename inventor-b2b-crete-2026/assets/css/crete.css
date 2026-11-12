@@ -468,9 +468,11 @@
 /* 40 (c45): νέες φωτογραφίες */
 .c45 .tb .tbl.big td.pimg img{max-height:112px;max-width:210px;filter:drop-shadow(0 5px 8px rgba(0,0,0,.18))}
 
-/* 60 (c65): κλικ → zoom του χειριστηρίου */
-.c65 .tb .ctlzoom{position:absolute;left:510px;top:363px;width:900px;height:663px;z-index:6;border-radius:8px;opacity:0;transform:translate(9px,113px) scale(.3);
+/* 60 (c65): κλικ → zoom του χειριστηρίου (δύο οθόνες πλάι-πλάι) */
+.c65 .tb .ctlzoom{position:absolute;top:389px;width:830px;height:612px;z-index:6;border-radius:8px;opacity:0;
   transition:transform .9s cubic-bezier(.16,1,.3,1),opacity .45s;box-shadow:0 50px 120px rgba(0,0,0,.75),0 0 0 2px rgba(140,195,255,.35),0 0 90px rgba(42,134,255,.35)}
+.c65 .tb .ctlzoom.a{left:110px;transform:translate(444px,112px) scale(.3)}
+.c65 .tb .ctlzoom.b{left:980px;transform:translate(-426px,112px) scale(.3);transition-delay:.12s}
 .c65.st1 .tb .ctlzoom{opacity:1;transform:none}
 .c65 .tb>*:not(.ctlzoom){transition:filter .6s,opacity .6s}
 .c65.st1 .tb>*:not(.ctlzoom){filter:brightness(.35) saturate(.7)}
